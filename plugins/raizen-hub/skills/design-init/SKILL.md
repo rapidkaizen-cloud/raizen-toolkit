@@ -1,6 +1,6 @@
 ---
 name: design-init
-description: Decide the visual direction and component library of an app whose PRD Section 5 is still unwritten. Interviews the user across 27 frontend decisions with options drawn live from the ui-ux-pro-max database, writes the rules into PRD Section 5, writes the concrete values into the styling files, then builds one real reference page in code. Use before the first UI component of a repo is written, or when PRD Section 5 is still marked as unverified.
+description: Decide the visual direction and component library of an app whose PRD Section 5 is still unwritten. Interviews the user across 29 frontend decisions with options drawn live from the ui-ux-pro-max database, writes the rules into PRD Section 5, writes the concrete values into the styling files, then builds one real reference page in code. Use before the first UI component of a repo is written, or when PRD Section 5 is still marked as unverified.
 ---
 
 # design-init — set the visual direction once, in code
@@ -31,7 +31,7 @@ Section 5   : [empty / already filled / product without UI]
 Kind of app : [from Section 1]
 Primary role: [from Section 2]
 Reading     : [one sentence — see below]
-Flow        : 27 questions → Section 5 → styling → reference page
+Flow        : 29 questions → Section 5 → styling → reference page
 ```
 
 `PRD.md` missing → **STOP**, point to `app-init`.
@@ -59,7 +59,7 @@ Read the kind of app from PRD Section 1, then decide once:
 
 The two skills disagree about icon pack, motion level, or typeface → **the user's answer wins**, which is exactly why all three are asked.
 
-## Step 2 — Interview, 27 questions
+## Step 2 — Interview, 29 questions
 
 ### Pick the mode first — one question, before anything else
 
@@ -67,18 +67,20 @@ Offer three, with a recommendation:
 
 | Mode | What is asked | For whom |
 |---|---|---|
-| **Fast** | Nothing. All 27 are decided from the Step 0 reading, then shown once as a list to correct | An app that must ship today, or a visual direction nobody disputes |
-| **Foundation** | Six: Q0 library · Q1 visual direction · Q2 reference app · Q6 dark mode · Q15 density · Q16 lower screen bound. The rest are derived | **Recommended.** These six are the hardest to guess and the most expensive to get wrong |
-| **Full** | All 27 | An app used for years, or a team with opinions about details |
+| **Fast** | Nothing. All 29 are decided from the Step 0 reading, then shown once as a list to correct | An app that must ship today, or a visual direction nobody disputes |
+| **Foundation** | Seven: Q1 visual direction · Q2 reference app · Q6 dark mode · Q12 component library · Q16 density · Q17 lower screen bound · Q29 supporting text. The rest are derived | **Recommended.** These seven are the hardest to guess and the most expensive to get wrong |
+| **Full** | All 29 | An app used for years, or a team with opinions about details |
+
+Foundation asks its seven **in the order they appear in `interview.md`**, not in the order listed above. A subset does not license a different sequence.
 
 **Consequence:** all three still end at a working reference page, so fast mode is not deciding blind — the only difference is where the correction happens, before or after the first screen.
 
 Fast and foundation modes **must not be silent.** Every decision not asked is reported on one line with its basis:
 
 ```
-Q13 radius   → 8px     (from Design System Variables of style "Minimalism & Swiss")
-Q23 motion   → subtle  (from the Effects & Animation column of the same style)
-Q21 paging   → numbered (built-in; no basis in the data)
+Q14 radius   → 8px     (from Design System Variables of style "Minimalism & Swiss")
+Q24 motion   → subtle  (from the Effects & Animation column of the same style)
+Q22 paging   → numbered (built-in; no basis in the data)
 ```
 
 A line whose basis is "built-in" is marked as such. The user may cancel any line, and cancelling it opens that question normally.
@@ -87,11 +89,15 @@ A second rework in Step 7 → raise the mode one level. Fast becomes foundation,
 
 ### Running the interview
 
-Read `references/interview.md`, `references/adaptation.md`, and — for question 0 — `references/library-rubric.md`.
+Read `references/interview.md`, `references/adaptation.md`, and — for question 12 — `references/library-rubric.md`.
+
+**The order in `interview.md` is the order asked.** No question is promoted to the front because it feels foundational, and none is deferred because its answer looks obvious.
 
 **The options for each question are not written in any file.** `interview.md` names which query to run against `ui-ux-pro-max` and which column becomes the options. Run the query, assemble the options from the result, then ask. This is what makes the choices follow the user's story instead of being one fixed list for every app.
 
 **One question per turn.** Never bundled.
+
+**Every question goes through the AskUserQuestion tool, never prose text.** Options live in the tool call — the recommendation first and marked "(Recommended)", the consequence in each option's description. The tool caps at four options and adds "Other" on its own, which is how answers outside the options arrive. This holds in auto mode too: the interview is a decision only the user can make, and a prose question there simply ends the turn unanswered.
 
 Every question must carry **more than two options**, **one marked recommendation**, and a **one-sentence consequence**. The user is a junior developer — options without a recommendation force a decision with nothing to base it on, and two options always read like a trap.
 
@@ -107,7 +113,7 @@ A search returning zero results, no Python, or the skill not installed → **do 
 
 Run `ui-ux-pro-max` to turn the answers into concrete palettes, font pairings, and icon entries. Read the script path and command shape from that skill's own SKILL.md — do not guess, and do not copy a path from here.
 
-The `--variance --motion --density` dials are filled from the answers to questions 1, 17, 23, and 15, never from any skill's built-in baseline.
+The `--variance --motion --density` dials are filled from the answers to questions 1, 18, 24, and 16, never from any skill's built-in baseline.
 
 Zero results → do not invent. Tell the user this recommendation came from general defaults, not from the database.
 
@@ -137,9 +143,9 @@ One block, one approval:
 ```
 Will install:
   npm install
-  <component library>          [from question 0]
+  <component library>          [from question 12]
   <what the library omits>     [the "Needs extra" column in library-rubric.md]
-  <icon pack>                  [from question 12]
+  <icon pack>                  [from question 13]
   <font>                       [self-hosted or a package — say which]
 ```
 
@@ -162,6 +168,8 @@ Three limits:
 - **Everything still goes through tokens.** What is forbidden is not a new component, but a new token, a second accent, or a second icon family.
 
 Zero raw hex, font sizes, or spacing in components — this rule applies from the first page, not later.
+
+Data access on this page goes through the layer `logic-init` decided, when that session ran — its loading, empty, and failed states come from the chosen cache, not from a handwritten effect that the first real page would then replace.
 
 Page running → show two widths: desktop and mobile. What is judged at mobile width is how tables and navigation collapse, not a separate page.
 

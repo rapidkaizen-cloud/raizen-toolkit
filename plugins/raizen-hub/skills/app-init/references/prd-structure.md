@@ -33,6 +33,8 @@ Then three blocks:
 
 **Non-goals** — deliberately not built, not a backlog. The most expensive part to lose: no query and no reading of the repo can tell anyone that something is **deliberately** absent. This is also where rejected stack alternatives go, one line each.
 
+`logic-init` later adds its decisions to this section in the same shape: each chosen logic-layer library as one line — **choice, then a one-sentence reason** — and rejected candidates one line each among the rejected alternatives. The name is recoverable from the lockfile; the reason is the part a live check cannot bring back. Versions are never written — they belong to the lockfile, or every bump becomes a document edit.
+
 ## Section 2 — Roles & Responsibilities
 
 Written as **work that must be completable**, not as a list of screens or permissions. Screens change with every feature; responsibility does not.

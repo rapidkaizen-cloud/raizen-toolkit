@@ -88,6 +88,24 @@ Text next to a field, a section, or a state says **what follows for the user**, 
 
 This does not shorten the empty and failed states above. Those explain a situation the user is in, which is consequence, not rationale.
 
+**A rationale found on screen is a finding, reported to the user** — the same standing as a raw color value, and removed the same way. Without that sentence this rule states a preference nobody is obliged to act on, and the text accumulates one paragraph at a time until a screen is mostly explanation.
+
+How much supporting text a screen may carry, and how long a repeated label may be, are decided per app in PRD Section 5 — questions 28 and 29 of the design interview. This rule governs what may be said, not how much.
+
+## Wording
+
+Fixed norms. Not asked per app, not restated in the PRD, because none of them varies between internal apps.
+
+**Sentence case for every heading, label, and button.** Title Case On Every Header reads as marketing copy and makes ordinary two-word labels look like proper nouns.
+
+**Active voice, naming who did what.** "We could not save your changes", not "the changes were not saved".
+
+**No exclamation marks, and no "Oops".** A failure message states the cause and the next action. Volume is not information.
+
+**No placeholder content in shipped screens** — no lorem ipsum, no `Acme Corp`, no `John Doe`, no invented round figures. A number on screen comes from data, or is clearly marked as an example.
+
+These bind the same way the loading, empty, and failed states above do: written together with the component, not as follow-up work.
+
 ## Accessibility
 
 For new code: 4.5:1 contrast for text and 3:1 for non-text, visible focus, semantic HTML, ARIA where needed.

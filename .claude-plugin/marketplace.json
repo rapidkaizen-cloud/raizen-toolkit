@@ -5,7 +5,7 @@
     {
       "name": "raizen-hub",
       "source": "./plugins/raizen-hub",
-      "description": "Bootstrap a new internal app, set its visual direction, and rework an existing look: app-init, design-init, design-redesign."
+      "description": "Bootstrap a new internal app, decide its logic layer, set its visual direction, and rework an existing look: app-init, logic-init, design-init, design-redesign."
     },
     {
       "name": "raizen-norms",

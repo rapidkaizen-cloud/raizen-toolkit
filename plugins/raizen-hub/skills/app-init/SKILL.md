@@ -107,10 +107,11 @@ Copy from `${CLAUDE_PLUGIN_ROOT}/templates/`, fill the placeholders from the Ste
 |---|---|
 | `CLAUDE.md` | From `templates/CLAUDE.md.tpl` — **thin**. This app's locale, stack, and the two gates that must survive the plugin being absent. Norms are printed by `raizen-norms` every session; do not copy any of them into it. **Keep the prose in English, exactly as the template writes it — do not translate it.** Only the placeholder values follow the app's locale. A translated file is invisible to the stale-section detector in `session_norms.py`, which matches the template's own English phrasing, so translating it silently disables the one mechanism that migrates this file later |
 | `.claude/settings.json` | Enables `raizen-norms` from the marketplace |
-| `.mcp.json` | Only when the database chosen at Question 5 has an MCP server of its own. `templates/.mcp.json` is written for Supabase; another database with an official server gets the same shape — scoped to one project, tool groups cut to what `db-ops` uses. No server for it → write no file, and say so rather than leaving the gap silent. **No secret of any kind**: the one placeholder is `{{SUPABASE_PROJECT_REF}}`, an identifier, and access comes from a browser login on first use. **Which ref goes in** follows Question 6 — staging exists → the staging project, never production |
 | `vercel.json` | Only when hosting is Vercel **and** the framework is a static SPA. Next.js, Nuxt, SvelteKit, and Astro are auto-detected — do not create it |
 | `.github/workflows/` | Only when migrations run through CI |
-| `supabase/config.toml` | Only when the database is Supabase |
+| `supabase/config.toml` | Only when the database is Supabase. Carries the one placeholder, `{{SUPABASE_PROJECT_REF}}` — an identifier, not a secret. This value is what the `guard_project_ref` hook pins every Supabase MCP call to. **Which ref goes in** follows Question 6 — staging exists → the staging project, never production |
+
+**No `.mcp.json` is written — ever.** Database MCP servers are connected **user scope**, once per machine, never per repo; for Supabase the exact `claude mcp add -s user` one-liner is printed at Step 6. A repo-level server config would only duplicate what the machine already has. Project pinning does not come from server config: `supabase/config.toml` declares the repo's project, and the `guard_project_ref` hook in `raizen-norms` blocks any Supabase MCP call aimed at a different one. A database whose official MCP server exists follows the same pattern; a database with no server → say so rather than leaving the gap silent.
 
 Then `git init`, `git branch -M main`, create `development` from `main`, and `git add` the new files. **Stop before committing.**
 
@@ -127,17 +128,30 @@ Connectors for **hosting** are not raised here. Step 6 explains why, and `build-
 
 ## Step 6 — Close
 
-Report one block: the files created, then what the **user must do by hand right now** — create the database project chosen at Question 5, plus its staging counterpart if Question 6 asked for one, and connect it. For Supabase that means putting the **project ref** into `.mcp.json` and approving the browser login on first use; for another database, whatever its own equivalent is. Pointed at production because there is no staging → say that plainly, since from then on every guarded destructive statement lands on live data. **No token is written into any file**; asking for one would be wrong. Name the variables, never their values. Without a live database there is no migration and no role test, so not a single page can be built.
+Report one block: the files created, then what the **user must do by hand right now** — create the database project chosen at Question 5, plus its staging counterpart if Question 6 asked for one, and connect it. For Supabase that means putting the **project ref** into `supabase/config.toml`, and — only on a machine not yet set up — connecting the MCP server user-scope, then approving the browser login on first use:
+
+```
+claude mcp add -s user --transport http supabase "https://mcp.supabase.com/mcp"
+```
+
+The URL must stay **bare** — Supabase's OAuth rejects any query string, so adding `?features=` or `?project_ref=` breaks the login itself.
+
+Both are once per machine and account, never per repo, so a machine already set up needs nothing beyond the ref. For another database, whatever its own equivalent is. Pointed at production because there is no staging → say that plainly, since from then on every guarded destructive statement lands on live data. **No token is written into any file**; asking for one would be wrong. Name the variables, never their values. Without a live database there is no migration and no role test, so not a single page can be built.
 
 Hosting connection, production environment variables, and the CI migration workflow are **not mentioned here**. None of them is needed to build a page locally, and naming them at bootstrap turns infrastructure into homework before anything exists to deploy. `vercel.json` and `.github/workflows/` are still written — inert files cost nothing — they are simply not wired up yet. The `build-flow` skill raises them once the app is ready to ship.
 
-Then offer the next step, unless the product has no UI:
+Then offer the next steps, unless the product has no UI:
 
 ```
-Visual direction is not set. Run /design-init in the next session —
-27 questions, then one real page to judge. Until that is done,
-any session will refuse to write UI components.
+Two sessions remain before pages can be built, in this order:
+  /logic-init  — the logic layer: cache, validation, dates, logging,
+                 scheduling. Scored from the PRD; often installs nothing.
+  /design-init — the visual direction: 29 questions, then one real
+                 page to judge.
+Until design-init is done, any session will refuse to write UI components.
 ```
+
+`logic-init` runs first because the reference page `design-init` builds carries loading, empty, and failed states — and those belong to the data layer.
 
 Do not run it now. Bootstrap ends with zero dependencies installed, and `design-init` needs to install several.
 

@@ -31,7 +31,7 @@ DESTRUCTIVE = [
 SQL_KEYS = ("query", "sql", "command", "statement")
 
 # The hooks.json matcher is deliberately mcp__.* (not mcp__supabase__.*): the server
-# key name in an app repo's .mcp.json can be changed by hand, outside this repo's control.
+# name in the user's MCP config is chosen by whoever connects it, outside this repo's control.
 # Widening is safe because SQL_KEYS above comes up empty for non-SQL tools -> main()
 # exits 0 on its first line, with no effect on other MCP tools.
 DOLLAR_TAG = re.compile(r"\$([A-Za-z_][A-Za-z0-9_]*)?\$")

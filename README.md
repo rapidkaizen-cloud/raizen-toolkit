@@ -16,7 +16,7 @@ Split because their context cost differs: bootstrap norms have no business being
 | Needed | Why | Check |
 |---|---|---|
 | Claude Code | — | `claude --version` |
-| Python 3, reachable as `python3` | `ui-ux-pro-max` runs `search.py`, and all three `raizen-norms` hooks are invoked as `python3`. A machine where only `python` resolves loses every guard **without an error** — they simply never run | `python3 --version` |
+| Python 3, reachable as `python3` | `ui-ux-pro-max` runs `search.py`, and all four `raizen-norms` hooks are invoked as `python3`. A machine where only `python` resolves loses every guard **without an error** — they simply never run, and with the account-wide Supabase MCP that includes the project pin | `python3 --version` |
 | Node.js | For the `npx skills add` route — the Supabase and taste skills both arrive that way | `node --version` |
 | git | A private marketplace is pulled over git | `git --version` |
 
@@ -77,11 +77,11 @@ Restart the session once you are done installing.
 
 `npx skills add supabase/agent-skills` installs a second skill alongside it, `supabase`, covering Auth, Storage, and `@supabase/ssr`. Nothing in this repo refers to that one; it rides along.
 
-**Do not install the `supabase` plugin** from `claude-plugins-official`. It carries a Supabase MCP server of its own, duplicating whatever already reaches that database — an app repo's own `.mcp.json`, or a claude.ai connector where one is connected. Two servers means duplicated tools and an ambiguous pick at every call. The skill route above gives the same Postgres guidance without adding a server.
+**Do not install the `supabase` plugin** from `claude-plugins-official`. It carries a Supabase MCP server of its own, duplicating whatever already reaches that database — the user-scope server (`claude mcp add -s user`, the one-liner in `plugins/raizen-hub/templates/README.md`), or a claude.ai connector where one is connected. Two servers means duplicated tools and an ambiguous pick at every call. The skill route above gives the same Postgres guidance without adding a server.
 
 Connectors themselves — database, host, anything the stack uses — are **recommended where they exist and never required**. `app-init` says so for the database and `build-flow` for the host, each at the point where it matters, derived from the stack the user actually chose. No list of connectors is kept here on purpose: the catalogue changes, this file would not, and a stale promise costs more than none.
 
-`templates/.mcp.json` deliberately does **not** set `read_only=true`. `db-ops` Phase 3 sends guarded destructive statements through that server, so read-only would replace a gated design with a blanket ban. It does restrict `features` to the tool groups `db-ops` and `build-flow` actually use.
+The Supabase MCP server is connected **user scope, once per machine** — no `.mcp.json` is scaffolded into app repos, and the account-wide URL means one browser login covers every project. The URL carries **no query parameters at all**: Supabase's OAuth rejects any query string (`resource: Resource must be a valid MCP endpoint`), which is also why the old per-project `?project_ref=` URLs kept failing authentication. That rules out `read_only=true` (which `db-ops` Phase 3 never wanted — it sends guarded destructive statements, and read-only would replace a gated design with a blanket ban) and also rules out a `features` filter, so the full toolset is exposed; the context cost is accepted. Which project an MCP call may touch is pinned by `supabase/config.toml` plus the `guard_project_ref` hook in `raizen-norms`, not by the server config — the pin covers MCP calls only, not the `supabase` CLI or raw HTTP from Bash.
 
 `raizen-norms` is **not installed by hand** — `app-init` writes it into the app repo's `.claude/settings.json` at bootstrap.
 
@@ -147,10 +147,12 @@ An app bootstrapped **before** a norm moved into the plugin still carries the ol
 
 Whenever another section is retired, add its distinctive phrase to `STALE` in `scripts/session_norms.py` and a row here. Nothing else finds the stale copies.
 
+An app bootstrapped **before** the Supabase MCP went account-wide still carries a project-scoped `.mcp.json`. It keeps working, but it shadows the user-scope server — for the same server name, project scope wins over user scope — so that repo keeps its per-project OAuth until the file is gone. Migration is one deletion: remove `.mcp.json`, commit, restart the session; `supabase/config.toml` already holds the ref that `guard_project_ref` pins to. Nothing detects this automatically — `session_norms.py` reads only `CLAUDE.md`.
+
 **`SKILL.md` changes take effect in the running session. Changes to `hooks/`, `.mcp.json`, and `agents/` do not** — they need `/reload-plugins` or a restart. A freshly edited hook is not active until then.
 
 ## Not yet verified
 
 - That the hooks actually fire. The tests now invoke `python3` — the same name `hooks.json` uses — so a machine where only `python` resolves fails them instead of passing a test whose subject never runs. What that still does **not** prove is that `${CLAUDE_PLUGIN_ROOT}` expands and that `PreToolUse` matches: only a real session shows those. First session in a fresh app repo, try `git add -A` once and confirm it is refused.
 - Whether a private marketplace is readable from a Claude Code cloud session. If not, `raizen-norms` does not load there and the guard hooks are inactive. Until this is verified, cloud sessions are limited to frontend work.
-- Supabase MCP payload fields were verified against the official `supabase-community/supabase-mcp` source — `execute_sql`/`apply_migration` do use the `query` field. The tool **prefix** is no longer assumed: the `hooks.json` matcher is `mcp__.*`, and `plugins/raizen-norms/scripts/test_guard_destructive.py` now covers both `mcp__supabase__` (an app repo's own server, keyed in `templates/.mcp.json`) and `mcp__claude_ai_Supabase__` (a claude.ai connection). Not yet exercised end to end: the hosted endpoint `templates/.mcp.json` now points at, and its browser authorisation on first use.
+- Supabase MCP payload fields were verified against the official `supabase-community/supabase-mcp` source — `execute_sql`/`apply_migration` do use the `query` field. The tool **prefix** is no longer assumed: the `hooks.json` matcher is `mcp__.*`, and `plugins/raizen-norms/scripts/test_guard_destructive.py` now covers both `mcp__supabase__` (the user-scope server) and `mcp__claude_ai_Supabase__` (a claude.ai connection). Not yet exercised end to end: the hosted account-wide endpoint, its browser authorisation on first use, and whether its tools name the target with `project_id` exactly as `guard_project_ref.py` expects — a real session against a scaffolded app repo shows all three at once.

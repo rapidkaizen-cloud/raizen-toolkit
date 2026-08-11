@@ -116,7 +116,16 @@ tells the user nothing they can do.
 no data, and the failed state `ui-build` requires will never render. Catching in order to
 add context and re-raise is fine; catching in order to continue is a finding.
 
-## 6 — Reuse, and types
+## 6 — Which libraries this layer uses
+
+Decided once, by the `logic-init` skill in `raizen-hub` — cache, validator, dates, error destination, job placement. The names live in the Stack table of `CLAUDE.md`; the choice and its reason live in `PRD.md` Section 1, including every deliberate "none".
+
+Two rules bind every session after that:
+
+- **A recorded "none" is a decision, not a gap.** Handwritten fetching in a repo whose PRD says "cache: none — two screens" is the norm being followed, not a finding.
+- **A need surfacing that `logic-init` never scored** — a screen that now wants caching, a handler appearing where none existed — is **raised to the user, never solved by a quiet install**. One question re-opens; the interview does not.
+
+## 7 — Reuse, and types
 
 A query or a rule appearing a **second** time is extracted, not copied — the same trigger
 `ui-build` applies to components. Two copies of a filter is how one of them silently stops

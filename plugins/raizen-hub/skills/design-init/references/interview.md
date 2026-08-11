@@ -1,12 +1,14 @@
-# Frontend interview — a procedure, 27 questions
+# Frontend interview — a procedure, 29 questions
 
 **The options are not written in this file.** Each question names which query to run against `ui-ux-pro-max` and which column becomes the options, so the choices follow the user's story instead of being one fixed list for every app.
 
-One question per turn. Each still requires: **more than two options** · **one marked recommendation** · **a one-sentence consequence**.
+One question per turn. Each still requires: **more than two options** · **one marked recommendation** · **a one-sentence consequence**. Asked through the **AskUserQuestion tool**, never as prose text — recommendation first and marked "(Recommended)"; the tool's automatic "Other" is how answers outside the options arrive.
 
 `PRD` = the rule goes into Section 5 · `CSS` = the value goes into the styling files · `PRD+CSS` = the rule in the PRD, the number in CSS.
 
 ## Rules for the whole interview
+
+**The order in this file is the order the questions are asked**, in every skill that reads it. No question is moved, promoted, or asked out of sequence — a skill that reorders them produces two different interviews for the same app.
 
 **Do not ask what is already answered.** An earlier answer or `Decision_Rules` settles a question outright → decide it, report it as a derived decision, move on. See `adaptation.md`.
 
@@ -15,18 +17,6 @@ One question per turn. Each still requires: **more than two options** · **one m
 **Zero search results, no Python, or the skill is not installed → do not invent.** Say so plainly, then offer two paths: postpone until the skill is usable, or continue with self-assembled options that are **explicitly marked** as not coming from the database. This rule is from `ui-ux-pro-max` itself: *never present a 0-result search as if it returned data.*
 
 Read the `search.py` command shape from the `ui-ux-pro-max` SKILL.md. Do not copy a path from here.
-
----
-
-## 0. Component library · PRD+CSS
-
-**Options from:** `library-rubric.md`. Score the needs from PRD Sections 1–3 (platform · large tables · charts · calendar · drag-and-drop · offline), then assemble 3–4 libraries that satisfy all of them. Charting needs are matched against `--domain chart`.
-
-**Recommendation:** the one that satisfies every need with the fewest extra dependencies.
-
-**Consequence:** name what that library does **not** bring, because that is what gets written by hand later.
-
-This answer decides what is installed in Step 5, and fills the Component library row in `CLAUDE.md`.
 
 ---
 
@@ -140,11 +130,23 @@ Font names go into the styling files. The CSV's `Tailwind Config` column can be 
 
 ---
 
-## D. Form (12–14)
+## D. Library & form (12–15)
 
-### 12. Icon pack · PRD+CSS
+### 12. Component library · PRD+CSS
 
-**Options from:** `--domain icons "<kind of app> <visual direction>"`, taking the distinct values of the `Library` column, with the `Style` column (outline or solid) as the qualifier. The icon pack bundled with the component library chosen in Q0 is always among the options.
+**Options from:** `library-rubric.md`. Score the needs from PRD Sections 1–3 (platform · large tables · charts · calendar · drag-and-drop · offline), then assemble 3–4 libraries that satisfy all of them. Charting needs are matched against `--domain chart`.
+
+**Recommendation:** the one that satisfies every need with the fewest extra dependencies.
+
+**Consequence:** name what that library does **not** bring, because that is what gets written by hand later.
+
+This answer decides what is installed, and fills the Component library row in `CLAUDE.md`. It sits here rather than at the front because the only questions depending on it — the icon pack below and group F — come after it.
+
+**In `design-redesign` it carries a second consequence:** changing the library rewrites every component whatever the tokens say, and the app's `CLAUDE.md` states the stack was locked at bootstrap. Any answer but *keep* revokes that lock rather than adjusting it.
+
+### 13. Icon pack · PRD+CSS
+
+**Options from:** `--domain icons "<kind of app> <visual direction>"`, taking the distinct values of the `Library` column, with the `Style` column (outline or solid) as the qualifier. The icon pack bundled with the component library chosen in question 12 is always among the options.
 
 **Recommendation:** the one already installed alongside the chosen component library.
 
@@ -152,15 +154,15 @@ Font names go into the styling files. The CSV's `Tailwind Config` column can be 
 
 **One icon family per app**, no exceptions. An icon missing from that family → report it as a finding; do not draw your own SVG and do not mix two families.
 
-### 13. Radius scale · PRD+CSS
+### 14. Radius scale · PRD+CSS
 
 **Options from:** the `Design System Variables` column of the chosen style row — its `--border-radius` value becomes one option. Add: sharp (zero) · uniformly soft · tiered with a written rule.
 
-**Recommendation:** the value from `Design System Variables`, since it is already consistent with the style chosen in Q1.
+**Recommendation:** the value from `Design System Variables`, since it is already consistent with the style chosen in question 1.
 
 **Consequence:** one value means there is never an argument about which radius a new element takes, and no pill button strays onto a page of sharp corners.
 
-### 14. Elevation and shadow · PRD
+### 15. Elevation and shadow · PRD
 
 **Options from:** the `--shadow` value in the same column. Add: no shadow · floating elements only · soft on cards, stronger on floating elements.
 
@@ -172,9 +174,9 @@ Shadow in use → tint it toward the background hue, never pure black.
 
 ---
 
-## E. Space (15–18)
+## E. Space (16–19)
 
-### 15. Density · PRD+CSS
+### 16. Density · PRD+CSS
 
 **Options from:** the `--spacing` value in `Design System Variables`, translated into four levels: airy · standard · dense · very dense.
 
@@ -184,7 +186,7 @@ Shadow in use → tint it toward the background hue, never pure black.
 
 → Fills the `--density` dial.
 
-### 16. Lowest supported screen width · PRD
+### 17. Lowest supported screen width · PRD
 
 **Options:** 360px · 768px · 1024px · 1280px
 
@@ -192,7 +194,7 @@ Shadow in use → tint it toward the background hue, never pure black.
 
 **Consequence:** stating the lower bound explicitly means anything below it is **unsupported rather than broken** — without that statement, every "it looks wrong on my phone" report becomes work nobody ever decided to take on.
 
-### 17. Page composition · PRD
+### 18. Page composition · PRD
 
 **Options from:** the `Dashboard Style (if applicable)` column of `--domain product "<kind of app>"`, plus: fixed sidebar · collapsible sidebar · top bar only · sidebar plus top bar.
 
@@ -202,7 +204,7 @@ Shadow in use → tint it toward the background hue, never pure black.
 
 → Also feeds the `--variance` dial.
 
-### 18. Maximum content width · PRD
+### 19. Maximum content width · PRD
 
 **Options:** unbounded, always full screen · bounded and centered · bounded for forms and prose, full width for tables
 
@@ -212,11 +214,11 @@ Shadow in use → tint it toward the background hue, never pure black.
 
 ---
 
-## F. Data (19–22)
+## F. Data (20–23)
 
 *Skip this entire group if the app shows no lists or tables.*
 
-### 19. Dense table style · PRD
+### 20. Dense table style · PRD
 
 **Options:** a rule between every row · alternating row tint · no separators, spacing only · rules between groups only
 
@@ -224,15 +226,17 @@ Shadow in use → tint it toward the background hue, never pure black.
 
 **Consequence:** a thin rule keeps the eye on the same row while scanning to the rightmost column, without the visual weight of alternating tints that make a long table look striped.
 
-### 20. Table row height · PRD+CSS
+### 21. Table row height · PRD+CSS
 
 **Options:** compact (~32px) · medium (~40px) · roomy (~48px) · user-adjustable
 
-**Recommendation:** derive it from the Q15 answer — dense density → compact or medium.
+**Recommendation:** derive it from the question 16 answer — dense density → compact or medium.
 
 **Consequence:** 40px fits a status badge and an action button inside the row without clipping, while still showing roughly twice the rows of a roomy height.
 
-### 21. Paging or scrolling · PRD
+A row height below the minimum touch target is a collision, not a detail. Say which of the two gives way, and write the exception down where the other rule lives.
+
+### 22. Paging or scrolling · PRD
 
 **Options:** numbered pages · a load-more button · infinite scroll · scrolling with a sticky header row
 
@@ -240,7 +244,7 @@ Shadow in use → tint it toward the background hue, never pure black.
 
 **Consequence:** paging gives the user a place they can refer to ("it's on page 3") and makes the total count visible — two things infinite scroll loses, and both come up constantly when people ask each other about data over chat.
 
-### 22. Row actions · PRD
+### 23. Row actions · PRD
 
 **Options:** action icons always visible · a three-dot menu · an icon for the primary action, a menu for the rest · revealed on row hover
 
@@ -250,9 +254,9 @@ Shadow in use → tint it toward the background hue, never pure black.
 
 ---
 
-## G. Interaction (23–26)
+## G. Interaction (24–27)
 
-### 23. Motion level · PRD
+### 24. Motion level · PRD
 
 **Options from:** the `Effects & Animation` column of the chosen style row, translated into four levels: near-static · subtle (150–200ms) · moderate · rich.
 
@@ -262,7 +266,7 @@ Shadow in use → tint it toward the background hue, never pure black.
 
 → Fills the `--motion` dial. Any motion honors `prefers-reduced-motion`.
 
-### 24. Reporting the result of an action · PRD
+### 25. Reporting the result of an action · PRD
 
 **Options:** a corner toast · inline near the element that changed · inline for failures, toast for successes · toast for everything plus inline for form errors
 
@@ -270,7 +274,7 @@ Shadow in use → tint it toward the background hue, never pure black.
 
 **Consequence:** a failure that appears next to its cause cannot be missed and does not disappear on its own, while a success is genuinely allowed to pass by without shifting the layout.
 
-### 25. Confirming an irreversible action · PRD
+### 26. Confirming an irreversible action · PRD
 
 **Options:** a confirmation dialog · a dialog that requires retyping the record's name · run immediately with an undo button for a few seconds · confirmation only for permanent deletion
 
@@ -278,7 +282,7 @@ Shadow in use → tint it toward the background hue, never pure black.
 
 **Consequence:** a plain dialog eventually gets clicked through unread, so the second layer is reserved for actions that genuinely have no way back.
 
-### 26. Forms: label position and validation timing · PRD
+### 27. Forms: label position and validation timing · PRD
 
 **Options:** label above + validate on blur · label above + validate on submit · label to the left + validate on blur · label above + validate while typing
 
@@ -290,16 +294,53 @@ A placeholder never replaces a label.
 
 ---
 
+## H. Copy (28–29)
+
+*Skip this group if the app shows no text beyond field labels.*
+
+**These two have no database source.** A `--domain ux` search for label length or microcopy returns contrast, alt text, font size, and line length — nothing about wording. Do not run it for these two and do not present its rows as if they answered them.
+
+The options come from one of two places instead, depending on which skill is running:
+
+| Skill | Where the options come from |
+|---|---|
+| `design-init` | Nothing exists yet to measure. Offer bounded choices and mark every one of them `built-in; no basis in the data` |
+| `design-redesign` | Measure the repo first, then build the options around the numbers measured |
+
+**The bound is read in the on-screen language.** Take that language from the Locale row of the app's `CLAUDE.md`. A character count borrowed from English-language design guidance is wrong for any other language — "Not contacted" is 13 characters and "Belum dihubungi" is 15, and that difference repeats on nearly every label.
+
+### 28. Repeated label length · PRD
+
+**Options from:** measure every label that repeats once per row — status chips, table column headers, navigation items. Report the longest, the median, and how many times each repeats per screen. Build the options around those numbers: the current maximum as a ceiling, two tighter bounds, and icon-only with the text moved to `aria-label`.
+
+**Recommendation:** the tightest bound that still fits the median, one step tighter if question 16 answered very dense.
+
+**Consequence:** a label repeating twenty-five times down a column sets that column's width, which makes its length a layout decision rather than a wording one.
+
+Buttons are excluded. A button appears once per screen, so cutting its words costs clarity and saves no width.
+
+### 29. Supporting text per section · PRD
+
+**Options from:** count the supporting paragraphs and the sentences in each. Zero paragraphs → skip the question and say why. Otherwise assemble: none at all · at most one sentence · at most two · unbounded — naming the measured maximum alongside them.
+
+**Recommendation:** at most one sentence, and only for a section whose consequence cannot be read from its own contents.
+
+**Consequence:** supporting text is read every time and useful once, so on a screen worked forty times a day it turns into permanent noise.
+
+---
+
 # Mapping to the `ui-ux-pro-max` dials
 
 | Dial | Filled from |
 |---|---|
-| `--variance` | Q1 (visual direction) and Q17 (page composition) |
-| `--motion` | Q23 |
-| `--density` | Q15 |
+| `--variance` | Q1 (visual direction) and Q18 (page composition) |
+| `--motion` | Q24 |
+| `--density` | Q16 |
 
 Do not use any skill's built-in baseline. The `design-taste-frontend` baseline (8/6/4) is designed for landing pages and points the wrong way for an internal dashboard.
 
 # What is not asked
 
 Loading, empty state, and error placement are **not questions**. All three are fixed norms in the `ui-build` skill of `raizen-norms`, identical across every internal app.
+
+Wording rules other than questions 28 and 29 are fixed there too — sentence case, active voice, no exclamation marks, and rationale kept off the screen. They do not vary per app, so asking them spends context on an answer that is already known.
