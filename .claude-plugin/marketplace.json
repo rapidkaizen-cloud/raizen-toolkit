@@ -1,0 +1,16 @@
+{
+  "name": "raizen",
+  "owner": { "name": "Raizen" },
+  "plugins": [
+    {
+      "name": "raizen-hub",
+      "source": "./plugins/raizen-hub",
+      "description": "Bootstrap a new internal app, set its visual direction, and rework an existing look: app-init, design-init, design-redesign."
+    },
+    {
+      "name": "raizen-norms",
+      "source": "./plugins/raizen-norms",
+      "description": "Session norms for app repos: git and destructive-operation guards, plus PRD, UI, database, and build-order rules."
+    }
+  ]
+}

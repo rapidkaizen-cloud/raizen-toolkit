@@ -1,17 +1,17 @@
 #!/usr/bin/env python3
-"""Blokir SQL destruktif yang dikirim telanjang.
+"""Block destructive SQL sent bare.
 
-Yang ditegakkan di sini adalah BENTUK, bukan izin. Hook tidak bisa bertanya,
-jadi ia tidak tahu user sudah setuju atau belum. Yang ia periksa: apakah operasi
-destruktif datang terbungkus DO block dengan RAISE EXCEPTION sebagai guard,
-per statement — satu statement destruktif tanpa guard sendiri tetap diblokir
-meski ada statement lain di payload yang sama yang guarded.
+What is enforced here is SHAPE, not permission. A hook cannot ask, so it does not
+know whether the user agreed. What it checks: whether the destructive operation
+arrives wrapped in a DO block with RAISE EXCEPTION as its guard, per statement —
+one destructive statement without a guard of its own is still blocked even when
+another statement in the same payload is guarded.
 
-Guard hanya bisa ditulis kalau angka Harapan sudah ada, dan angka Harapan hanya
-lahir dari gate yang dijawab user. Jadi menegakkan bentuk cukup untuk menegakkan
-bahwa gate-nya terjadi.
+A guard can only be written once the Expected number exists, and the Expected
+number is only born from a gate the user answered. So enforcing the shape is
+enough to enforce that the gate happened.
 
-Exit 0 = lolos, exit 2 = blokir.
+Exit 0 = pass, exit 2 = block.
 """
 import json
 import re
@@ -26,14 +26,14 @@ DESTRUCTIVE = [
     (r"\bALTER\s+TYPE\b", "ALTER TYPE"),
 ]
 
-# "query" = field asli execute_sql/apply_migration Supabase MCP (bukan tebakan,
-# lihat test_guard_destructive.py); "command" = field Bash. "sql"/"statement" jaga-jaga.
+# "query" = the real field of Supabase MCP execute_sql/apply_migration (not a guess,
+# see test_guard_destructive.py); "command" = the Bash field. "sql"/"statement" as a net.
 SQL_KEYS = ("query", "sql", "command", "statement")
 
-# Matcher di hooks.json sengaja mcp__.* (bukan mcp__supabase__.*): nama key
-# server di .mcp.json repo app bisa diubah manual, di luar kendali repo ini.
-# Aman dilebarkan karena SQL_KEYS di atas kosong untuk tool non-SQL -> main()
-# exit 0 di baris pertama, tanpa efek untuk tool MCP lain.
+# The hooks.json matcher is deliberately mcp__.* (not mcp__supabase__.*): the server
+# key name in an app repo's .mcp.json can be changed by hand, outside this repo's control.
+# Widening is safe because SQL_KEYS above comes up empty for non-SQL tools -> main()
+# exits 0 on its first line, with no effect on other MCP tools.
 DOLLAR_TAG = re.compile(r"\$([A-Za-z_][A-Za-z0-9_]*)?\$")
 
 
@@ -54,10 +54,10 @@ def strip_comments(sql: str) -> str:
 
 
 def split_statements(sql: str) -> list[str]:
-    """Pisahkan per ';', sadar dollar-quoting ($$...$$ / $tag$...$tag$).
-    Titik koma di dalam blok dollar-quoted bukan pemisah, jadi DO block utuh
-    (RAISE EXCEPTION di dalamnya) tetap satu statement. Tidak sadar string
-    literal biasa ('...') — titik koma di dalamnya tetap jadi pemisah."""
+    """Split on ';', aware of dollar-quoting ($$...$$ / $tag$...$tag$).
+    A semicolon inside a dollar-quoted block is not a separator, so a whole DO
+    block (with its RAISE EXCEPTION) stays one statement. Not aware of ordinary
+    string literals ('...') — a semicolon inside one still separates."""
     statements = []
     start = pos = 0
     n = len(sql)
@@ -86,10 +86,10 @@ def has_guard(stmt: str) -> bool:
 
 
 def strip_parens(s: str) -> str:
-    """Buang isi kurung berimbang (termasuk nested), supaya WHERE milik
-    subquery tidak terhitung sebagai WHERE milik statement luar. Mitigasi,
-    bukan jaminan: tidak sadar string literal, jadi kurung di dalam string
-    ikut disaring juga."""
+    """Drop balanced parenthesized content (nested included), so that a WHERE
+    belonging to a subquery is not counted as the outer statement's WHERE. A
+    mitigation, not a guarantee: not aware of string literals, so parentheses
+    inside a string get stripped too."""
     out = []
     depth = 0
     for ch in s:
@@ -103,7 +103,7 @@ def strip_parens(s: str) -> str:
 
 
 def bare_update(stmt: str) -> bool:
-    """UPDATE tanpa WHERE, atau WHERE yang selalu benar."""
+    """UPDATE without a WHERE, or with a WHERE that is always true."""
     for m in re.finditer(r"\bUPDATE\b(.*?)(;|$)", stmt, flags=re.S | re.I):
         body = strip_parens(m.group(1))
         if not re.search(r"\bWHERE\b", body, flags=re.I):
@@ -115,15 +115,15 @@ def bare_update(stmt: str) -> bool:
 
 def block(op: str) -> None:
     sys.stderr.write(
-        "DITOLAK: operasi destruktif ({op}) dikirim tanpa guard.\n\n"
-        "Urutannya:\n"
-        "  1. SELECT COUNT lebih dulu, tetapkan angka Harapan.\n"
-        "  2. Tampilkan blok DESTRUKTIF (operasi - terdampak - Harapan - reversible), "
-        "lalu BERHENTI dan tunggu jawaban user di sesi ini.\n"
-        "  3. Eksekusi terbungkus DO block: RAISE EXCEPTION bila jumlah baris meleset "
-        "dari Harapan, disusul SELECT verifikasi dalam panggilan yang sama.\n\n"
-        "Exception membatalkan seluruh transaction, jadi nol data hilang saat angkanya "
-        "tidak cocok.\n".format(op=op)
+        "REFUSED: a destructive operation ({op}) was sent without a guard.\n\n"
+        "The order is:\n"
+        "  1. SELECT COUNT first, and set the Expected number.\n"
+        "  2. Show the DESTRUCTIVE block (operation - affected - Expected - reversible), "
+        "then STOP and wait for the user's answer in this session.\n"
+        "  3. Execute wrapped in a DO block: RAISE EXCEPTION when the row count misses "
+        "Expected, followed by a verifying SELECT in the same call.\n\n"
+        "The exception aborts the whole transaction, so zero data is lost when the "
+        "number does not match.\n".format(op=op)
     )
     sys.exit(2)
 
@@ -142,7 +142,7 @@ def main() -> None:
                 block(label)
 
         if bare_update(stmt):
-            block("UPDATE tanpa WHERE sempit")
+            block("UPDATE without a narrow WHERE")
 
     sys.exit(0)
 

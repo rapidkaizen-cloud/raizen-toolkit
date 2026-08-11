@@ -1,0 +1,188 @@
+---
+name: design-init
+description: Decide the visual direction and component library of an app whose PRD Section 5 is still unwritten. Interviews the user across 27 frontend decisions with options drawn live from the ui-ux-pro-max database, writes the rules into PRD Section 5, writes the concrete values into the styling files, then builds one real reference page in code. Use before the first UI component of a repo is written, or when PRD Section 5 is still marked as unverified.
+---
+
+# design-init — set the visual direction once, in code
+
+Bootstrap produces a `PRD.md` with an empty Section 5. This skill fills it, then **proves it on a real page** — not a picture, not a description.
+
+Run **once per repo**. After the reference page is approved, later pages are bound by Section 5 and the component rules in `ui-build`, with no further gate.
+
+## Hard limits
+
+`PRD.md` Section 5 is the only part of the document written. **Do not** create `MASTER.md`, `DESIGN.md`, `design-system/`, or an interview summary as a file. If another skill in this session produces a document, it is not committed and not referenced.
+
+`ui-ux-pro-max` is run **without `--persist`**. That flag writes `design-system/<slug>/MASTER.md` and calls itself the *Global Source of Truth* — two normative documents for the same thing means Section 5 dies slowly.
+
+This is one of only two paths allowed to write Section 5, and only while Section 5 is still empty. Its contents come from the user's answers, not from the agent's taste and not from another skill's output. A Section 5 that is already filled changes only by the user's decision — see `prd-format` in `raizen-norms`.
+
+Do not commit and do not push. Staging is fine; the commit waits for the user.
+
+Not decided by the user → `[needs verification]`.
+
+## Step 0 — Preconditions
+
+Check and report one short block:
+
+```
+PRD.md      : [present / missing]
+Section 5   : [empty / already filled / product without UI]
+Kind of app : [from Section 1]
+Primary role: [from Section 2]
+Reading     : [one sentence — see below]
+Flow        : 27 questions → Section 5 → styling → reference page
+```
+
+`PRD.md` missing → **STOP**, point to `app-init`.
+
+Section 5 already filled → **STOP**, ask whether the user really wants to rework the existing visual direction. That work belongs to `design-redesign`.
+
+Product without UI → **STOP**, this skill does not apply.
+
+**Reading** is your own conclusion before asking anything, one sentence, shaped as: *"I read this as [kind of app] for [who uses it], leaning [the feel that fits], because [reason from the PRD]."*
+
+Concluding first beats asking from nothing: the user only corrects what missed, and the correction carries more than an empty question would. A wrong reading is not a failure — it draws out detail that no question would surface.
+
+State the reading, ask for correction, then continue. The corrected reading becomes the keywords for every query in Step 2.
+
+## Step 1 — Route the supporting skills
+
+Read the kind of app from PRD Section 1, then decide once:
+
+| Kind of app | Skills used |
+|---|---|
+| Internal dashboard · single-role internal tool | `ui-ux-pro-max` only |
+| Public site | `ui-ux-pro-max` **and** `design-taste-frontend` |
+
+`design-taste-frontend` states itself that it is not for dashboards, data tables, or multi-step product UI. Using it outside that boundary produces motion dials and icon rules that collide with `ui-ux-pro-max`. Its prohibitions are still used for every kind of app through `references/anti-pattern.md` — that is material, not a live authority.
+
+The two skills disagree about icon pack, motion level, or typeface → **the user's answer wins**, which is exactly why all three are asked.
+
+## Step 2 — Interview, 27 questions
+
+### Pick the mode first — one question, before anything else
+
+Offer three, with a recommendation:
+
+| Mode | What is asked | For whom |
+|---|---|---|
+| **Fast** | Nothing. All 27 are decided from the Step 0 reading, then shown once as a list to correct | An app that must ship today, or a visual direction nobody disputes |
+| **Foundation** | Six: Q0 library · Q1 visual direction · Q2 reference app · Q6 dark mode · Q15 density · Q16 lower screen bound. The rest are derived | **Recommended.** These six are the hardest to guess and the most expensive to get wrong |
+| **Full** | All 27 | An app used for years, or a team with opinions about details |
+
+**Consequence:** all three still end at a working reference page, so fast mode is not deciding blind — the only difference is where the correction happens, before or after the first screen.
+
+Fast and foundation modes **must not be silent.** Every decision not asked is reported on one line with its basis:
+
+```
+Q13 radius   → 8px     (from Design System Variables of style "Minimalism & Swiss")
+Q23 motion   → subtle  (from the Effects & Animation column of the same style)
+Q21 paging   → numbered (built-in; no basis in the data)
+```
+
+A line whose basis is "built-in" is marked as such. The user may cancel any line, and cancelling it opens that question normally.
+
+A second rework in Step 7 → raise the mode one level. Fast becomes foundation, foundation becomes full. Missing twice means guessing is not the right path for this app.
+
+### Running the interview
+
+Read `references/interview.md`, `references/adaptation.md`, and — for question 0 — `references/library-rubric.md`.
+
+**The options for each question are not written in any file.** `interview.md` names which query to run against `ui-ux-pro-max` and which column becomes the options. Run the query, assemble the options from the result, then ask. This is what makes the choices follow the user's story instead of being one fixed list for every app.
+
+**One question per turn.** Never bundled.
+
+Every question must carry **more than two options**, **one marked recommendation**, and a **one-sentence consequence**. The user is a junior developer — options without a recommendation force a decision with nothing to base it on, and two options always read like a trap.
+
+**Earlier answers shift later recommendations.** `adaptation.md` holds both sources: `Decision_Rules` from `ui-reasoning.csv` as the primary one, and a question-to-question table for what it does not map. Shifting a recommendation is allowed; removing an option is not, unless that option is genuinely impossible.
+
+**Questions whose answer is already settled are not asked.** Decide, report one line as a derived decision, move on. Deciding silently is forbidden — the user must be able to cancel it.
+
+Answers outside the options are always accepted. The user names something not listed → use it, state its consequence if you know it, or say you don't.
+
+A search returning zero results, no Python, or the skill not installed → **do not invent**. Say so plainly, then offer to postpone or to continue with self-assembled options that are explicitly marked as not coming from the database.
+
+## Step 3 — Translate into values
+
+Run `ui-ux-pro-max` to turn the answers into concrete palettes, font pairings, and icon entries. Read the script path and command shape from that skill's own SKILL.md — do not guess, and do not copy a path from here.
+
+The `--variance --motion --density` dials are filled from the answers to questions 1, 17, 23, and 15, never from any skill's built-in baseline.
+
+Zero results → do not invent. Tell the user this recommendation came from general defaults, not from the database.
+
+The output is a **proposal**, not a decision. Show it to the user, invite corrections, then continue.
+
+## Step 4 — Write Section 5 and the styling files
+
+The split is permanent:
+
+| Written in | Contents |
+|---|---|
+| `PRD.md` Section 5 | **Rules and scale** — how many may exist, what is forbidden. "One icon family", "at most one accent", "four text steps" |
+| Styling files (`tailwind.config`, CSS variables) | **Values** — font name, icon pack name, hex, radius number, spacing number |
+
+Color and spacing are the exception: their roles, values, and usage rules are written in Section 5, because contrast is a norm and not an implementation detail.
+
+Follow the sub-section structure in `prd-structure.md` under `app-init`. Fill the Anti-patterns sub-section from `references/anti-pattern.md`, taking only what is relevant to this kind of app.
+
+**Every line in Section 5 traces back to one of three sources:** an interview answer, a derived decision already reported to the user, or `references/anti-pattern.md`. A rule belonging to none of them is not written, however sensible it looks — no question asks it, so nobody decided it. A prohibition nobody was asked about still binds every session that follows, and the user only finds out months later, wondering why the app refuses to do something.
+
+Section 5 finished → show it to the user, **STOP**, wait for approval before touching any dependency.
+
+## Step 5 — Ask once to install
+
+One block, one approval:
+
+```
+Will install:
+  npm install
+  <component library>          [from question 0]
+  <what the library omits>     [the "Needs extra" column in library-rubric.md]
+  <icon pack>                  [from question 12]
+  <font>                       [self-hosted or a package — say which]
+```
+
+Wait for approval. Refused → hand over the commands for the user to run, then wait.
+
+Install nothing outside that block. Something extra turns out to be needed → ask again, do not slip it in.
+
+## Step 6 — Build the reference page
+
+**One page: the most data-dense one belonging to the primary role.** That is where density, tables, and text hierarchy are all tested at once — the three things that decide how an internal app feels. A login page tests nothing.
+
+Realistic dummy data, not lorem and not empty placeholders. Names, dates, and numbers that make sense for the domain in PRD Section 4.
+
+**Improvisation is allowed, and expected.** Add summary cards, charts, badges, filters — anything that makes the page feel alive. Section 5 holds component **rules**, not a component **list**, so adding a component never violates it. A reference page that is nothing but a bare table fails to test density and hierarchy, the two reasons it is built.
+
+Three limits:
+
+- **Data comes from the terms in Section 4.** Do not invent metrics that have no name in this domain.
+- **Do not imply features nobody decided on.** A "revenue forecast" chart in an app with no forecasting is a lie that will be invoiced later as a feature.
+- **Everything still goes through tokens.** What is forbidden is not a new component, but a new token, a second accent, or a second icon family.
+
+Zero raw hex, font sizes, or spacing in components — this rule applies from the first page, not later.
+
+Page running → show two widths: desktop and mobile. What is judged at mobile width is how tables and navigation collapse, not a separate page.
+
+Report how to view it (the dev server command and its URL), then **STOP** and wait for the user's judgement.
+
+## Step 7 — Rework rounds
+
+The user may ask for a full rework any number of times. But:
+
+**A second rework of the same page → STOP, reopen Section 5.** Missing once means the layout was off. Missing twice means the visual direction was off, and rewriting the layout a third time will not fix that.
+
+When reopening, raise the mode one level — fast becomes foundation, foundation becomes full.
+
+Ask questions 1–5 again, especially question 2 about the app that feels right. The user still struggles to name one → ask them to show an app or a site, because adjectives have demonstrably run out by that point.
+
+Section 5 changed → the styling values are updated with it, and the reference page is rebuilt from the new tokens rather than patched.
+
+## Step 8 — Close
+
+One block: the visual decisions that settled · files changed · what is still `[needs verification]`.
+
+State that this gate **no longer applies** to later pages — from here on what binds is Section 5 and the component rules in `ui-build`.
+
+Close by reminding the user that the commit waits for their word.

@@ -1,28 +1,32 @@
 #!/usr/bin/env python3
-"""Self-check guard_destructive.py terhadap bentuk payload MCP Supabase yang asli.
+"""Self-check guard_destructive.py against the real Supabase MCP payload shape.
 
-Field `query` diverifikasi ke source resmi supabase-community/supabase-mcp
-(execute_sql dan apply_migration keduanya pakai `query`, bukan `sql`/`statement`).
-Jalankan langsung: python3 test_guard_destructive.py
+The `query` field was verified against the official supabase-community/supabase-mcp
+source (execute_sql and apply_migration both use `query`, not `sql`/`statement`).
+Run directly: python3 test_guard_destructive.py
 """
 import json
 import subprocess
-import sys
 from pathlib import Path
 
 GUARD = Path(__file__).parent / "guard_destructive.py"
+
+# `python3`, not sys.executable: this is the interpreter name hooks.json invokes, so a
+# machine where only `python` resolves must fail here rather than pass a test whose
+# subject never runs. The failure is the point.
+PYTHON = "python3"
 
 
 def run(tool_name: str, tool_input: dict) -> int:
     payload = json.dumps({"tool_name": tool_name, "tool_input": tool_input})
     result = subprocess.run(
-        [sys.executable, str(GUARD)], input=payload, capture_output=True, text=True
+        [PYTHON, str(GUARD)], input=payload, capture_output=True, text=True
     )
     return result.returncode
 
 
 def demo() -> None:
-    # execute_sql/apply_migration pakai field `query` -> harus terdeteksi
+    # execute_sql/apply_migration use the `query` field -> must be detected
     assert run("mcp__supabase__execute_sql", {"query": "DROP TABLE foo;"}) == 2
 
     guarded = (
@@ -31,25 +35,31 @@ def demo() -> None:
     )
     assert run("mcp__supabase__apply_migration", {"query": guarded}) == 0
 
-    # tool Supabase tanpa SQL tidak boleh ikut ke-block
+    # a Supabase tool carrying no SQL must not get blocked
     assert run("mcp__supabase__list_tables", {"schemas": ["public"]}) == 0
 
-    # jalur Bash (field `command`, dipakai bareng guard_git.py) tetap tertutup
+    # the same SQL arriving through the claude.ai-connected Supabase MCP, whose tools are
+    # prefixed mcp__claude_ai_Supabase__ instead. This is what the mcp__.* matcher in
+    # hooks.json buys: the prefix is set by whoever connects the server, not by this repo.
+    assert run("mcp__claude_ai_Supabase__execute_sql", {"query": "DROP TABLE foo;"}) == 2
+    assert run("mcp__claude_ai_Supabase__execute_sql", {"query": "SELECT count(*) FROM orders;"}) == 0
+
+    # the Bash route (field `command`, shared with guard_git.py) stays closed
     assert run("Bash", {"command": 'psql -c "TRUNCATE foo;"'}) == 2
 
-    # false-positive: UPDATE dengan WHERE sempit, SELECT, CREATE TABLE -> lolos
+    # false positives: UPDATE with a narrow WHERE, SELECT, CREATE TABLE -> pass
     assert run("mcp__supabase__execute_sql", {"query": "UPDATE users SET active = true WHERE id = 3;"}) == 0
     assert run("mcp__supabase__execute_sql", {"query": "SELECT count(*) FROM orders;"}) == 0
     assert run("mcp__supabase__execute_sql", {"query": "CREATE TABLE t (id int);"}) == 0
 
-    # guard tidak boleh dipinjam statement tetangga: DO guarded lalu DELETE telanjang
+    # a guard must not be borrowed by a neighbour: guarded DO, then a bare DELETE
     assert run("mcp__supabase__execute_sql", {
         "query": "DO $$ BEGIN RAISE EXCEPTION 'guard'; END $$; DELETE FROM t;"
     }) == 2
 
-    # WHERE milik subquery tidak boleh dihitung sebagai WHERE milik UPDATE
+    # a subquery's WHERE must not count as the UPDATE's own WHERE
     assert run("mcp__supabase__execute_sql", {
-        "query": "UPDATE users SET nama = (SELECT nama FROM sumber WHERE sumber.id = 1);"
+        "query": "UPDATE users SET name = (SELECT name FROM source WHERE source.id = 1);"
     }) == 2
 
     print("ok")
