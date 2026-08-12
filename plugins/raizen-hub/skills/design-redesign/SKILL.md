@@ -186,6 +186,8 @@ The order cannot be reversed:
 3. **Then assets** locked to the old colors: inline SVG, favicon, images carrying brand color.
 4. **Then the old library is removed**, if question 12 changed it.
 
+The four styling-file rules in `design-init` Step 4 bind here too: every semantic slot the component library exposes is mapped, a token nothing reads is not written, two roles with the same value collapse into one, and both theme files are written in the same edit. A rework that leaves a slot unmapped hands the app back carrying a neutral palette nobody chose.
+
 Report per file, matching the Step 7 recap line for line, so the two can be read against each other.
 
 Do not slip in unrelated fixes. A redesign that also tidies logic produces a diff nobody can read, and one mistake will hide among hundreds of legitimate changes.

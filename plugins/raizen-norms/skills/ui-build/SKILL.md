@@ -45,6 +45,10 @@ Components that came from a copy-in library (shadcn and the like) are **existing
 
 The logo or brand mark is the exception: it belongs to no icon pack and is not an icon.
 
+**Sizes come from Section 5, and there are few of them.** The pack ships one default size; every departure from it is an override under `Library defaults` below and needs the same line behind it. A screen carrying four icon sizes holds three decisions nobody recorded. Two sizes usually cover an app: one inline with text, one for block states like empty and failed.
+
+**`weight`, `fill`, and the pack's other style dials follow the pack default** unless Section 5 names otherwise. Mixed weights inside one app read as inconsistency, not as emphasis.
+
 Where icons are allowed to appear is decided per app in PRD Section 5. This rule governs where they come from.
 
 ## Tokens
@@ -63,6 +67,29 @@ Code that breaks a **rule** in Section 5 (a second icon family, a second accent,
 A need that no token covers → **report it as a finding**. Do not write a raw value and do not add a token yourself: adding or changing a token means changing PRD Section 5, and that requires an explicit user decision.
 
 Findings piling up until it feels like the visual direction is wrong rather than the code → point the user to the `design-redesign` skill. It audits what is actually in use, changes Section 5 line by line with the user's approval, then updates every component in one pass. Do not do it yourself in pieces.
+
+## Library defaults
+
+**A library default is the decision until PRD Section 5 says otherwise.**
+
+This covers everything the installed libraries already ship an answer for: component props (`size`, `variant`, `color`, `radius`, `placement`, dismiss behaviour, default open state), provider-level options, and theme values.
+
+The test is one question, and it is deliberately not *"is this reasonable"* — that always answers yes:
+
+> **Can the Section 5 line be satisfied without touching this prop?**
+> Yes → use the default. No → the override is the only route, and it is allowed.
+
+Name the line in the same breath as the override. An override whose justification cannot name a line has no justification.
+
+Three levels decide, in this order:
+
+1. **The accessibility rules below.** They outrank a default, because a default can be wrong — a library's medium button is often under the 44px touch target, and the target still wins.
+2. **A line in PRD Section 5.**
+3. **The library default**, which beats a session's taste.
+
+Section 5 states rules, not props, so most overrides are argued from a rule rather than quoted from it. The test still bites, because it asks whether another route exists — not whether the argument sounds good. Density already met by the table's own compact prop means every `size="sm"` scattered across buttons has another route, and loses.
+
+An override already in the repo with nothing behind it is a **finding**, the same standing as a raw hex. Two ways out: revert to the default, or take the decision to the user and write it into Section 5 first. Never a third value picked to split the difference.
 
 ## Loading, empty, and failed
 

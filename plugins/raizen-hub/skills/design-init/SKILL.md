@@ -127,6 +127,16 @@ The split is permanent:
 
 Color and spacing are the exception: their roles, values, and usage rules are written in Section 5, because contrast is a norm and not an implementation detail.
 
+### Four rules bind the styling files
+
+**Every semantic slot the component library exposes is mapped.** Libraries ship a full set of role colors, including a neutral one — usually named `default` — that every component falls back to when given no color. A slot left unmapped keeps the library's own value, so the app carries two neutral families: the one Section 5 chose, and the one nobody chose. List the library's slots before writing the theme file, then map all of them. This failure is silent: the app looks finished, and the foreign color only surfaces on the components nobody gave a color to.
+
+**A token nothing reads is not written.** A layout constant that the components duplicate as a utility class has two sources for one number, and the token is the one that will drift. Write the token and use it, or use the utility and drop the token.
+
+**Two roles with the same value collapse into one.** A palette naming both `danger` and `destructive` at the same hex has not made two decisions; it has made one and written it twice. Merge before Section 5 is written — afterwards every session has to guess which of the two applies here.
+
+**One palette, two consumers.** An app with both a utility-CSS theme and a component-library theme holds the same hex twice. The Section 5 color table is the source; both files are written in the same edit, never one alone. A color changed in one and not the other splits the app in half — utility classes follow one palette, library components the other, and the seam only shows on the screens nobody has opened yet.
+
 Follow the sub-section structure in `prd-structure.md` under `app-init`. Fill the Anti-patterns sub-section from `references/anti-pattern.md`, taking only what is relevant to this kind of app.
 
 **Every line in Section 5 traces back to one of three sources:** an interview answer, a derived decision already reported to the user, or `references/anti-pattern.md`. A rule belonging to none of them is not written, however sensible it looks — no question asks it, so nobody decided it. A prohibition nobody was asked about still binds every session that follows, and the user only finds out months later, wondering why the app refuses to do something.
@@ -163,6 +173,7 @@ Three limits:
 - **Data comes from the terms in Section 4.** Do not invent metrics that have no name in this domain.
 - **Do not imply features nobody decided on.** A "revenue forecast" chart in an app with no forecasting is a lie that will be invoiced later as a feature.
 - **Everything still goes through tokens.** What is forbidden is not a new component, but a new token, a second accent, or a second icon family.
+- **`ui-build` binds this page too**, in full — library defaults, and the loading, empty, and failed states written together with their component. A skeleton rather than a spinner, an empty state that says why it is empty. A reference page that skips them is not proving the direction, it is postponing it, and it is the page every later session copies from.
 
 Zero raw hex, font sizes, or spacing in components — this rule applies from the first page, not later.
 
@@ -186,7 +197,9 @@ Section 5 changed → the styling values are updated with it, and the reference 
 
 ## Step 8 — Close
 
-One block: the visual decisions that settled · files changed · what is still `[needs verification]`.
+**The reference page does not stay a draft.** Before this step closes it is either routed as a real page of this app, or deleted. A page left in the repo unrouted is dead code that reads as finished work: the next session finds it, copies its patterns, and inherits whatever it got wrong — while the queue still lists that page as unbuilt.
+
+One block: the visual decisions that settled · files changed · the reference page's fate, routed or deleted · what is still `[needs verification]`.
 
 State that this gate **no longer applies** to later pages — from here on what binds is Section 5 and the component rules in `ui-build`.
 
