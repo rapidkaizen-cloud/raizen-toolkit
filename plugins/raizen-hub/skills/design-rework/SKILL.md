@@ -1,15 +1,19 @@
 ---
-name: design-redesign
-description: Rework the visual direction of an app that already has UI. Audits what the code actually uses, decides repair or overhaul, rewrites PRD Section 5, proves it on one reference page, then updates every affected component in one pass. Use when the user wants to redesign, restyle, or overhaul the look of an existing app whose PRD Section 5 is already filled.
+name: design-rework
+description: Rework the visual direction of an app that already has UI. Audits what the code actually uses, decides repair or overhaul, rewrites PRD Section 5, proves it on one reference page, then updates every affected component in one pass. Use when the user wants to redesign, restyle, or overhaul the look of an existing app — whether Section 5 is already filled, or still empty because the repo arrived through `app-recover`.
 ---
 
-# design-redesign — reworking the visual direction of an existing app
+# design-rework — reworking the visual direction of an existing app
 
-The difference from `design-init`: there, Section 5 is empty and no component exists. Here both already exist, and that reverses the order of work — **audit first, interview second.**
+The difference from `design-init`: there, Section 5 is empty and no component exists. Here components already exist, and that reverses the order of work — **audit first, interview second.**
 
 ## Hard limits
 
-A `PRD.md` with a filled Section 5 is an **absolute precondition**. Missing → STOP. Do not write Section 5 from existing code: that reverses the direction `user → PRD → CSS` into `CSS → PRD`, and today's deviations become official norms without anyone ever deciding on them.
+A `PRD.md` is an **absolute precondition**. Missing → STOP.
+
+**Section 5 is never written from existing code.** That direction — `CSS → PRD` instead of `user → PRD → CSS` — turns every accident in the stylesheet into an official norm nobody decided on. The audit produces **findings**; a finding becomes a Section 5 line only once the user ratifies it.
+
+Section 5 is normally already filled when this skill runs. One case where it is legitimately empty: a repo that arrived through `app-recover`, which writes the PRD for an app that already has UI and deliberately leaves Section 5 unwritten. Step 0 routes it and Step 2b handles it — under the same direction rule, not as an exemption from it.
 
 Section 5 changes only by **explicit user decision**, line by line. Audit results are findings, not proposed norms.
 
@@ -26,10 +30,21 @@ PRD.md        : [present / missing]
 Section 5     : [filled / empty / absent]
 Branch        : [name · clean or has uncommitted changes]
 UI components : [file count]
-Flow          : audit → repair or overhaul → [interview → Section 5 → reference page] → recap → one pass
+Path          : [rework / ratify — from the routing below]
+Flow          : audit → [repair · overhaul · ratify] → recap → one pass
 ```
 
-Section 5 empty → **STOP**, what is needed is `design-init`. `PRD.md` missing entirely → this app did not come from `app-init`; ask for a PRD to be written first, because without Section 5 there is no prior norm to compare against and no direction to protect.
+`PRD.md` missing → **STOP.** An app with no PRD has no prior intent to protect and nothing to read the audit against. Point to `app-recover` for a repo that already exists, `app-init` for one that does not.
+
+Two readings decide the path, in this order:
+
+| Section 5 | UI components | Path |
+|---|---|---|
+| Filled | any | **Rework.** Step 2 asks repair or overhaul |
+| Empty or absent | none | **STOP** — nothing built, nothing to audit. This is `design-init` |
+| Empty or absent | present | **Ratify.** Step 2 is not asked; go to Step 2b |
+
+That third row is the `app-recover` case: an app whose visual direction was never decided by anyone, only accumulated. It gets the same audit as any other, and then every entry is put to the user before it becomes a norm.
 
 **Working tree not clean → STOP.** The final pass touches every UI file at once; uncommitted changes will drown among them and can no longer be separated. A clean tree is also what makes the reference page revertible with a single `git checkout`.
 
@@ -68,6 +83,8 @@ A deviation from Section 5 is a **finding**, not a reason to change Section 5. S
 
 ## Step 2 — Repair or overhaul
 
+**Ratify path → this step is not asked.** There is no Section 5 to repair against and none to reopen. Go straight to Step 2b.
+
 One question, two options, with a recommendation:
 
 | Choice | What changes | Questions asked | Components touched |
@@ -82,6 +99,36 @@ There is no third option that narrows the scope, because **every question carrie
 **Consequence:** quote the affected-component count from the audit, and state that overhaul includes question 12, the component library. Answering that one with anything but *keep* rewrites every component whatever the tokens say, and revokes the stack lock recorded in `CLAUDE.md`.
 
 Repair → jump to Step 7. Section 5 is not touched, with one exception: two roles the audit found at the same value may be merged, because that removes a duplicate rather than adding a norm. The merge is still an explicit user decision, approved line by line like any other Section 5 change.
+
+## Step 2b — Ratify — ratify path only
+
+Section 5 is empty, so the code has been making these decisions on its own. Walk every entry in `interview.md` once. The audit decides **how** each entry is put to the user, and that is the whole design of this step:
+
+| What Step 1 measured | How the entry is put |
+|---|---|
+| **A coherent value** — a real scale, one family, a consistent radius | **Confirmation.** Show the measured value; `Ratify — <measured value>` sits first and is the recommendation |
+| **Nothing coherent** — scattered raw values, no scale, contradictory usage | **A real question**, asked exactly as `design-init` asks it |
+
+The split is what keeps this honest in both directions. Re-interviewing everything produces answers that contradict the running app, and a PRD that does not describe its own app is worse than no PRD. Ratifying everything writes the stylesheet's accidents into the PRD as norms. Where the code has a real answer the user checks it; where the code has none, nobody may pretend otherwise — offering a "measured value" assembled from noise is inventing a norm and labelling it a finding.
+
+**Batch the confirmations, ask the questions one at a time.** A confirmation carries a measured number and the user is checking it rather than deciding it, so several fit in one call. An entry with no measured basis is an ordinary interview question and keeps the one-per-turn rule from `design-init`.
+
+Every entry goes through the **AskUserQuestion tool** either way, never prose — a prose question at the end of a turn is skipped in auto mode and answered by no one.
+
+**A ratified value is written into Section 5 exactly as measured**, with no tidying on the way in. Rounding a 14px step to 16px because the scale reads nicer is a change of direction disguised as transcription. If it should be 16, that is a question, not a ratification.
+
+An entry the user neither ratifies nor answers → `[needs verification]`. It stays out of the pass and `ui-build` keeps blocking on it. That is the correct outcome: an undecided norm must not become a decided one by default.
+
+### Where the ratify path lands
+
+Decided by the answers, not chosen:
+
+| Outcome | Continue at |
+|---|---|
+| Every entry ratified as measured | **Step 7, repair.** Section 5 now states what the code already does, so the only work left is the strays the audit found |
+| Any entry answered differently from the measurement | **Step 4, overhaul.** Those entries are real changes — they get the old-versus-new diff and the reference page, like any other change of direction |
+
+Nothing else in this skill behaves differently for this path.
 
 ## Step 3 — Interview — Overhaul only
 
@@ -110,6 +157,8 @@ Accent color : blue #2563EB  →  green #059669
 Text steps   : five          →  four (merge section title and body)
 Radius       : 8px           →  0
 ```
+
+Arriving here from Step 2b, the *old* column is the **measured** value and is marked as such — `Radius : 8px (measured) → 0`. There is no prior Section 5 line to diff against, and writing one as if there were would claim a decision nobody ever made.
 
 Then **STOP** and wait for approval **line by line**. The user may approve some and reject the rest; rejected lines revert to their old values and do not travel into the pass.
 

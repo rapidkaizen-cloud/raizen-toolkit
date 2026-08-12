@@ -63,7 +63,16 @@ Table: `Term` · `Precise meaning` · `Commonly misread as`.
 
 **Normative, not descriptive.** Sections 1–4 describe the system that exists; this one prescribes. A repo that deviates is a finding, not a new norm. The derivation direction is permanently **PRD → CSS**.
 
-At bootstrap the whole section is written as `[needs verification]`. `design-init` fills it in a separate session, from the user's answers. Do not fill it from your own taste and do not copy it from another skill.
+What this section looks like when the PRD is first written, and which skill fills it later, depends on which skill wrote the PRD:
+
+| Written by | Section 5 at the end of that session | Filled later by |
+|---|---|---|
+| `app-init` | Present, every line `[needs verification]` | `design-init`, from the user's answers, before any component exists |
+| `app-recover` | **Absent entirely**, with one line naming the skill that fills it | `design-rework`, on its ratify path |
+
+The difference is not cosmetic. `[needs verification]` says *a decision is pending in a repo where nothing has been built yet*; an absent section says *this app has UI that nobody ever decided on*. `ui-build` routes on exactly that distinction, and a recovered repo handed `[needs verification]` would be sent to `design-init`, which refuses a repo that already has components.
+
+Either way: do not fill it from your own taste, and do not copy it from another skill.
 
 What gets written is only **rules and scale** — how many of a thing may exist, what is forbidden. "One icon family", "at most one accent", "five text steps". The values — font name, icon pack name, radius number — live in the styling files.
 

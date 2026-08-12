@@ -1,6 +1,6 @@
 {
   "name": "raizen-hub",
-  "version": "0.7.1",
-  "description": "Bootstrap a new internal app, decide its logic layer, set its visual direction, and rework an existing one: domain and stack interview, PRD.md, scaffold, git init, logic-layer libraries, design system, reference page.",
-  "keywords": ["bootstrap", "prd", "scaffold", "logic-layer", "design-system", "redesign"]
+  "version": "0.8.0",
+  "description": "Bootstrap a new internal app or recover the PRD of one already running, then decide or rework its logic layer and visual direction: domain and stack interview, PRD.md, scaffold, git init, logic-layer libraries, design system, reference page.",
+  "keywords": ["bootstrap", "prd", "scaffold", "logic-layer", "design-system", "rework", "brownfield"]
 }

@@ -47,10 +47,12 @@ Applies to every session. **Two paths, and only two:**
 
 | Skill | When | Its limit |
 |---|---|---|
-| `design-init` | Section 5 is still empty | Writes from the user's answers, before a single line of CSS exists |
-| `design-redesign` | Section 5 is filled **and** the user asked for a rework | Writes only the lines the user approved one by one, from an old-versus-new diff |
+| `design-init` | Section 5 is empty **and** no component exists yet | Writes from the user's answers, before a single line of CSS exists |
+| `design-rework` | Section 5 is filled, **or** it is empty while components already exist | Writes only what the user approved one by one — an old-versus-new diff, or a ratification of what the audit measured |
 
 What is protected is not who types it, but the **derivation direction user → PRD → CSS**. If a session that just wrote a deviation were allowed to edit Section 5, it could legalize its own deviation and the direction collapses. Both skills above follow that direction: both start from a user decision rather than from code, and both stop for approval before writing.
+
+The second row's empty-Section-5 case is a repo that arrived through `app-recover`, and it does **not** bend that direction. The audit hands the user measured values; the user ratifies or overrules each one; only what is ratified becomes a line. A measurement is evidence put to the user, never a norm written by the code. Where the audit measured nothing coherent there is nothing to ratify, and the entry is asked as an ordinary question.
 
 A session outside those two that finds Section 5 empty or deviating **may not touch it**. The correct move: stop, point the user to the right skill.
 

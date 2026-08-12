@@ -17,9 +17,9 @@ One question per turn. Each still requires: **more than two options** · **one m
 - **From the style row chosen in Q1:** Q7 contrast (`Accessibility` column) · Q14 radius and Q15 shadow (`Design System Variables`) · Q24 motion (`Effects & Animation`)
 - **From another answer:** Q13 icon pack (bundled with the Q12 library — asked instead when it bundles none) · Q20 row separators (the palette's `Border` value) · Q21 row height (from Q16 density)
 - **Fixed recommendation as the default:** Q5 status count (four) · Q8 status marker (icon plus color) · Q10 text steps (five) · Q11 line length · Q19 content width · Q25 action feedback · Q27 forms
-- **Q28 label length:** in `design-init`, not asked and not derived — nothing exists to measure; report one line deferring it to `design-redesign`. In `design-redesign` it **is asked**, with options built from the audit numbers.
+- **Q28 label length:** in `design-init`, not asked and not derived — nothing exists to measure; report one line deferring it to `design-rework`. In `design-rework` it **is asked**, with options built from the audit numbers.
 
-A derived decision is reported on one line with its basis, exactly like the fast-mode report — never silently. The user may cancel any line, and cancelling it opens that entry as a normal question. In `design-redesign`, every entry — asked or derived — defaults to the value Section 5 holds today.
+A derived decision is reported on one line with its basis, exactly like the fast-mode report — never silently. The user may cancel any line, and cancelling it opens that entry as a normal question. In `design-rework`, every entry — asked or derived — defaults to the value Section 5 holds today.
 
 ## Rules for the whole interview
 
@@ -159,7 +159,7 @@ Font names go into the styling files. The CSV's `Tailwind Config` column can be 
 
 This answer decides what is installed, and fills the Component library row in `CLAUDE.md`. It sits here rather than at the front because the only questions depending on it — the icon pack below and group F — come after it.
 
-**In `design-redesign` it carries a second consequence:** changing the library rewrites every component whatever the tokens say, and the app's `CLAUDE.md` states the stack was locked at bootstrap. Any answer but *keep* revokes that lock rather than adjusting it.
+**In `design-rework` it carries a second consequence:** changing the library rewrites every component whatever the tokens say, and the app's `CLAUDE.md` states the stack was locked at bootstrap. Any answer but *keep* revokes that lock rather than adjusting it.
 
 ### 13. Icon pack · PRD+CSS
 
@@ -323,8 +323,8 @@ The options come from one of two places instead, depending on which skill is run
 
 | Skill | Q28 | Q29 |
 |---|---|---|
-| `design-init` | Not asked — nothing exists yet to measure. Report one line deferring it to `design-redesign` | Offer bounded choices and mark every one `built-in; no basis in the data` |
-| `design-redesign` | Asked, options built around the numbers measured in the audit | Options built around the measured counts |
+| `design-init` | Not asked — nothing exists yet to measure. Report one line deferring it to `design-rework` | Offer bounded choices and mark every one `built-in; no basis in the data` |
+| `design-rework` | Asked, options built around the numbers measured in the audit | Options built around the measured counts |
 
 **The bound is read in the on-screen language.** Take that language from the Locale row of the app's `CLAUDE.md`. A character count borrowed from English-language design guidance is wrong for any other language — "Not contacted" is 13 characters and "Belum dihubungi" is 15, and that difference repeats on nearly every label.
 

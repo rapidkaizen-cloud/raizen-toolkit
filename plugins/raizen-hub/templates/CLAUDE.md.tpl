@@ -29,11 +29,11 @@ Reply language is not set here — it follows whichever language the user writes
 | Hosting | {{HOSTING}} |
 | Database | {{DATABASE}} |
 | Auth | {{AUTH}} |
-| Component library | {{COMPONENT_LIB}} — filled in by `/design-init`, not at bootstrap |
+| Component library | {{COMPONENT_LIB}} |
 | Environments | {{ENVIRONMENTS}} |
 | Migrations | {{MIGRATIONS}} |
 
-**This app's** stack is locked as of bootstrap. The choices themselves are not uniform across apps — they were assembled from this app's needs when `/app-init` ran. What is locked is the outcome, not the menu.
+**This app's** stack is locked. The choices are not uniform across apps — they were either assembled from this app's needs when `/app-init` ran, or read from the repo as it already stood when `/app-recover` ran. What is locked is the outcome, not the menu, and a stack that was read rather than chosen is no less locked for it.
 
 Do not add a library or dependency without the user's approval in this session.
 
@@ -43,7 +43,7 @@ The code and the live database are ground truth for **facts**. `PRD.md` is groun
 
 ## Gate
 
-PRD Section 5 still `[needs verification]` → the visual direction is not set. Run `/design-init` first; `ui-build` will refuse to write components until that is done.
+PRD Section 5 still `[needs verification]`, empty, or absent → the visual direction is not set, and `ui-build` will refuse to write components until it is. Which skill sets it depends on whether this repo already has UI components: **none → `/design-init`**, **some already exist → `/design-rework`**, which measures what they use and puts each value up for ratification.
 
 This gate and the ground-truth rule above stay in this file on purpose. They must still bite in a session where the plugin is absent, disabled, or failed to start.
 

@@ -9,7 +9,16 @@ description: Rules for building or changing any UI — component reuse, icon sou
 
 **Before writing any UI component, read PRD Section 5.**
 
-Section 5 still `[needs verification]`, empty, or absent → **STOP.** Do not write a component, do not write a styling value, do not add a token. Point the user to the `design-init` skill, which interviews the visual direction and then proves it on one real page.
+Section 5 still `[needs verification]`, empty, or absent → **STOP.** Do not write a component, do not write a styling value, do not add a token.
+
+Which skill to point at is decided by **whether this repo already has UI components**, not by the state of Section 5 alone:
+
+| UI components in the repo | Point the user to |
+|---|---|
+| None | `design-init` — it interviews the visual direction from nothing, then proves it on one real page |
+| Some already exist | `design-rework` — it measures what those components actually use and puts each value to the user to ratify or overrule |
+
+Getting that wrong sends the user in a circle: `design-init` refuses a repo that already has components, so naming it there produces a second STOP and no way forward. A repo in that state usually arrived through `app-recover`, which writes the PRD for an existing app and deliberately leaves Section 5 unwritten.
 
 Why stop rather than choose for them: every rule below — tokens, components, contrast — measures the code against Section 5. Without Section 5 there is nothing to measure against, and a session that decides for itself is setting the app's norms through the back door.
 
@@ -66,7 +75,7 @@ Code that breaks a **rule** in Section 5 (a second icon family, a second accent,
 
 A need that no token covers → **report it as a finding**. Do not write a raw value and do not add a token yourself: adding or changing a token means changing PRD Section 5, and that requires an explicit user decision.
 
-Findings piling up until it feels like the visual direction is wrong rather than the code → point the user to the `design-redesign` skill. It audits what is actually in use, changes Section 5 line by line with the user's approval, then updates every component in one pass. Do not do it yourself in pieces.
+Findings piling up until it feels like the visual direction is wrong rather than the code → point the user to the `design-rework` skill. It audits what is actually in use, changes Section 5 line by line with the user's approval, then updates every component in one pass. Do not do it yourself in pieces.
 
 ## Library defaults
 

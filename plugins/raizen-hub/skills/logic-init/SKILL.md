@@ -149,3 +149,5 @@ Close by reminding the user that the commit waits for their word, then offer `de
 ## Later needs
 
 A need that surfaces after this session — a screen that suddenly wants caching, a handler that appears where none existed — is **raised to the user, never installed silently**. `logic-build` binds every session to that; this skill is the only place the questions are asked, and re-opening one question does not re-open the interview.
+
+Several needs surfacing at once, or a library that turns out to be the wrong tool rather than a missing one, is `logic-rework` — which audits what the repo actually runs before asking anything. It is still the user's to start, never yours.

@@ -4,7 +4,7 @@ Private repo. Holds two Claude Code plugins plus a marketplace catalog pointing 
 
 | Plugin | Installed | Used |
 |---|---|---|
-| `raizen-hub` | Globally, once per machine | Once per new app — bootstrap |
+| `raizen-hub` | Globally, once per machine | Once per app — bootstrapping a new one, or writing the PRD an existing one never had |
 | `raizen-norms` | Per app repo, via `.claude/settings.json` | Every working session in an app repo |
 
 Split because their context cost differs: bootstrap norms have no business being loaded during daily work.
@@ -65,7 +65,7 @@ Restart the session once you are done installing.
 | Skill | Used for |
 |---|---|
 | `ui-ux-pro-max` | The source of every option and recommendation across the 27 visual questions. Without it `design-init` can only offer self-assembled options, which it must mark as not coming from the database |
-| `raizen-hub` | `app-init`, `design-init`, and `design-redesign` themselves |
+| `raizen-hub` | The six skills themselves — `app-init`, `app-recover`, `logic-init`, `logic-rework`, `design-init`, `design-rework` |
 
 **Recommended** — nothing errors without them:
 
@@ -113,18 +113,27 @@ Then in the next session, inside the app repo just created:
 /raizen-hub:design-init
 ```
 
-To rework the look of an app already running:
+For an app that is **already running** and never came from `app-init`, the entry point is a different one — it writes the PRD the repo never had, then hands over to the two rework skills:
 
 ```
-/raizen-hub:design-redesign
+/raizen-hub:app-recover
+/raizen-hub:logic-rework
+/raizen-hub:design-rework
 ```
+
+To rework the look or the logic layer of an app that already has a PRD, the last two are run on their own.
 
 | Skill | Precondition | Produces |
 |---|---|---|
 | `app-init` | Empty directory | `PRD.md` with an empty Section 5, scaffold, `git init` |
-| `design-init` | Section 5 empty | Section 5 filled, styling tokens, one working reference page |
-| `design-redesign` | Section 5 filled | Section 5 changed line by line, plus every component updated in one pass |
+| `app-recover` | Application code present, **no** `PRD.md` | `PRD.md` with Section 5 **absent**, `CLAUDE.md`, norms enabled. Changes nothing about the app |
+| `logic-init` | `PRD.md` present, logic layer never decided | Section 1 records cache, validator, dates, errors, jobs, attribution — often installing nothing |
+| `logic-rework` | `PRD.md` present, app already running | Audit of what is installed, then keep / adopt / replace per need, migrated in one pass |
+| `design-init` | Section 5 empty **and** no component exists | Section 5 filled, styling tokens, one working reference page |
+| `design-rework` | Section 5 filled, **or** empty while components exist | Section 5 changed or ratified line by line, plus every component updated in one pass |
 | `build-flow` | Section 5 filled | `QUEUE.md` on first run, then one usable page per session |
+
+The two columns that matter are on the `design-init` and `design-rework` rows. An app with components but no Section 5 — which is exactly what `app-recover` hands over — belongs to `design-rework`, not `design-init`: its values are measured and put to the user for ratification rather than overwritten by an interview that has never seen them.
 
 `build-flow` is the only one with no command to type — it lives in `raizen-norms` and loads in every working session, which is the point: the build order has to be known before anyone thinks to ask for it.
 
