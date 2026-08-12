@@ -62,6 +62,51 @@ def demo() -> None:
         "query": "UPDATE users SET name = (SELECT name FROM source WHERE source.id = 1);"
     }) == 2
 
+    # --- the [CLAUDE] carve-out: cleaning up one's own test rows needs no gate ---
+
+    # must pass: prefix LIKE, and an exact match on a full [CLAUDE] title
+    assert run("mcp__supabase__execute_sql", {
+        "query": "DELETE FROM notes WHERE title LIKE '[CLAUDE]%';"
+    }) == 0
+    assert run("mcp__supabase__execute_sql", {
+        "query": "DELETE FROM notes WHERE title = '[CLAUDE] smoke test';"
+    }) == 0
+    # the same cleanup arriving through Bash
+    assert run("Bash", {
+        "command": "psql -c \"DELETE FROM notes WHERE title LIKE '[CLAUDE]%';\""
+    }) == 0
+    # narrowed further by AND — still inside the prefix
+    assert run("mcp__supabase__execute_sql", {
+        "query": "DELETE FROM notes WHERE title LIKE '[CLAUDE]%' AND created_at < now();"
+    }) == 0
+
+    # must still block: contains, not opens-with -> reaches real rows mentioning the marker
+    assert run("mcp__supabase__execute_sql", {
+        "query": "DELETE FROM notes WHERE title LIKE '%[CLAUDE]%';"
+    }) == 2
+    # NOT inverts the target into everything the agent does not own
+    assert run("mcp__supabase__execute_sql", {
+        "query": "DELETE FROM notes WHERE title NOT LIKE '[CLAUDE]%';"
+    }) == 2
+    # OR widens back out past the prefix
+    assert run("mcp__supabase__execute_sql", {
+        "query": "DELETE FROM notes WHERE title LIKE '[CLAUDE]%' OR id = 1;"
+    }) == 2
+    # the prefix lives in a subquery: says nothing about the row being deleted
+    assert run("mcp__supabase__execute_sql", {
+        "query": "DELETE FROM notes WHERE id IN (SELECT id FROM src WHERE title LIKE '[CLAUDE]%');"
+    }) == 2
+    # no WHERE at all, whatever the table is called
+    assert run("mcp__supabase__execute_sql", {"query": "DELETE FROM notes;"}) == 2
+    # the carve-out is DELETE-only: it must not leak to DROP
+    assert run("mcp__supabase__execute_sql", {
+        "query": "DROP TABLE \"[CLAUDE] tmp\";"
+    }) == 2
+    # an exempt DELETE does not shelter a DROP sharing the payload
+    assert run("mcp__supabase__execute_sql", {
+        "query": "DELETE FROM notes WHERE title LIKE '[CLAUDE]%'; DROP TABLE orders;"
+    }) == 2
+
     print("ok")
 
 

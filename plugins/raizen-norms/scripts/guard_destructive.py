@@ -11,6 +11,10 @@ A guard can only be written once the Expected number exists, and the Expected
 number is only born from a gate the user answered. So enforcing the shape is
 enough to enforce that the gate happened.
 
+One carve-out: a DELETE narrowed to the `[CLAUDE]` prefix — the test rows the
+agent created itself — passes unguarded, because its blast radius is already
+fixed to rows the agent owns. See claude_test_delete for what disqualifies it.
+
 Exit 0 = pass, exit 2 = block.
 """
 import json
@@ -35,6 +39,10 @@ SQL_KEYS = ("query", "sql", "command", "statement")
 # Widening is safe because SQL_KEYS above comes up empty for non-SQL tools -> main()
 # exits 0 on its first line, with no effect on other MCP tools.
 DOLLAR_TAG = re.compile(r"\$([A-Za-z_][A-Za-z0-9_]*)?\$")
+
+# A string literal that OPENS with the marker: `LIKE '[CLAUDE]%'`, `= '[CLAUDE] smoke'`.
+# In Postgres LIKE only % and _ are special, so `[` here is a literal bracket, not a class.
+CLAUDE_SCOPED = re.compile(r"(?:\bLIKE\b|=)\s*'\[CLAUDE\][^']*'", re.I)
 
 
 def read_sql() -> str:
@@ -102,6 +110,30 @@ def strip_parens(s: str) -> str:
     return "".join(out)
 
 
+def claude_test_delete(stmt: str) -> bool:
+    """A DELETE narrowed to rows whose text starts with the literal `[CLAUDE]`
+    marker — the throwaway rows the agent created to test with. Cleaning those up
+    is the agent's own mess, so it does not need a gate the user must answer.
+
+    Strict on purpose, and fails closed — anything it cannot read as prefix-narrow
+    goes back to needing a guard:
+      - OR and NOT can widen the target back out past the prefix.
+      - A subquery's WHERE says nothing about the row being deleted, so
+        strip_parens removes it before the prefix is looked for.
+      - '%[CLAUDE]%' (contains) would reach real rows that merely mention the
+        marker; only a literal opening with `[CLAUDE]` counts.
+    """
+    m = re.search(r"\bDELETE\s+FROM\b(.*)$", stmt, flags=re.S | re.I)
+    if not m:
+        return False
+    body = strip_parens(m.group(1))
+    if not re.search(r"\bWHERE\b", body, flags=re.I):
+        return False
+    if re.search(r"\b(OR|NOT)\b", body, flags=re.I):
+        return False
+    return CLAUDE_SCOPED.search(body) is not None
+
+
 def bare_update(stmt: str) -> bool:
     """UPDATE without a WHERE, or with a WHERE that is always true."""
     for m in re.finditer(r"\bUPDATE\b(.*?)(;|$)", stmt, flags=re.S | re.I):
@@ -137,7 +169,13 @@ def main() -> None:
         if not stmt.strip() or has_guard(stmt):
             continue
 
+        # Per label, not per statement: a DROP sitting in the same statement as an
+        # exempt DELETE is still blocked on its own account.
+        exempt_delete = claude_test_delete(stmt)
+
         for pattern, label in DESTRUCTIVE:
+            if label == "DELETE" and exempt_delete:
+                continue
             if re.search(pattern, stmt, flags=re.I | re.S):
                 block(label)
 
