@@ -23,6 +23,18 @@ That skill is not installed → continue without it, do not stop. It sharpens; i
 
 Schema changes are written as **migration files in the repo**, not run directly against the production database. What may be run directly: `SELECT`, and role tests that end in `ROLLBACK`.
 
+## A new table in a repo that audits
+
+Applies only when `PRD.md` Section 1 records an audit trigger. Where it does not, this section does not exist.
+
+**A new table is created with its audit trigger in the same migration.** Not in a follow-up, not on the next feature. A table that goes live untracked has no history for the period it ran untracked, and no later migration brings that back — this is the one schema mistake a migration cannot undo, which is why it sits beside the destructive gate rather than in a style guide.
+
+Leaving a table untracked is allowed, and only as an **explicit answer from the user, asked before the migration runs**. Silence is not that answer. State what the table holds and ask; a table nobody will ever argue about — a lookup of provinces, a cache of computed totals — is a fair thing to leave out, and the user is the one who says so.
+
+Do not resolve this by tracking everything by reflex either. Blanket tracking is how an audit becomes a storage bill whose output nobody reads, and a table tracked without thought is the same failure as a table skipped without thought.
+
+The skip is recorded nowhere. A table without a trigger is visible to introspection, and the reason it has none is not worth a document that will go stale.
+
 ## Mandatory order
 
 ```

@@ -118,7 +118,7 @@ add context and re-raise is fine; catching in order to continue is a finding.
 
 ## 6 — Which libraries this layer uses
 
-Decided once, by the `logic-init` skill in `raizen-hub` — cache, validator, dates, error destination, job placement. The names live in the Stack table of `CLAUDE.md`; the choice and its reason live in `PRD.md` Section 1, including every deliberate "none".
+Decided once, by the `logic-init` skill in `raizen-hub` — cache, validator, dates, error destination, job placement, change attribution. The names live in the Stack table of `CLAUDE.md`; the choice and its reason live in `PRD.md` Section 1, including every deliberate "none".
 
 Two rules bind every session after that:
 

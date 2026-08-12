@@ -1,11 +1,11 @@
 ---
 name: logic-init
-description: Decide the logic-layer libraries of an app whose PRD is written — server-state cache, boundary validator, date handling, error reporting, scheduled-job placement. Scores the needs from the PRD, interviews only the needs that score yes with options assembled from the rubric and verified live, records choice and reason in the PRD, installs in one approved block. Use after app-init and before design-init; also when a repo starts growing handwritten data-fetching or validation and the user asks what to adopt.
+description: Decide the logic-layer libraries of an app whose PRD is written — server-state cache, boundary validator, date handling, error reporting, scheduled-job placement, change attribution. Scores the needs from the PRD, interviews only the needs that score yes with options assembled from the rubric and verified live, records choice and reason in the PRD, installs in one approved block. Use after app-init and before design-init; also when a repo starts growing handwritten data-fetching or validation and the user asks what to adopt.
 ---
 
 # logic-init — set the logic layer once, from the PRD
 
-`app-init` writes the PRD. `design-init` decides how the app looks. This decides what sits **between the database and the UI**: the libraries — or the deliberate absence of them — for fetching, validating, dating, logging, and scheduling.
+`app-init` writes the PRD. `design-init` decides how the app looks. This decides what sits **between the database and the UI**: the libraries — or the deliberate absence of them — for fetching, validating, dating, logging, scheduling, and attributing changes to the user who made them.
 
 Run **once per repo**, after `app-init`, before `design-init`. The reference page `design-init` builds carries loading, empty, and failed states; those states belong to the data layer, so deciding the data layer second means building that page twice.
 
@@ -40,7 +40,7 @@ Flow           : score needs → mode → interview (only what scores) → PRD +
 
 ## Step 1 — Score the needs, from the PRD
 
-Five needs. Each is read from the PRD, not asked. **Not mentioned in the PRD means no.**
+Six needs. Each is read from the PRD, not asked. **Not mentioned in the PRD means no.**
 
 | # | Need | Read from |
 |---|---|---|
@@ -49,23 +49,24 @@ Five needs. Each is read from the PRD, not asked. **Not mentioned in the PRD mea
 | L3 | Rules bound to dates, deadlines, or timezones | Section 3 Timing & Deadlines is non-empty |
 | L4 | Errors need a destination beyond the host's default log | A server surface exists, **and** Section 1 says the app is operational rather than an experiment |
 | L5 | Work runs on a schedule | Section 3 names a recurring run |
+| L6 | A change has to be traceable to the person who made it | Section 2 — a role may change or delete records another role created; **or** Section 3 Approval is non-empty |
 
 Report the score as one block, one line per need: `L1 yes — Section 2, CRM reads the lead list` or `L3 no — Section 3 has no timing rules`. The user may override any line — a yes they cancel is not asked; a no they raise is.
 
 Confirm the score with the **AskUserQuestion tool**, never as a prose question: first option accepts the score as read and is the marked recommendation, second option overrides — the lines to flip arrive through the answer or "Other". A prose question at the end of a turn is skipped in auto mode and answered by no one.
 
-All five no → jump to Step 5 and close.
+All six no → jump to Step 5 and close.
 
 ## Step 2 — Interview, only what scored
 
 ### Pick the mode first — one question, before anything else
 
-Right after the score is confirmed, asked with the AskUserQuestion tool like everything else. Offer two, with a recommendation — the same shape as the `design-init` mode question, shrunk to an interview of at most five:
+Right after the score is confirmed, asked with the AskUserQuestion tool like everything else. Offer two, with a recommendation — the same shape as the `design-init` mode question, shrunk to an interview of at most six:
 
 | Mode | What is asked | For whom |
 |---|---|---|
 | **Fast** | Nothing. Every scored need is decided from the rubric and the PRD reading, then shown once as a list to correct | An app that must ship today, or needs whose platform answer nobody disputes |
-| **Full** | Every scored need, one question per turn | **Recommended.** The interview is at most five questions, and each answer is a dependency the repo carries for years |
+| **Full** | Every scored need, one question per turn | **Recommended.** The interview is at most six questions, and each answer is a dependency the repo carries for years |
 
 Exactly one need scored → skip this question and ask that need directly; a mode question would cost as much as the interview it replaces.
 
@@ -109,6 +110,8 @@ The reason goes in the PRD because it is the one thing a live check cannot recov
 
 Choosing "none" for a scored need is also recorded, with its reason. A later session that finds handwritten fetching must be able to tell a decision from an accident.
 
+**L6 is the exception to the second row.** A trigger is not a library, so nothing goes in the Stack table — the PRD line and the migration are the whole record. Write the tracked tables as a criterion, never as a list: "tracked wherever one role can change another role's records", not the table names, which go stale on the next feature.
+
 A chosen library that belongs to a family is recorded with its family — `TanStack Query — TanStack ecosystem` — because `design-init` reads Section 1 when assembling UI options, and an installed family member shifts those recommendations.
 
 ## Step 4 — Install, one block
@@ -123,6 +126,10 @@ Will install:
 
 One approval. Refused → hand over the commands, then wait.
 
+A trigger chosen at L6 installs nothing — it is a migration. It goes in the same approval block, named as a migration rather than a package, and it is applied the way every other schema change in this repo is applied.
+
+A trigger has its own smoke check, because it never passes through the compiler: as an authenticated user, not `service_role`, write and then delete one throwaway row in a tracked table, and confirm three audit rows exist with the actor filled in. A null actor here means the fallback is wired wrong, and that is the whole point of the feature. Then delete the throwaway rows from the audit table too — this is the only moment deleting from it is correct.
+
 After installing, one smoke check: a single throwaway usage that exercises each library, `tsc --noEmit` (or the stack's equivalent) passing, then the throwaway is deleted. A library that does not compile against this repo's TypeScript config is cheaper to discover now than mid-page.
 
 No reference page. `design-init` needs one because visual direction can only be judged by looking; a library choice is judged by the build passing and by use, and its first real use arrives with the first page.
@@ -134,6 +141,8 @@ When writing against a chosen library later, the installed `docs-lookup` skill (
 One block: the needs scored and their source lines · decisions taken, including every "none" · what was installed · what `PRD.md` and `CLAUDE.md` now record · what is still `[needs verification]`.
 
 Nothing scored → one line saying so, and that this is the intended outcome for an app of this shape.
+
+**A trigger chosen at L6 creates a responsibility this skill may not write.** Who may read the audit, and whose records they may read, belongs to Section 2 — and Section 1 is the only section this skill writes. Close by handing the user the line that Section 2 now needs, and say plainly that it is theirs to add. A recording nobody is allowed to read is the same cost as no recording.
 
 Close by reminding the user that the commit waits for their word, then offer `design-init` as the next session — the visual direction is still the open gate.
 

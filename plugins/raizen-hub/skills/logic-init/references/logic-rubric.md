@@ -86,6 +86,44 @@ A candidate that belongs to a library family names that family in its consequenc
 
 **Recommendation rule:** not yet, until a rule in Section 3 actually fires on a clock nobody wants to watch. Then: pure SQL → pg_cron; anything touching an external API → host cron.
 
+## L6 — Change attribution
+
+*Asked when Section 2 gives a role the power to change or delete records another role created, or Section 3 Approval is non-empty.*
+
+This question does not pick a package. **The options are resolved from the database already chosen in `app-init`**, because the only layer that knows which application user made a change is the one the database itself provides, and that differs per platform. Present the resolved option, never a cross-platform menu.
+
+| Database (Stack table of `CLAUDE.md`) | What the trigger option resolves to |
+|---|---|
+| Supabase | `SECURITY DEFINER` trigger; actor from `auth.uid()`, falling back to a session setting |
+| Another Postgres | The same trigger; actor from a session setting only — there is no `auth.uid()` |
+| No database | Not asked |
+
+| Option | Fits when | Consequence |
+|---|---|---|
+| **Trigger → append-only audit table** | Someone will one day be asked who changed a record, and the answer has to exist | Cannot be bypassed — a write through the SQL editor, a scheduled function, or a migration is recorded like any other; costs write throughput and storage on every tracked table |
+| Written by the app on the mutation path | The entry must carry intent — a reason, a ticket, a customer's phone call — which the database cannot see | Reads well for a human; every write that does not go through the app leaves no trace |
+| **None** | No role touches another role's records, and nobody has asked who did what | Nothing to build; history before the day this is added is gone permanently and cannot be reconstructed |
+
+**Recommendation rule:** the trigger, whenever the need scored yes. This is the one question where "none" is not the platform-ladder default — the platform does provide the mechanism, so choosing it *is* the ladder stopping at rung one. The app-layer option is reached for only as a **second** table alongside the trigger, and only once someone has read the audit and found the raw diff unreadable.
+
+**The admission rule of this file does not apply to this question.** No maintained library is being chosen; the mechanism is a trigger against a Postgres API that has been stable for a decade, so "actively maintained" has nothing to attach to. Supabase's own [supa_audit](https://github.com/supabase/supa_audit) is archived and is still the right design to copy: one `audit.record_version` table, a `record_id` derived from the primary key so one record's history is an indexed lookup rather than a scan, and an index on `table_oid`. Copy the SQL into a migration and own it — do not install it. Do not offer pgaudit as an alternative here: it logs statements rather than values, and answers a different question.
+
+The reason recorded in the PRD must name **who reads the audit and to settle what** — the same discipline as L4. An audit nobody opens is write throughput spent on storage.
+
+Three consequences are stated when this question is asked, because all three are expensive to discover later.
+
+**The snapshot outranks RLS.** An audit row holds the whole record as jsonb, and neither the base table's RLS nor its column privileges reach inside it. The moment a role that cannot see a column is allowed to read that record's history, the audit table becomes the way around the restriction. Before this question is closed, check the tables about to be tracked for columns not every role may read, and if any exist, say so and hand the user the fork: filter on read (the audit stays complete, the view is narrowed) or filter on write (simpler, and the evidence is permanently incomplete). Recommend filtering on read — an audit with holes is not an audit.
+
+**The `service_role` gap.** Under `service_role` — Edge Functions, cron, admin scripts — `auth.uid()` is null, and those are the paths that make the largest changes. The trigger reads a session setting as fallback, and the server sets it before writing:
+
+```sql
+select set_config('app.actor_id', '<uuid>', true);
+-- in the trigger
+coalesce(auth.uid(), nullif(current_setting('app.actor_id', true), '')::uuid)
+```
+
+**Tracking is per table, never global.** Track only the tables whose changes people argue about. Tracking everything is the fastest route to a storage bill whose output nobody reads.
+
 ---
 
 ## Maintaining this file
