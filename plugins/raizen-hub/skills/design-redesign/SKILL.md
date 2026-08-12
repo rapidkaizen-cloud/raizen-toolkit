@@ -42,8 +42,10 @@ Read what the code actually uses, not what the PRD says. Report one block:
 ```
 AUDIT
 Tokens defined      : [how many colors · text steps · spacing values · radii]
+Token health        : [how many never read · duplicate roles · library slots unmapped]
 Stray raw values    : [how many hex · font sizes · spacings, across how many files]
-Icon families       : [how many, name them]
+Unbacked overrides  : [how many · across how many files]
+Icons               : [families, named · how many sizes · how many weights]
 Fonts loaded        : [from the styling files, not from the PRD]
 Component library   : [name and version, from the dependency file]
 Repeated labels     : [longest · median · how many repeat per screen]
@@ -56,7 +58,13 @@ That last number matters most — it decides the size of the final pass, and the
 
 The **Component library**, **Repeated labels**, and **Supporting text** rows exist because questions 12, 28, and 29 build their options from measured numbers rather than from a database. Measuring them here means the interview never stops to go looking.
 
+**Unbacked overrides** are counted against the `Library defaults` rule in `ui-build`: a component prop, a provider option, or a theme value departing from what the library ships, with no Section 5 line requiring it. They hide from the *stray raw values* row — a `size` or a `variant` is neither a hex nor a spacing — and they are usually the larger of the two numbers. An audit that skips them reports a clean app and sends the user to *repair* with nothing to repair.
+
+**Token health** needs the library's own slot list, read from the installed package rather than remembered. Three numbers: tokens defined but never read, roles sharing one value, and semantic slots the theme file left unmapped. An unmapped slot means the app has been carrying a palette nobody chose, and it surfaces nowhere else in this block.
+
 A deviation from Section 5 is a **finding**, not a reason to change Section 5. Some of it may need fixing without any redesign at all — offer that as the cheaper path when the audit shows the problem is deviation, not direction.
+
+**Section 5 is audited too, not only the code.** Two roles named separately at the same value are one decision written twice, and every later session has to guess which one applies here. That is a finding against the PRD rather than against the code, and merging them is repair work: it changes no visual direction, so it needs no overhaul.
 
 ## Step 2 — Repair or overhaul
 
@@ -182,7 +190,7 @@ A file that should have been listed and is not is a finding, not good news. Repo
 The order cannot be reversed:
 
 1. **Tokens first.** The styling files are updated to the new values. Old tokens are **deleted**, not marked deprecated — a deprecated token that still works will still get used.
-2. **Then components**, all of them, until zero raw values remain.
+2. **Then components**, all of them, until zero raw values remain and every surviving override can name the Section 5 line behind it. An override with no line goes back to the library default in this same pass; it is not carried forward as a finding to fix later.
 3. **Then assets** locked to the old colors: inline SVG, favicon, images carrying brand color.
 4. **Then the old library is removed**, if question 12 changed it.
 
@@ -194,10 +202,11 @@ Do not slip in unrelated fixes. A redesign that also tidies logic produces a dif
 
 ## Step 9 — Verification, mandatory
 
-Five, all of them before reporting done:
+Six, all of them before reporting done:
 
 - **The build passes.** It does not → stop, fix it, do not report done.
 - **Zero raw values remain.** Search again for hex, font sizes, and raw spacing across every component. Anything left is unfinished work, not an exception.
+- **Every surviving override names its line.** Search again for props, provider options, and theme values departing from the library default, and check each against Section 5. The count here must match what the Step 7 recap promised.
 - **Contrast still passes** the Section 5 target, for every new color pair.
 - **The recap matched.** Every file listed at Step 7 changed, and no file outside that list did.
 - **The densest page is opened and looked at**, at desktop and at the lower bound. Correct tokens do not guarantee an intact layout.
