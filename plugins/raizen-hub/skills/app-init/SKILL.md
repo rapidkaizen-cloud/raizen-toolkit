@@ -156,6 +156,6 @@ Until design-init is done, any session will refuse to write UI components.
 
 Do not run it now. Bootstrap ends with zero dependencies installed, and `design-init` needs to install several.
 
-Once the visual direction is agreed, building runs one page per session under the `build-flow` skill, which writes `QUEUE.md` on its first run.
+Once the visual direction is agreed, building runs under the `build-flow` skill, which writes `QUEUE.md` on its first run. A new app builds its screens first — a UI batch, every page against a hand-written contract with no database behind it — then wires them in a backend batch. `build-flow` owns both, and the size of one session is set there.
 
 Close by reminding the user that the first commit waits for their word, and that `raizen-norms` only becomes active once the next session starts in this repo.

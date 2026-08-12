@@ -116,6 +116,10 @@ A failure message never disappears on its own. Only success notifications may.
 
 Each of these states is written **together with its component**, not as follow-up work. A component that only has a success state is not finished.
 
+**Where the app has contract files, these three are proven rather than claimed.** `build-flow` builds each page of a UI batch against six named fixture cases, and three of them are exactly these states — `loading`, `empty`, `failed`. Two more decide whether the rules above hold at scale: `bulk`, several hundred rows, and `messy`, null in every nullable field with the longest string that really occurs. Both must render without the layout breaking before the page is accepted.
+
+Those two are the ones usually skipped and the ones that catch the most. A component that has only ever met three tidy rows has not met the data it will live with. The cases and the rules around them are in `references/contract.md` of `build-flow`.
+
 ## Supporting text
 
 Text next to a field, a section, or a state says **what follows for the user**, never **why the rule was designed that way**.

@@ -81,6 +81,10 @@ A deviation from Section 5 is a **finding**, not a reason to change Section 5. S
 
 **Section 5 is audited too, not only the code.** Two roles named separately at the same value are one decision written twice, and every later session has to guess which one applies here. That is a finding against the PRD rather than against the code, and merging them is repair work: it changes no visual direction, so it needs no overhaul.
 
+**A page holding too little is not a finding, and not this skill's work.** The audit walks every page, so pages that answer very little are seen here — a screen on correct tokens, correct icons, correct spacing, and still mostly empty. That code breaks no rule. It renders faithfully a content decision nobody ever made, and no styling pass can invent one: what a screen should hold is a product decision belonging to the user.
+
+Do not report it as a deviation, and do not fill it. Hand it to `build-flow` Section 4, which derives candidate content from PRD Sections 2 and 3 and puts it to the user as a proposal — bound items as a statement, optional ones pre-selected to be cut. Name which pages were handed over, and carry on with the audit.
+
 ## Step 2 — Repair or overhaul
 
 **Ratify path → this step is not asked.** There is no Section 5 to repair against and none to reopen. Go straight to Step 2b.
@@ -231,6 +235,8 @@ UNTOUCHED        Login.tsx, PhoneContact.tsx
 Then **STOP** and wait for approval **per item**. A rejected item is not silently dropped — it stays a finding and is reported again at Step 10.
 
 A file that should have been listed and is not is a finding, not good news. Report `UNTOUCHED` explicitly rather than letting silence stand for it.
+
+**Pages handed to `build-flow` at Step 1 do not appear here.** Their content was never decided, so there is nothing in this pass to change — including them would mean this skill deciding what belongs on a screen. They are named once, separately from the list above, as work waiting on the user.
 
 ## Step 8 — Rework in one pass
 

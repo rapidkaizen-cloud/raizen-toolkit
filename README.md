@@ -131,7 +131,7 @@ To rework the look or the logic layer of an app that already has a PRD, the last
 | `logic-rework` | `PRD.md` present, app already running | Audit of what is installed, then keep / adopt / replace per need, migrated in one pass |
 | `design-init` | Section 5 empty **and** no component exists | Section 5 filled, styling tokens, one working reference page |
 | `design-rework` | Section 5 filled, **or** empty while components exist | Section 5 changed or ratified line by line, plus every component updated in one pass |
-| `build-flow` | Section 5 filled | `QUEUE.md` on first run, then one usable page per session |
+| `build-flow` | Section 5 filled | `QUEUE.md` on first run, then usable pages — a UI batch built against contracts first, wired in a backend batch after |
 
 The two columns that matter are on the `design-init` and `design-rework` rows. An app with components but no Section 5 — which is exactly what `app-recover` hands over — belongs to `design-rework`, not `design-init`: its values are measured and put to the user for ratification rather than overwritten by an interview that has never seen them.
 

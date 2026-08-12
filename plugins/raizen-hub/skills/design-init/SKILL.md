@@ -168,7 +168,11 @@ Install nothing outside that block. Something extra turns out to be needed → a
 
 Realistic dummy data, not lorem and not empty placeholders. Names, dates, and numbers that make sense for the domain in PRD Section 4.
 
+**That data is written as this page's contract and fixtures**, in the shape `build-flow` uses — `src/contracts/<page>.ts` for the types, `src/contracts/<page>.fixtures.ts` for the cases, per `references/contract.md` of `build-flow`. This is the first page of the app either way, so the pattern it sets is the one every later page copies; leaving its data inline means page two starts by inventing a convention that already exists. Judging the direction needs `bulk` and `messy` in particular — a direction that only holds for five tidy rows has not been proven.
+
 **Improvisation is allowed, and expected.** Add summary cards, charts, badges, filters — anything that makes the page feel alive. Section 5 holds component **rules**, not a component **list**, so adding a component never violates it. A reference page that is nothing but a bare table fails to test density and hierarchy, the two reasons it is built.
+
+That richness outlives this session: `build-flow` Section 4 judges every later page against this one. A page far emptier than this one goes back to its content proposal rather than becoming the app's new normal. Building this page thin therefore costs more than one page — it lowers the bar for all of them.
 
 Four limits:
 

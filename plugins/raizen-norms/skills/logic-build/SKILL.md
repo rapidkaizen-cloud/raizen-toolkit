@@ -53,8 +53,8 @@ A client-side check that mirrors a real rule is allowed as UX — instant feedba
 round trip. It is **never the enforcement**, and the code says so: name it as a mirror of
 the rule it copies, so a later session does not read it as the rule itself.
 
-**A rule that is not in `PRD.md` is one of the three legitimate stops** in `build-flow`
-Section 6. Do not invent it, and do not write it into the PRD afterwards — `prd-format`
+**A rule that is not in `PRD.md` is a legitimate stop** in `build-flow`
+Section 6 — one of three in a backend batch, and the only one in a UI batch. Do not invent it, and do not write it into the PRD afterwards — `prd-format`
 allows Sections 3 and 4 only *before* implementation, precisely so a rule stays a
 decision rather than a description of code.
 
