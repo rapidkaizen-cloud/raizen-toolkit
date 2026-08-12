@@ -1,10 +1,25 @@
-# Frontend interview — a procedure, 29 questions
+# Frontend interview — 29 decisions, 13 asked
 
 **The options are not written in this file.** Each question names which query to run against `ui-ux-pro-max` and which column becomes the options, so the choices follow the user's story instead of being one fixed list for every app.
 
-One question per turn. Each still requires: **more than two options** · **one marked recommendation** · **a one-sentence consequence**. Asked through the **AskUserQuestion tool**, never as prose text — recommendation first and marked "(Recommended)"; the tool's automatic "Other" is how answers outside the options arrive.
+Every numbered entry below is a decision that gets made. Only the entries listed under **Asked** become questions; the rest are **derived** — decided from the basis named in the split below, taking the entry's own Recommendation as the value.
+
+One question per turn. Each still requires: **more than two options** · **one marked recommendation** · **a one-sentence consequence**. Asked through the **AskUserQuestion tool**, never as prose text — recommendation first and marked "(Recommended)"; the tool's automatic "Other" is how answers outside the options arrive. **Everything the user needs to answer lives inside the dialog** — in the question field or the option descriptions. The dialog may render without the prose around it, so a question referring to text "above" can arrive pointing at nothing.
 
 `PRD` = the rule goes into Section 5 · `CSS` = the value goes into the styling files · `PRD+CSS` = the rule in the PRD, the number in CSS.
+
+## Asked or derived
+
+**Asked, in this order:** Q1 · Q2 · Q3–5 as one palette question · Q6 · Q9 · Q12 · Q13 only when the chosen library bundles no icon pack · Q16 · Q17 · Q18 · Q22 · Q23 · Q26 · Q29. Thirteen questions; fourteen when the icon-pack question opens; group F still drops entirely for an app without tables.
+
+**Derived**, each from the basis named here:
+
+- **From the style row chosen in Q1:** Q7 contrast (`Accessibility` column) · Q14 radius and Q15 shadow (`Design System Variables`) · Q24 motion (`Effects & Animation`)
+- **From another answer:** Q13 icon pack (bundled with the Q12 library — asked instead when it bundles none) · Q20 row separators (the palette's `Border` value) · Q21 row height (from Q16 density)
+- **Fixed recommendation as the default:** Q5 status count (four) · Q8 status marker (icon plus color) · Q10 text steps (five) · Q11 line length · Q19 content width · Q25 action feedback · Q27 forms
+- **Q28 label length:** in `design-init`, not asked and not derived — nothing exists to measure; report one line deferring it to `design-redesign`. In `design-redesign` it **is asked**, with options built from the audit numbers.
+
+A derived decision is reported on one line with its basis, exactly like the fast-mode report — never silently. The user may cancel any line, and cancelling it opens that entry as a normal question. In `design-redesign`, every entry — asked or derived — defaults to the value Section 5 holds today.
 
 ## Rules for the whole interview
 
@@ -43,6 +58,8 @@ This answer drives more of the later recommendations than any other. See `adapta
 "Hard to name" → ask for a screenshot, or ask which app it must **not** resemble. This question has no query; its answer is what improves the queries for the others.
 
 ### 3. Neutral family · PRD+CSS
+
+**Questions 3–5 are asked as ONE palette question.** A `--domain color` row already carries the neutral, the accent, and the destructive color together, so the options are whole rows — the top 3, each labelled with its neutral temperature and accent, plus one fixed option: follow an existing brand color. Entries 4 and 5 below supply the columns, the recommendation checks, and the consequences that go into that single question; the status **count** in entry 5 stays derived at four.
 
 **Options from:** `--domain color "<kind of app>"`. Take the `Background` · `Muted` · `Border` columns from the top 3 rows; the neutral's temperature (cool, warm, pure) is read from its hex values.
 
@@ -146,7 +163,9 @@ This answer decides what is installed, and fills the Component library row in `C
 
 ### 13. Icon pack · PRD+CSS
 
-**Options from:** `--domain icons "<kind of app> <visual direction>"`, taking the distinct values of the `Library` column, with the `Style` column (outline or solid) as the qualifier. The icon pack bundled with the component library chosen in question 12 is always among the options.
+**Derived when the question 12 library bundles an icon pack; asked when it bundles none** — a headless library leaves no basis to derive from, so the question opens automatically after question 12.
+
+**Options from:** `--domain icons "<kind of app> <visual direction>"`, taking the distinct values of the `Library` column, with the `Style` column (outline or solid) as the qualifier. The icon pack bundled with the component library chosen in question 12, when there is one, is always among the options.
 
 **Recommendation:** the one already installed alongside the chosen component library.
 
@@ -302,10 +321,10 @@ A placeholder never replaces a label.
 
 The options come from one of two places instead, depending on which skill is running:
 
-| Skill | Where the options come from |
-|---|---|
-| `design-init` | Nothing exists yet to measure. Offer bounded choices and mark every one of them `built-in; no basis in the data` |
-| `design-redesign` | Measure the repo first, then build the options around the numbers measured |
+| Skill | Q28 | Q29 |
+|---|---|---|
+| `design-init` | Not asked — nothing exists yet to measure. Report one line deferring it to `design-redesign` | Offer bounded choices and mark every one `built-in; no basis in the data` |
+| `design-redesign` | Asked, options built around the numbers measured in the audit | Options built around the measured counts |
 
 **The bound is read in the on-screen language.** Take that language from the Locale row of the app's `CLAUDE.md`. A character count borrowed from English-language design guidance is wrong for any other language — "Not contacted" is 13 characters and "Belum dihubungi" is 15, and that difference repeats on nearly every label.
 

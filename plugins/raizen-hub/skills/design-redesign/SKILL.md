@@ -26,7 +26,7 @@ PRD.md        : [present / missing]
 Section 5     : [filled / empty / absent]
 Branch        : [name · clean or has uncommitted changes]
 UI components : [file count]
-Flow          : audit → repair or overhaul → [29 questions → Section 5 → reference page] → recap → one pass
+Flow          : audit → repair or overhaul → [interview → Section 5 → reference page] → recap → one pass
 ```
 
 Section 5 empty → **STOP**, what is needed is `design-init`. `PRD.md` missing entirely → this app did not come from `app-init`; ask for a PRD to be written first, because without Section 5 there is no prior norm to compare against and no direction to protect.
@@ -65,7 +65,7 @@ One question, two options, with a recommendation:
 | Choice | What changes | Questions asked | Components touched |
 |---|---|---|---|
 | **Repair** | Zero new norms — only bringing code back in line with the existing Section 5 | None | Only the deviating ones |
-| **Overhaul** | All of Section 5 is reopened | 29 | One reference page, then the rest |
+| **Overhaul** | All of Section 5 is reopened | 13–15 asked, the rest derived (see `interview.md`) | One reference page, then the rest |
 
 There is no third option that narrows the scope, because **every question carries a *keep* option** (see Step 3). Answering *keep* to the parts you do not want touched is what narrowing looks like here — scope is narrowed by answers, not by a mode chosen before the user has seen a single question.
 
@@ -75,7 +75,7 @@ There is no third option that narrows the scope, because **every question carrie
 
 Repair → jump to Step 7. Section 5 is not touched at all.
 
-## Step 3 — Interview, all 29 — Overhaul only
+## Step 3 — Interview — Overhaul only
 
 Read `interview.md`, `adaptation.md`, and `anti-pattern.md` in the `references/` folder of `design-init`. The rules are identical: options drawn live from `ui-ux-pro-max`, one question per turn, more than two options, one marked recommendation.
 
@@ -83,15 +83,15 @@ Read `interview.md`, `adaptation.md`, and `anti-pattern.md` in the `references/`
 
 Four differences from `design-init`:
 
-**Every question carries a *keep* option, written first.** Labelled `Keep — <the value in Section 5 today>`, and it does not count toward the "more than two options" requirement. A value that is only a recommendation is a suggestion; a value written as an option is a choice. Answering *keep* to all 29 ends the session with the PRD unchanged.
+**Every question carries a *keep* option, written first.** Labelled `Keep — <the value in Section 5 today>`, and it does not count toward the "more than two options" requirement. A value that is only a recommendation is a suggestion; a value written as an option is a choice. Answering *keep* throughout ends the session with the PRD unchanged.
 
-**The old answers are also the starting recommendations.** The current Section 5 was already decided by the user once; treat it as the point of departure, not as a blank page. A recommendation that departs from it must say what changed to justify the departure.
+**The old answers are also the starting recommendations.** The current Section 5 was already decided by the user once; treat it as the point of departure, not as a blank page. A recommendation that departs from it must say what changed to justify the departure. Derived decisions follow the same rule: their reported line defaults to the current Section 5 value, and a derivation that departs from it must name what changed.
 
 **Question 2 is mandatory** — the app or site that feels right. A redesign always has a reference in the user's head, and drawing it out early cuts rounds at the reference page.
 
 **Questions 28 and 29 build their options from the audit**, not from the database — the numbers measured in Step 1. `interview.md` group H holds the rule.
 
-Fast, foundation, and full modes apply exactly as in `design-init`.
+Fast and full modes apply exactly as in `design-init`.
 
 ## Step 4 — The new Section 5, as a diff — Overhaul only
 
@@ -144,7 +144,7 @@ Show it at desktop width and at the lower bound from question 17, then **STOP** 
 | **Rework** | The same page is rebuilt from the new tokens rather than patched. Two rounds at most |
 | **Revert** | The file is checked out, Section 5 goes back to its old values, nothing else was touched. The session closes at Step 10 |
 
-A second rework → **STOP, reopen Section 5** and raise the interview mode one level, exactly as `design-init` does. Missing once means the layout was off; missing twice means the visual direction was off, and rebuilding the same page a third time will not fix that.
+A second rework → **STOP, reopen Section 5** — fast rises to full, full re-asks decisions 1–5, exactly as `design-init` does. Missing once means the layout was off; missing twice means the visual direction was off, and rebuilding the same page a third time will not fix that.
 
 ## Step 7 — Recap before the pass — both paths
 

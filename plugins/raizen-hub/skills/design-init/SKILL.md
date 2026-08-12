@@ -1,6 +1,6 @@
 ---
 name: design-init
-description: Decide the visual direction and component library of an app whose PRD Section 5 is still unwritten. Interviews the user across 29 frontend decisions with options drawn live from the ui-ux-pro-max database, writes the rules into PRD Section 5, writes the concrete values into the styling files, then builds one real reference page in code. Use before the first UI component of a repo is written, or when PRD Section 5 is still marked as unverified.
+description: Decide the visual direction and component library of an app whose PRD Section 5 is still unwritten. Interviews the user through 13 frontend questions covering 29 decisions — the rest derived and reported — with options drawn live from the ui-ux-pro-max database, writes the rules into PRD Section 5, writes the concrete values into the styling files, then builds one real reference page in code. Use before the first UI component of a repo is written, or when PRD Section 5 is still marked as unverified.
 ---
 
 # design-init — set the visual direction once, in code
@@ -31,7 +31,7 @@ Section 5   : [empty / already filled / product without UI]
 Kind of app : [from Section 1]
 Primary role: [from Section 2]
 Reading     : [one sentence — see below]
-Flow        : 29 questions → Section 5 → styling → reference page
+Flow        : 13 questions → Section 5 → styling → reference page
 ```
 
 `PRD.md` missing → **STOP**, point to `app-init`.
@@ -44,7 +44,7 @@ Product without UI → **STOP**, this skill does not apply.
 
 Concluding first beats asking from nothing: the user only corrects what missed, and the correction carries more than an empty question would. A wrong reading is not a failure — it draws out detail that no question would surface.
 
-State the reading, ask for correction, then continue. The corrected reading becomes the keywords for every query in Step 2.
+State the reading, ask for correction, then continue. When the correction is asked through AskUserQuestion, **the full reading sentence goes inside the question field itself** — the dialog may render without the prose around it, so a question that points at text "above" can arrive pointing at nothing. The corrected reading becomes the keywords for every query in Step 2.
 
 ## Step 1 — Route the supporting skills
 
@@ -59,33 +59,30 @@ Read the kind of app from PRD Section 1, then decide once:
 
 The two skills disagree about icon pack, motion level, or typeface → **the user's answer wins**, which is exactly why all three are asked.
 
-## Step 2 — Interview, 29 questions
+## Step 2 — Interview, 13 questions
 
 ### Pick the mode first — one question, before anything else
 
-Offer three, with a recommendation:
+Offer two, with a recommendation:
 
 | Mode | What is asked | For whom |
 |---|---|---|
-| **Fast** | Nothing. All 29 are decided from the Step 0 reading, then shown once as a list to correct | An app that must ship today, or a visual direction nobody disputes |
-| **Foundation** | Seven: Q1 visual direction · Q2 reference app · Q6 dark mode · Q12 component library · Q16 density · Q17 lower screen bound · Q29 supporting text. The rest are derived | **Recommended.** These seven are the hardest to guess and the most expensive to get wrong |
-| **Full** | All 29 | An app used for years, or a team with opinions about details |
+| **Fast** | Nothing. All 29 decisions are derived from the Step 0 reading, then shown once as a list to correct | An app that must ship today, or a visual direction nobody disputes |
+| **Full** | The 13 asked entries in `interview.md` — the icon-pack question joins when the chosen library bundles none, the table group drops when the app has no tables. Every other decision is derived | **Recommended.** Thirteen answers cover everything expensive to get wrong; the rest never needed asking |
 
-Foundation asks its seven **in the order they appear in `interview.md`**, not in the order listed above. A subset does not license a different sequence.
+**Consequence:** both still end at a working reference page, so fast mode is not deciding blind — the only difference is where the correction happens, before or after the first screen.
 
-**Consequence:** all three still end at a working reference page, so fast mode is not deciding blind — the only difference is where the correction happens, before or after the first screen.
-
-Fast and foundation modes **must not be silent.** Every decision not asked is reported on one line with its basis:
+Derived decisions are **never silent, in either mode.** Every decision not asked is reported on one line with its basis:
 
 ```
 Q14 radius   → 8px     (from Design System Variables of style "Minimalism & Swiss")
 Q24 motion   → subtle  (from the Effects & Animation column of the same style)
-Q22 paging   → numbered (built-in; no basis in the data)
+Q25 feedback → inline failures, toast successes (built-in; no basis in the data)
 ```
 
 A line whose basis is "built-in" is marked as such. The user may cancel any line, and cancelling it opens that question normally.
 
-A second rework in Step 7 → raise the mode one level. Fast becomes foundation, foundation becomes full. Missing twice means guessing is not the right path for this app.
+A second rework in Step 7 → fast rises to full. A session already in full re-asks decisions 1–5, as Step 7 describes. Missing twice means guessing is not the right path for this app.
 
 ### Running the interview
 
@@ -181,9 +178,9 @@ The user may ask for a full rework any number of times. But:
 
 **A second rework of the same page → STOP, reopen Section 5.** Missing once means the layout was off. Missing twice means the visual direction was off, and rewriting the layout a third time will not fix that.
 
-When reopening, raise the mode one level — fast becomes foundation, foundation becomes full.
+When reopening, fast rises to full; a session already in full re-asks decisions 1–5.
 
-Ask questions 1–5 again, especially question 2 about the app that feels right. The user still struggles to name one → ask them to show an app or a site, because adjectives have demonstrably run out by that point.
+Ask decisions 1–5 again (three questions, after the palette merge), especially question 2 about the app that feels right. The user still struggles to name one → ask them to show an app or a site, because adjectives have demonstrably run out by that point.
 
 Section 5 changed → the styling values are updated with it, and the reference page is rebuilt from the new tokens rather than patched.
 

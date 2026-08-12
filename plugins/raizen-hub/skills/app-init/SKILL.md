@@ -145,8 +145,9 @@ Then offer the next steps, unless the product has no UI:
 ```
 Two sessions remain before pages can be built, in this order:
   /logic-init  — the logic layer: cache, validation, dates, logging,
-                 scheduling. Scored from the PRD; often installs nothing.
-  /design-init — the visual direction: 29 questions, then one real
+                 scheduling, audit trail. Scored from the PRD; often
+                 installs nothing.
+  /design-init — the visual direction: 13 questions, then one real
                  page to judge.
 Until design-init is done, any session will refuse to write UI components.
 ```
