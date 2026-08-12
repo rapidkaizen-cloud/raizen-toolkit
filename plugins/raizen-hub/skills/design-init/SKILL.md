@@ -123,9 +123,13 @@ The split is permanent:
 | Written in | Contents |
 |---|---|
 | `PRD.md` Section 5 | **Rules and scale** — how many may exist, what is forbidden. "One icon family", "at most one accent", "four text steps" |
-| Styling files (`tailwind.config`, CSS variables) | **Values** — font name, icon pack name, hex, radius number, spacing number |
+| Styling files (`tailwind.config`, CSS variables, the component library's theme file) | **Values** — font name, icon pack name, hex, radius number, spacing number |
 
 Color and spacing are the exception: their roles, values, and usage rules are written in Section 5, because contrast is a norm and not an implementation detail.
+
+Follow the sub-section structure in `prd-structure.md` under `app-init`. Fill the Anti-patterns sub-section from `references/anti-pattern.md`, taking only what is relevant to this kind of app.
+
+**Every line in Section 5 traces back to one of three sources:** an interview answer, a derived decision already reported to the user, or `references/anti-pattern.md`. A rule belonging to none of them is not written, however sensible it looks — no question asks it, so nobody decided it. A prohibition nobody was asked about still binds every session that follows, and the user only finds out months later, wondering why the app refuses to do something.
 
 ### Four rules bind the styling files
 
@@ -136,10 +140,6 @@ Color and spacing are the exception: their roles, values, and usage rules are wr
 **Two roles with the same value collapse into one.** A palette naming both `danger` and `destructive` at the same hex has not made two decisions; it has made one and written it twice. Merge before Section 5 is written — afterwards every session has to guess which of the two applies here.
 
 **One palette, two consumers.** An app with both a utility-CSS theme and a component-library theme holds the same hex twice. The Section 5 color table is the source; both files are written in the same edit, never one alone. A color changed in one and not the other splits the app in half — utility classes follow one palette, library components the other, and the seam only shows on the screens nobody has opened yet.
-
-Follow the sub-section structure in `prd-structure.md` under `app-init`. Fill the Anti-patterns sub-section from `references/anti-pattern.md`, taking only what is relevant to this kind of app.
-
-**Every line in Section 5 traces back to one of three sources:** an interview answer, a derived decision already reported to the user, or `references/anti-pattern.md`. A rule belonging to none of them is not written, however sensible it looks — no question asks it, so nobody decided it. A prohibition nobody was asked about still binds every session that follows, and the user only finds out months later, wondering why the app refuses to do something.
 
 Section 5 finished → show it to the user, **STOP**, wait for approval before touching any dependency.
 
@@ -168,7 +168,7 @@ Realistic dummy data, not lorem and not empty placeholders. Names, dates, and nu
 
 **Improvisation is allowed, and expected.** Add summary cards, charts, badges, filters — anything that makes the page feel alive. Section 5 holds component **rules**, not a component **list**, so adding a component never violates it. A reference page that is nothing but a bare table fails to test density and hierarchy, the two reasons it is built.
 
-Three limits:
+Four limits:
 
 - **Data comes from the terms in Section 4.** Do not invent metrics that have no name in this domain.
 - **Do not imply features nobody decided on.** A "revenue forecast" chart in an app with no forecasting is a lie that will be invoiced later as a feature.

@@ -120,7 +120,7 @@ add context and re-raise is fine; catching in order to continue is a finding.
 
 Decided once, by the `logic-init` skill in `raizen-hub` — cache, validator, dates, error destination, job placement, change attribution. The names live in the Stack table of `CLAUDE.md`; the choice and its reason live in `PRD.md` Section 1, including every deliberate "none".
 
-Two rules bind every session after that:
+Three rules bind every session after that:
 
 - **A recorded "none" is a decision, not a gap.** Handwritten fetching in a repo whose PRD says "cache: none — two screens" is the norm being followed, not a finding.
 - **A need surfacing that `logic-init` never scored** — a screen that now wants caching, a handler appearing where none existed — is **raised to the user, never solved by a quiet install**. One question re-opens; the interview does not.

@@ -81,7 +81,7 @@ There is no third option that narrows the scope, because **every question carrie
 
 **Consequence:** quote the affected-component count from the audit, and state that overhaul includes question 12, the component library. Answering that one with anything but *keep* rewrites every component whatever the tokens say, and revokes the stack lock recorded in `CLAUDE.md`.
 
-Repair → jump to Step 7. Section 5 is not touched at all.
+Repair → jump to Step 7. Section 5 is not touched, with one exception: two roles the audit found at the same value may be merged, because that removes a duplicate rather than adding a norm. The merge is still an explicit user decision, approved line by line like any other Section 5 change.
 
 ## Step 3 — Interview — Overhaul only
 
