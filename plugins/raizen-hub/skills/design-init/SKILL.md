@@ -65,14 +65,43 @@ The two skills disagree about icon pack, motion level, or typeface → **the use
 
 ### Pick the mode first — one question, before anything else
 
-Offer two, with a recommendation:
+Offer three, with a recommendation:
 
 | Mode | What is asked | For whom |
 |---|---|---|
+| **Stock** | Question 12 only, plus question 13 when the chosen library bundles no icon pack. Nothing else is asked and nothing else is derived — the library's own defaults become the design system | An app whose look nobody has an opinion about, and nobody will |
 | **Fast** | Nothing. All 29 decisions are derived from the Step 0 reading, then shown once as a list to correct | An app that must ship today, or a visual direction nobody disputes |
 | **Full** | The 13 asked entries in `interview.md` — the icon-pack question joins when the chosen library bundles none, the table group drops when the app has no tables. Every other decision is derived | **Recommended.** Thirteen answers cover everything expensive to get wrong; the rest never needed asking |
 
-**Consequence:** both still end at a working reference page, so fast mode is not deciding blind — the only difference is where the correction happens, before or after the first screen.
+**Consequence:** all three still end at a working reference page, so no mode decides blind — the difference is only where the correction happens, before or after the first screen.
+
+### Stock mode
+
+Stock is not fast mode with fewer questions. It is a different decision: **this app has no visual direction of its own, and the library's defaults are adopted whole.**
+
+Say all three of these before the user picks it, because none of them is obvious from the name:
+
+1. **The app will look like the library's demo.** That is the mode working, not a defect.
+2. **Density is the library's density.** PRD Section 1 or 4 asking for dense screens while the chosen library ships a spacious one is a real conflict — name it and ask which side gives way. Stock plus a density requirement is the one combination that cannot hold, and it fails silently as a pile of overrides months later.
+3. **Changing your mind later is `design-rework`, not an edit.** One override added quietly is how a stock app becomes an app with no design system at all.
+
+Steps 1 and 3 do not run, and neither do the four styling-file rules in Step 4 — there is no theme to write and nothing to translate. Read `references/library-rubric.md` for question 12, skip the rest. Steps 5 through 8 run unchanged: the install block is still approved, and the reference page is still built, because it is the only way the user sees what "as it ships" looks like before twenty screens exist.
+
+**Section 5 is still written, and never as `[needs verification]`.** It records the decision that no decision was made:
+
+```
+## 5. Design System
+
+Visual direction: the defaults of <library> <version>, adopted unmodified.
+
+- No theme file, no custom token, no palette belonging to this app.
+- No component override. There is no rule in this section for one to cite,
+  so every override is a finding — see `ui-build`, Library defaults.
+- Icons: <the bundled pack, or the pack chosen in question 13>. One family.
+- Changing any of this is `design-rework`, not an edit to this section.
+```
+
+That shape carries the whole mode. `ui-build` gates on Section 5 being *written*, and lets an override through only when a line here demands it — so a stock Section 5 passes the gate and refuses every override at once, with no new rule anywhere. A stock app left on `[needs verification]` gets the opposite: the gate blocks every page, and the user is stopped by a decision they already made.
 
 Derived decisions are **never silent, in either mode.** Every decision not asked is reported on one line with its basis:
 

@@ -80,6 +80,16 @@ Color and spacing are the exception: their roles, values, and usage rules are wr
 
 Sub-sections: Visual Direction (2–3 sentences + what is deliberately not used) · Typography (number of steps + what each is for; color is not a hierarchy tool) · Spacing (base unit + permitted values) · Breakpoints & Density (including the lower bound that is not supported) · Page Composition · Color (role · value · usage rule; minimum contrast 4.5:1 for text, 3:1 for non-text; color is never the only status marker) · Reusable Components (rules, not a list) · Anti-patterns.
 
+### One exception: an app that adopts its library whole
+
+`design-init` offers a **stock** mode, where the component library's own defaults are the design system and the app never gets a palette, a theme file, or a token of its own. The sub-sections above then have nothing to hold — there is no spacing scale to write down, because the one in use is the library's.
+
+Section 5 is still written, and still normative. It shrinks to the decision itself: the library and version adopted, the icon family, and the three prohibitions that follow — no theme file, no custom token, no override. `design-init` holds the exact shape.
+
+Two things do not change. It is **never `[needs verification]`**: the decision was made, and marking it pending stops `ui-build` on a question the user already answered. And it is **not a weaker Section 5** — stating no rule that an override could cite, it refuses overrides more completely than a filled one does.
+
+Everything else on this page still binds, including that changing it later is the user's decision and never an agent's.
+
 ## Section 6 — Prohibitions
 
 Things **deliberately** not done or not to be changed, which without this note a later session would "fix" in good faith. That is all it holds — not a list of decisions, not a history.

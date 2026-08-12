@@ -77,6 +77,8 @@ The **Component library**, **Repeated labels**, and **Supporting text** rows exi
 
 **Token health** needs the library's own slot list, read from the installed package rather than remembered. Three numbers: tokens defined but never read, roles sharing one value, and semantic slots the theme file left unmapped. An unmapped slot means the app has been carrying a palette nobody chose, and it surfaces nowhere else in this block.
 
+**An app on a stock Section 5 is the exception**, and Section 5 is read before this row is computed. A repo whose Section 5 adopts the library defaults unmodified has no theme file on purpose: report the row as `n/a — stock` and count no unmapped slots. Every slot there is unmapped by design, and reporting them as findings would push the user to write the very theme file that stock mode exists to refuse. The `Unbacked overrides` row runs the opposite way on the same repo — with no rule in Section 5 for an override to cite, every override counted is unbacked, and that number is the whole reason to audit a stock app.
+
 A deviation from Section 5 is a **finding**, not a reason to change Section 5. Some of it may need fixing without any redesign at all — offer that as the cheaper path when the audit shows the problem is deviation, not direction.
 
 **Section 5 is audited too, not only the code.** Two roles named separately at the same value are one decision written twice, and every later session has to guess which one applies here. That is a finding against the PRD rather than against the code, and merging them is repair work: it changes no visual direction, so it needs no overhaul.
