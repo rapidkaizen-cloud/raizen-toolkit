@@ -253,6 +253,29 @@ Loading, empty, and failed states are not follow-up work — `ui-build` already 
 
 **Write this chain as a visible todo list the moment the page starts**, one entry per step of this batch's chain, plus one entry per spread page that passed the test in Section 1. Required, not optional: this is what lets the user see the next step at any moment without asking. The todo list dies with the session, so anything unfinished **must land as a `QUEUE.md` line** before the session closes.
 
+### The audit, offered once — never page by page
+
+Once the last page of the session has been walked, and **before anything is committed**, offer the audit: one question, covering every page this session built or changed.
+
+**Once per session, not once per page.** A question repeated after each page is answered *no* by reflex, and an audit nobody ever accepts is worse than none — it reads as a safeguard while doing nothing.
+
+**Offered, never imposed.** Declining is not one of the Section 6 stops, needs no reason, and changes nothing else about how the session closes.
+
+Accepted, it runs over this session's diff only:
+
+| Pass | What it looks for |
+|---|---|
+| Accessibility | contrast, visible focus, keyboard reachability, touch target size, every control paired with a label, images given alternatives |
+| Interaction polish | hover, active, focus, disabled and empty states present; hit area no smaller than the control it belongs to; spacing and radius matching the reference page |
+| Click path | per handler — does the final state match what the control's label promises, and does any later call undo what an earlier one just did |
+| Screenshot | re-shoot the `bulk` case at the two Section 4 widths **after** the fixes, and judge the result rather than the intention |
+
+Where the session has skills covering these — `accessibility`, `make-interfaces-feel-better`, `click-path-audit` in the `ecc` plugin — use them. Where it does not, the four rows above are the whole checklist. The audit never depends on a plugin being installed.
+
+The Click path row needs wired handlers, so it is empty in a UI batch running on fixtures. The other three run in both batches.
+
+**A finding fixable inside the pages this session built is fixed now**, before the commit — which is the reason the audit runs before it rather than after. Everything else becomes a `QUEUE.md` line. No browser tooling in the session → the same rule as the walk above: say so and judge the widths live at the dev server. The audit produces no document.
+
 ## 6 — Do not stop; the list of legitimate stops is closed
 
 Three, and the list is **closed**:
