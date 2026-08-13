@@ -33,7 +33,7 @@ Reply language is not set here — it follows whichever language the user writes
 | Environments | {{ENVIRONMENTS}} |
 | Migrations | {{MIGRATIONS}} |
 
-**This app's** stack is locked. The choices are not uniform across apps — they were either assembled from this app's needs when `/app-init` ran, or read from the repo as it already stood when `/app-recover` ran. What is locked is the outcome, not the menu, and a stack that was read rather than chosen is no less locked for it.
+**This app's** stack is locked. The choices are not uniform across apps — they were either assembled from this app's needs when `/app-init` ran, or read from the repo as it already stood when `/app-rework` ran in document mode. What is locked is the outcome, not the menu, and a stack that was read rather than chosen is no less locked for it. The one sanctioned way to re-open it is `/app-rework` in rework mode — never a mid-session choice.
 
 Do not add a library or dependency without the user's approval in this session.
 

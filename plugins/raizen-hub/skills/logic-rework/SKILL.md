@@ -11,7 +11,7 @@ description: Rework the logic layer of an app that already runs — server-state
 
 **Started by the user, never by you.** An audit finding is a report, not a licence. `logic-build` may raise one surfaced need mid-session; this whole skill opens only when the user asks for it.
 
-`PRD.md` is an **absolute precondition**. Missing → STOP, point to `app-recover`.
+`PRD.md` is an **absolute precondition**. Missing → STOP, point to `app-rework`.
 
 **Keeping everything is a valid ending, not a failure.** Every answer *keep* closes this skill with nothing installed, nothing removed, and the PRD unchanged. Report the audit and say so plainly; do not manufacture a change to justify the session.
 
@@ -32,7 +32,7 @@ Branch         : [name · clean or has uncommitted changes]
 Flow           : audit → score → interview (only what scores) → PRD + CLAUDE.md → install → one pass
 ```
 
-`PRD.md` missing → **STOP**, point to `app-recover`.
+`PRD.md` missing → **STOP**, point to `app-rework`.
 
 **Working tree not clean → STOP.** A replacement touches every call site at once; uncommitted changes drown among them and can no longer be separated. A clean tree is also what makes the whole pass revertible.
 

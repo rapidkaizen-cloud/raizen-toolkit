@@ -1,6 +1,6 @@
 ---
 name: design-rework
-description: Rework the visual direction of an app that already has UI. Audits what the code actually uses, decides repair or overhaul, rewrites PRD Section 5, proves it on one reference page, then updates every affected component in one pass. Use when the user wants to redesign, restyle, or overhaul the look of an existing app — whether Section 5 is already filled, or still empty because the repo arrived through `app-recover`.
+description: Rework the visual direction of an app that already has UI. Audits what the code actually uses, decides repair or overhaul, rewrites PRD Section 5, proves it on one reference page, then updates every affected component in one pass. Use when the user wants to redesign, restyle, or overhaul the look of an existing app — whether Section 5 is already filled, or still empty because the repo arrived through `app-rework`'s document mode.
 ---
 
 # design-rework — reworking the visual direction of an existing app
@@ -13,7 +13,7 @@ A `PRD.md` is an **absolute precondition**. Missing → STOP.
 
 **Section 5 is never written from existing code.** That direction — `CSS → PRD` instead of `user → PRD → CSS` — turns every accident in the stylesheet into an official norm nobody decided on. The audit produces **findings**; a finding becomes a Section 5 line only once the user ratifies it.
 
-Section 5 is normally already filled when this skill runs. One case where it is legitimately empty: a repo that arrived through `app-recover`, which writes the PRD for an app that already has UI and deliberately leaves Section 5 unwritten. Step 0 routes it and Step 2b handles it — under the same direction rule, not as an exemption from it.
+Section 5 is normally already filled when this skill runs. One case where it is legitimately empty: a repo that arrived through `app-rework`'s document mode, which writes the PRD for an app that already has UI and deliberately leaves Section 5 unwritten. Step 0 routes it and Step 2b handles it — under the same direction rule, not as an exemption from it.
 
 Section 5 changes only by **explicit user decision**, line by line. Audit results are findings, not proposed norms.
 
@@ -34,7 +34,7 @@ Path          : [rework / ratify — from the routing below]
 Flow          : audit → [repair · overhaul · ratify] → recap → one pass
 ```
 
-`PRD.md` missing → **STOP.** An app with no PRD has no prior intent to protect and nothing to read the audit against. Point to `app-recover` for a repo that already exists, `app-init` for one that does not.
+`PRD.md` missing → **STOP.** An app with no PRD has no prior intent to protect and nothing to read the audit against. Point to `app-rework` for a repo that already exists, `app-init` for one that does not.
 
 Two readings decide the path, in this order:
 
@@ -44,7 +44,7 @@ Two readings decide the path, in this order:
 | Empty or absent | none | **STOP** — nothing built, nothing to audit. This is `design-init` |
 | Empty or absent | present | **Ratify.** Step 2 is not asked; go to Step 2b |
 
-That third row is the `app-recover` case: an app whose visual direction was never decided by anyone, only accumulated. It gets the same audit as any other, and then every entry is put to the user before it becomes a norm.
+That third row is the `app-rework` document-mode case: an app whose visual direction was never decided by anyone, only accumulated. It gets the same audit as any other, and then every entry is put to the user before it becomes a norm.
 
 **Working tree not clean → STOP.** The final pass touches every UI file at once; uncommitted changes will drown among them and can no longer be separated. A clean tree is also what makes the reference page revertible with a single `git checkout`.
 

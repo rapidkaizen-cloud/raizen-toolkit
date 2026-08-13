@@ -65,7 +65,7 @@ Restart the session once you are done installing.
 | Skill | Used for |
 |---|---|
 | `ui-ux-pro-max` | The source of every option and recommendation across the 27 visual questions. Without it `design-init` can only offer self-assembled options, which it must mark as not coming from the database |
-| `raizen-hub` | The six skills themselves — `app-init`, `app-recover`, `logic-init`, `logic-rework`, `design-init`, `design-rework` |
+| `raizen-hub` | The six skills themselves — `app-init`, `app-rework`, `logic-init`, `logic-rework`, `design-init`, `design-rework` |
 
 **Recommended** — nothing errors without them:
 
@@ -113,27 +113,27 @@ Then in the next session, inside the app repo just created:
 /raizen-hub:design-init
 ```
 
-For an app that is **already running** and never came from `app-init`, the entry point is a different one — it writes the PRD the repo never had, then hands over to the two rework skills:
+For an app that is **already running**, the entry point is `app-rework`, which runs in one of two modes. No `PRD.md` yet → document mode: it writes the PRD the repo never had and changes nothing about the app. `PRD.md` present → rework mode: it re-opens the app-level decisions — business rules, scope, stack — with keep always option one and every change carrying its cost and a recommendation. Then the two narrower rework skills follow:
 
 ```
-/raizen-hub:app-recover
+/raizen-hub:app-rework
 /raizen-hub:logic-rework
 /raizen-hub:design-rework
 ```
 
-To rework the look or the logic layer of an app that already has a PRD, the last two are run on their own.
+To rework only the look or the logic layer of an app that already has a PRD, the last two are run on their own.
 
 | Skill | Precondition | Produces |
 |---|---|---|
 | `app-init` | Empty directory | `PRD.md` with an empty Section 5, scaffold, `git init` |
-| `app-recover` | Application code present, **no** `PRD.md` | `PRD.md` with Section 5 **absent**, `CLAUDE.md`, norms enabled. Changes nothing about the app |
+| `app-rework` | Application code present. No `PRD.md` → document mode; present → rework mode | Document mode: `PRD.md` with Section 5 **absent**, `CLAUDE.md`, norms enabled — changes nothing about the app. Rework mode: Sections 1–4 and 6 re-decided keep-first, execution handed to build sessions |
 | `logic-init` | `PRD.md` present, logic layer never decided | Section 1 records cache, validator, dates, errors, jobs, attribution — often installing nothing |
 | `logic-rework` | `PRD.md` present, app already running | Audit of what is installed, then keep / adopt / replace per need, migrated in one pass |
 | `design-init` | Section 5 empty **and** no component exists | Section 5 filled, styling tokens, one working reference page |
 | `design-rework` | Section 5 filled, **or** empty while components exist | Section 5 changed or ratified line by line, plus every component updated in one pass |
 | `build-flow` | Section 5 filled | `QUEUE.md` on first run, then usable pages — a UI batch built against contracts first, wired in a backend batch after |
 
-The two columns that matter are on the `design-init` and `design-rework` rows. An app with components but no Section 5 — which is exactly what `app-recover` hands over — belongs to `design-rework`, not `design-init`: its values are measured and put to the user for ratification rather than overwritten by an interview that has never seen them.
+The two columns that matter are on the `design-init` and `design-rework` rows. An app with components but no Section 5 — which is exactly what `app-rework`'s document mode hands over — belongs to `design-rework`, not `design-init`: its values are measured and put to the user for ratification rather than overwritten by an interview that has never seen them.
 
 `build-flow` is the only one with no command to type — it lives in `raizen-norms` and loads in every working session, which is the point: the build order has to be known before anyone thinks to ask for it.
 

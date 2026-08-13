@@ -5,7 +5,7 @@
     {
       "name": "raizen-hub",
       "source": "./plugins/raizen-hub",
-      "description": "Bootstrap a new internal app or recover the PRD of one already running, decide its logic layer, set its visual direction, and rework either: app-init, app-recover, logic-init, logic-rework, design-init, design-rework."
+      "description": "Bootstrap a new internal app, decide its logic layer, set its visual direction — and rework any of the three on an app already running: app-init, app-rework, logic-init, logic-rework, design-init, design-rework."
     },
     {
       "name": "raizen-norms",
