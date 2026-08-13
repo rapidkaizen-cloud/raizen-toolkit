@@ -34,7 +34,9 @@ Flow           : audit → score → interview (only what scores) → PRD + CLAU
 
 `PRD.md` missing → **STOP**, point to `app-rework`.
 
-**Working tree not clean → STOP.** A replacement touches every call site at once; uncommitted changes drown among them and can no longer be separated. A clean tree is also what makes the whole pass revertible.
+**Working tree not clean → say it and carry on.** Name the dirty paths in one line, and say that committing or stashing them first is what keeps this session's diff separable — a replacement touches every call site at once, and uncommitted changes drown among them. Advice, not a gate: the user decides, and a refusal here would block a session over paths the pass may never touch.
+
+Where a dirty path is also a call site the pass will rewrite, name it again at Step 6 rather than only here. That is the one case where the two diffs genuinely cannot be told apart afterwards, and by then the pass has touched it.
 
 Branch `main` → **STOP.** The git guard will refuse it, and that refusal is correct.
 

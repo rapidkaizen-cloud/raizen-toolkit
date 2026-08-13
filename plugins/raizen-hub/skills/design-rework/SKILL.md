@@ -46,7 +46,9 @@ Two readings decide the path, in this order:
 
 That third row is the `app-rework` document-mode case: an app whose visual direction was never decided by anyone, only accumulated. It gets the same audit as any other, and then every entry is put to the user before it becomes a norm.
 
-**Working tree not clean → STOP.** The final pass touches every UI file at once; uncommitted changes will drown among them and can no longer be separated. A clean tree is also what makes the reference page revertible with a single `git checkout`.
+**Working tree not clean → say it and carry on.** Name the dirty paths in one line, and say that committing or stashing them first is what keeps this session's diff separable — the final pass touches every UI file at once, and uncommitted changes drown among them. Advice, not a gate: the user decides, and a refusal here would block a session over paths the pass may never touch.
+
+What it does change is Step 6. A file that was already dirty cannot be reverted with `git checkout`, because that throws the user's work away along with this skill's — carry the dirty list from here to there.
 
 Branch `main` → STOP. The git guard will refuse it, and that refusal is correct.
 
@@ -199,7 +201,10 @@ Install nothing outside that block. Something extra turns out to be needed → a
 
 This step exists because an overhaul is otherwise decided from a diff of text lines and then executed across every file at once. A layout that reads correctly as a rule can still collapse as a screen, and the only cheap moment to discover that is before the other files move.
 
-The page is built **in place**. The working tree was clean at Step 0, so `git checkout -- <file>` is the entire revert mechanism; do not create a branch for it.
+The page is built **in place**; do not create a branch for it. How it is reverted depends on what Step 0 read of this particular file:
+
+- **It was clean** → `git checkout -- <file>` is the entire mechanism.
+- **It already carried uncommitted changes** → that checkout would delete the user's work together with this skill's, and nothing brings it back. Undo the edits by hand instead, and say which file that applied to.
 
 Show it at desktop width and at the lower bound from question 17, then **STOP** and wait for judgement. Three endings:
 
@@ -207,7 +212,7 @@ Show it at desktop width and at the lower bound from question 17, then **STOP** 
 |---|---|
 | **Approve** | Step 7 continues with the remaining files |
 | **Rework** | The same page is rebuilt from the new tokens rather than patched. Two rounds at most |
-| **Revert** | The file is checked out, Section 5 goes back to its old values, nothing else was touched. The session closes at Step 10 |
+| **Revert** | The file goes back to its Step 0 state, by whichever of the two routes above applies to it. Section 5 goes back to its old values, nothing else was touched. The session closes at Step 10 |
 
 A second rework → **STOP, reopen Section 5** — fast rises to full, full re-asks decisions 1–5, exactly as `design-init` does. Missing once means the layout was off; missing twice means the visual direction was off, and rebuilding the same page a third time will not fix that.
 
