@@ -46,6 +46,16 @@ def demo() -> None:
 
     # the Bash route (field `command`, shared with guard_git.py) stays closed
     assert run("Bash", {"command": 'psql -c "TRUNCATE foo;"'}) == 2
+    # the PowerShell route carries the same `command` field and the same guard
+    assert run("PowerShell", {"command": 'psql -c "TRUNCATE foo;"'}) == 2
+
+    # shell vocabulary is not SQL: `update` without SET, coreutils truncate -> pass
+    assert run("Bash", {"command": 'claude plugin update "raizen-hub@raizen"'}) == 0
+    assert run("Bash", {"command": "sudo apt update && sudo apt upgrade -y"}) == 0
+    assert run("Bash", {"command": "truncate -s 0 logs/app.log"}) == 0
+    assert run("PowerShell", {"command": "claude plugin update raizen-norms@raizen"}) == 0
+    # but SQL arriving through a shell still blocks
+    assert run("Bash", {"command": 'psql -c "UPDATE users SET active = false;"'}) == 2
 
     # false positives: UPDATE with a narrow WHERE, SELECT, CREATE TABLE -> pass
     assert run("mcp__supabase__execute_sql", {"query": "UPDATE users SET active = true WHERE id = 3;"}) == 0

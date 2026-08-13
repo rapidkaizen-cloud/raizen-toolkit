@@ -34,7 +34,10 @@ GATE_OFF_MARKER = os.path.join(".claude", "destructive-gate.off")
 
 DESTRUCTIVE = [
     (r"\bDROP\s+(TABLE|COLUMN|SCHEMA|TYPE|FUNCTION|POLICY|INDEX|VIEW)\b", "DROP"),
-    (r"\bTRUNCATE\b", "TRUNCATE"),
+    # `TRUNCATE` followed by an identifier (optionally TABLE/ONLY) is SQL; coreutils
+    # `truncate -s 0 file` is followed by a flag and must pass. Residual ceiling:
+    # `truncate file -s 0` still matches — rare enough to accept.
+    (r"\bTRUNCATE\s+(TABLE\s+|ONLY\s+)?[\"A-Za-z_]", "TRUNCATE"),
     (r"\bDELETE\s+FROM\b", "DELETE"),
     (r"\bALTER\s+TABLE\b.*\bDROP\s+COLUMN\b", "ALTER ... DROP COLUMN"),
     (r"\bALTER\s+TABLE\b.*\bRENAME\b", "RENAME"),
@@ -146,9 +149,16 @@ def claude_test_delete(stmt: str) -> bool:
 
 
 def bare_update(stmt: str) -> bool:
-    """UPDATE without a WHERE, or with a WHERE that is always true."""
+    """UPDATE without a WHERE, or with a WHERE that is always true.
+
+    Only a real SQL UPDATE counts, and SQL requires SET: without it the word is
+    shell vocabulary (`claude plugin update`, `apt update`) and must pass. Nothing
+    is lost by requiring SET — an UPDATE without SET is invalid SQL and destroys
+    nothing."""
     for m in re.finditer(r"\bUPDATE\b(.*?)(;|$)", stmt, flags=re.S | re.I):
         body = strip_parens(m.group(1))
+        if not re.search(r"\bSET\b", body, flags=re.I):
+            continue
         if not re.search(r"\bWHERE\b", body, flags=re.I):
             return True
         if re.search(r"\bWHERE\s+(true|1\s*=\s*1)\b", body, flags=re.I):
