@@ -1,6 +1,6 @@
 ---
 name: design-rework
-description: Rework the visual direction of an app that already has UI. Audits what the code actually uses, decides repair or overhaul, rewrites PRD Section 5, proves it on one reference page, then updates every affected component in one pass. Use when the user wants to redesign, restyle, or overhaul the look of an existing app — whether Section 5 is already filled, or still empty because the repo arrived through `app-rework`'s document mode.
+description: Rework the visual direction of an app that already has UI. Audits what the code actually uses, decides repair or overhaul, rewrites PRD Section 5, proves it on one reference page, then rebuilds every affected page — archetype shells included — in one pass. Use when the user wants to redesign, restyle, or overhaul the look of an existing app — whether Section 5 is already filled, or still empty because the repo arrived through `app-rework`'s document mode.
 ---
 
 # design-rework — reworking the visual direction of an existing app
@@ -73,6 +73,8 @@ Components affected : [file count that will be touched if tokens change]
 
 That last number matters most — it decides the size of the final pass, and the user is entitled to see it before deciding anything.
 
+**While walking the pages, screenshot one page per archetype at desktop width.** Step 9 compares the finished pass against these; without a before, "it looks redesigned" is an assertion nobody can check.
+
 The **Component library**, **Repeated labels**, and **Supporting text** rows exist because questions 12, 28, and 29 build their options from measured numbers rather than from a database. Measuring them here means the interview never stops to go looking.
 
 **Unbacked overrides** are counted against the `Library defaults` rule in `ui-build`: a component prop, a provider option, or a theme value departing from what the library ships, with no Section 5 line requiring it. They hide from the *stray raw values* row — a `size` or a `variant` is neither a hex nor a spacing — and they are usually the larger of the two numbers. An audit that skips them reports a clean app and sends the user to *repair* with nothing to repair.
@@ -89,6 +91,8 @@ A deviation from Section 5 is a **finding**, not a reason to change Section 5. S
 
 Do not report it as a deviation, and do not fill it. Hand it to `build-flow` Section 4, which derives candidate content from PRD Sections 2 and 3 and puts it to the user as a proposal — bound items as a statement, optional ones pre-selected to be cut. Name which pages were handed over, and carry on with the audit.
 
+**What is out of scope is the content, not the layout.** In an overhaul the page is not exempt from the pass: its shell and arrangement are rebuilt to its archetype like every other page, using only the content it already has. What stays with `build-flow` is deciding what *else* the page should hold.
+
 **Section 5 without an archetype table is itself a finding** — apps older than the archetype rule have one shell decision and nothing about what pages hold. Derive the table from the routes that exist (grouped as question 18 describes, usually 4–7 archetypes), and present it for ratification the way Step 2b presents measured values: ratify or correct, never adopt silently. A ratified table enters Section 5 at repair scale — it records what the pages already are, no visual direction changes — and every page falling far short of its archetype goes to `build-flow` Section 4 through the hand-over above, one `QUEUE.md` line each. Where the app has no `/styleguide` route, offer generating one as `design-init` Step 6 specifies; the user decides.
 
 ## Step 2 — Repair or overhaul
@@ -100,13 +104,15 @@ One question, two options, with a recommendation:
 | Choice | What changes | Questions asked | Components touched |
 |---|---|---|---|
 | **Repair** | Zero new norms — only bringing code back in line with the existing Section 5 | None | Only the deviating ones |
-| **Overhaul** | All of Section 5 is reopened | 13–15 asked, the rest derived (see `interview.md`) | One reference page, then the rest |
+| **Overhaul** | All of Section 5 is reopened, archetype shells included — the app looks redesigned afterwards, not retuned | 13–15 asked, the rest derived (see `interview.md`) | One reference page, then the rest |
 
 There is no third option that narrows the scope, because **every question carries a *keep* option** (see Step 3). Answering *keep* to the parts you do not want touched is what narrowing looks like here — scope is narrowed by answers, not by a mode chosen before the user has seen a single question.
 
 **Recommendation:** repair, when the audit shows Section 5 is actually still right and the code is what strayed. Reworking a norm that was never followed solves nothing — it just produces a second norm that is also not followed.
 
 **Consequence:** quote the affected-component count from the audit, and state that overhaul includes question 12, the component library. Answering that one with anything but *keep* rewrites every component whatever the tokens say, and revokes the stack lock recorded in `CLAUDE.md`.
+
+**State also what overhaul promises: the app looks different afterwards.** Name the pages the audit handed to `build-flow` — their shells will be rebuilt like every other page, but how much they *read* differently is capped until their content proposal lands, and the user hears that before choosing, not after the pass.
 
 Repair → jump to Step 7. Section 5 is not touched, with one exception: two roles the audit found at the same value may be merged, because that removes a duplicate rather than adding a norm. The merge is still an explicit user decision, approved line by line like any other Section 5 change.
 
@@ -146,11 +152,13 @@ Read `interview.md`, `adaptation.md`, and `anti-pattern.md` in the `references/`
 
 **The order in `interview.md` is followed exactly.** No question is promoted to the front because its consequence is large, and none is deferred because its answer looks settled. A skill that reorders them produces a different interview from `design-init` for the same app, and the two stop being comparable.
 
-Four differences from `design-init`:
+Five differences from `design-init`:
 
 **Every question carries a *keep* option, written first.** Labelled `Keep — <the value in Section 5 today>`, and it does not count toward the "more than two options" requirement. A value that is only a recommendation is a suggestion; a value written as an option is a choice. Answering *keep* throughout ends the session with the PRD unchanged.
 
-**The old answers are also the starting recommendations.** The current Section 5 was already decided by the user once; treat it as the point of departure, not as a blank page. A recommendation that departs from it must say what changed to justify the departure. Derived decisions follow the same rule: their reported line defaults to the current Section 5 value, and a derivation that departs from it must name what changed.
+**Keep stays an option, but it stops being the recommendation.** The user chose overhaul, and that choice already says the current sum is wrong — recommending every current value back re-litigates it, and an overhaul answered by its recommendations then changes nothing. For the look-bearing entries — palette, type, radius, density, shell — the recommendation is a real departure, anchored in the question 2 answer, and it names what it departs from. Question 12 is the one exception: its recommendation stays *keep* unless the audit indicts the library itself, because answering it otherwise rewrites every component for reasons of cost, not of look. Derived decisions derive from the new answers, not from the old Section 5.
+
+**The archetype table is reopened with everything else.** Under the new direction, run the question 18 derivation again and present each archetype old shell beside new for ratification, the way Step 4 diffs a token. This is where an overhaul stops being a repaint: the rooms move, not only the walls. A user who ratifies every shell as it was is told plainly that the pages will read similar afterwards.
 
 **Question 2 is mandatory** — the app or site that feels right. A redesign always has a reference in the user's head, and drawing it out early cuts rounds at the reference page.
 
@@ -195,9 +203,11 @@ Wait for approval. Refused → hand over the commands for the user to run, then 
 
 Install nothing outside that block. Something extra turns out to be needed → ask again, do not slip it in.
 
-## Step 6 — Reference page — Overhaul only
+## Step 6 — Styleguide first, then the reference page — Overhaul only
 
-**One page, before all the others.** The most data-dense page belonging to the primary role, rebuilt from the new tokens. Not a picture, not a description, and not a new page — the real one, running.
+**The styleguide route comes first, here too.** Write the new tokens to the styling files, then bring `/styleguide` to `design-init` Step 6's spec under the new direction — the route imports production tokens, so most of it follows the theme files by itself; what is updated by hand is the archetype cards to the ratified shells and any component the new direction adds. The user corrects the visual language here, while a correction is one token rather than a rebuilt page. No `/styleguide` route yet → generate it now, same spec.
+
+**One page, before all the others.** The most data-dense page belonging to the primary role, rebuilt from the new tokens **and to its archetype's new shell** — not re-tokened inside its old layout. The reference proves the layout decision as much as the palette. Not a picture, not a description, and not a new page — the real one, running.
 
 This step exists because an overhaul is otherwise decided from a diff of text lines and then executed across every file at once. A layout that reads correctly as a rule can still collapse as a screen, and the only cheap moment to discover that is before the other files move.
 
@@ -212,7 +222,7 @@ Show it at desktop width and at the lower bound from question 17, then **STOP** 
 |---|---|
 | **Approve** | Step 7 continues with the remaining files |
 | **Rework** | The same page is rebuilt from the new tokens rather than patched. Two rounds at most |
-| **Revert** | The file goes back to its Step 0 state, by whichever of the two routes above applies to it. Section 5 goes back to its old values, nothing else was touched. The session closes at Step 10 |
+| **Revert** | The reference page, the styling files, and the `/styleguide` route go back to their Step 0 state, each by whichever of the two routes above applies to it. Section 5 goes back to its old values, nothing else was touched. The session closes at Step 10 |
 
 A second rework → **STOP, reopen Section 5** — fast rises to full, full re-asks decisions 1–5, exactly as `design-init` does. Missing once means the layout was off; missing twice means the visual direction was off, and rebuilding the same page a third time will not fix that.
 
@@ -245,7 +255,7 @@ Then **STOP** and wait for approval **per item**. A rejected item is not silentl
 
 A file that should have been listed and is not is a finding, not good news. Report `UNTOUCHED` explicitly rather than letting silence stand for it.
 
-**Pages handed to `build-flow` at Step 1 do not appear here.** Their content was never decided, so there is nothing in this pass to change — including them would mean this skill deciding what belongs on a screen. They are named once, separately from the list above, as work waiting on the user.
+**Pages handed to `build-flow` at Step 1 appear here for their shell only.** The overhaul rebuilds their arrangement like any page's, but adds no content — deciding what belongs on a screen stays with the user. Their content proposal is still named separately, as work waiting on the user; in a repair they do not appear at all.
 
 ## Step 8 — Rework in one pass
 
@@ -254,11 +264,14 @@ A file that should have been listed and is not is a finding, not good news. Repo
 The order cannot be reversed:
 
 1. **Tokens first.** The styling files are updated to the new values. Old tokens are **deleted**, not marked deprecated — a deprecated token that still works will still get used.
-2. **Then components**, all of them, until zero raw values remain and every surviving override can name the Section 5 line behind it. An override with no line goes back to the library default in this same pass; it is not carried forward as a finding to fix later.
-3. **Then assets** locked to the old colors: inline SVG, favicon, images carrying brand color.
-4. **Then the old library is removed**, if question 12 changed it.
+2. **Then shells.** Every page whose archetype shell changed is rebuilt to the new shell, rearranging the content it already has — never inventing what it lacks; that stays with `build-flow`. A pass that re-tokens twenty pages inside their old layouts has repainted the app, not redesigned it.
+3. **Then components**, all of them, until zero raw values remain and every surviving override can name the Section 5 line behind it. An override with no line goes back to the library default in this same pass; it is not carried forward as a finding to fix later.
+4. **Then assets** locked to the old colors: inline SVG, favicon, images carrying brand color.
+5. **Then the old library is removed**, if question 12 changed it.
 
 The four styling-file rules in `design-init` Step 4 bind here too: every semantic slot the component library exposes is mapped, a token nothing reads is not written, two roles with the same value collapse into one, and both theme files are written in the same edit. A rework that leaves a slot unmapped hands the app back carrying a neutral palette nobody chose.
+
+**The `/styleguide` route is part of the pass.** When the pass ends it matches the app it describes: archetype cards show the ratified shells, every component the pass created or reshaped renders there, and the Reference section embeds the approved reference page — held to `design-init` Step 6's done-check.
 
 Report per file, matching the Step 7 recap line for line, so the two can be read against each other.
 
@@ -266,7 +279,7 @@ Do not slip in unrelated fixes. A redesign that also tidies logic produces a dif
 
 ## Step 9 — Verification, mandatory
 
-Six, all of them before reporting done:
+Seven, all of them before reporting done:
 
 - **The build passes.** It does not → stop, fix it, do not report done.
 - **Zero raw values remain.** Search again for hex, font sizes, and raw spacing across every component. Anything left is unfinished work, not an exception.
@@ -274,12 +287,13 @@ Six, all of them before reporting done:
 - **Contrast still passes** the Section 5 target, for every new color pair.
 - **The recap matched.** Every file listed at Step 7 changed, and no file outside that list did.
 - **The densest page is opened and looked at**, at desktop and at the lower bound. Correct tokens do not guarantee an intact layout.
+- **Every archetype reads redesigned** — overhaul only. Compare one page per archetype against its Step 1 screenshot, side by side. A page that reads unchanged is a failed item of the pass to fix now — unless every entry behind it was answered *keep*, and the recap already said so.
 
 Any of them fails → fix it in the same session. A half-finished rework is worse than none: the app still runs, so nobody knows it is broken.
 
 ## Step 10 — Close
 
-One block: the Section 5 lines that changed · files touched with their count · files `UNTOUCHED` · items the user rejected, still standing as findings · the reference page outcome and how many rework rounds it took · the five verification results · what is still `[needs verification]`.
+One block: the Section 5 lines that changed · files touched with their count · files `UNTOUCHED` · items the user rejected, still standing as findings · the reference page outcome and how many rework rounds it took · the seven verification results · what is still `[needs verification]`.
 
 Nothing changed — every answer was *keep*, or the reference page was reverted → say that in one line and list the audit findings that remain. A session that changes nothing has still produced the audit, and that is worth writing down.
 

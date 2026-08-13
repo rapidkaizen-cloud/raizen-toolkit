@@ -216,6 +216,15 @@ Sections, in order — each rendered from what Steps 2–4 actually decided, not
 
 Realistic sample data, the same standard the reference page holds below. `ui-build` binds this route like any page.
 
+**Done is measured against the table above, not against the page looking full.** The observed failure is always the same sampler: one input rendered in one state, archetype cards reduced to a route plus a sentence, the Reference section silently absent — and it reads as finished. Before reporting this route, check each row:
+
+- **Foundations** — every semantic token the styling files define appears on the page, and the density profile table shows its numbers rather than a summary sentence.
+- **Components** — the checklist is written first, not recalled: every component an archetype card names, plus every form control the app's flows use. Each entry renders with its variants and states — inputs show default, focus, disabled, and error; buttons show hover, focus, disabled, and loading. A component that lives mid-flow — a stepper, a tab set, a dialog, an upload dropzone — renders here in a static frame; "needs a flow to show" is not a reason to skip it.
+- **Archetypes** — every card carries all three parts: shell sketch, component list, routes. A route with one describing sentence is not a card.
+- **Reference** — embedded at both widths once the reference page exists; until it exists the section says *pending*, so its absence reads as unfinished rather than as done.
+
+When reporting the route, include the mapping **archetype → components it names → where each renders on this page**. A named component with no render is work to finish in this session, not a gap to note. The one legitimate absence is a component no archetype and no flow uses — stated, with that reason.
+
 ### The reference page
 
 **One page: the most data-dense one belonging to the primary role.** That is where density, tables, and text hierarchy are all tested at once — the three things that decide how an internal app feels. A login page tests nothing.
