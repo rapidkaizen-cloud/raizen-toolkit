@@ -174,6 +174,14 @@ Below that, one batch and full-stack per page. A single UI-only page dropped int
 
 This step runs for **any page entering the queue**, new or long since built. A page that already exists brings more to work with, not less: what it shows now is on screen, so the proposal takes the shape of *what is missing from this page* rather than a list assembled from nothing.
 
+### The proposal opens by naming the archetype
+
+PRD Section 5's Page Composition holds the screen archetype table. **The page being proposed names which archetype it belongs to**, and that archetype's shell layout, components, and density profile are the skeleton the two lists below hang on. This is what makes a bare page impossible to propose by accident: the archetype already carries the filter bar, the summary row, or the stepper before a single optional item is weighed.
+
+**No archetype fits → that is the first of the bundled questions below**, put to the user in the same single turn: either a new archetype enters Section 5 — a user decision, like any Section 5 change — or the page is reshaped to fit an existing one. A bespoke layout invented silently is how the archetype table dies one page at a time.
+
+**Section 5 has no archetype table** (the app predates the rule) → the proposal still runs on the two derived lists alone, and the missing table is reported as a finding pointing at `design-rework`, which retrofits it.
+
 ### The two lists are derived, never invented
 
 **Bound** — taken from PRD Sections 2 and 3, and not a choice. Presented as a statement, not a checkbox.
@@ -186,7 +194,7 @@ Unchecking one of these means changing the PRD. That is a separate decision and 
 
 Pre-selected is the whole point of the step. The old bias builds the minimum that passes; this one proposes the full page and lets the user cut it down. Thin pages are born of the first bias, and no later check recovers what was never proposed.
 
-Where the PRD runs out, optional candidates come from the product-type database `design-init` already queries live. Same source, no new one.
+Where the PRD runs out, optional candidates come first from the components of the page's archetype in Section 5, then from the product-type database `design-init` already queries live. Same sources the app was designed from, no new one.
 
 **Both lists coming out short is an answer, not a problem.** Login screens and small settings pages are legitimately quiet, and padding them is worse than leaving them alone. The lists are derived, so a sparse page produces sparse lists by itself — no separate judgement about whether emptiness is acceptable, and none invented on the user's behalf.
 
@@ -194,9 +202,11 @@ Where the PRD runs out, optional candidates come from the product-type database 
 
 The reference page `design-init` built is the bar. It was deliberately built rich — summary cards, filters, badges — because a bare table proves nothing about density. Every later page is judged against it, and a page far emptier than it is a page to go back to, not a new norm.
 
+**The tested widths are fixed by Section 5, not chosen per session:** the desktop breakpoint it names — 1440px when it names none — and the supported lower bound. A width picked ad hoc lets a narrow window pass a page that dies on the screens people actually use.
+
 Two questions decide, and both have answers:
 
-> With the `bulk` fixture, at the widest tested width: is there dead space taller than one table row carrying nothing?
+> With the `bulk` fixture, at the desktop width: is there dead space taller than one table row carrying nothing?
 
 > Once this role has finished reading this page, what do they ask next — and is the answer here, or does it force a navigation?
 
@@ -224,11 +234,14 @@ Two chains, one per batch. The backend one extends the chain already fixed by `d
 UI batch
   contract → fixtures, six cases → page + loading, empty, failed states
     → walk all six cases in a browser
+    → screenshot the bulk case at both Section 4 widths, judged beside the reference page
 
 Backend batch
   PRD rules → migration + RLS → role test → regenerate types
     → query returning the contract type → wire the page → walk the flow in a browser
 ```
+
+**The walk ends with proof, not recall.** Screenshot the `bulk` case at the two widths Section 4 fixes, with the browser tooling available to the session, and put the desktop shot beside the reference page at the same width — the density questions in Section 4 are answered from those screenshots, never from memory of how the page looked while building it. Dead space taller than one table row at the desktop width → fix the page in this session; it is not a finding to record and move past. No browser tooling in the session → say so and walk the widths live at the dev server instead — the one thing forbidden is claiming the widths were judged when neither happened.
 
 Backend first **inside one page**, never backend first across the whole app. Splitting the batches does not contradict that: a UI batch has no backend to put anywhere, and a backend batch still builds each page's backend before its wiring.
 

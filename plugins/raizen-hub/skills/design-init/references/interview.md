@@ -205,6 +205,8 @@ Shadow in use → tint it toward the background hue, never pure black.
 
 → Fills the `--density` dial.
 
+**Two profiles when the roles split.** PRD Section 2 naming both a desk role and a field or phone role → density is written as **two named profiles with numbers**, not one adjective: control height, table row height, base font size, minimum touch target, and layout columns, per profile. The desk profile follows the level chosen above; the phone profile carries ≥44px touch targets and a single column. Derived from the role split and reported, not asked — one role at a desk all day means one profile and this rule stays silent.
+
 ### 17. Lowest supported screen width · PRD
 
 **Options:** 360px · 768px · 1024px · 1280px
@@ -222,6 +224,8 @@ Shadow in use → tint it toward the background hue, never pure black.
 **Consequence:** a sidebar absorbs a growing menu without being redesigned, and collapses when the user needs full width for a table — two things a top bar cannot do.
 
 → Also feeds the `--variance` dial.
+
+**The archetype table, derived after the shell is chosen.** Group every page of PRD Sections 2 and 3 into **screen archetypes** — usually 4–7 (auth, dashboard, data table, form, wizard, detail/approval are the recurring ones). Per archetype one row: shell layout in one sentence, the components it is built from, its density profile, its empty/loading wording, and the routes it owns. Every route lands in exactly one archetype. Derived and shown once as a table for the user to correct, exactly like a fast-mode report — never asked page by page. A page fitting no archetype is put to the user as its own question; it is never silently given a bespoke layout, because the table is what stops a later session from assembling that page from nothing. The ratified table is written into Section 5 under Page Composition, and `build-flow` Section 4 opens every later page proposal by naming its archetype.
 
 ### 19. Maximum content width · PRD
 

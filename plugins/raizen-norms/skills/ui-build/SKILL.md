@@ -44,6 +44,8 @@ Creating a new component → say why the existing one is not enough. **Looking s
 
 A visual pattern appearing a second time → **extract it into a component, do not copy it.** The second appearance is the trigger to extract, not permission to duplicate.
 
+Where the app has a `/styleguide` route, the extracted component is **added to it in the same turn** — that route is the one place all components are seen side by side, and a shared component missing from it is a finding.
+
 Components that came from a copy-in library (shadcn and the like) are **existing code** as far as this rule is concerned, not a dependency to be ignored.
 
 ## Icons

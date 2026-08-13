@@ -78,7 +78,7 @@ What gets written is only **rules and scale** — how many of a thing may exist,
 
 Color and spacing are the exception: their roles, values, and usage rules are written here, because contrast is a norm and not an implementation detail.
 
-Sub-sections: Visual Direction (2–3 sentences + what is deliberately not used) · Typography (number of steps + what each is for; color is not a hierarchy tool) · Spacing (base unit + permitted values) · Breakpoints & Density (including the lower bound that is not supported) · Page Composition · Color (role · value · usage rule; minimum contrast 4.5:1 for text, 3:1 for non-text; color is never the only status marker) · Reusable Components (rules, not a list) · Anti-patterns.
+Sub-sections: Visual Direction (2–3 sentences + what is deliberately not used) · Typography (number of steps + what each is for; color is not a hierarchy tool) · Spacing (base unit + permitted values) · Breakpoints & Density (including the lower bound that is not supported) · Page Composition (the shell, plus the screen archetype table: per archetype one row naming its shell layout, components, density profile, empty/loading wording, and the routes it owns — every route lands in exactly one archetype) · Color (role · value · usage rule; minimum contrast 4.5:1 for text, 3:1 for non-text; color is never the only status marker) · Reusable Components (rules, not a list) · Anti-patterns.
 
 ### One exception: an app that adopts its library whole
 

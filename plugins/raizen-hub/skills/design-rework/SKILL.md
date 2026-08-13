@@ -87,6 +87,8 @@ A deviation from Section 5 is a **finding**, not a reason to change Section 5. S
 
 Do not report it as a deviation, and do not fill it. Hand it to `build-flow` Section 4, which derives candidate content from PRD Sections 2 and 3 and puts it to the user as a proposal — bound items as a statement, optional ones pre-selected to be cut. Name which pages were handed over, and carry on with the audit.
 
+**Section 5 without an archetype table is itself a finding** — apps older than the archetype rule have one shell decision and nothing about what pages hold. Derive the table from the routes that exist (grouped as question 18 describes, usually 4–7 archetypes), and present it for ratification the way Step 2b presents measured values: ratify or correct, never adopt silently. A ratified table enters Section 5 at repair scale — it records what the pages already are, no visual direction changes — and every page falling far short of its archetype goes to `build-flow` Section 4 through the hand-over above, one `QUEUE.md` line each. Where the app has no `/styleguide` route, offer generating one as `design-init` Step 6 specifies; the user decides.
+
 ## Step 2 — Repair or overhaul
 
 **Ratify path → this step is not asked.** There is no Section 5 to repair against and none to reopen. Go straight to Step 2b.

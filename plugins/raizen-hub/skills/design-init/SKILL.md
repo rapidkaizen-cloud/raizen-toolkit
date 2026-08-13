@@ -1,6 +1,6 @@
 ---
 name: design-init
-description: Decide the visual direction and component library of an app whose PRD Section 5 is still unwritten. Interviews the user through 13 frontend questions covering 29 decisions — the rest derived and reported — with options drawn live from the ui-ux-pro-max database, writes the rules into PRD Section 5, writes the concrete values into the styling files, then builds one real reference page in code. Use before the first UI component of a repo is written, or when PRD Section 5 is still marked as unverified.
+description: Decide the visual direction and component library of an app whose PRD Section 5 is still unwritten. Interviews the user through 13 frontend questions covering 29 decisions — the rest derived and reported — with options drawn live from the ui-ux-pro-max database, writes the rules and the screen-archetype table into PRD Section 5, writes the concrete values into the styling files, generates the dev-only /styleguide route, then builds one real reference page in code. Use before the first UI component of a repo is written, or when PRD Section 5 is still marked as unverified.
 ---
 
 # design-init — set the visual direction once, in code
@@ -75,6 +75,8 @@ Offer three, with a recommendation:
 
 **Consequence:** all three still end at a working reference page, so no mode decides blind — the difference is only where the correction happens, before or after the first screen.
 
+**A mode skips questions, never outputs.** The archetype table (question 18), the `/styleguide` route (Step 6), and the reference page are produced in every mode, fast and stock included — what changes per mode is only where their decisions come from.
+
 ### Stock mode
 
 Stock is not fast mode with fewer questions. It is a different decision: **this app has no visual direction of its own, and the library's defaults are adopted whole.**
@@ -86,6 +88,8 @@ Say all three of these before the user picks it, because none of them is obvious
 3. **Changing your mind later is `design-rework`, not an edit.** One override added quietly is how a stock app becomes an app with no design system at all.
 
 Steps 1 and 3 do not run, and neither do the four styling-file rules in Step 4 — there is no theme to write and nothing to translate. Read `references/library-rubric.md` for question 12, skip the rest. Steps 5 through 8 run unchanged: the install block is still approved, and the reference page is still built, because it is the only way the user sees what "as it ships" looks like before twenty screens exist.
+
+**The archetype table is the one derivation stock keeps.** The library decides how components look, never which pages hold what — so the question 18 derivation still runs, its table is still ratified, and it joins the stock Section 5 together with the block below. Skipping it would leave `build-flow` Section 4 with no archetype to open any page proposal from.
 
 **Section 5 is still written, and never as `[needs verification]`.** It records the decision that no decision was made:
 
@@ -160,6 +164,8 @@ Color and spacing are the exception: their roles, values, and usage rules are wr
 
 Follow the sub-section structure in `prd-structure.md` under `app-init`. Fill the Anti-patterns sub-section from `references/anti-pattern.md`, taking only what is relevant to this kind of app.
 
+**Page Composition holds the ratified archetype table from question 18** — one row per archetype: shell layout, components, density profile, empty/loading wording, and the routes it owns. This table is what `build-flow` Section 4 opens every later page proposal from, so a Section 5 written without it leaves every future page assembling its layout from nothing. Where question 16 produced two density profiles, their numbers land under Breakpoints & Density.
+
 **Every line in Section 5 traces back to one of three sources:** an interview answer, a derived decision already reported to the user, or `references/anti-pattern.md`. A rule belonging to none of them is not written, however sensible it looks — no question asks it, so nobody decided it. A prohibition nobody was asked about still binds every session that follows, and the user only finds out months later, wondering why the app refuses to do something.
 
 ### Four rules bind the styling files
@@ -191,7 +197,26 @@ Wait for approval. Refused → hand over the commands for the user to run, then 
 
 Install nothing outside that block. Something extra turns out to be needed → ask again, do not slip it in.
 
-## Step 6 — Build the reference page
+## Step 6 — Generate `/styleguide`, then build the reference page
+
+### The styleguide route comes first
+
+**One route file** (for example `src/pages/styleguide.tsx`), reachable at `/styleguide` in dev and kept out of the app's navigation and production build. It renders the whole visual language on one screen so the user corrects it here, while a correction is one token — not twenty screens later.
+
+**It imports the production components and tokens.** Never hand-drawn copies, never a separate HTML file, never a second source of values. That is the whole defence against drift: a page that renders the real `Button` with the real theme cannot disagree with the app. Deleting it later is deleting one file — offer that, never require it.
+
+Sections, in order — each rendered from what Steps 2–4 actually decided, not from a fixed template:
+
+| Section | Contents |
+|---|---|
+| Foundations | Color roles or scales as Section 5 defines them, with the semantic token list read from the styling files · every text step with a real sample sentence · spacing scale · the density profile table with its numbers, both profiles where question 16 produced two · radius, shadow, breakpoints, motion |
+| Components | Every component the app uses or an archetype names — variants, sizes, and states per component, including loading, empty, and failed where they apply, with a short real-usage snippet |
+| Archetypes | The Section 5 archetype table, one card per archetype: shell sketch, components, routes |
+| Reference | The reference page embedded live at two widths — the desktop breakpoint and the question 17 lower bound — added once that page exists |
+
+Realistic sample data, the same standard the reference page holds below. `ui-build` binds this route like any page.
+
+### The reference page
 
 **One page: the most data-dense one belonging to the primary role.** That is where density, tables, and text hierarchy are all tested at once — the three things that decide how an internal app feels. A login page tests nothing.
 
@@ -214,7 +239,9 @@ Zero raw hex, font sizes, or spacing in components — this rule applies from th
 
 Data access on this page goes through the layer `logic-init` decided, when that session ran — its loading, empty, and failed states come from the chosen cache, not from a handwritten effect that the first real page would then replace.
 
-Page running → show two widths: desktop and mobile. What is judged at mobile width is how tables and navigation collapse, not a separate page.
+**The page proves one archetype in full — name which.** Every later page of that archetype copies this one, so an archetype proven here is an archetype nobody re-derives.
+
+Page running → **prove it at two widths with screenshots**: the desktop breakpoint from Section 5 and the lower bound from question 17. Take them with the browser tooling available to the session; no browser tooling → say so and report the dev-server URL with both widths named for the user to check — never claim the widths were judged without either. What is judged at the lower bound is how tables and navigation collapse, not a separate page.
 
 Report how to view it (the dev server command and its URL), then **STOP** and wait for the user's judgement.
 
@@ -234,7 +261,7 @@ Section 5 changed → the styling values are updated with it, and the reference 
 
 **The reference page does not stay a draft.** Before this step closes it is either routed as a real page of this app, or deleted. A page left in the repo unrouted is dead code that reads as finished work: the next session finds it, copies its patterns, and inherits whatever it got wrong — while the queue still lists that page as unbuilt.
 
-One block: the visual decisions that settled · files changed · the reference page's fate, routed or deleted · what is still `[needs verification]`.
+One block: the visual decisions that settled · files changed · the reference page's fate, routed or deleted · the `/styleguide` route named as staying dev-only, deletable at the user's word · what is still `[needs verification]`.
 
 State that this gate **no longer applies** to later pages — from here on what binds is Section 5 and the component rules in `ui-build`.
 
