@@ -1,4 +1,4 @@
-# Frontend interview — 29 decisions, 13 asked
+# Frontend interview — 29 decisions, 14 asked
 
 **The options are not written in this file.** Each question names which query to run against `ui-ux-pro-max` and which column becomes the options, so the choices follow the user's story instead of being one fixed list for every app.
 
@@ -10,11 +10,11 @@ One question per turn. Each still requires: **more than two options** · **one m
 
 ## Asked or derived
 
-**Asked, in this order:** Q1 · Q2 · Q3–5 as one palette question · Q6 · Q9 · Q12 · Q13 only when the chosen library bundles no icon pack · Q16 · Q17 · Q18 · Q22 · Q23 · Q26 · Q29. Thirteen questions; fourteen when the icon-pack question opens; group F still drops entirely for an app without tables.
+**Asked, in this order:** Q1 · Q2 · Q3–5 as one palette question · Q6 · Q9 · Q12 · Q13 only when the chosen library bundles no icon pack · Q15 · Q16 · Q17 · Q18 · Q22 · Q23 · Q26 · Q29. Fourteen questions; fifteen when the icon-pack question opens; group F still drops entirely for an app without tables.
 
 **Derived**, each from the basis named here:
 
-- **From the style row chosen in Q1:** Q7 contrast (`Accessibility` column) · Q14 radius and Q15 shadow (`Design System Variables`) · Q24 motion (`Effects & Animation`)
+- **From the style row chosen in Q1:** Q7 contrast (`Accessibility` column) · Q14 radius (`Design System Variables`) · Q24 motion (`Effects & Animation`)
 - **From another answer:** Q13 icon pack (bundled with the Q12 library — asked instead when it bundles none) · Q20 row separators (the palette's `Border` value) · Q21 row height (from Q16 density)
 - **Fixed recommendation as the default:** Q5 status count (four) · Q8 status marker (icon plus color) · Q10 text steps (five) · Q11 line length · Q19 content width · Q25 action feedback · Q27 forms
 - **Q28 label length:** in `design-init`, not asked and not derived — nothing exists to measure; report one line deferring it to `design-rework`. In `design-rework` it **is asked**, with options built from the audit numbers.
@@ -75,6 +75,8 @@ This answer drives more of the later recommendations than any other. See `adapta
 
 **Consequence:** one accent means the primary button is the same color on every screen, so the user learns once where to press.
 
+**Derived with it, never asked:** one `hover` step — visibly darker than the accent, still passing the contrast target with `On Accent`. Buttons and links read this token for hover and active; a component that darkens the accent inline has made the same decision twice.
+
 Avoid a purple-blue gradient as the default — see `anti-pattern.md`.
 
 ### 5. Status colors · PRD+CSS
@@ -84,6 +86,8 @@ Avoid a purple-blue gradient as the default — see `anti-pattern.md`.
 **Recommendation:** four statuses.
 
 **Consequence:** giving info its own color stops ordinary messages from being forced into warning yellow, which over time makes people stop reading all yellow.
+
+**Derived with it, never asked:** every status color lands as a **triad** — `subtle` background, `border`, and `text`, with the text step passing the Section 5 contrast target on the subtle background. Badges, chips, and banners read these three tokens; a tint improvised inside a component instead of reading them is a finding. Full 50–900 shade ramps are still not generated — a token nothing reads is not written. Each triad is reported as a derived decision, one line per status.
 
 ---
 
@@ -183,13 +187,13 @@ This answer decides what is installed, and fills the Component library row in `C
 
 ### 15. Elevation and shadow · PRD
 
-**Options from:** the `--shadow` value in the same column. Add: no shadow · floating elements only · soft on cards, stronger on floating elements.
+**Options from:** the `--shadow` value in the same column becomes one option. Add: no shadow, grouping built from spacing and rules alone · floating elements only (menus, dialogs, popovers) · soft on cards, stronger on floating elements.
 
-**Recommendation:** follow the chosen style's `--shadow`; if it reads `none`, recommend no shadow.
+**Recommendation:** soft on cards, stronger on floating elements — tinted toward the background hue, never pure black. Recommend no shadow only when the Q1 style's whole identity is flat (Swiss, brutalist), and name that as the reason.
 
-**Consequence:** cards without shadow force grouping to be built from spacing and rules, which holds up better on a dense screen than a dozen floating boxes all demanding equal attention.
+**Consequence:** elevation separates a surface from the page without a border doing all the work; an app with no shadow, one radius, and a near-neutral primary reads as a wireframe, and no later token pass can add back a depth decision that was never made.
 
-Shadow in use → tint it toward the background hue, never pure black.
+**Asked, never derived.** This value separates *designed* from *flat* more than any other single one, and the database's internal-app styles default it to `none` — deriving it is how every app is born flat on a default nobody chose.
 
 ---
 

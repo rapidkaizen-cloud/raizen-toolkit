@@ -1,6 +1,6 @@
 ---
 name: design-init
-description: Decide the visual direction and component library of an app whose PRD Section 5 is still unwritten. Interviews the user through 13 frontend questions covering 29 decisions — the rest derived and reported — with options drawn live from the ui-ux-pro-max database, writes the rules and the screen-archetype table into PRD Section 5, writes the concrete values into the styling files, generates the dev-only /styleguide route, then builds one real reference page in code. Use before the first UI component of a repo is written, or when PRD Section 5 is still marked as unverified.
+description: Decide the visual direction and component library of an app whose PRD Section 5 is still unwritten. Designs the direction whole on a temporary in-repo canvas page — real component library, canvas-owned theme — and ratifies it value by value, with a 14-question interview (options drawn live from the ui-ux-pro-max database) as the fallback path; writes the rules and the screen-archetype table into PRD Section 5, writes the concrete values into the styling files, generates the dev-only /styleguide route, then builds one real reference page in code. Use before the first UI component of a repo is written, or when PRD Section 5 is still marked as unverified.
 ---
 
 # design-init — set the visual direction once, in code
@@ -31,7 +31,7 @@ Section 5   : [empty / already filled / product without UI]
 Kind of app : [from Section 1]
 Primary role: [from Section 2]
 Reading     : [one sentence — see below]
-Flow        : 13 questions → Section 5 → styling → reference page
+Flow        : mode → canvas or questions → Section 5 → styling → reference page
 ```
 
 `PRD.md` missing → **STOP**, point to `app-init`.
@@ -61,7 +61,7 @@ Read the kind of app from PRD Section 1, then decide once:
 
 The two skills disagree about icon pack, motion level, or typeface → **the user's answer wins**, which is exactly why all three are asked.
 
-## Step 2 — Interview, 13 questions
+## Step 2 — The mode, then the canvas or the questions
 
 ### Pick the mode first — one question, before anything else
 
@@ -71,9 +71,11 @@ Offer three, with a recommendation:
 |---|---|---|
 | **Stock** | Question 12 only, plus question 13 when the chosen library bundles no icon pack. Nothing else is asked and nothing else is derived — the library's own defaults become the design system | An app whose look nobody has an opinion about, and nobody will |
 | **Fast** | Nothing. All 29 decisions are derived from the Step 0 reading, then shown once as a list to correct | An app that must ship today, or a visual direction nobody disputes |
-| **Full** | The 13 asked entries in `interview.md` — the icon-pack question joins when the chosen library bundles none, the table group drops when the app has no tables. Every other decision is derived | **Recommended.** Thirteen answers cover everything expensive to get wrong; the rest never needed asking |
+| **Full** | Three questions — 12 · 13 when the library bundles none · 17 — then the direction is designed whole on a temporary in-repo page, built from the chosen library and icon pack under a canvas-owned theme, and ratified value by value. See `references/canvas.md` | **Recommended.** Taste transfers whole from a judged page; questions only decide what a page cannot show. A user handing over a design-system artifact file lands here, generation skipped |
 
 **Consequence:** all three still end at a working reference page, so no mode decides blind — the difference is only where the correction happens, before or after the first screen.
+
+**Full replaces the taste questions, never the structure.** The archetype table is still derived and ratified, Section 5 is still written, the styleguide and reference page are still built from production tokens — `canvas.md` holds the sequence, the quarantine rules, and the deletion of the canvas once ratified. The 14-question interview in `interview.md` is the **fallback, not a parallel mode**: it opens when the canvas misses twice, or when the user asks to decide by questions.
 
 **A mode skips questions, never outputs.** The archetype table (question 18), the `/styleguide` route (Step 6), and the reference page are produced in every mode, fast and stock included — what changes per mode is only where their decisions come from.
 
@@ -166,7 +168,7 @@ Follow the sub-section structure in `prd-structure.md` under `app-init`. Fill th
 
 **Page Composition holds the ratified archetype table from question 18** — one row per archetype: shell layout, components, density profile, empty/loading wording, and the routes it owns. This table is what `build-flow` Section 4 opens every later page proposal from, so a Section 5 written without it leaves every future page assembling its layout from nothing. Where question 16 produced two density profiles, their numbers land under Breakpoints & Density.
 
-**Every line in Section 5 traces back to one of three sources:** an interview answer, a derived decision already reported to the user, or `references/anti-pattern.md`. A rule belonging to none of them is not written, however sensible it looks — no question asks it, so nobody decided it. A prohibition nobody was asked about still binds every session that follows, and the user only finds out months later, wondering why the app refuses to do something.
+**Every line in Section 5 traces back to one of four sources:** an interview answer, a derived decision already reported to the user, a canvas value the user ratified (the canvas path), or `references/anti-pattern.md`. A rule belonging to none of them is not written, however sensible it looks — no question asks it, so nobody decided it. A prohibition nobody was asked about still binds every session that follows, and the user only finds out months later, wondering why the app refuses to do something.
 
 ### Four rules bind the styling files
 
@@ -260,7 +262,7 @@ The user may ask for a full rework any number of times. But:
 
 **A second rework of the same page → STOP, reopen Section 5.** Missing once means the layout was off. Missing twice means the visual direction was off, and rewriting the layout a third time will not fix that.
 
-When reopening, fast rises to full; a session already in full re-asks decisions 1–5.
+When reopening, fast rises to full; a session that came through the canvas re-asks through the interview fallback, decisions 1–5 first — the canvas already spent its rounds; a session already on the questions re-asks decisions 1–5.
 
 Ask decisions 1–5 again (three questions, after the palette merge), especially question 2 about the app that feels right. The user still struggles to name one → ask them to show an app or a site, because adjectives have demonstrably run out by that point.
 

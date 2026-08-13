@@ -22,8 +22,8 @@ Apply these as **recommendation shifts**, not as answers. The user still chooses
 
 | Answer | Shifts |
 |---|---|
-| Q1 = dense and technical | Q14 → sharp or slightly soft · Q15 → no shadow · Q16 → very dense · Q21 → compact · Q24 → near-static · Q28 → the tightest measured bound |
-| Q1 = calm and neutral | Q15 → floating elements only · Q24 → subtle · Q5 → four statuses |
+| Q1 = dense and technical | Q14 → sharp or slightly soft · Q15 → floating elements only · Q16 → very dense · Q21 → compact · Q24 → near-static · Q28 → the tightest measured bound |
+| Q1 = calm and neutral | Q15 → soft on cards, stronger on floating elements · Q24 → subtle · Q5 → four statuses |
 | Q1 = warm and friendly | Q3 → warm neutral · Q14 → uniformly soft · Q24 → subtle or moderate |
 | Q1 = bold and high-contrast | Q7 → offer AAA · Q15 → no shadow, separate with rules instead |
 | Q6 = dark mode included | Q4 and Q5 → only palettes whose `Dark Mode ✓` is full · Q15 → shadow is less useful on a dark ground, lean toward rules |

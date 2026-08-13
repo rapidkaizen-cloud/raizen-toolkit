@@ -104,7 +104,7 @@ One question, two options, with a recommendation:
 | Choice | What changes | Questions asked | Components touched |
 |---|---|---|---|
 | **Repair** | Zero new norms — only bringing code back in line with the existing Section 5 | None | Only the deviating ones |
-| **Overhaul** | All of Section 5 is reopened, archetype shells included — the app looks redesigned afterwards, not retuned | 13–15 asked, the rest derived (see `interview.md`) | One reference page, then the rest |
+| **Overhaul** | All of Section 5 is reopened, archetype shells included — the app looks redesigned afterwards, not retuned | Canvas path: three decisions, keep-first; the 14–16 question interview only as fallback (see `canvas.md`) | One reference page, then the rest |
 
 There is no third option that narrows the scope, because **every question carries a *keep* option** (see Step 3). Answering *keep* to the parts you do not want touched is what narrowing looks like here — scope is narrowed by answers, not by a mode chosen before the user has seen a single question.
 
@@ -146,7 +146,11 @@ Decided by the answers, not chosen:
 
 Nothing else in this skill behaves differently for this path.
 
-## Step 3 — Interview — Overhaul only
+## Step 3 — Canvas, or the interview fallback — Overhaul only
+
+**Overhaul runs on the canvas by default** (`references/canvas.md` of `design-init`). Question 12 keeps its keep-first rule, the canvas is built from the installed library and icon pack, and its ratified values enter Step 4 as the *new* column of the diff. A user handing over a design-system artifact file lands here too, generation skipped.
+
+**The question interview below is the fallback** — it runs when the canvas misses twice, or when the user asks to decide by questions.
 
 Read `interview.md`, `adaptation.md`, and `anti-pattern.md` in the `references/` folder of `design-init`. The rules are identical: options drawn live from `ui-ux-pro-max`, one question per turn, more than two options, one marked recommendation.
 
