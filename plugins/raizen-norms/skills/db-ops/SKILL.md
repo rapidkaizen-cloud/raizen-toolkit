@@ -53,6 +53,8 @@ They are allowed. What is not allowed is doing them **without a number** and **w
 
 This gate stands where a migration is **written**, not where it runs. CI applies whatever migration files reach it, ungated. So never tell the user the database is protected from destructive change — the authoring path is. A destructive migration written by hand reaches production with nothing in its way.
 
+**A repo may switch the enforcing hook off — the user's decision, never the agent's.** A marker file at `.claude/destructive-gate.off` (content: one line naming why) disables the hook for that repo alone; every other repo keeps it. The three phases below remain the norm even there — the marker removes the enforcement, not the rule. Deleting the file turns enforcement back on.
+
 **Phase 1 — PRE.** `SELECT COUNT` for the rows that will be hit. Set the **Expected** number: how many rows should be deleted or changed. That number goes straight into the guard condition.
 
 **Phase 2 — GATE, STOP.**

@@ -15,11 +15,22 @@ One carve-out: a DELETE narrowed to the `[CLAUDE]` prefix — the test rows the
 agent created itself — passes unguarded, because its blast radius is already
 fixed to rows the agent owns. See claude_test_delete for what disqualifies it.
 
+One off switch, per repo and never per plugin: a marker file at
+`.claude/destructive-gate.off` in the project directory disables this guard for
+that repo alone. The file's presence is the decision; its content is free text
+naming why. This exists because the plugin's hooks load into every app repo at
+once — an app that legitimately needs the gate gone (heavy schema iteration,
+bulk re-imports) must not take the gate away from the apps holding production
+data. Deleting the marker file turns the gate back on.
+
 Exit 0 = pass, exit 2 = block.
 """
 import json
+import os
 import re
 import sys
+
+GATE_OFF_MARKER = os.path.join(".claude", "destructive-gate.off")
 
 DESTRUCTIVE = [
     (r"\bDROP\s+(TABLE|COLUMN|SCHEMA|TYPE|FUNCTION|POLICY|INDEX|VIEW)\b", "DROP"),
@@ -161,6 +172,10 @@ def block(op: str) -> None:
 
 
 def main() -> None:
+    # Hooks run with the project directory as cwd, so this scopes to one repo.
+    if os.path.exists(GATE_OFF_MARKER):
+        sys.exit(0)
+
     sql = strip_comments(read_sql())
     if not sql.strip():
         sys.exit(0)

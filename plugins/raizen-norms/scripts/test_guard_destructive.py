@@ -17,10 +17,10 @@ GUARD = Path(__file__).parent / "guard_destructive.py"
 PYTHON = "python3"
 
 
-def run(tool_name: str, tool_input: dict) -> int:
+def run(tool_name: str, tool_input: dict, cwd: str | None = None) -> int:
     payload = json.dumps({"tool_name": tool_name, "tool_input": tool_input})
     result = subprocess.run(
-        [PYTHON, str(GUARD)], input=payload, capture_output=True, text=True
+        [PYTHON, str(GUARD)], input=payload, capture_output=True, text=True, cwd=cwd
     )
     return result.returncode
 
@@ -106,6 +106,18 @@ def demo() -> None:
     assert run("mcp__supabase__execute_sql", {
         "query": "DELETE FROM notes WHERE title LIKE '[CLAUDE]%'; DROP TABLE orders;"
     }) == 2
+
+    # --- the per-repo off switch: .claude/destructive-gate.off in the project cwd ---
+
+    import tempfile
+    with tempfile.TemporaryDirectory() as td:
+        # marker present -> everything passes, in that repo only
+        (Path(td) / ".claude").mkdir()
+        (Path(td) / ".claude" / "destructive-gate.off").write_text("why, in free text\n")
+        assert run("mcp__supabase__execute_sql", {"query": "DROP TABLE foo;"}, cwd=td) == 0
+    with tempfile.TemporaryDirectory() as td:
+        # no marker -> the same payload still blocks (fails closed)
+        assert run("mcp__supabase__execute_sql", {"query": "DROP TABLE foo;"}, cwd=td) == 2
 
     print("ok")
 
