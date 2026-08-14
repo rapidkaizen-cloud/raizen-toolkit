@@ -216,7 +216,7 @@ The second is the one that produces the summary row, the reconciliation figure, 
 
 Read `PRD.md` and the live schema, then ask **everything** still unclear about this page **in a single turn**, together with the content proposal.
 
-Bundling is correct here. `app-init` asks one at a time because bootstrap answers steer each other; a page's unknowns are independent, and asking them one per turn is exactly the stop-start this skill exists to end.
+Bundling is correct here. The interviews batch along their dependency edges — a question waits only for an answer it reads; a page's unknowns read nothing from each other, so all of them fit one turn, and asking them one per turn is exactly the stop-start this skill exists to end.
 
 Everything else is decided by you, with the defaults **announced** — a default left unspoken becomes a norm through the back door.
 

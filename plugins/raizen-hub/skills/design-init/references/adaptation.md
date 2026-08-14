@@ -33,7 +33,7 @@ Apply these as **recommendation shifts**, not as answers. The user still chooses
 | Q16 = very dense | Q10 → four or five steps, no more · Q21 → compact · Q11 → bound prose · Q23 → icon plus menu, not all icons · Q29 → at most one sentence |
 | Q17 = 360px | Q18 → collapsible sidebar, not fixed · Q20 → prepare a collapsed form for tables · Q23 → nothing revealed on hover |
 | Q18 = top bar only | Q19 → bounded and centered |
-| Q2 names one app | Every later query carries that app name as a keyword |
+| Q2 selects reference apps | Every later query carries those app names as keywords |
 
 ## 3. What `logic-init` already installed
 

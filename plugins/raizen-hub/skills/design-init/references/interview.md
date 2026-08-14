@@ -1,10 +1,18 @@
 # Frontend interview — 29 decisions, 14 asked
 
-**The options are not written in this file.** Each question names which query to run against `ui-ux-pro-max` and which column becomes the options, so the choices follow the user's story instead of being one fixed list for every app.
+**The options are not written in this file, and no single source owns them.** They are assembled from three layers, every option labelled with where it came from:
+
+1. **The `ui-ux-pro-max` database** — the floor, always queried. Each question below names its query and column.
+2. **The model's own reading of the domain** — what this kind of app conventionally carries, labelled `assembled`.
+3. **Web research — run once, and mandatory.** Before the first question, run a WebSearch pass built from the corrected Step 0 reading: the kind of app, its domain, its closest well-known products. Fold what it returns into the option pool — real reference apps, current library candidates, domain conventions — labelled `research`. One pass feeds the whole interview, never one search per question; a pass that returns nothing useful is said plainly, not padded.
 
 Every numbered entry below is a decision that gets made. Only the entries listed under **Asked** become questions; the rest are **derived** — decided from the basis named in the split below, taking the entry's own Recommendation as the value.
 
-One question per turn. Each still requires: **more than two options** · **one marked recommendation** · **a one-sentence consequence**. Asked through the **AskUserQuestion tool**, never as prose text — recommendation first and marked "(Recommended)"; the tool's automatic "Other" is how answers outside the options arrive. **Everything the user needs to answer lives inside the dialog** — in the question field or the option descriptions. The dialog may render without the prose around it, so a question referring to text "above" can arrive pointing at nothing.
+**Answers are the user's preferences, not gates.** They set the canvas's baseline; the canvas may depart from any of them with a drawn, tagged, reasoned departure that the user settles at the judgement — see `canvas.md`. What an answer never loses is its author: every recommendation, assumption, and departure ends as a decision the user makes through AskUserQuestion, never one the agent makes alone.
+
+**Questions travel in batches, not one per turn.** AskUserQuestion carries up to four questions per call and several calls fit in one turn — so the whole interview lands in two to three turns, not fourteen. **Batch boundaries follow the dependency edges, and the edges live in two places:** each question's own *Options-from* line, and the shift table in `adaptation.md`. A question whose options or recommendation read an earlier asked answer goes in a later call than its source (Q1 and Q2 first, alone — nearly everything reads them; then the palette, Q6, Q9, Q12 together; then the rest as their sources resolve); questions with no edge between them travel together. Between two calls of the same turn the shifts are applied exactly as `adaptation.md` states — batching compresses turns, never the adaptation. Each question still requires: **more than two options** · **one marked recommendation** · **a one-sentence consequence**. Asked through the **AskUserQuestion tool**, never as prose text — recommendation first and marked "(Recommended)"; the tool's automatic "Other" is how answers outside the options arrive. **Everything the user needs to answer lives inside the dialog** — in the question field or the option descriptions. The dialog may render without the prose around it, so a question referring to text "above" can arrive pointing at nothing.
+
+**Four options is the tool's cap per question, and the cap is never a reason to thin the pool.** More than four candidates worth showing → split them across two questions in the same call ("Reference apps A–D", "Reference apps E–H"), never silently drop the rest. A question whose answers combine rather than exclude — reference apps, features to keep, anti-patterns to enforce — is asked with `multiSelect: true`; a value that excludes its alternatives (radius, density, library) stays single-select.
 
 **An Other answer may carry an option and its detail together.** "Option 1, <the name>" selects that option with the detail attached — read it as that option, never as an answer outside the options. An option whose answer needs typed detail says so in its description; the typing path is Other.
 
@@ -29,9 +37,11 @@ A derived decision is reported on one line with its basis — never silently. Th
 
 **Do not ask what is already answered.** An earlier answer or `Decision_Rules` settles a question outright → decide it, report it as a derived decision, move on. See `adaptation.md`.
 
+**Answers are reconciled after every batch, and once more before the interview closes.** Two answers that overlap or pull in opposite directions — a dense-and-technical Q1 beside all-airy references in Q2, a 360px Q17 beside hover-revealed actions in Q23 — are a conflict the batch let through, and neither side wins silently. Each conflict goes back as **one question**: name both answers and what collides, offer keeping either side (saying what the other becomes) and a named middle path where one exists, with a recommendation. The resolved answer replaces the original before anything downstream reads it. A conflict surfacing later — in a derived decision or on the canvas — is asked the same way at that point, never absorbed.
+
 **Context removes a question → skip it and say why.** An app without tables skips group F.
 
-**Zero search results, no Python, or the skill is not installed → do not invent.** Say so plainly, then offer two paths: postpone until the skill is usable, or continue with self-assembled options that are **explicitly marked** as not coming from the database. This rule is from `ui-ux-pro-max` itself: *never present a 0-result search as if it returned data.*
+**Zero search results, no Python, or the skill is not installed → the database layer drops out, the interview continues.** Say so plainly, then build the options from the other two layers, each still labelled with its source. What stays forbidden is the lie, not the layer — this rule is from `ui-ux-pro-max` itself: *never present a 0-result search as if it returned data.*
 
 Read the `search.py` command shape from the `ui-ux-pro-max` SKILL.md. Do not copy a path from here.
 
@@ -51,13 +61,13 @@ This answer drives more of the later recommendations than any other. See `adapta
 
 ### 2. The app that feels right · PRD
 
-**Options:** name one app or site · none, follow the recommendation · there is one but it is hard to name. The name itself is typed through Other — "option 1, <name>" — and read as that option plus the name.
+**Options from:** the research pass — 4–8 real, named apps or sites fitting this domain and kind of app, each with a one-line reason it fits ("Pipedrive — sales pipeline, medium density, strong mobile"). **`multiSelect: true`** — several references combine into one direction. More than four candidates → two questions in the same call, never a thinned list. The user is never asked to recall a name from nothing; the names are proposed, the user recognizes.
 
-**Recommendation:** name one, even if it only half fits.
+**Recommendation:** the one or two whose product shape sits closest to PRD Section 1.
 
-**Consequence:** one app name cuts more errors than five adjectives, and this is the question that matters most if the canvas later has to be reworked.
+**Consequence:** a named app cuts more errors than five adjectives, and this is the question that matters most if the canvas later has to be reworked.
 
-"Hard to name" → ask for a screenshot, or ask which app it must **not** resemble. This question has no query; its answer is what improves the queries for the others.
+An Other answer naming an app not offered is the best possible outcome, not a deviation. A user who recognizes none → ask which app it must **not** resemble, or ask for a screenshot. This question has no database query; the chosen references improve the queries for every other question.
 
 ### 3. Neutral family · PRD+CSS
 

@@ -1,6 +1,6 @@
 ---
 name: design-init
-description: Decide the visual direction and component library of an app whose PRD Section 5 is still unwritten. By default a 14-question interview (options drawn live from the ui-ux-pro-max database) decides the values, and a temporary in-repo canvas — real component library, canvas-owned theme, the user's feature brief — renders them as every page of the app, improvising layout and tagged feature proposals; fast mode draws the canvas straight from three questions. Ratifies value by value, writes the rules and the screen-archetype table into PRD Section 5, writes the concrete values into the styling files, generates the dev-only /styleguide route, then promotes the canvas pages into the app's real pages. Use before the first UI component of a repo is written, or when PRD Section 5 is still marked as unverified.
+description: Decide the visual direction and component library of an app whose PRD Section 5 is still unwritten. By default a batched 14-question interview (options assembled live from the ui-ux-pro-max database, domain reading, and a web-research pass) captures the user's preferences, and a temporary in-repo canvas — real component library, canvas-owned theme, the user's feature brief — renders them as every page of the app, expanding thin briefs into a full product with tagged feature proposals and tagged departures; fast mode draws the canvas straight from three questions. Ratifies value by value, writes the rules and the screen-archetype table into PRD Section 5, writes the concrete values into the styling files, generates the dev-only /styleguide route, then promotes the canvas pages into the app's real pages. Use before the first UI component of a repo is written, or when PRD Section 5 is still marked as unverified.
 ---
 
 # design-init — set the visual direction once, in code
@@ -59,6 +59,8 @@ Read the kind of app from PRD Section 1, then decide once:
 
 `design-taste-frontend` states itself that it is not for dashboards, data tables, or multi-step product UI. Using it outside that boundary produces motion dials and icon rules that collide with `ui-ux-pro-max`. Its prohibitions are still used for every kind of app through `references/anti-pattern.md` — that is material, not a live authority.
 
+This table routes the **interview's** live authorities only. The canvas phase additionally reads `high-end-visual-design` and `frontend-design` as material for every kind of app — `canvas.md` states the rule and the same limit: material raises the floor of the free hand, and the user's answer wins every collision.
+
 The two skills disagree about icon pack, motion level, or typeface → **the user's answer wins**, which is exactly why all three are asked.
 
 ## Step 2 — The mode, then the canvas or the questions
@@ -71,11 +73,11 @@ Offer three, with a recommendation:
 |---|---|---|
 | **Stock** | Question 12 only, plus question 13 when the chosen library bundles no icon pack. Nothing else is asked and nothing else is derived — the library's own defaults become the design system | An app whose look nobody has an opinion about, and nobody will |
 | **Fast** | Three questions — 12 · 13 when the library bundles none · 17 — then the canvas is designed whole from the feature brief, **every value the designer's own**. See `references/canvas.md` | An app that must ship today, or a user who wants to judge a finished proposal rather than answer questions |
-| **Full** | The 14 asked entries in `interview.md`, then the canvas — the answers are the baseline; the canvas may still improvise anywhere, and every departure from an answer is tagged and confirmed by the user at the judgement. See `references/canvas.md` | **Recommended.** The values are decided before anything is drawn, and the canvas shows them as an app instead of as a list |
+| **Full** | The 14 asked entries in `interview.md`, batched into a few turns — the answers are the user's preferences and the canvas's baseline; the canvas departs wherever the designer judges better, every departure tagged and settled by the user at the judgement. See `references/canvas.md` | **Recommended.** The preferences are captured before anything is drawn, and the canvas shows them as an app instead of as a list |
 
 **Consequence:** all three still end at real pages running on screen, so no mode decides blind — the difference is only where the correction happens, before or after the first screen.
 
-**Fast and Full both end at the canvas; they differ in where the values start.** In Full the interview sets the baseline and the canvas renders it, departing only with the user's confirmation; in Fast the canvas improvises the values too. Either way the archetype table is still derived and ratified, Section 5 is still written, the styleguide still renders from production tokens, and the pages still end real — `canvas.md` holds the sequence, the quarantine rules, and the promotion that empties the canvas once ratified. **A canvas that misses twice escalates:** Fast rises to the full interview; Full re-asks decisions 1–5.
+**Fast and Full both end at the canvas; they differ in where the values start.** In Full the interview captures the user's preferences as the baseline and the canvas renders them, departing wherever the designer judges better — each departure tagged and settled by the user at the judgement; in Fast the canvas improvises the values too. Either way the archetype table is still derived and ratified, Section 5 is still written, the styleguide still renders from production tokens, and the pages still end real — `canvas.md` holds the sequence, the quarantine rules, and the promotion that empties the canvas once ratified. **A canvas that misses twice escalates:** Fast rises to the full interview; Full re-asks decisions 1–5.
 
 **A mode skips questions, never outputs.** The archetype table (question 18), the `/styleguide` route (Step 6), and real running pages are produced in every mode, fast and stock included — what changes per mode is only where their decisions come from.
 
@@ -127,9 +129,9 @@ Read `references/interview.md`, `references/adaptation.md`, and — for question
 
 **The order in `interview.md` is the order asked.** No question is promoted to the front because it feels foundational, and none is deferred because its answer looks obvious.
 
-**The options for each question are not written in any file.** `interview.md` names which query to run against `ui-ux-pro-max` and which column becomes the options. Run the query, assemble the options from the result, then ask. This is what makes the choices follow the user's story instead of being one fixed list for every app.
+**The options for each question are not written in any file, and the database is not their only source.** `interview.md` names three layers — the `ui-ux-pro-max` query, the model's own domain reading, and a mandatory one-off WebSearch research pass run before the first question — every option labelled with its source. Run the layers, assemble the pool, then ask. This is what makes the choices follow the user's story instead of being one fixed list for every app.
 
-**One question per turn.** Never bundled.
+**Questions travel in batches** — up to four per AskUserQuestion call, several calls per turn, sequential only across a real dependency. `interview.md` holds the batching rules, the four-option cap, and which questions are `multiSelect`.
 
 **Every question goes through the AskUserQuestion tool, never prose text.** Options live in the tool call — the recommendation first and marked "(Recommended)", the consequence in each option's description. The tool caps at four options and adds "Other" on its own, which is how answers outside the options arrive. This holds in auto mode too: the interview is a decision only the user can make, and a prose question there simply ends the turn unanswered.
 
@@ -141,7 +143,7 @@ Every question must carry **more than two options**, **one marked recommendation
 
 Answers outside the options are always accepted. The user names something not listed → use it, state its consequence if you know it, or say you don't.
 
-A search returning zero results, no Python, or the skill not installed → **do not invent**. Say so plainly, then offer to postpone or to continue with self-assembled options that are explicitly marked as not coming from the database.
+A search returning zero results, no Python, or the skill not installed → **the database layer drops out, the interview continues** on the other two layers, every option still labelled with its source. Never present a 0-result search as if it returned data.
 
 ## Step 3 — Translate into values
 
@@ -246,7 +248,7 @@ That richness outlives this session: `build-flow` Section 4 judges every later p
 Four limits:
 
 - **Data comes from the terms in Section 4.** Do not invent metrics that have no name in this domain.
-- **Do not imply features nobody decided on.** A "revenue forecast" chart in an app with no forecasting is a lie that will be invoiced later as a feature.
+- **Do not imply features nobody decided on — untagged.** An improvised feature carries its proposal tag until the user keeps it at the judgement; a "revenue forecast" chart with no tag and no decision is a lie that will be invoiced later as a feature.
 - **Everything still goes through tokens.** What is forbidden is not a new component, but a new token, a second accent, or a second icon family.
 - **`ui-build` binds this page too**, in full — library defaults, and the loading, empty, and failed states written together with their component. A skeleton rather than a spinner, an empty state that says why it is empty. A page that skips them is not proving the direction, it is postponing it, and it is the page every later session copies from.
 

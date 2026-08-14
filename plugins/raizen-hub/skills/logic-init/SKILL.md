@@ -66,7 +66,7 @@ Right after the score is confirmed, asked with the AskUserQuestion tool like eve
 | Mode | What is asked | For whom |
 |---|---|---|
 | **Fast** | Nothing. Every scored need is decided from the rubric and the PRD reading, then shown once as a list to correct | An app that must ship today, or needs whose platform answer nobody disputes |
-| **Full** | Every scored need, one question per turn | **Recommended.** The interview is at most six questions, and each answer is a dependency the repo carries for years |
+| **Full** | Every scored need, batched — sequential only across a real dependency | **Recommended.** The interview is at most six questions, and each answer is a dependency the repo carries for years |
 
 Exactly one need scored → skip this question and ask that need directly; a mode question would cost as much as the interview it replaces.
 
@@ -83,7 +83,7 @@ Fast skips the questions, never the verification — a candidate chosen in fast 
 
 ### Running the interview
 
-Read `references/logic-rubric.md`. One question per turn, in L-number order. Each carries **more than two options** · **one marked recommendation** · **a one-sentence consequence** — the same contract as the `design-init` interview.
+Read `references/logic-rubric.md`. Questions travel in batches, in L-number order — up to four per AskUserQuestion call, several calls per turn; a need whose options or recommendation read an earlier answer (a family already chosen shifting a later recommendation) waits for that answer, independent needs travel together. Answers are reconciled after every batch: two that collide go back as one question naming both, never resolved silently. Each carries **more than two options** · **one marked recommendation** · **a one-sentence consequence** — the same contract as the `design-init` interview.
 
 **Every question goes through the AskUserQuestion tool, never prose text.** Options live in the tool call — the recommendation first and marked "(Recommended)", the consequence in each option's description. The tool caps at four options and adds "Other" on its own, which is how answers outside the options arrive. This holds in auto mode too: the interview is a decision only the user can make, and a prose question there simply ends the turn unanswered.
 

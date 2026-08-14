@@ -59,7 +59,7 @@ A reading that misses is not a failure — the correction carries detail that no
 
 ### Digging out the rest
 
-Once the reading is agreed, summarize back to the user what you captured for each point above. For points still empty or ambiguous, ask one at a time — one question per turn, never bundled, in your own words.
+Once the reading is agreed, summarize back to the user what you captured for each point above. For points still empty or ambiguous, ask in one batch, in your own words — independent points travel together in a single message; only a follow-up whose wording depends on an earlier answer waits for it.
 
 **Domain questions carry no options.** Their answers cannot be enumerated, and offering a guess as a choice steers the answer toward it. The "more than two options plus a recommendation" rule applies to technical questions, not to these.
 
@@ -71,7 +71,7 @@ Stop when the six points are answered, not when the questions run out.
 
 Read `references/stack-questions.md` and `references/stack-consequences.md`, then run them.
 
-One question per turn. Each question carries **more than two options**, one marked recommendation, and a **one-sentence consequence** of that choice. Two options always read like a trap, and options without a recommendation force a decision with nothing to base it on. Answers outside the options are always accepted — if the user names something not on the list, use it and state its consequence if you know it, or say you don't.
+Questions travel in batches — up to four per AskUserQuestion call, several calls per turn, sequential only where a question's options or recommendation read an earlier answer (the rubric's *Fits when* column is the map). Answers are reconciled after every batch: two that pull in opposite directions go back as one question naming both and what collides, never resolved silently. Each question carries **more than two options**, one marked recommendation, and a **one-sentence consequence** of that choice. Two options always read like a trap, and options without a recommendation force a decision with nothing to base it on. Answers outside the options are always accepted — if the user names something not on the list, use it and state its consequence if you know it, or say you don't.
 
 **The stack is not locked.** Framework, hosting, and database options are assembled from the rubric in `stack-questions.md`, filtered by the needs readable from the user's story. One hard limit: **options marked Not ready are not offered** — there are no templates for them, and a half-built repo is worse than a shorter list. The user names one anyway → accept it, and say plainly what they will have to set up themselves.
 

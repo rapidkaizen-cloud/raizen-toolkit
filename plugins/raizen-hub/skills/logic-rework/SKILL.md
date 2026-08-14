@@ -95,7 +95,7 @@ All six score *no* and the audit found nothing installed → jump to Step 7 and 
 
 ## Step 3 — Interview, only what scored
 
-Read `references/logic-rubric.md` in `logic-init`. One question per turn, in L-number order. Each carries **more than two options** · **one marked recommendation** · **a one-sentence consequence**, through the AskUserQuestion tool, never prose.
+Read `references/logic-rubric.md` in `logic-init`. Questions travel in batches, in L-number order — up to four per AskUserQuestion call, several calls per turn; a need whose options or recommendation read an earlier answer waits for it, independent needs travel together. Answers are reconciled after every batch: two that collide go back as one question naming both, never resolved silently. Each carries **more than two options** · **one marked recommendation** · **a one-sentence consequence**, through the AskUserQuestion tool, never prose.
 
 Three rules replace the `logic-init` ones:
 

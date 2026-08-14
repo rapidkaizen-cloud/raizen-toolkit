@@ -101,7 +101,7 @@ The same six as `app-init`, and you may not continue without them:
 
 > *"The code caps approvals at 5,000,000 for the `supervisor` role — `rls/approvals.sql:14`. What is that number for?"*
 
-The problem before the app, how the work was done then, and the non-goals exist nowhere in the repo. Those are asked openly, one at a time, with no options.
+The problem before the app, how the work was done then, and the non-goals exist nowhere in the repo. Those are asked openly, with no options — grouped into one message where they are independent; a follow-up that reads an earlier answer waits for it.
 
 **The rule that outranks everything else here: the reason behind every number.** A live check finds every value in the app and will never recover one reason. Where the answer is *"I don't know, it has always been that way"* — write exactly that, and do not improve on it. A recorded ignorance is worth more than a plausible fiction, because the next session knows not to trust it.
 

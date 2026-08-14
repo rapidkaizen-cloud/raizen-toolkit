@@ -1,6 +1,6 @@
 # Stack questions — six, with dynamic options
 
-One question per turn. Each: **more than two options** · one marked recommendation · a one-sentence consequence. Answers outside the options are accepted.
+Questions travel in batches — up to four per AskUserQuestion call, several calls per turn; a question whose options or recommendation read an earlier answer (the *Fits when* column is the map) goes in a later call than its source. Answers are reconciled after every batch: two that collide go back as one question naming both, never resolved silently. Each: **more than two options** · one marked recommendation · a one-sentence consequence. Answers outside the options are accepted.
 
 **The stack is not locked.** Options are assembled from the rubric below, filtered by the needs readable from the user's story. Only one thing is locked: **options whose templates do not exist are not offered.** A bootstrap that produces a repo without config and without migrations is a failed bootstrap, and a junior developer will not know what is missing.
 
