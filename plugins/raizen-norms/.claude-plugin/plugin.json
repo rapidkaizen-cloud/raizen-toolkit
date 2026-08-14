@@ -1,4 +1,4 @@
-﻿{
+{
   "name": "raizen-norms",
   "version": "0.12.1",
   "description": "Session norms for internal app repos: git and destructive-operation guards, plus PRD, UI, database, application-logic, and build-order rules.",
