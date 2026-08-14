@@ -148,7 +148,7 @@ Nothing else in this skill behaves differently for this path.
 
 ## Step 3 — Full or fast, then the canvas — Overhaul only
 
-**Overhaul asks one more question first — full or fast** (`references/canvas.md` of `design-init`). **Full (recommended):** the keep-first interview below runs, and the canvas is then drawn from its answers — values from the answers; layout, shells, and tagged feature proposals still the canvas's to improvise. **Fast:** the canvas is drawn straight after the three keep-first decisions, values improvised too. Either way the canvas is built from the installed library and icon pack against the user's feature brief, and its ratified values enter Step 4 as the *new* column of the diff.
+**Overhaul asks one more question first — full or fast** (`references/canvas.md` of `design-init`). **Full (recommended):** the keep-first interview below runs, and the canvas is then drawn from its answers as the baseline — the canvas may still improvise anywhere, every departure from an answer tagged and confirmed at the judgement. **Fast:** the canvas is drawn straight after the three keep-first decisions, values improvised too. Either way the canvas is built from the installed library and icon pack against the user's feature brief, and its ratified values enter Step 4 as the *new* column of the diff.
 
 **Escalation:** a canvas that misses twice on Fast rises to this interview; on Full, decisions 1–5 are re-asked.
 
