@@ -4,10 +4,10 @@ One temporary TSX route — **every page of the app, redesigned** — where the 
 
 ## When this path runs
 
-- `design-init`, as **Full mode** — the default recommendation.
-- `design-rework` overhaul, by default.
+- `design-init`, in **Full mode** (the interview runs first, the canvas renders its answers — the default recommendation) and in **Fast mode** (the canvas improvises the values too).
+- `design-rework` overhaul, same two routes — full or fast, the user's pick at Step 2.
 
-The 14-question interview is the fallback, never a parallel path: it opens when the canvas misses twice, or when the user asks to decide by questions.
+**Escalation when the canvas misses twice:** on Fast, the full interview opens; on Full, decisions 1–5 are re-asked. The structured questions dig out what the free hand could not.
 
 ## The brief — features in, interpretation free
 
@@ -26,9 +26,9 @@ A kept proposal the PRD does not yet hold is reported as a PRD line for the user
 
 A reference the user points at — a file, a screenshot, an app — is welcome as inspiration for the interpretation. It is **looked at, never parsed or imported**: its values are re-created by the designer where they fit, not transplanted as machinery.
 
-## Asked first — three questions, nothing else
+## Asked before drawing
 
-Q12 component library · Q13 icon pack (only when the library bundles none) · Q17 lowest supported width. In `design-rework` all three default to *keep*, and an installed library is re-asked only when the audit indicts it.
+**Fast:** three questions only — Q12 component library · Q13 icon pack (only when the library bundles none) · Q17 lowest supported width. **Full:** the whole interview in `interview.md`, and its answers bind the canvas's values. In `design-rework` every asked entry defaults to *keep*, and an installed library is re-asked only when the audit indicts it.
 
 Install per the skill's own install step **before** the canvas is written. The canvas is built from the real packages, so they must exist.
 
@@ -44,7 +44,7 @@ Install per the skill's own install step **before** the canvas is written. The c
 
 **Real components, canvas-owned theme.** The library's components render inside a scoped theme wrapper carrying the canvas's own CSS variables. What the user judges is what the app can actually become — no hand-drawn mockups whose fidelity dies in transplant, and no production theme touched while the canvas iterates.
 
-**The taste license, granted explicitly.** Design the page as a designer with a free hand: the palette family and its steps, tinted surfaces, elevation, type scale, spacing, composition — no database query, no interview default, no obligation to any earlier conservatism. The canvas exists because taste assembled from safe defaults produces a wireframe; a canvas that reaches for the safe default has failed its one job. The entries of `anti-pattern.md` still bind, **with their qualifiers** — a purple-blue gradient *as the default*, a *pure black* shadow — guardrails against clichés, never a taste to follow.
+**The taste license, granted explicitly.** Design the page as a designer with a free hand — no database query, no obligation to any earlier conservatism. In **Fast** the license covers everything: palette family and its steps, tinted surfaces, elevation, type scale, spacing, composition. In **Full** the interview's answers bind the values, and the license covers what no question asked: composition, shells, richness, and the tagged feature proposals. The canvas exists because taste assembled from safe defaults produces a wireframe; a canvas that reaches for the safe default has failed its one job. The entries of `anti-pattern.md` still bind, **with their qualifiers** — a purple-blue gradient *as the default*, a *pure black* shadow — guardrails against clichés, never a taste to follow.
 
 **The canvas opens with its own foundations board** — palette roles and steps with their values, text scale on real sentences, spacing, radius, shadow, status triads — rendered from the canvas's own variables, above the pages that use them. Design system and prototype on one board: the user judges a token and the pages wearing it in the same scroll, and this board is a live preview of what `/styleguide` will hold permanently once the values are ratified.
 
@@ -54,9 +54,9 @@ Install per the skill's own install step **before** the canvas is written. The c
 
 ## Judging
 
-Screenshot at the Section 5 desktop breakpoint (1440px when none exists yet) and at the Q17 lower bound, with the browser tooling available to the session. The user judges. Two rounds on the same canvas; a third round does not run — the canvas has spent its rounds, and the interview fallback opens, because at that point the structured questions dig out what the free hand could not.
+Screenshot at the Section 5 desktop breakpoint (1440px when none exists yet) and at the Q17 lower bound, with the browser tooling available to the session. The user judges. Two rounds on the same canvas; a third round does not run — the canvas has spent its rounds, and the escalation above opens.
 
-**The fallback decides values, not pixels.** Its answers become the brief's constraints, and the canvas is **regenerated fresh from them** — never patched over the failed one — then judged again under the same two-round rule.
+**Escalation decides values, not pixels.** Its answers become the brief's constraints, and the canvas is **regenerated fresh from them** — never patched over the failed one — then judged again under the same two-round rule.
 
 **Every decision in this path goes through the AskUserQuestion tool**, under the rules `interview.md` states — a prose question at the end of a turn is answered by no one. The judgement is one call: a single-select verdict (approve · rework this round · switch to the interview fallback), the marked-feature multi-select above, and one shell question per archetype whose canvas screen departs from what exists today. Four questions per call is the tool's cap — more archetypes means a second call in the same turn. Contrast failures, cancelled value lines, and reopened questions are asked the same way.
 

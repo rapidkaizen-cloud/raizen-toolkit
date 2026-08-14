@@ -104,7 +104,7 @@ One question, two options, with a recommendation:
 | Choice | What changes | Questions asked | Components touched |
 |---|---|---|---|
 | **Repair** | Zero new norms — only bringing code back in line with the existing Section 5 | None | Only the deviating ones |
-| **Overhaul** | All of Section 5 is reopened, archetype shells included — the app looks redesigned afterwards, not retuned | Canvas path: three decisions, keep-first; the 14–15 question interview only as fallback (see `canvas.md`) | Every page, promoted from its canvas file |
+| **Overhaul** | All of Section 5 is reopened, archetype shells included — the app looks redesigned afterwards, not retuned | Full: the keep-first interview (14–15), then the canvas from its answers · Fast: canvas after three keep-first decisions (see `canvas.md`) | Every page, promoted from its canvas file |
 
 There is no third option that narrows the scope, because **every question carries a *keep* option** (see Step 3). Answering *keep* to the parts you do not want touched is what narrowing looks like here — scope is narrowed by answers, not by a mode chosen before the user has seen a single question.
 
@@ -146,11 +146,11 @@ Decided by the answers, not chosen:
 
 Nothing else in this skill behaves differently for this path.
 
-## Step 3 — Canvas, or the interview fallback — Overhaul only
+## Step 3 — Full or fast, then the canvas — Overhaul only
 
-**Overhaul runs on the canvas by default** (`references/canvas.md` of `design-init`). Question 12 keeps its keep-first rule, the canvas is built from the installed library and icon pack against the user's feature brief, and its ratified values enter Step 4 as the *new* column of the diff.
+**Overhaul asks one more question first — full or fast** (`references/canvas.md` of `design-init`). **Full (recommended):** the keep-first interview below runs, and the canvas is then drawn from its answers — values from the answers; layout, shells, and tagged feature proposals still the canvas's to improvise. **Fast:** the canvas is drawn straight after the three keep-first decisions, values improvised too. Either way the canvas is built from the installed library and icon pack against the user's feature brief, and its ratified values enter Step 4 as the *new* column of the diff.
 
-**The question interview below is the fallback** — it runs when the canvas misses twice, or when the user asks to decide by questions.
+**Escalation:** a canvas that misses twice on Fast rises to this interview; on Full, decisions 1–5 are re-asked.
 
 Read `interview.md`, `adaptation.md`, and `anti-pattern.md` in the `references/` folder of `design-init`. The rules are identical: options drawn live from `ui-ux-pro-max`, one question per turn, more than two options, one marked recommendation.
 
