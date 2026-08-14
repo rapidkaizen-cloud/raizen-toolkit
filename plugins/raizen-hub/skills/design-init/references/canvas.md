@@ -22,6 +22,8 @@ Two bounds on that freedom, both the user's own condition:
 
 A kept proposal the PRD does not yet hold is reported as a PRD line for the user's decision, per `prd-format`: the canvas may show it, only the PRD makes it real.
 
+**In `design-rework` the existing pages are the floor of the brief, never its ceiling.** The brief is still collected from the user; what the app already does joins it as given. Improvised features and reshaped shells are still expected and still tagged — a canvas that redraws today's pages in new tokens is a repaint, and it has failed exactly as the safe-default canvas fails. *Function-faithful* binds what a shown feature does; it never binds a layout to what the layout used to be.
+
 A reference the user points at — a file, a screenshot, an app — is welcome as inspiration for the interpretation. It is **looked at, never parsed or imported**: its values are re-created by the designer where they fit, not transplanted as machinery.
 
 ## Asked first — three questions, nothing else
@@ -53,6 +55,8 @@ Install per the skill's own install step **before** the canvas is written. The c
 ## Judging
 
 Screenshot at the Section 5 desktop breakpoint (1440px when none exists yet) and at the Q17 lower bound, with the browser tooling available to the session. The user judges. Two rounds on the same canvas; a third round does not run — the canvas has spent its rounds, and the interview fallback opens, because at that point the structured questions dig out what the free hand could not.
+
+**The fallback decides values, not pixels.** Its answers become the brief's constraints, and the canvas is **regenerated fresh from them** — never patched over the failed one — then judged again under the same two-round rule.
 
 **Every decision in this path goes through the AskUserQuestion tool**, under the rules `interview.md` states — a prose question at the end of a turn is answered by no one. The judgement is one call: a single-select verdict (approve · rework this round · switch to the interview fallback), the marked-feature multi-select above, and one shell question per archetype whose canvas screen departs from what exists today. Four questions per call is the tool's cap — more archetypes means a second call in the same turn. Contrast failures, cancelled value lines, and reopened questions are asked the same way.
 
