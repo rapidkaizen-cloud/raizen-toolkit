@@ -1,13 +1,13 @@
 ---
 name: design-init
-description: Decide the visual direction and component library of an app whose PRD Section 5 is still unwritten. Designs the direction whole on a temporary in-repo canvas page — real component library, canvas-owned theme — and ratifies it value by value, with a 14-question interview (options drawn live from the ui-ux-pro-max database) as the fallback path; writes the rules and the screen-archetype table into PRD Section 5, writes the concrete values into the styling files, generates the dev-only /styleguide route, then builds one real reference page in code. Use before the first UI component of a repo is written, or when PRD Section 5 is still marked as unverified.
+description: Decide the visual direction and component library of an app whose PRD Section 5 is still unwritten. Designs the direction whole on a temporary in-repo canvas page from the user's feature brief — real component library, canvas-owned theme — and ratifies it value by value, with a 14-question interview (options drawn live from the ui-ux-pro-max database) as the fallback path; writes the rules and the screen-archetype table into PRD Section 5, writes the concrete values into the styling files, generates the dev-only /styleguide route, then promotes the canvas pages into the app's real pages. Use before the first UI component of a repo is written, or when PRD Section 5 is still marked as unverified.
 ---
 
 # design-init — set the visual direction once, in code
 
 Bootstrap produces a `PRD.md` with an empty Section 5. This skill fills it, then **proves it on a real page** — not a picture, not a description.
 
-Run **once per repo**. After the reference page is approved, later pages are bound by Section 5 and the component rules in `ui-build`, with no further gate.
+Run **once per repo**. After the canvas is ratified and its pages promoted, later pages are bound by Section 5 and the component rules in `ui-build`, with no further gate.
 
 ## Hard limits
 
@@ -31,7 +31,7 @@ Section 5   : [empty / already filled / product without UI]
 Kind of app : [from Section 1]
 Primary role: [from Section 2]
 Reading     : [one sentence — see below]
-Flow        : mode → canvas or questions → Section 5 → styling → reference page
+Flow        : mode → canvas or questions → Section 5 → styling → promotion
 ```
 
 `PRD.md` missing → **STOP**, point to `app-init`.
@@ -71,13 +71,13 @@ Offer three, with a recommendation:
 |---|---|---|
 | **Stock** | Question 12 only, plus question 13 when the chosen library bundles no icon pack. Nothing else is asked and nothing else is derived — the library's own defaults become the design system | An app whose look nobody has an opinion about, and nobody will |
 | **Fast** | Nothing. All 29 decisions are derived from the Step 0 reading, then shown once as a list to correct | An app that must ship today, or a visual direction nobody disputes |
-| **Full** | Three questions — 12 · 13 when the library bundles none · 17 — then the direction is designed whole on a temporary in-repo page, built from the chosen library and icon pack under a canvas-owned theme, and ratified value by value. See `references/canvas.md` | **Recommended.** Taste transfers whole from a judged page; questions only decide what a page cannot show. A user handing over a design-system artifact file lands here, generation skipped |
+| **Full** | Three questions — 12 · 13 when the library bundles none · 17 — then the direction is designed whole on a temporary in-repo page from the user's feature brief, built with the chosen library and icon pack under a canvas-owned theme, and ratified value by value. See `references/canvas.md` | **Recommended.** Taste transfers whole from a judged page; questions only decide what a page cannot show |
 
-**Consequence:** all three still end at a working reference page, so no mode decides blind — the difference is only where the correction happens, before or after the first screen.
+**Consequence:** all three still end at real pages running on screen, so no mode decides blind — the difference is only where the correction happens, before or after the first screen.
 
-**Full replaces the taste questions, never the structure.** The archetype table is still derived and ratified, Section 5 is still written, the styleguide and reference page are still built from production tokens — `canvas.md` holds the sequence, the quarantine rules, and the deletion of the canvas once ratified. The 14-question interview in `interview.md` is the **fallback, not a parallel mode**: it opens when the canvas misses twice, or when the user asks to decide by questions.
+**Full replaces the taste questions, never the structure.** The archetype table is still derived and ratified, Section 5 is still written, the styleguide still renders from production tokens, and the pages still end real — `canvas.md` holds the sequence, the quarantine rules, and the promotion that empties the canvas once ratified. The 14-question interview in `interview.md` is the **fallback, not a parallel mode**: it opens when the canvas misses twice, or when the user asks to decide by questions.
 
-**A mode skips questions, never outputs.** The archetype table (question 18), the `/styleguide` route (Step 6), and the reference page are produced in every mode, fast and stock included — what changes per mode is only where their decisions come from.
+**A mode skips questions, never outputs.** The archetype table (question 18), the `/styleguide` route (Step 6), and real running pages are produced in every mode, fast and stock included — what changes per mode is only where their decisions come from.
 
 ### Stock mode
 
@@ -89,7 +89,7 @@ Say all three of these before the user picks it, because none of them is obvious
 2. **Density is the library's density.** PRD Section 1 or 4 asking for dense screens while the chosen library ships a spacious one is a real conflict — name it and ask which side gives way. Stock plus a density requirement is the one combination that cannot hold, and it fails silently as a pile of overrides months later.
 3. **Changing your mind later is `design-rework`, not an edit.** One override added quietly is how a stock app becomes an app with no design system at all.
 
-Steps 1 and 3 do not run, and neither do the four styling-file rules in Step 4 — there is no theme to write and nothing to translate. Read `references/library-rubric.md` for question 12, skip the rest. Steps 5 through 8 run unchanged: the install block is still approved, and the reference page is still built, because it is the only way the user sees what "as it ships" looks like before twenty screens exist.
+Steps 1 and 3 do not run, and neither do the four styling-file rules in Step 4 — there is no theme to write and nothing to translate. Read `references/library-rubric.md` for question 12, skip the rest. Steps 5 through 8 run unchanged: the install block is still approved, and the first page is still built and judged, because it is the only way the user sees what "as it ships" looks like before twenty screens exist.
 
 **The archetype table is the one derivation stock keeps.** The library decides how components look, never which pages hold what — so the question 18 derivation still runs, its table is still ratified, and it joins the stock Section 5 together with the block below. Skipping it would leave `build-flow` Section 4 with no archetype to open any page proposal from.
 
@@ -145,6 +145,8 @@ A search returning zero results, no Python, or the skill not installed → **do 
 
 ## Step 3 — Translate into values
 
+**Canvas path: this step does not run.** The values come from the canvas, not from the database — the queries here serve the fast, stock, and interview-fallback paths.
+
 Run `ui-ux-pro-max` to turn the answers into concrete palettes, font pairings, and icon entries. Read the script path and command shape from that skill's own SKILL.md — do not guess, and do not copy a path from here.
 
 The `--variance --motion --density` dials are filled from the answers to questions 1, 18, 24, and 16, never from any skill's built-in baseline.
@@ -184,6 +186,8 @@ Section 5 finished → show it to the user, **STOP**, wait for approval before t
 
 ## Step 5 — Ask once to install
 
+**Canvas path: this block was already approved and installed at the three questions, before the canvas was drawn** (`canvas.md`) — do not ask twice. The Section 5 approval above gates dependencies only on the question paths.
+
 One block, one approval:
 
 ```
@@ -199,7 +203,7 @@ Wait for approval. Refused → hand over the commands for the user to run, then 
 
 Install nothing outside that block. Something extra turns out to be needed → ask again, do not slip it in.
 
-## Step 6 — Generate `/styleguide`, then build the reference page
+## Step 6 — Generate `/styleguide`, then the first pages
 
 ### The styleguide route comes first
 
@@ -214,20 +218,20 @@ Sections, in order — each rendered from what Steps 2–4 actually decided, not
 | Foundations | Color roles or scales as Section 5 defines them, with the semantic token list read from the styling files · every text step with a real sample sentence · spacing scale · the density profile table with its numbers, both profiles where question 16 produced two · radius, shadow, breakpoints, motion |
 | Components | Every component the app uses or an archetype names — variants, sizes, and states per component, including loading, empty, and failed where they apply, with a short real-usage snippet |
 | Archetypes | The Section 5 archetype table, one card per archetype: shell sketch, components, routes |
-| Reference | The reference page embedded live at two widths — the desktop breakpoint and the question 17 lower bound — added once that page exists |
 
-Realistic sample data, the same standard the reference page holds below. `ui-build` binds this route like any page.
+Realistic sample data, the same standard the first page holds below. `ui-build` binds this route like any page.
 
 **Done is measured against the table above, not against the page looking full.** The observed failure is always the same sampler: one input rendered in one state, archetype cards reduced to a route plus a sentence, the Reference section silently absent — and it reads as finished. Before reporting this route, check each row:
 
 - **Foundations** — every semantic token the styling files define appears on the page, and the density profile table shows its numbers rather than a summary sentence.
 - **Components** — the checklist is written first, not recalled: every component an archetype card names, plus every form control the app's flows use. Each entry renders with its variants and states — inputs show default, focus, disabled, and error; buttons show hover, focus, disabled, and loading. A component that lives mid-flow — a stepper, a tab set, a dialog, an upload dropzone — renders here in a static frame; "needs a flow to show" is not a reason to skip it.
 - **Archetypes** — every card carries all three parts: shell sketch, component list, routes. A route with one describing sentence is not a card.
-- **Reference** — embedded at both widths once the reference page exists; until it exists the section says *pending*, so its absence reads as unfinished rather than as done.
 
 When reporting the route, include the mapping **archetype → components it names → where each renders on this page**. A named component with no render is work to finish in this session, not a gap to note. The one legitimate absence is a component no archetype and no flow uses — stated, with that reason.
 
-### The reference page
+### The first page
+
+**On the canvas path this page arrives by promotion** — see `canvas.md`; the standards below bind it either way. On the question paths it is built here, as the proof of the direction.
 
 **One page: the most data-dense one belonging to the primary role.** That is where density, tables, and text hierarchy are all tested at once — the three things that decide how an internal app feels. A login page tests nothing.
 
@@ -235,7 +239,7 @@ Realistic dummy data, not lorem and not empty placeholders. Names, dates, and nu
 
 **That data is written as this page's contract and fixtures**, in the shape `build-flow` uses — `src/contracts/<page>.ts` for the types, `src/contracts/<page>.fixtures.ts` for the cases, per `references/contract.md` of `build-flow`. This is the first page of the app either way, so the pattern it sets is the one every later page copies; leaving its data inline means page two starts by inventing a convention that already exists. Judging the direction needs `bulk` and `messy` in particular — a direction that only holds for five tidy rows has not been proven.
 
-**Improvisation is allowed, and expected.** Add summary cards, charts, badges, filters — anything that makes the page feel alive. Section 5 holds component **rules**, not a component **list**, so adding a component never violates it. A reference page that is nothing but a bare table fails to test density and hierarchy, the two reasons it is built.
+**Improvisation is allowed, and expected.** Add summary cards, charts, badges, filters — anything that makes the page feel alive. Section 5 holds component **rules**, not a component **list**, so adding a component never violates it. A first page that is nothing but a bare table fails to test density and hierarchy, the two reasons it matters.
 
 That richness outlives this session: `build-flow` Section 4 judges every later page against this one. A page far emptier than this one goes back to its content proposal rather than becoming the app's new normal. Building this page thin therefore costs more than one page — it lowers the bar for all of them.
 
@@ -244,7 +248,7 @@ Four limits:
 - **Data comes from the terms in Section 4.** Do not invent metrics that have no name in this domain.
 - **Do not imply features nobody decided on.** A "revenue forecast" chart in an app with no forecasting is a lie that will be invoiced later as a feature.
 - **Everything still goes through tokens.** What is forbidden is not a new component, but a new token, a second accent, or a second icon family.
-- **`ui-build` binds this page too**, in full — library defaults, and the loading, empty, and failed states written together with their component. A skeleton rather than a spinner, an empty state that says why it is empty. A reference page that skips them is not proving the direction, it is postponing it, and it is the page every later session copies from.
+- **`ui-build` binds this page too**, in full — library defaults, and the loading, empty, and failed states written together with their component. A skeleton rather than a spinner, an empty state that says why it is empty. A page that skips them is not proving the direction, it is postponing it, and it is the page every later session copies from.
 
 Zero raw hex, font sizes, or spacing in components — this rule applies from the first page, not later.
 
@@ -254,7 +258,7 @@ Data access on this page goes through the layer `logic-init` decided, when that 
 
 Page running → **prove it at two widths with screenshots**: the desktop breakpoint from Section 5 and the lower bound from question 17. Take them with the browser tooling available to the session; no browser tooling → say so and report the dev-server URL with both widths named for the user to check — never claim the widths were judged without either. What is judged at the lower bound is how tables and navigation collapse, not a separate page.
 
-Report how to view it (the dev server command and its URL), then **STOP** and wait for the user's judgement.
+**On the canvas path this page arrives by promotion** — its canvas file moved to the real path, real data wired — and the judgement is survival of real data: holding → report and continue; collapsing → a rework round of this page. **On the interview fallback** there is no canvas — report how to view it (the dev server command and its URL), then **STOP** and wait for the user's judgement.
 
 ## Step 7 — Rework rounds
 
@@ -266,13 +270,13 @@ When reopening, fast rises to full; a session that came through the canvas re-as
 
 Ask decisions 1–5 again (three questions, after the palette merge), especially question 2 about the app that feels right. The user still struggles to name one → ask them to show an app or a site, because adjectives have demonstrably run out by that point.
 
-Section 5 changed → the styling values are updated with it, and the reference page is rebuilt from the new tokens rather than patched.
+Section 5 changed → the styling values are updated with it, and the pages are rebuilt from the new tokens rather than patched.
 
 ## Step 8 — Close
 
-**The reference page does not stay a draft.** Before this step closes it is either routed as a real page of this app, or deleted. A page left in the repo unrouted is dead code that reads as finished work: the next session finds it, copies its patterns, and inherits whatever it got wrong — while the queue still lists that page as unbuilt.
+**Nothing stays a draft.** Before this step closes, canvas pages end promoted into real routes, and a question-path first page is either routed as a real page or deleted. A page left in the repo unrouted is dead code that reads as finished work: the next session finds it, copies its patterns, and inherits whatever it got wrong — while the queue still lists that page as unbuilt.
 
-One block: the visual decisions that settled · files changed · the reference page's fate, routed or deleted · the `/styleguide` route named as staying dev-only, deletable at the user's word · what is still `[needs verification]`.
+One block: the visual decisions that settled · files changed · each page's fate — promoted, routed, or deleted · the `/styleguide` route named as staying dev-only, deletable at the user's word · what is still `[needs verification]`.
 
 State that this gate **no longer applies** to later pages — from here on what binds is Section 5 and the component rules in `ui-build`.
 

@@ -6,6 +6,8 @@ Every numbered entry below is a decision that gets made. Only the entries listed
 
 One question per turn. Each still requires: **more than two options** · **one marked recommendation** · **a one-sentence consequence**. Asked through the **AskUserQuestion tool**, never as prose text — recommendation first and marked "(Recommended)"; the tool's automatic "Other" is how answers outside the options arrive. **Everything the user needs to answer lives inside the dialog** — in the question field or the option descriptions. The dialog may render without the prose around it, so a question referring to text "above" can arrive pointing at nothing.
 
+**An Other answer may carry an option and its detail together.** "Option 1, <the name>" selects that option with the detail attached — read it as that option, never as an answer outside the options. An option whose answer needs typed detail says so in its description; the typing path is Other.
+
 `PRD` = the rule goes into Section 5 · `CSS` = the value goes into the styling files · `PRD+CSS` = the rule in the PRD, the number in CSS.
 
 ## Asked or derived
@@ -17,7 +19,7 @@ One question per turn. Each still requires: **more than two options** · **one m
 - **From the style row chosen in Q1:** Q7 contrast (`Accessibility` column) · Q14 radius (`Design System Variables`) · Q24 motion (`Effects & Animation`)
 - **From another answer:** Q13 icon pack (bundled with the Q12 library — asked instead when it bundles none) · Q20 row separators (the palette's `Border` value) · Q21 row height (from Q16 density)
 - **Fixed recommendation as the default:** Q5 status count (four) · Q8 status marker (icon plus color) · Q10 text steps (five) · Q11 line length · Q19 content width · Q25 action feedback · Q27 forms
-- **Q28 label length:** in `design-init`, not asked and not derived — nothing exists to measure; report one line deferring it to `design-rework`. In `design-rework` it **is asked**, with options built from the audit numbers.
+- **Q28 label length:** a fixed norm in both skills, never asked — short by default, the tightest wording that still names the thing exactly. The `design-rework` audit measures labels as findings against this norm, not as question options.
 
 A derived decision is reported on one line with its basis, exactly like the fast-mode report — never silently. The user may cancel any line, and cancelling it opens that entry as a normal question. In `design-rework`, every entry — asked or derived — defaults to the value Section 5 holds today.
 
@@ -49,11 +51,11 @@ This answer drives more of the later recommendations than any other. See `adapta
 
 ### 2. The app that feels right · PRD
 
-**Options:** name one app or site · none, follow the recommendation · there is one but it is hard to name
+**Options:** name one app or site · none, follow the recommendation · there is one but it is hard to name. The name itself is typed through Other — "option 1, <name>" — and read as that option plus the name.
 
 **Recommendation:** name one, even if it only half fits.
 
-**Consequence:** one app name cuts more errors than five adjectives, and this is the question that matters most if the reference page later has to be reworked.
+**Consequence:** one app name cuts more errors than five adjectives, and this is the question that matters most if the canvas later has to be reworked.
 
 "Hard to name" → ask for a screenshot, or ask which app it must **not** resemble. This question has no query; its answer is what improves the queries for the others.
 
@@ -331,20 +333,22 @@ The options come from one of two places instead, depending on which skill is run
 
 | Skill | Q28 | Q29 |
 |---|---|---|
-| `design-init` | Not asked — nothing exists yet to measure. Report one line deferring it to `design-rework` | Offer bounded choices and mark every one `built-in; no basis in the data` |
-| `design-rework` | Asked, options built around the numbers measured in the audit | Options built around the measured counts |
+| `design-init` | Not asked — fixed norm: short, the tightest exact wording | Offer bounded choices and mark every one `built-in; no basis in the data` |
+| `design-rework` | Not asked — the audit measures labels as findings against the norm | Options built around the measured counts |
 
 **The bound is read in the on-screen language.** Take that language from the Locale row of the app's `CLAUDE.md`. A character count borrowed from English-language design guidance is wrong for any other language — "Not contacted" is 13 characters and "Belum dihubungi" is 15, and that difference repeats on nearly every label.
 
 ### 28. Repeated label length · PRD
 
-**Options from:** measure every label that repeats once per row — status chips, table column headers, navigation items. Report the longest, the median, and how many times each repeats per screen. Build the options around those numbers: the current maximum as a ceiling, two tighter bounds, and icon-only with the text moved to `aria-label`.
+**Fixed norm, never asked: short by default — the tightest wording that still names the thing exactly.** Precision first, then brevity: cut articles and qualifiers, never the distinguishing word. A repeated label — status chip, column header, navigation item — that needs a sentence moves the sentence to `aria-label` or a tooltip and keeps the exact short form on screen. The norm is written into Section 5 as a derived decision, one line, cancellable like any other.
 
-**Recommendation:** the tightest bound that still fits the median, one step tighter if question 16 answered very dense.
+**Why fixed:** a label repeating twenty-five times down a column sets that column's width — and the untended default drifts long, because descriptive reads as safe. Length is read in the on-screen language (the Locale row of `CLAUDE.md`): "Not contacted" is 13 characters, "Belum dihubungi" is 15.
 
-**Consequence:** a label repeating twenty-five times down a column sets that column's width, which makes its length a layout decision rather than a wording one.
+In `design-rework`, the audit still measures the longest and median repeated label — reported as findings against this norm, never as question options.
 
-Buttons are excluded. A button appears once per screen, so cutting its words costs clarity and saves no width.
+Buttons are outside the **length ceiling** — a button appears once per screen, so cutting its words saves no width — but not outside **precision**: a button carries the verb that names its action exactly, and nothing decorative. "Simpan", "Jalankan pencocokan" — never "Klik di sini untuk menyimpan". Short follows from the right verb by itself.
+
+**Icon plus verb is the default for every action button** — the icon makes the action scannable across the system, the verb kills the ambiguity, and the icon comes from the app's one family. **Icon-only is the exception, at named places**: row actions in tables (Q23) and toolbar conventions (search, edit, delete) — always with the verb in `aria-label` and a tooltip. **Never icon-only**: a destructive action's confirming button, and a page's primary action. Fixed norm, written into Section 5 as a derived decision like the label norm above.
 
 ### 29. Supporting text per section · PRD
 

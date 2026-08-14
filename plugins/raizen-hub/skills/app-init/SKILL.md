@@ -152,7 +152,7 @@ Two sessions remain before pages can be built, in this order:
 Until design-init is done, any session will refuse to write UI components.
 ```
 
-`logic-init` runs first because the reference page `design-init` builds carries loading, empty, and failed states — and those belong to the data layer.
+`logic-init` runs first because the pages `design-init` promotes carry loading, empty, and failed states — and those belong to the data layer.
 
 Do not run it now. Bootstrap ends with zero dependencies installed, and `design-init` needs to install several.
 

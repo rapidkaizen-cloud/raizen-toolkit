@@ -7,7 +7,7 @@ description: Decide the logic-layer libraries of an app whose PRD is written —
 
 `app-init` writes the PRD. `design-init` decides how the app looks. This decides what sits **between the database and the UI**: the libraries — or the deliberate absence of them — for fetching, validating, dating, logging, scheduling, and attributing changes to the user who made them.
 
-Run **once per repo**, after `app-init`, before `design-init`. The reference page `design-init` builds carries loading, empty, and failed states; those states belong to the data layer, so deciding the data layer second means building that page twice.
+Run **once per repo**, after `app-init`, before `design-init`. The pages `design-init` promotes carry loading, empty, and failed states; those states belong to the data layer, so deciding the data layer second means building those pages twice.
 
 ## Hard limits
 
@@ -132,7 +132,7 @@ A trigger has its own smoke check, because it never passes through the compiler:
 
 After installing, one smoke check: a single throwaway usage that exercises each library, `tsc --noEmit` (or the stack's equivalent) passing, then the throwaway is deleted. A library that does not compile against this repo's TypeScript config is cheaper to discover now than mid-page.
 
-No reference page. `design-init` needs one because visual direction can only be judged by looking; a library choice is judged by the build passing and by use, and its first real use arrives with the first page.
+No canvas and no proof page. `design-init` needs them because visual direction can only be judged by looking; a library choice is judged by the build passing and by use, and its first real use arrives with the first page.
 
 When writing against a chosen library later, the installed `docs-lookup` skill (Context7) can pull current documentation — a pointer, not a dependency.
 

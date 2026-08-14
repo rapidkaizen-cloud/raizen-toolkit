@@ -178,7 +178,7 @@ Then the next sessions, in this order:
 Until Section 5 exists, any session will refuse to write a UI component.
 ```
 
-`logic-rework` runs first for the same reason `logic-init` does: a reference page carries loading, empty, and failed states, and those belong to the data layer.
+`logic-rework` runs first for the same reason `logic-init` does: the promoted pages carry loading, empty, and failed states, and those belong to the data layer.
 
 Do not run any of them now. Close by reminding the user that the first commit waits for their word, and that `raizen-norms` becomes active only once the next session starts in this repo.
 
@@ -270,11 +270,11 @@ Then the sessions that execute the decisions, in this order:
 ```
 /logic-rework   — only when a logic-layer choice changed or the rework opened one
 /design-rework  — when the look changes: audits the styling, rewrites Section 5,
-                  proves it on one reference page
+                  proves it on the design canvas
 build sessions  — build-flow queues and executes the rest, page by page;
                   schema and constraint changes go through db-ops on the way
 ```
 
-`logic-rework` before `design-rework`, for the same reason as always: the reference page carries loading, empty, and failed states, and those belong to the data layer.
+`logic-rework` before `design-rework`, for the same reason as always: the promoted pages carry loading, empty, and failed states, and those belong to the data layer.
 
 Do not run any of them now. Close by reminding the user that the commit waits for their word.

@@ -11,6 +11,8 @@ description: Rules for building or changing any UI — component reuse, icon sou
 
 Section 5 still `[needs verification]`, empty, or absent → **STOP.** Do not write a component, do not write a styling value, do not add a token.
 
+**One exemption: the design canvas and the `/styleguide` scaffold.** `src/design-canvas/` and the styleguide route are the instruments that *produce* Section 5 — a design skill building them while Section 5 is still empty is the gate working, not a breach. The exemption is theirs alone: no real page, component, or token is written until Section 5 lands.
+
 Which skill to point at is decided by **whether this repo already has UI components**, not by the state of Section 5 alone:
 
 | UI components in the repo | Point the user to |
