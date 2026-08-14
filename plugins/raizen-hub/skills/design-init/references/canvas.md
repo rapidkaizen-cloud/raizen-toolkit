@@ -28,7 +28,7 @@ A reference the user points at — a file, a screenshot, an app — is welcome a
 
 ## Asked before drawing
 
-**Fast:** three questions only — Q12 component library · Q13 icon pack (only when the library bundles none) · Q17 lowest supported width. **Full:** the whole interview in `interview.md`, and its answers bind the canvas's values. In `design-rework` every asked entry defaults to *keep*, and an installed library is re-asked only when the audit indicts it.
+**Fast:** three questions only — Q12 component library · Q13 icon pack (only when the library bundles none) · Q17 lowest supported width. **Full:** the whole interview in `interview.md`, and its answers set the canvas's baseline. In `design-rework` every asked entry defaults to *keep*, and an installed library is re-asked only when the audit indicts it.
 
 Install per the skill's own install step **before** the canvas is written. The canvas is built from the real packages, so they must exist.
 

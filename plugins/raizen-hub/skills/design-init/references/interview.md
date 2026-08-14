@@ -21,7 +21,7 @@ One question per turn. Each still requires: **more than two options** · **one m
 - **Fixed recommendation as the default:** Q5 status count (four) · Q8 status marker (icon plus color) · Q10 text steps (five) · Q11 line length · Q19 content width · Q25 action feedback · Q27 forms
 - **Q28 label length:** a fixed norm in both skills, never asked — short by default, the tightest wording that still names the thing exactly. The `design-rework` audit measures labels as findings against this norm, not as question options.
 
-A derived decision is reported on one line with its basis, exactly like the fast-mode report — never silently. The user may cancel any line, and cancelling it opens that entry as a normal question. In `design-rework`, every entry — asked or derived — defaults to the value Section 5 holds today.
+A derived decision is reported on one line with its basis — never silently. The user may cancel any line, and cancelling it opens that entry as a normal question. In `design-rework`, every entry — asked or derived — defaults to the value Section 5 holds today.
 
 ## Rules for the whole interview
 

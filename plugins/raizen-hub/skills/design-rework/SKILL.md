@@ -168,7 +168,7 @@ Five differences from `design-init`:
 
 **Question 29 builds its options from the audit**, not from the database — the numbers measured in Step 1. `interview.md` group H holds the rule; Q28 is a fixed norm there and is not asked.
 
-Fast and full modes apply exactly as in `design-init`.
+Escalation and canvas regeneration apply exactly as in `design-init`.
 
 ## Step 4 — The new Section 5, as a diff — Overhaul only
 
@@ -211,7 +211,7 @@ Install nothing outside that block. Something extra turns out to be needed → a
 
 **The styleguide route comes first, here too.** Write the new tokens to the styling files, then bring `/styleguide` to `design-init` Step 6's spec under the new direction — the route imports production tokens, so most of it follows the theme files by itself; what is updated by hand is the archetype cards to the ratified shells and any component the new direction adds. The user corrects the visual language here, while a correction is one token rather than a rebuilt page. No `/styleguide` route yet → generate it now, same spec.
 
-**There is no reference page — the canvas is the reference, and the pass promotes it** (`canvas.md`): every page was already designed and judged there, in a file named as its real page. The pass walks every page, the most data-dense page of the primary role **first** — each canvas file moved to its real path, the canvas wrapper removed, the real data wired in place of fixtures — and checked at both widths for **survival of real data**. **Holding → report and continue.** The first **collapse → stop**: a rework round of that page, two at most, then Section 5 reopens through the interview fallback — missing twice means the direction was off, and a third rebuild will not fix that.
+**There is no reference page — the canvas is the reference, and the pass promotes it** (`canvas.md`): every page was already designed and judged there, in a file named as its real page. The pass walks every page, the most data-dense page of the primary role **first** — each canvas file moved to its real path, the canvas wrapper removed, the real data wired in place of fixtures — and checked at both widths for **survival of real data**. **Holding → report and continue.** The first **collapse → stop**: a rework round of that page, two at most, then Section 5 reopens through the escalation in `canvas.md` — missing twice means the direction was off, and a third rebuild will not fix that.
 
 The page is rebuilt **in place**; do not create a branch for it. How it is reverted depends on what Step 0 read of this particular file:
 

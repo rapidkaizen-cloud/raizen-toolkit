@@ -119,7 +119,7 @@ Q25 feedback → inline failures, toast successes (built-in; no basis in the dat
 
 A line whose basis is "built-in" is marked as such. The user may cancel any line, and cancelling it opens that question normally.
 
-A second rework in Step 7 → fast rises to full. A session already in full re-asks decisions 1–5, as Step 7 describes. Missing twice means guessing is not the right path for this app.
+A second rework in Step 7 → Fast rises to the full interview; Full re-asks decisions 1–5, as Step 7 describes. Missing twice means guessing is not the right path for this app.
 
 ### Running the interview
 
@@ -145,7 +145,7 @@ A search returning zero results, no Python, or the skill not installed → **do 
 
 ## Step 3 — Translate into values
 
-**Canvas path: this step does not run.** The values come from the canvas, not from the database — the queries here serve the fast, stock, and interview-fallback paths.
+**Fast: this step does not run** — the values come from the canvas, not from the database. In Full the translation feeds the canvas's baseline; stock skips this step entirely.
 
 Run `ui-ux-pro-max` to turn the answers into concrete palettes, font pairings, and icon entries. Read the script path and command shape from that skill's own SKILL.md — do not guess, and do not copy a path from here.
 
@@ -258,7 +258,7 @@ Data access on this page goes through the layer `logic-init` decided, when that 
 
 Page running → **prove it at two widths with screenshots**: the desktop breakpoint from Section 5 and the lower bound from question 17. Take them with the browser tooling available to the session; no browser tooling → say so and report the dev-server URL with both widths named for the user to check — never claim the widths were judged without either. What is judged at the lower bound is how tables and navigation collapse, not a separate page.
 
-**On the canvas path this page arrives by promotion** — its canvas file moved to the real path, real data wired — and the judgement is survival of real data: holding → report and continue; collapsing → a rework round of this page. **On the interview fallback** there is no canvas — report how to view it (the dev server command and its URL), then **STOP** and wait for the user's judgement.
+**On the canvas modes this page arrives by promotion** — its canvas file moved to the real path, real data wired — and the judgement is survival of real data: holding → report and continue; collapsing → a rework round of this page. **On stock** there is no canvas — report how to view it (the dev server command and its URL), then **STOP** and wait for the user's judgement.
 
 ## Step 7 — Rework rounds
 
@@ -266,7 +266,7 @@ The user may ask for a full rework any number of times. But:
 
 **A second rework of the same page → STOP, reopen Section 5.** Missing once means the layout was off. Missing twice means the visual direction was off, and rewriting the layout a third time will not fix that.
 
-When reopening, fast rises to full; a session that came through the canvas re-asks through the interview fallback, decisions 1–5 first — the canvas already spent its rounds; a session already on the questions re-asks decisions 1–5.
+When reopening: Fast rises to the full interview; Full re-asks decisions 1–5 — and either way the canvas is regenerated fresh from the answers, as `canvas.md` describes, never patched.
 
 Ask decisions 1–5 again (three questions, after the palette merge), especially question 2 about the app that feels right. The user still struggles to name one → ask them to show an app or a site, because adjectives have demonstrably run out by that point.
 
