@@ -1,4 +1,4 @@
-# Frontend interview — 29 decisions, 14 asked
+# Frontend interview — 29 decisions, 10 asked
 
 **The options are not written in this file, and no single source owns them.** They are assembled from three layers, every option labelled with where it came from:
 
@@ -10,7 +10,7 @@ Every numbered entry below is a decision that gets made. Only the entries listed
 
 **Answers are the user's preferences, not gates.** They set the canvas's baseline; the canvas may depart from any of them with a drawn, tagged, reasoned departure that the user settles at the judgement — see `canvas.md`. What an answer never loses is its author: every recommendation, assumption, and departure ends as a decision the user makes through AskUserQuestion, never one the agent makes alone.
 
-**Questions travel in batches, not one per turn.** AskUserQuestion carries up to four questions per call and several calls fit in one turn — so the whole interview lands in two to three turns, not fourteen. **Batch boundaries follow the dependency edges, and the edges live in two places:** each question's own *Options-from* line, and the shift table in `adaptation.md`. A question whose options or recommendation read an earlier asked answer goes in a later call than its source (Q1 and Q2 first, alone — nearly everything reads them; then the palette, Q6, Q9, Q12 together; then the rest as their sources resolve); questions with no edge between them travel together. Between two calls of the same turn the shifts are applied exactly as `adaptation.md` states — batching compresses turns, never the adaptation. Each question still requires: **more than two options** · **one marked recommendation** · **a one-sentence consequence**. Asked through the **AskUserQuestion tool**, never as prose text — recommendation first and marked "(Recommended)"; the tool's automatic "Other" is how answers outside the options arrive. **Everything the user needs to answer lives inside the dialog** — in the question field or the option descriptions. The dialog may render without the prose around it, so a question referring to text "above" can arrive pointing at nothing.
+**Questions travel in batches, not one per turn.** AskUserQuestion carries up to four questions per call and several calls fit in one turn — so the whole interview lands in two to three turns instead of one per question. **Batch boundaries follow the dependency edges, and the edges live in two places:** each question's own *Options-from* line, and the shift table in `adaptation.md`. A question whose options or recommendation read an earlier asked answer goes in a later call than its source (Q1 and Q2 first, alone — nearly everything reads them; then the palette, Q9, Q12 together; then the rest as their sources resolve, the install block riding as the final batch's last question); questions with no edge between them travel together. Between two calls of the same turn the shifts are applied exactly as `adaptation.md` states — batching compresses turns, never the adaptation. Each question still requires: **more than two options** · **one marked recommendation** · **a one-sentence consequence**. Asked through the **AskUserQuestion tool**, never as prose text — recommendation first and marked "(Recommended)"; the tool's automatic "Other" is how answers outside the options arrive. **Everything the user needs to answer lives inside the dialog** — in the question field or the option descriptions. The dialog may render without the prose around it, so a question referring to text "above" can arrive pointing at nothing.
 
 **Four options is the tool's cap per question, and the cap is never a reason to thin the pool.** More than four candidates worth showing → split them across two questions in the same call ("Reference apps A–D", "Reference apps E–H"), never silently drop the rest. A question whose answers combine rather than exclude — reference apps, features to keep, anti-patterns to enforce — is asked with `multiSelect: true`; a value that excludes its alternatives (radius, density, library) stays single-select.
 
@@ -20,16 +20,16 @@ Every numbered entry below is a decision that gets made. Only the entries listed
 
 ## Asked or derived
 
-**Asked, in this order:** Q1 · Q2 · Q3–5 as one palette question · Q6 · Q9 · Q12 · Q13 only when the chosen library bundles no icon pack · Q15 · Q16 · Q17 · Q18 · Q22 · Q23 · Q26 · Q29. Fourteen questions; fifteen when the icon-pack question opens; group F still drops entirely for an app without tables.
+**Asked, in this order:** Q1 · Q2 · Q3–5 as one palette question · Q9 · Q12 · Q13 only when the chosen library bundles no icon pack · Q15 · Q16 · Q17 · Q18 · Q29. Ten questions; eleven when the icon-pack question opens; group F still drops entirely for an app without tables.
 
 **Derived**, each from the basis named here:
 
-- **From the style row chosen in Q1:** Q7 contrast (`Accessibility` column) · Q14 radius (`Design System Variables`) · Q24 motion (`Effects & Animation`)
+- **From the style row chosen in Q1:** Q6 dark mode (light first, unless the style is designed dark) · Q7 contrast (`Accessibility` column) · Q14 radius (`Design System Variables`) · Q24 motion (`Effects & Animation`)
 - **From another answer:** Q13 icon pack (bundled with the Q12 library — asked instead when it bundles none) · Q20 row separators (the palette's `Border` value) · Q21 row height (from Q16 density)
-- **Fixed recommendation as the default:** Q5 status count (four) · Q8 status marker (icon plus color) · Q10 text steps (five) · Q11 line length · Q19 content width · Q25 action feedback · Q27 forms
+- **Fixed recommendation as the default:** Q5 status count (four) · Q8 status marker (icon plus color) · Q10 text steps (five) · Q11 line length · Q19 content width · Q22 paging (numbered pages) · Q23 row actions (icon for the primary, menu for the rest) · Q25 action feedback · Q26 destructive confirmation (dialog, retype for mass deletion) · Q27 forms
 - **Q28 label length:** a fixed norm in both skills, never asked — short by default, the tightest wording that still names the thing exactly. The `design-rework` audit measures labels as findings against this norm, not as question options.
 
-A derived decision is reported on one line with its basis — never silently. The user may cancel any line, and cancelling it opens that entry as a normal question. In `design-rework`, every entry — asked or derived — defaults to the value Section 5 holds today.
+A derived decision is reported on one line with its basis — never silently. The user may cancel any line, and cancelling it opens that entry as a normal question. In `design-rework` the default depends on the path: on **repair and ratify**, every entry — asked or derived — defaults to the value Section 5 holds today. In an **overhaul**, derived entries derive from the new answers exactly as they do in `design-init`, and today's value survives only as the `Keep` option of an asked question — Q12 alone keeps today's library as its recommendation, for reasons of cost.
 
 ## Rules for the whole interview
 
@@ -37,7 +37,7 @@ A derived decision is reported on one line with its basis — never silently. Th
 
 **Do not ask what is already answered.** An earlier answer or `Decision_Rules` settles a question outright → decide it, report it as a derived decision, move on. See `adaptation.md`.
 
-**Answers are reconciled after every batch, and once more before the interview closes.** Two answers that overlap or pull in opposite directions — a dense-and-technical Q1 beside all-airy references in Q2, a 360px Q17 beside hover-revealed actions in Q23 — are a conflict the batch let through, and neither side wins silently. Each conflict goes back as **one question**: name both answers and what collides, offer keeping either side (saying what the other becomes) and a named middle path where one exists, with a recommendation. The resolved answer replaces the original before anything downstream reads it. A conflict surfacing later — in a derived decision or on the canvas — is asked the same way at that point, never absorbed.
+**Answers are reconciled after every batch, and once more before the interview closes.** Two answers that overlap or pull in opposite directions — a dense-and-technical Q1 beside all-airy references in Q2, a 360px Q17 beside a fixed sidebar in Q18 — are a conflict the batch let through, and neither side wins silently. Each conflict goes back as **one question**: name both answers and what collides, offer keeping either side (saying what the other becomes) and a named middle path where one exists, with a recommendation. The resolved answer replaces the original before anything downstream reads it. A conflict surfacing later — in a derived decision or on the canvas — is asked the same way at that point, never absorbed.
 
 **Context removes a question → skip it and say why.** An app without tables skips group F.
 

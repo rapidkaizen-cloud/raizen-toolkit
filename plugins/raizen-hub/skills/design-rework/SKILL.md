@@ -104,7 +104,7 @@ One question, two options, with a recommendation:
 | Choice | What changes | Questions asked | Components touched |
 |---|---|---|---|
 | **Repair** | Zero new norms — only bringing code back in line with the existing Section 5 | None | Only the deviating ones |
-| **Overhaul** | All of Section 5 is reopened, archetype shells included — the app looks redesigned afterwards, not retuned | Full: the keep-first interview (14–15), then the canvas from its answers · Fast: canvas after three keep-first decisions (see `canvas.md`) | Every page, promoted from its canvas file |
+| **Overhaul** | **Section 5 is rebuilt from zero, as `design-init` would write it** — every line re-decided, archetype shells and visual-direction prose included; today's values survive only as *keep* answers. The app looks redesigned afterwards, not retuned | Full: the interview with a keep option per question (10–11), then the canvas from its answers · Fast: canvas after three decisions, each carrying keep (see `canvas.md`) | Every page, promoted from its canvas file |
 
 There is no third option that narrows the scope, because **every question carries a *keep* option** (see Step 3). Answering *keep* to the parts you do not want touched is what narrowing looks like here — scope is narrowed by answers, not by a mode chosen before the user has seen a single question.
 
@@ -148,7 +148,7 @@ Nothing else in this skill behaves differently for this path.
 
 ## Step 3 — Full or fast, then the canvas — Overhaul only
 
-**Overhaul asks one more question first — full or fast** (`references/canvas.md` of `design-init`). **Full (recommended):** the keep-first interview below runs, and the canvas is then drawn from its answers as the baseline — the canvas may still improvise anywhere, every departure from an answer tagged and confirmed at the judgement. **Fast:** the canvas is drawn straight after the three keep-first decisions, values improvised too. Either way the canvas is built from the installed library and icon pack against the user's feature brief, and its ratified values enter Step 4 as the *new* column of the diff.
+**Overhaul asks one more question first — full or fast** (`references/canvas.md` of `design-init`). **Full (recommended):** the interview below runs — fresh options and fresh recommendations as `design-init` assembles them, a keep option on every question — and the canvas is then drawn from its answers as the baseline; the canvas may still improvise anywhere, every departure from an answer tagged and confirmed at the judgement. **Fast:** the canvas is drawn straight after the three decisions, each carrying keep, values improvised too. Either way the canvas is built from the installed library and icon pack against the user's feature brief, and its ratified values enter Step 4 as the *new* column of the diff.
 
 **Escalation:** a canvas that misses twice on Fast rises to this interview; on Full, decisions 1–5 are re-asked.
 
@@ -160,7 +160,9 @@ Five differences from `design-init`:
 
 **Every question carries a *keep* option, written first.** Labelled `Keep — <the value in Section 5 today>`, and it does not count toward the "more than two options" requirement. A value that is only a recommendation is a suggestion; a value written as an option is a choice. Answering *keep* throughout ends the session with the PRD unchanged.
 
-**Keep stays an option, but it stops being the recommendation.** The user chose overhaul, and that choice already says the current sum is wrong — recommending every current value back re-litigates it, and an overhaul answered by its recommendations then changes nothing. For the look-bearing entries — palette, type, radius, density, shell — the recommendation is a real departure, anchored in the question 2 answer, and it names what it departs from. **And the canvas that follows draws blind to the current look** — `canvas.md`'s full-overhaul rule: today's design is not an input, only the brief and the answers are; the audit's numbers price the pass and power the before/after, never anchor the new direction. Question 12 is the one exception: its recommendation stays *keep* unless the audit indicts the library itself, because answering it otherwise rewrites every component for reasons of cost, not of look. Derived decisions derive from the new answers, not from the old Section 5.
+**Keep stays an option, but it stops being the recommendation.** The user chose overhaul, and that choice already says the current sum is wrong — recommending every current value back re-litigates it, and an overhaul answered by its recommendations then changes nothing. For the look-bearing entries — palette, type, radius, density, shell — the recommendation is a real departure, anchored in the question 2 answer, and it names what it departs from. **And the canvas that follows draws blind to the current look** — `canvas.md`'s full-overhaul rule: today's design is not an input, **Section 5's own prose included** — its signature, ornament rules, and shell column bind the canvas no more than the CSS does; only the brief and the answers are inputs. The audit's numbers price the pass and power the before/after, never anchor the new direction. Question 12 is the one exception: its recommendation stays *keep* unless the audit indicts the library itself, because answering it otherwise rewrites every component for reasons of cost, not of look. Derived decisions derive from the new answers, not from the old Section 5 — `interview.md` states the same split, and an overhaul that reads old values into its derivations has re-imported the design it was told to leave outside.
+
+**The new Section 5 is rebuilt from zero, not patched.** Every line of it traces to the same four sources `design-init` names: a new answer, a derived decision reported to the user, a canvas value the user ratified, or `anti-pattern.md`. A line of the old Section 5 that none of the four re-created — a signature paragraph, an ornament rule, a reference-app list — does not carry over by default: it survives only through a *keep* answer or a canvas re-ratification, and otherwise it appears in the Step 4 diff as a removal. Silent carry-over is the mechanism by which an overhaul stays caged by its predecessor, and one ratified sentence is enough bars.
 
 **The archetype table is reopened with everything else.** Under the new direction, run the question 18 derivation again and present each archetype old shell beside new for ratification, the way Step 4 diffs a token. This is where an overhaul stops being a repaint: the rooms move, not only the walls. A user who ratifies every shell as it was is told plainly that the pages will read similar afterwards.
 
@@ -172,13 +174,16 @@ Escalation and canvas regeneration apply exactly as in `design-init`.
 
 ## Step 4 — The new Section 5, as a diff — Overhaul only
 
-Do not show Section 5 in full. Show **only what changes**, old value beside new:
+Do not show Section 5 in full. Show **only what changes**, old value beside new — and removals are changes:
 
 ```
 Accent color : blue #2563EB  →  green #059669
 Text steps   : five          →  four (merge section title and body)
 Radius       : 8px           →  0
+Signature    : ledger seam, sole vertical rule  →  removed
 ```
+
+A line of the old Section 5 that no new answer, derivation, or canvas ratification re-created leaves through this diff as `→ removed`, never by omission. In a rebuilt Section 5 the unchanged lines are the *keep* answers — everything else either appears here or does not exist afterwards.
 
 Arriving here from Step 2b, the *old* column is the **measured** value and is marked as such — `Radius : 8px (measured) → 0`. There is no prior Section 5 line to diff against, and writing one as if there were would claim a decision nobody ever made.
 
@@ -211,7 +216,7 @@ Install nothing outside that block. Something extra turns out to be needed → a
 
 **The styleguide route comes first, here too.** Write the new tokens to the styling files, then bring `/styleguide` to `design-init` Step 6's spec under the new direction — the route imports production tokens, so most of it follows the theme files by itself; what is updated by hand is the archetype cards to the ratified shells and any component the new direction adds. The user corrects the visual language here, while a correction is one token rather than a rebuilt page. No `/styleguide` route yet → generate it now, same spec.
 
-**There is no reference page — the canvas is the reference, and the pass promotes it** (`canvas.md`): every page was already designed and judged there, in a file named as its real page. The pass walks every page, the most data-dense page of the primary role **first** — each canvas file moved to its real path, the canvas wrapper removed, the real data wired in place of fixtures — and checked at both widths for **survival of real data**. **Holding → report and continue.** The first **collapse → stop**: a rework round of that page, two at most, then Section 5 reopens through the escalation in `canvas.md` — missing twice means the direction was off, and a third rebuild will not fix that.
+**There is no reference page — the canvas is the reference, and the pass promotes it** (`canvas.md`): every page was already designed and judged there, in a file named as its real page. The pass walks every page, the most data-dense page of the primary role **first** — each canvas file copied to its real path (the ratified original stays frozen for comparison — `canvas.md`), the canvas wrapper removed, the real data wired in place of fixtures — and checked at both widths for **survival of real data**. **Holding → report and continue.** The first **collapse → stop**: a rework round of that page, two at most, then Section 5 reopens through the escalation in `canvas.md` — missing twice means the direction was off, and a third rebuild will not fix that.
 
 The page is rebuilt **in place**; do not create a branch for it. How it is reverted depends on what Step 0 read of this particular file:
 
@@ -284,6 +289,8 @@ Seven, all of them before reporting done:
 - **Every archetype reads redesigned** — overhaul only. Compare one page per archetype against its Step 1 screenshot, side by side. A page that reads unchanged is a failed item of the pass to fix now — unless every entry behind it was answered *keep*, and the recap already said so.
 
 Any of them fails → fix it in the same session. A half-finished rework is worse than none: the app still runs, so nobody knows it is broken.
+
+**All seven passing is also what empties the canvas.** The frozen originals served the archetype comparison; delete them now, with the index route and the canvas CSS, per `canvas.md`'s lifecycle — the pass wired every page in-session, so nothing is left for them to prove. Kept past this point they become a second source of values.
 
 ## Step 10 — Close
 

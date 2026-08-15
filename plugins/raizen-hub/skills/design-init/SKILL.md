@@ -1,6 +1,6 @@
 ---
 name: design-init
-description: Decide the visual direction and component library of an app whose PRD Section 5 is still unwritten. By default a batched 14-question interview (options assembled live from the ui-ux-pro-max database, domain reading, and a web-research pass) captures the user's preferences, and a temporary in-repo canvas — real component library, canvas-owned theme, the user's feature brief — renders them as every page of the app, expanding thin briefs into a full product with tagged feature proposals and tagged departures; fast mode draws the canvas straight from three questions. Ratifies value by value, writes the rules and the screen-archetype table into PRD Section 5, writes the concrete values into the styling files, generates the dev-only /styleguide route, then promotes the canvas pages into the app's real pages. Use before the first UI component of a repo is written, or when PRD Section 5 is still marked as unverified.
+description: Decide the visual direction and component library of an app whose PRD Section 5 is still unwritten. By default a batched 10-question interview (options assembled live from the ui-ux-pro-max database, domain reading, and a web-research pass) captures the user's preferences, and a temporary in-repo canvas — real component library, canvas-owned theme, the user's feature brief — renders them as every page of the app, expanding thin briefs into a full product with tagged feature proposals and tagged departures; fast mode draws the canvas straight from three questions. Ratifies value by value, writes the rules and the screen-archetype table into PRD Section 5, writes the concrete values into the styling files, generates the dev-only /styleguide route, then promotes the canvas pages into the app's real pages. Use before the first UI component of a repo is written, or when PRD Section 5 is still marked as unverified.
 ---
 
 # design-init — set the visual direction once, in code
@@ -48,6 +48,8 @@ Concluding first beats asking from nothing: the user only corrects what missed, 
 
 State the reading, ask for correction, then continue. When the correction is asked through AskUserQuestion, **the full reading sentence goes inside the question field itself** — the dialog may render without the prose around it, so a question that points at text "above" can arrive pointing at nothing. The corrected reading becomes the keywords for every query in Step 2.
 
+**The Step 2 mode question rides in this same AskUserQuestion call** — two questions, one dialog, one turn. Neither reads the other's answer, so nothing is lost by pairing them.
+
 ## Step 1 — Route the supporting skills
 
 Read the kind of app from PRD Section 1, then decide once:
@@ -65,7 +67,7 @@ The two skills disagree about icon pack, motion level, or typeface → **the use
 
 ## Step 2 — The mode, then the canvas or the questions
 
-### Pick the mode first — one question, before anything else
+### Pick the mode first — asked in the Step 0 call, before anything else
 
 Offer three, with a recommendation:
 
@@ -73,11 +75,11 @@ Offer three, with a recommendation:
 |---|---|---|
 | **Stock** | Question 12 only, plus question 13 when the chosen library bundles no icon pack. Nothing else is asked and nothing else is derived — the library's own defaults become the design system | An app whose look nobody has an opinion about, and nobody will |
 | **Fast** | Three questions — 12 · 13 when the library bundles none · 17 — then the canvas is designed whole from the feature brief, **every value the designer's own**. See `references/canvas.md` | An app that must ship today, or a user who wants to judge a finished proposal rather than answer questions |
-| **Full** | The 14 asked entries in `interview.md`, batched into a few turns — the answers are the user's preferences and the canvas's baseline; the canvas departs wherever the designer judges better, every departure tagged and settled by the user at the judgement. See `references/canvas.md` | **Recommended.** The preferences are captured before anything is drawn, and the canvas shows them as an app instead of as a list |
+| **Full** | The 10 asked entries in `interview.md`, batched into a few turns — the answers are the user's preferences and the canvas's baseline; the canvas departs wherever the designer judges better, every departure tagged and settled by the user at the judgement. See `references/canvas.md` | **Recommended.** The preferences are captured before anything is drawn, and the canvas shows them as an app instead of as a list |
 
 **Consequence:** all three still end at real pages running on screen, so no mode decides blind — the difference is only where the correction happens, before or after the first screen.
 
-**Fast and Full both end at the canvas; they differ in where the values start.** In Full the interview captures the user's preferences as the baseline and the canvas renders them, departing wherever the designer judges better — each departure tagged and settled by the user at the judgement; in Fast the canvas improvises the values too. Either way the archetype table is still derived and ratified, Section 5 is still written, the styleguide still renders from production tokens, and the pages still end real — `canvas.md` holds the sequence, the quarantine rules, and the promotion that empties the canvas once ratified. **A canvas that misses twice escalates:** Fast rises to the full interview; Full re-asks decisions 1–5.
+**Fast and Full both end at the canvas; they differ in where the values start.** In Full the interview captures the user's preferences as the baseline and the canvas renders them, departing wherever the designer judges better — each departure tagged and settled by the user at the judgement; in Fast the canvas improvises the values too. Either way the archetype table is still derived and ratified, Section 5 is still written, the styleguide still renders from production tokens, and the pages still end real — `canvas.md` holds the sequence, the quarantine rules, and the promotion with its frozen-reference lifecycle — the canvas empties page by page as real data lands, never before. **A canvas that misses twice escalates:** Fast rises to the full interview; Full re-asks decisions 1–5.
 
 **A mode skips questions, never outputs.** The archetype table (question 18), the `/styleguide` route (Step 6), and real running pages are produced in every mode, fast and stock included — what changes per mode is only where their decisions come from.
 
@@ -155,7 +157,7 @@ The `--variance --motion --density` dials are filled from the answers to questio
 
 Zero results → do not invent. Tell the user this recommendation came from general defaults, not from the database.
 
-The output is a **proposal**, not a decision. Show it to the user, invite corrections, then continue.
+The output is the canvas's **baseline, not a gate** — do not stop to show it as its own proposal. The user corrects values where they are visible: on the canvas, at the judgement. Stopping here would judge the same values twice.
 
 ## Step 4 — Write Section 5 and the styling files
 
@@ -184,11 +186,11 @@ Follow the sub-section structure in `prd-structure.md` under `app-init`. Fill th
 
 **One palette, two consumers.** An app with both a utility-CSS theme and a component-library theme holds the same hex twice. The Section 5 color table is the source; both files are written in the same edit, never one alone. A color changed in one and not the other splits the app in half — utility classes follow one palette, library components the other, and the seam only shows on the screens nobody has opened yet.
 
-Section 5 finished → show it to the user, **STOP**, wait for approval before touching any dependency.
+Section 5 finished → **on the canvas path it is a report, not a gate**: the values were ratified on the canvas, and a second approval over the same pixels is the double gate `canvas.md` forbids. Only stock still stops here — its Section 5 was never judged anywhere, so show it and wait before touching any dependency.
 
 ## Step 5 — Ask once to install
 
-**Canvas path: this block was already approved and installed at the three questions, before the canvas was drawn** (`canvas.md`) — do not ask twice. The Section 5 approval above gates dependencies only on the question paths.
+**Canvas path: the install block is approved inside the interview itself** — in Fast at the three questions, in Full as the **last question of the final batch**, its contents known once Q12, Q13, and the font are answered — and installed before the canvas is drawn (`canvas.md`). Do not ask twice. Only stock reaches this step as a standalone ask, after its Section 5 stop above.
 
 One block, one approval:
 
@@ -277,6 +279,8 @@ Section 5 changed → the styling values are updated with it, and the pages are 
 ## Step 8 — Close
 
 **Nothing stays a draft.** Before this step closes, canvas pages end promoted into real routes, and a question-path first page is either routed as a real page or deleted. A page left in the repo unrouted is dead code that reads as finished work: the next session finds it, copies its patterns, and inherits whatever it got wrong — while the queue still lists that page as unbuilt.
+
+**Frozen canvas references are not drafts.** After promotion the canvas folder keeps the ratified originals under `canvas.md`'s lifecycle — comparison references until each page is wired with real data, deleted page by page by the session that wires it. The close block lists every canvas file still standing and the queue line that will retire it.
 
 One block: the visual decisions that settled · files changed · each page's fate — promoted, routed, or deleted · the `/styleguide` route named as staying dev-only, deletable at the user's word · what is still `[needs verification]`.
 

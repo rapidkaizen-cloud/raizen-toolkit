@@ -245,6 +245,8 @@ Backend batch
 
 Backend first **inside one page**, never backend first across the whole app. Splitting the batches does not contradict that: a UI batch has no backend to put anywhere, and a backend batch still builds each page's backend before its wiring.
 
+**A page with a frozen canvas reference retires it here.** `src/design-canvas/<page>` still standing means the design session ratified this page and left the file for comparison. After the wiring walk passes at both widths, put the real page beside its canvas file, fix what silently diverged, then **delete the canvas file in this same session** — kept past its verified page it becomes a second source of values (`design-init`'s canvas lifecycle). The last page file to go takes the canvas index route and CSS with it.
+
 The six fixture cases and the rules governing contract files are in `references/contract.md`. Read it in a UI batch; a backend batch does not need it.
 
 **A query that cannot return the contract type changes the contract**, and the page it belongs to goes back into the queue. It is never bridged with `as any` or `as unknown as`. A cast there converts a decision the user should have seen into a line nobody will ever read again.
