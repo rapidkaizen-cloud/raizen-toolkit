@@ -73,7 +73,9 @@ Components affected : [file count that will be touched if tokens change]
 
 That last number matters most — it decides the size of the final pass, and the user is entitled to see it before deciding anything.
 
-**While walking the pages, screenshot one page per archetype at desktop width.** Step 9 compares the finished pass against these; without a before, "it looks redesigned" is an assertion nobody can check.
+**While walking the pages, screenshot one page per archetype at desktop width.** Step 9 compares the finished pass against these; without a before, "it looks redesigned" is an assertion nobody can check. The screenshots are for that comparison and the judgement's before/after — they are not looked at while the canvas is drawn.
+
+**The same walk writes the function inventory** — every function the app carries, one line each, page-agnostic: what can be done, not where it sits or how it looks. In an overhaul this list is the canvas's brief-floor (`canvas.md`), and collecting it here is what lets the drawing phase keep the old pages closed: the audit is the last time they are opened before the pass.
 
 The **Component library** and **Supporting text** rows exist because questions 12 and 29 build their options from measured numbers rather than from a database; **Repeated labels** is measured as findings against the fixed short-label norm (`interview.md` Q28). Measuring them here means the interview never stops to go looking.
 
@@ -274,11 +276,11 @@ The four styling-file rules in `design-init` Step 4 bind here too: every semanti
 
 Report per file, matching the Step 7 recap line for line, so the two can be read against each other.
 
-Do not slip in unrelated fixes. A redesign that also tidies logic produces a diff nobody can read, and one mistake will hide among hundreds of legitimate changes.
+**The UI code is the pass's to rewrite — the behavior is not.** How much component code changes measures nothing: a page may be rebuilt from zero, and an overhaul usually rebuilds most of them. What must come out unchanged is the business behavior — the queries and mutations called, the guard conditions, the route paths, the outcome of every action a user can take. Do not slip in unrelated fixes: a redesign that also tidies logic produces a diff nobody can read, and one mistake will hide among hundreds of legitimate changes. Rewriting markup is the work; "improving" a handler on the way through is the contamination.
 
 ## Step 9 — Verification, mandatory
 
-Seven, all of them before reporting done:
+Eight, all of them before reporting done:
 
 - **The build passes.** It does not → stop, fix it, do not report done.
 - **Zero raw values remain.** Search again for hex, font sizes, and raw spacing across every component. Anything left is unfinished work, not an exception.
@@ -287,14 +289,15 @@ Seven, all of them before reporting done:
 - **The recap matched.** Every file listed at Step 7 changed, and no file outside that list did.
 - **The densest page is opened and looked at**, at desktop and at the lower bound. Correct tokens do not guarantee an intact layout.
 - **Every archetype reads redesigned** — overhaul only. Compare one page per archetype against its Step 1 screenshot, side by side. A page that reads unchanged is a failed item of the pass to fix now — unless every entry behind it was answered *keep*, and the recap already said so.
+- **Function parity holds.** Walk the Step 1 function inventory line by line: every function is still reachable in the reworked app, wherever it now lives — moved pages, merged cards, and chrome placements all count. A line missing everywhere is a failed item to fix now, unless the user cut it at the judgement and the recap said so. This is the check that makes "the code may change freely" safe to grant: the flow is verified, not trusted.
 
 Any of them fails → fix it in the same session. A half-finished rework is worse than none: the app still runs, so nobody knows it is broken.
 
-**All seven passing is also what empties the canvas.** The frozen originals served the archetype comparison; delete them now, with the index route and the canvas CSS, per `canvas.md`'s lifecycle — the pass wired every page in-session, so nothing is left for them to prove. Kept past this point they become a second source of values.
+**All eight passing is also what empties the canvas.** The frozen originals served the archetype comparison; delete them now, with the index route and the canvas CSS, per `canvas.md`'s lifecycle — the pass wired every page in-session, so nothing is left for them to prove. Kept past this point they become a second source of values.
 
 ## Step 10 — Close
 
-One block: the Section 5 lines that changed · files touched with their count · files `UNTOUCHED` · items the user rejected, still standing as findings · the canvas outcome and how many rework rounds it took · the seven verification results · what is still `[needs verification]`.
+One block: the Section 5 lines that changed · files touched with their count · files `UNTOUCHED` · items the user rejected, still standing as findings · the canvas outcome and how many rework rounds it took · the eight verification results · what is still `[needs verification]`.
 
 Nothing changed — every answer was *keep*, or the canvas was reverted → say that in one line and list the audit findings that remain. A session that changes nothing has still produced the audit, and that is worth writing down.
 
