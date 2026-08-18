@@ -4,7 +4,7 @@ Questions travel in batches — up to four per AskUserQuestion call, several cal
 
 **The stack is not locked.** Options are assembled from the rubric below, filtered by the needs readable from the user's story. Only one thing is locked: **options whose templates do not exist are not offered.** A bootstrap that produces a repo without config and without migrations is a failed bootstrap, and a junior developer will not know what is missing.
 
-Component library is **not asked here** — it is question 12 in `design-init`, once the app's real needs are readable from the PRD, and `design-init` also installs it.
+Component library is **not asked here** — it is decision 7 in `design-init`, once the app's real needs are readable from the PRD, and `design-init` also installs it.
 
 ---
 

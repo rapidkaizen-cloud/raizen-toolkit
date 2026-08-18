@@ -52,4 +52,4 @@ For dashboards and internal tools these four do not apply — do not write them 
 
 ## What was deliberately left out
 
-`design-taste-frontend` also prescribes a stack (Next.js, RSC, Motion, GSAP) and advises against `lucide-react`. Neither is used: the stack is decided in `app-init`, and the icon pack is chosen by the user in question 12 — where the recommendation is always the icon set bundled with the chosen component library, whichever it is, because one fewer dependency outweighs an opinion about stroke weight.
+`design-taste-frontend` also prescribes a stack (Next.js, RSC, Motion, GSAP) and advises against `lucide-react`. Neither is used: the stack is decided in `app-init`, and the icon pack is chosen by the user at decision 7 — where the recommendation is always the icon set bundled with the chosen component library, whichever it is, because one fewer dependency outweighs an opinion about stroke weight.

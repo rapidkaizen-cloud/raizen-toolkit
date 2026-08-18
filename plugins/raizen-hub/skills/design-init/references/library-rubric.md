@@ -1,6 +1,6 @@
 # Component library rubric
 
-Used in question 12. Score the needs from PRD Sections 1–3, then assemble 3–4 libraries that satisfy **all** of them.
+Used in decision 7. Score the needs from PRD Sections 1–3, then assemble 3–4 libraries that satisfy **all** of them.
 
 `ui-ux-pro-max` has no data for choosing a library — its `stacks/` folder holds guidance **for** a library already chosen, not a way to choose one. So this rubric lives here and you maintain it.
 

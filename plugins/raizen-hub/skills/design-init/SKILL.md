@@ -1,6 +1,6 @@
 ---
 name: design-init
-description: Decide the visual direction and component library of an app whose PRD Section 5 is still unwritten. By default a batched 10-question interview (options assembled live from the ui-ux-pro-max database, domain reading, and a web-research pass) captures the user's preferences, and a temporary in-repo canvas — real component library, canvas-owned theme, the user's feature brief — renders them as every page of the app, expanding thin briefs into a full product with tagged feature proposals and tagged departures; fast mode draws the canvas straight from three questions. Ratifies value by value, writes the rules and the screen-archetype table into PRD Section 5, writes the concrete values into the styling files, generates the dev-only /styleguide route, then promotes the canvas pages into the app's real pages. Use before the first UI component of a repo is written, or when PRD Section 5 is still marked as unverified.
+description: Decide the visual direction and component library of an app whose PRD Section 5 is still unwritten. By default a batched interview over 15 decisions (options assembled live from the ui-ux-pro-max database, domain reading, and a web-research pass) captures the user's preferences, and a temporary in-repo canvas — real component library, canvas-owned theme, the user's feature brief — renders them as every page of the app, expanding thin briefs into a full product with tagged feature proposals and tagged departures; fast mode draws the canvas straight from three dialogs. Ratifies value by value, writes the rules and the screen-archetype table into PRD Section 5, writes the concrete values into the styling files, generates the dev-only /styleguide route, then promotes the canvas pages into the app's real pages. Use before the first UI component of a repo is written, or when PRD Section 5 is still marked as unverified.
 ---
 
 # design-init — set the visual direction once, in code
@@ -73,15 +73,15 @@ Offer three, with a recommendation:
 
 | Mode | What is asked | For whom |
 |---|---|---|
-| **Stock** | Question 12 only, plus question 13 when the chosen library bundles no icon pack. Nothing else is asked and nothing else is derived — the library's own defaults become the design system | An app whose look nobody has an opinion about, and nobody will |
-| **Fast** | Three questions — 12 · 13 when the library bundles none · 17 — then the canvas is designed whole from the feature brief, **every value the designer's own**. See `references/canvas.md` | An app that must ship today, or a user who wants to judge a finished proposal rather than answer questions |
-| **Full** | The 10 asked entries in `interview.md`, batched into a few turns — the answers are the user's preferences and the canvas's baseline; the canvas departs wherever the designer judges better, every departure tagged and settled by the user at the judgement. See `references/canvas.md` | **Recommended.** The preferences are captured before anything is drawn, and the canvas shows them as an app instead of as a list |
+| **Stock** | Decision 7 only — the component library, plus its icon dialog when the chosen library bundles no pack. Nothing else is asked and nothing else is derived — the library's own defaults become the design system | An app whose look nobody has an opinion about, and nobody will |
+| **Fast** | Three dialogs — decision 7 · its icon dialog when the library bundles none · decision 10's minimum-width facet — then the canvas is designed whole from the feature brief, **every value the designer's own**. See `references/canvas.md` | An app that must ship today, or a user who wants to judge a finished proposal rather than answer questions |
+| **Full** | Every decision's primary axis in `interview.md` — 15 decisions, 16 dialogs (17 when the library bundles no icons), batched into three turns; facets stay derived, reported, and cancellable. The answers are the user's preferences and the canvas's baseline; the canvas departs wherever the designer judges better, every departure tagged and settled by the user at the judgement. See `references/canvas.md` | **Recommended.** The preferences are captured before anything is drawn, and the canvas shows them as an app instead of as a list |
 
 **Consequence:** all three still end at real pages running on screen, so no mode decides blind — the difference is only where the correction happens, before or after the first screen.
 
-**Fast and Full both end at the canvas; they differ in where the values start.** In Full the interview captures the user's preferences as the baseline and the canvas renders them, departing wherever the designer judges better — each departure tagged and settled by the user at the judgement; in Fast the canvas improvises the values too. Either way the archetype table is still derived and ratified, Section 5 is still written, the styleguide still renders from production tokens, and the pages still end real — `canvas.md` holds the sequence, the quarantine rules, and the promotion with its frozen-reference lifecycle — the canvas empties page by page as real data lands, never before. **A canvas that misses twice escalates:** Fast rises to the full interview; Full re-asks decisions 1–5.
+**Fast and Full both end at the canvas; they differ in where the values start.** In Full the interview captures the user's preferences as the baseline and the canvas renders them, departing wherever the designer judges better — each departure tagged and settled by the user at the judgement; in Fast the canvas improvises the values too. Either way the archetype table is still derived and ratified, Section 5 is still written, the styleguide still renders from production tokens, and the pages still end real — `canvas.md` holds the sequence, the quarantine rules, and the promotion with its frozen-reference lifecycle — the canvas empties page by page as real data lands, never before. **A canvas that misses twice escalates:** Fast rises to the full interview; Full re-asks decisions 1–3.
 
-**A mode skips questions, never outputs.** The archetype table (question 18), the `/styleguide` route (Step 6), and real running pages are produced in every mode, fast and stock included — what changes per mode is only where their decisions come from.
+**A mode skips questions, never outputs.** The archetype table (decision 10), the `/styleguide` route (Step 6), and real running pages are produced in every mode, fast and stock included — what changes per mode is only where their decisions come from.
 
 ### Stock mode
 
@@ -93,9 +93,9 @@ Say all three of these before the user picks it, because none of them is obvious
 2. **Density is the library's density.** PRD Section 1 or 4 asking for dense screens while the chosen library ships a spacious one is a real conflict — name it and ask which side gives way. Stock plus a density requirement is the one combination that cannot hold, and it fails silently as a pile of overrides months later.
 3. **Changing your mind later is `design-rework`, not an edit.** One override added quietly is how a stock app becomes an app with no design system at all.
 
-Steps 1 and 3 do not run, and neither do the four styling-file rules in Step 4 — there is no theme to write and nothing to translate. Read `references/library-rubric.md` for question 12, skip the rest. Steps 5 through 8 run unchanged: the install block is still approved, and the first page is still built and judged, because it is the only way the user sees what "as it ships" looks like before twenty screens exist.
+Steps 1 and 3 do not run, and neither do the four styling-file rules in Step 4 — there is no theme to write and nothing to translate. Read `references/library-rubric.md` for decision 7, skip the rest. Steps 5 through 8 run unchanged: the install block is still approved, and the first page is still built and judged, because it is the only way the user sees what "as it ships" looks like before twenty screens exist.
 
-**The archetype table is the one derivation stock keeps.** The library decides how components look, never which pages hold what — so the question 18 derivation still runs, its table is still ratified, and it joins the stock Section 5 together with the block below. Skipping it would leave `build-flow` Section 4 with no archetype to open any page proposal from.
+**The archetype table is the one derivation stock keeps.** The library decides how components look, never which pages hold what — so the decision 10 archetype derivation still runs, its table is still ratified, and it joins the stock Section 5 together with the block below. Skipping it would leave `build-flow` Section 4 with no archetype to open any page proposal from.
 
 **Section 5 is still written, and never as `[needs verification]`.** It records the decision that no decision was made:
 
@@ -107,7 +107,7 @@ Visual direction: the defaults of <library> <version>, adopted unmodified.
 - No theme file, no custom token, no palette belonging to this app.
 - No component override. There is no rule in this section for one to cite,
   so every override is a finding — see `ui-build`, Library defaults.
-- Icons: <the bundled pack, or the pack chosen in question 13>. One family.
+- Icons: <the bundled pack, or the pack chosen at decision 7's icon dialog>. One family.
 - Changing any of this is `design-rework`, not an edit to this section.
 ```
 
@@ -116,18 +116,18 @@ That shape carries the whole mode. `ui-build` gates on Section 5 being *written*
 Derived decisions are **never silent, in either mode.** Every decision not asked is reported on one line with its basis:
 
 ```
-Q14 radius   → 8px     (from Design System Variables of style "Minimalism & Swiss")
-Q24 motion   → subtle  (from the Effects & Animation column of the same style)
-Q25 feedback → inline failures, toast successes (built-in; no basis in the data)
+D8 radius+shadow → 8px, soft cards (from Design System Variables of style "Minimalism & Swiss")
+D12 motion       → subtle (from the Effects & Animation column of the same style)
+D13 feedback     → inline failures, toast successes (built-in; no basis in the data)
 ```
 
-A line whose basis is "built-in" is marked as such. The user may cancel any line, and cancelling it opens that question normally.
+A line whose basis is "built-in" is marked as such. The user may cancel any line, and cancelling it opens that dialog normally. `interview.md`'s ledger rules govern the full report: facets between batches, the 15-row ledger at the interview's close, and the same ledger once more at ratification.
 
-A second rework in Step 7 → Fast rises to the full interview; Full re-asks decisions 1–5, as Step 7 describes. Missing twice means guessing is not the right path for this app.
+A second rework in Step 7 → Fast rises to the full interview; Full re-asks decisions 1–3, as Step 7 describes. Missing twice means guessing is not the right path for this app.
 
 ### Running the interview
 
-Read `references/interview.md`, `references/adaptation.md`, and — for question 12 — `references/library-rubric.md`.
+Read `references/interview.md`, `references/adaptation.md`, and — for decision 7 — `references/library-rubric.md`.
 
 **The order in `interview.md` is the order asked.** No question is promoted to the front because it feels foundational, and none is deferred because its answer looks obvious.
 
@@ -153,7 +153,7 @@ A search returning zero results, no Python, or the skill not installed → **the
 
 Run `ui-ux-pro-max` to turn the answers into concrete palettes, font pairings, and icon entries. Read the script path and command shape from that skill's own SKILL.md — do not guess, and do not copy a path from here.
 
-The `--variance --motion --density` dials are filled from the answers to questions 1, 18, 24, and 16, never from any skill's built-in baseline.
+The `--variance --motion --density` dials are filled from the answers to decisions 1, 10, 12, and 9, never from any skill's built-in baseline.
 
 Zero results → do not invent. Tell the user this recommendation came from general defaults, not from the database.
 
@@ -172,7 +172,7 @@ Color and spacing are the exception: their roles, values, and usage rules are wr
 
 Follow the sub-section structure in `prd-structure.md` under `app-init`. Fill the Anti-patterns sub-section from `references/anti-pattern.md`, taking only what is relevant to this kind of app.
 
-**Page Composition holds the ratified archetype table from question 18** — one row per archetype: shell layout, components, density profile, empty/loading wording, and the routes it owns. This table is what `build-flow` Section 4 opens every later page proposal from, so a Section 5 written without it leaves every future page assembling its layout from nothing. Where question 16 produced two density profiles, their numbers land under Breakpoints & Density.
+**Page Composition holds the ratified archetype table from decision 10** — one row per archetype: shell layout, components, density profile, empty/loading wording, and the routes it owns. This table is what `build-flow` Section 4 opens every later page proposal from, so a Section 5 written without it leaves every future page assembling its layout from nothing. Where decision 9 produced two density profiles, their numbers land under Breakpoints & Density.
 
 **Every line in Section 5 traces back to one of four sources:** an interview answer, a derived decision already reported to the user, a canvas value the user ratified (the canvas path), or `references/anti-pattern.md`. A rule belonging to none of them is not written, however sensible it looks — no question asks it, so nobody decided it. A prohibition nobody was asked about still binds every session that follows, and the user only finds out months later, wondering why the app refuses to do something.
 
@@ -190,16 +190,16 @@ Section 5 finished → **on the canvas path it is a report, not a gate**: the va
 
 ## Step 5 — Ask once to install
 
-**Canvas path: the install block is approved inside the interview itself** — in Fast at the three questions, in Full as the **last question of the final batch**, its contents known once Q12, Q13, and the font are answered — and installed before the canvas is drawn (`canvas.md`). Do not ask twice. Only stock reaches this step as a standalone ask, after its Section 5 stop above.
+**Canvas path: the install block is approved inside the interview itself** — in Fast at the three dialogs, in Full as the **last question of the final batch**, its contents known once decisions 6 and 7 are answered — and installed before the canvas is drawn (`canvas.md`). Do not ask twice. Only stock reaches this step as a standalone ask, after its Section 5 stop above.
 
 One block, one approval:
 
 ```
 Will install:
   npm install
-  <component library>          [from question 12]
+  <component library>          [from decision 7]
   <what the library omits>     [the "Needs extra" column in library-rubric.md]
-  <icon pack>                  [from question 13]
+  <icon pack>                  [from decision 7 — bundled, or its icon dialog]
   <font>                       [self-hosted or a package — say which]
 ```
 
@@ -219,7 +219,7 @@ Sections, in order — each rendered from what Steps 2–4 actually decided, not
 
 | Section | Contents |
 |---|---|
-| Foundations | Color roles or scales as Section 5 defines them, with the semantic token list read from the styling files · every text step with a real sample sentence · spacing scale · the density profile table with its numbers, both profiles where question 16 produced two · radius, shadow, breakpoints, motion |
+| Foundations | Color roles or scales as Section 5 defines them, with the semantic token list read from the styling files · every text step with a real sample sentence · spacing scale · the density profile table with its numbers, both profiles where decision 9 produced two · radius, shadow, breakpoints, motion |
 | Components | Every component the app uses or an archetype names — variants, sizes, and states per component, including loading, empty, and failed where they apply, with a short real-usage snippet |
 | Archetypes | The Section 5 archetype table, one card per archetype: shell sketch, components, routes |
 
@@ -260,7 +260,7 @@ Data access on this page goes through the layer `logic-init` decided, when that 
 
 **The page proves one archetype in full — name which.** Every later page of that archetype copies this one, so an archetype proven here is an archetype nobody re-derives.
 
-Page running → **prove it at two widths with screenshots**: the desktop breakpoint from Section 5 and the lower bound from question 17. Take them with the browser tooling available to the session; no browser tooling → say so and report the dev-server URL with both widths named for the user to check — never claim the widths were judged without either. What is judged at the lower bound is how tables and navigation collapse, not a separate page.
+Page running → **prove it at two widths with screenshots**: the desktop breakpoint from Section 5 and the lower bound from decision 10's minimum width. Take them with the browser tooling available to the session; no browser tooling → say so and report the dev-server URL with both widths named for the user to check — never claim the widths were judged without either. What is judged at the lower bound is how tables and navigation collapse, not a separate page.
 
 **On the canvas modes this page arrives by promotion** — its canvas file moved to the real path, real data wired — and the judgement is survival of real data: holding → report and continue; collapsing → a rework round of this page. **On stock** there is no canvas — report how to view it (the dev server command and its URL), then **STOP** and wait for the user's judgement.
 
@@ -270,9 +270,9 @@ The user may ask for a full rework any number of times. But:
 
 **A second rework of the same page → STOP, reopen Section 5.** Missing once means the layout was off. Missing twice means the visual direction was off, and rewriting the layout a third time will not fix that.
 
-When reopening: Fast rises to the full interview; Full re-asks decisions 1–5 — and either way the canvas is regenerated fresh from the answers, as `canvas.md` describes, never patched.
+When reopening: Fast rises to the full interview; Full re-asks decisions 1–3 — and either way the canvas is regenerated fresh from the answers, as `canvas.md` describes, never patched.
 
-Ask decisions 1–5 again (three questions, after the palette merge), especially question 2 about the app that feels right. The user still struggles to name one → ask them to show an app or a site, because adjectives have demonstrably run out by that point.
+Ask decisions 1–3 again (three dialogs), especially decision 2 about the app that feels right. The user still struggles to name one → ask them to show an app or a site, because adjectives have demonstrably run out by that point.
 
 Section 5 changed → the styling values are updated with it, and the pages are rebuilt from the new tokens rather than patched.
 

@@ -134,7 +134,7 @@ This does not shorten the empty and failed states above. Those explain a situati
 
 **A rationale found on screen is a finding, reported to the user** — the same standing as a raw color value, and removed the same way. Without that sentence this rule states a preference nobody is obliged to act on, and the text accumulates one paragraph at a time until a screen is mostly explanation.
 
-How much supporting text a screen may carry, and how long a repeated label may be, are decided per app in PRD Section 5 — questions 28 and 29 of the design interview. This rule governs what may be said, not how much.
+How much supporting text a screen may carry, and how long a repeated label may be, are recorded per app in PRD Section 5 — decision 15 of the design interview, fixed norms unless the user cancelled them there. This rule governs what may be said, not how much.
 
 ## Wording
 
