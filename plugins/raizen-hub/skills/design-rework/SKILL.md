@@ -26,6 +26,7 @@ Do not commit and do not push.
 ## Step 0 — Preconditions
 
 ```
+Skill build   : [raizen-hub x.y.z — read from this plugin's own .claude-plugin/plugin.json]
 PRD.md        : [present / missing]
 Section 5     : [filled / empty / absent]
 Branch        : [name · clean or has uncommitted changes]
@@ -33,6 +34,8 @@ UI components : [file count]
 Path          : [rework / ratify — from the routing below]
 Flow          : audit → [repair · overhaul · ratify] → recap → one pass
 ```
+
+The `Skill build` line exists so a stale install is visible before the pass, not after: rules fixed in the toolkit reach an app repo only through `/plugin update`, and a session on an old build re-makes exactly the mistakes the fix closed. The user sees the version and decides; the skill does not block on it.
 
 `PRD.md` missing → **STOP.** An app with no PRD has no prior intent to protect and nothing to read the audit against. Point to `app-rework` for a repo that already exists, `app-init` for one that does not.
 
@@ -292,11 +295,11 @@ Nine, all of them before reporting done:
 - **The densest page is opened and looked at**, at desktop and at the lower bound. Correct tokens do not guarantee an intact layout.
 - **Every archetype reads redesigned** — overhaul only. Compare one page per archetype against its Step 1 screenshot, side by side. A page that reads unchanged is a failed item of the pass to fix now — unless every entry behind it was answered *keep*, and the recap already said so.
 - **Function parity holds.** Walk the Step 1 function inventory line by line: every function is still reachable in the reworked app **at both widths — a control hidden below the breakpoint is a missing function at the minimum width, not a responsive choice** — wherever it now lives — moved pages, merged cards, and chrome placements all count. A line missing everywhere is a failed item to fix now, unless the user cut it at the judgement and the recap said so. This is the check that makes "the code may change freely" safe to grant: the flow is verified, not trusted.
-- **The promoted pages match their canvas files** — overhaul only, and before anything is deleted. Put each production page beside its canvas file: same composition, same section order, the shared chrome components it imports ported and in use — only the data and its states differ. The archetype check above cannot catch this one: the new chrome makes every page read redesigned, while a page that kept its old arrangement under new tokens is exactly the repaint Step 8 forbids. One mismatched page is a failed item of the pass to fix now — and its canvas file stays alive until it does.
+- **The promoted pages match their canvas files** — overhaul only, and before anything is deleted. Put each production page beside its canvas file: same composition, same section order, the shared chrome components it imports ported and in use, **element for element** — only the data and its states differ, and every element that legitimately could not survive is already a named deviation line in the recap. The archetype check above cannot catch this one: the new chrome makes every page read redesigned, while a page that kept its old arrangement under new tokens is exactly the repaint Step 8 forbids. **Run it with rows on screen**: an empty database renders empty states the canvas never drew, and a parity claim over empty tables is void — seed `[CLAUDE]`-prefixed rows first, or mark this check unverifiable and leave the canvas alive. One mismatched page is a failed item of the pass to fix now — and its canvas file stays alive until it does.
 
 Any of them fails → fix it in the same session. A half-finished rework is worse than none: the app still runs, so nobody knows it is broken.
 
-**All nine passing is also what empties the canvas.** The frozen originals served the archetype comparison; delete them now, with the entry route, the foundations board, and the canvas CSS, per `canvas.md`'s lifecycle — the pass wired every page in-session, so nothing is left for them to prove. Kept past this point they become a second source of values.
+**All nine passing earns the right to propose deletion — never to delete.** The canvas is removed only through an explicit **AskUserQuestion**: report the parity check's result per page, invite the user to walk canvas and app side by side at `/design-canvas`, and ask whether the canvas may go. Only a granted confirmation deletes — the page files, the entry route, the foundations board, and the canvas CSS together, per `canvas.md`'s lifecycle. The user refusing, or naming any page that does not read 1:1, turns each named page into a failed item of the pass to fix now; the canvas stays alive until a later confirmation clears it. Deleted without asking it destroys the only comparison the user has; kept past a granted confirmation it becomes a second source of values.
 
 ## Step 10 — Close
 
