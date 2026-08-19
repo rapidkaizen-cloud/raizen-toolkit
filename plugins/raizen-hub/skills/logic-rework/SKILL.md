@@ -9,7 +9,7 @@ description: Rework the logic layer of an app that already runs — server-state
 
 ## Hard limits
 
-**Started by the user, never by you.** An audit finding is a report, not a licence. `logic-build` may raise one surfaced need mid-session; this whole skill opens only when the user asks for it.
+**Opened by the user, or by an offer the user accepts — the finding fires the offer, never the run.** A session that finds the logic layer bleeding — handwritten fetching spreading across files, input crossing a trust boundary unvalidated, dates parsed by hand in many places — does not just note it in a report the user may never read: it makes the offer through **AskUserQuestion**, once. **An offer must carry its evidence or it is not made**: the measured finding (which files, how many call sites, what it costs today), the concrete consequence of leaving it, and a recommendation — never a bare "want to run logic-rework?". A finding too thin to state in numbers is a report line, not an offer. The offer fires from the audits of `app-rework` and `design-rework`, or from `logic-build` mid-session; declining it closes the matter for that session, and this skill still never opens itself.
 
 `PRD.md` is an **absolute precondition**. Missing → STOP, point to `app-rework`.
 

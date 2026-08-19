@@ -80,13 +80,11 @@ Color and spacing are the exception: their roles, values, and usage rules are wr
 
 Sub-sections: Visual Direction (2–3 sentences + what is deliberately not used) · Typography (number of steps + what each is for; color is not a hierarchy tool) · Spacing (base unit + permitted values) · Breakpoints & Density (including the lower bound that is not supported) · Page Composition (the shell, plus the screen archetype table: per archetype one row naming its shell layout, components, density profile, empty/loading wording, and the routes it owns — every route lands in exactly one archetype) · Color (role · value · usage rule; minimum contrast 4.5:1 for text, 3:1 for non-text; color is never the only status marker) · Reusable Components (rules, not a list) · Anti-patterns.
 
-### One exception: an app that adopts its library whole
+### A legacy shape: an app that adopted its library whole
 
-`design-init` offers a **stock** mode, where the component library's own defaults are the design system and the app never gets a palette, a theme file, or a token of its own. The sub-sections above then have nothing to hold — there is no spacing scale to write down, because the one in use is the library's.
+An older Section 5 may hold only the decision itself: a library and version adopted unmodified, an icon family, and three prohibitions — no theme file, no custom token, no override. That shape came from a `design-init` mode since retired; no new Section 5 is written this way, but the shape stays normative where it already exists, and the sub-sections above have nothing to hold there — the spacing scale in use is the library's.
 
-Section 5 is still written, and still normative. It shrinks to the decision itself: the library and version adopted, the icon family, and the three prohibitions that follow — no theme file, no custom token, no override. `design-init` holds the exact shape.
-
-Two things do not change. It is **never `[needs verification]`**: the decision was made, and marking it pending stops `ui-build` on a question the user already answered. And it is **not a weaker Section 5** — stating no rule that an override could cite, it refuses overrides more completely than a filled one does.
+Two things hold for it. It is **never `[needs verification]`**: the decision was made, and marking it pending stops `ui-build` on a question the user already answered. And it is **not a weaker Section 5** — stating no rule that an override could cite, it refuses overrides more completely than a filled one does. Reworking such an app is `design-rework`, which reads this shape on its audit.
 
 Everything else on this page still binds, including that changing it later is the user's decision and never an agent's.
 

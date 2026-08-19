@@ -23,8 +23,6 @@
 | **Fast** | Three — decision 7 (library) · its icon facet, only when the library bundles none · decision 10's minimum-width facet, asked directly. The canvas improvises every other value. See `canvas.md` |
 | **Full** | Every decision's primary axis: **16 dialogs** (17 when the library bundles no icons), plus the install block riding as the last question of the final batch. Facets stay derived — reported, cancellable, never silently settled |
 
-Stock mode (see the `design-init` SKILL) asks only decision 7 and derives nothing; it is not an interview tier.
-
 **Group skips still apply in every mode:** an app with no lists or tables skips decision 11; an app with no text beyond field labels skips decision 15's norms report.
 
 ## Batches

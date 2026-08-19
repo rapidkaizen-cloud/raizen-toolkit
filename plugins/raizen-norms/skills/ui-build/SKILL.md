@@ -13,6 +13,8 @@ Section 5 still `[needs verification]`, empty, or absent → **STOP.** Do not wr
 
 **One exemption: the design canvas and the `/styleguide` scaffold.** `src/design-canvas/` and the styleguide route are the instruments that *produce* Section 5 — a design skill building them while Section 5 is still empty is the gate working, not a breach. The exemption is theirs alone: no real page, component, or token is written until Section 5 lands.
 
+**And the canvas folder belongs to the design session that is building it.** A session doing any other work does not edit, move, or delete anything under `src/design-canvas/` — a problem found there is a finding reported to the user, never fixed in place. The canvas is a ratified reference; an edit from outside the design flow silently changes what the user approved.
+
 Which skill to point at is decided by **whether this repo already has UI components**, not by the state of Section 5 alone:
 
 | UI components in the repo | Point the user to |
