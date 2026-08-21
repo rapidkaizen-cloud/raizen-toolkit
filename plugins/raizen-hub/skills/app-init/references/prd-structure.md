@@ -23,7 +23,17 @@ Cross-references between sections use the topic name, not a numeric ID.
 
 ## Section 1 — Context
 
-A three-row table: **Surface** · **Data** · **Deploy**. Those three rows only. Stack, framework, versions, auth configuration, integration lists **are not written** — all of it is readable from the repo.
+A three-row table: **Surface** · **Data** · **Deploy**. Those three rows only. Stack, framework, versions, auth configuration, integration lists **are not written** — all of it is readable from the repo. A Pioneer platform adds one marker to the Surface row: `Platform: <name> (pioneer)` — the signal that this repo runs ahead of the toolkit's templates.
+
+Below the table, when the product has a UI, one block the table cannot carry — the **Proof profile**, three lines:
+
+```
+Run    : <the command that starts the app for a session>
+Visual : <how a session captures visual proof — browser screenshot, emulator screenshot, window capture>
+Roles  : <how a session exercises another role — RLS role test, or the platform's equivalent>
+```
+
+It exists because `build-flow` and the design skills must prove pages on every platform, and "screenshot the browser" is only the web's answer. On the web stack the profile is the known default — dev server · browser screenshots at the widths Section 5 will fix · RLS role test — and is still written, so no later session has to assume it. A line that was not executed at bootstrap is written `[needs verification]` — except the web default, which the templates have already proven — and the skills that read it report what they could not capture instead of claiming proof.
 
 Then three blocks:
 

@@ -2,7 +2,7 @@
 
 Used in decision 7. Score the needs from PRD Sections 1–3, then assemble 3–4 libraries that satisfy **all** of them.
 
-`ui-ux-pro-max` has no data for choosing a library — its `stacks/` folder holds guidance **for** a library already chosen, not a way to choose one. So this rubric lives here and you maintain it.
+`ui-ux-pro-max` has no data for choosing a library — its `stacks/` folder holds guidance **for** a library already chosen, not a way to choose one. **And this file names no libraries either**: it holds the scoring, the assembly rules, and the research duty; the candidates are assembled live. A needs-to-library map written here goes stale the moment the ecosystem moves, and then anchors every interview to a list nobody re-checked.
 
 ## Scoring the needs
 
@@ -17,41 +17,28 @@ Read the PRD and answer these six yes or no. Not mentioned in the PRD means no.
 | Drag-and-drop | Section 2 mentions work that reorders items or moves them between columns |
 | Works offline | Section 2 names a role working without reliable connectivity |
 
-Charts needed → run `--domain chart "<data kind> <stack>"` to learn which chart types and which charting library suit that stack. Its output feeds the options.
+Charts needed → run `--domain chart "<data kind> <stack>"` to learn which chart types suit that stack. Its output feeds the options.
 
-## Needs → library map
+## The research duty — candidates assembled live
 
-The **Bundled** column is what arrives with no extra dependency. The **Needs extra** column is what must be installed separately — that is what gets named as the consequence to the user.
+Candidates come from two layers, and both are mandatory:
 
-### Web
+1. **The model's own knowledge proposes** — the component libraries a working developer would name for this platform today, including the ones the PRD's stack or Section 1's library-family note already leans toward.
+2. **The research pass verifies every candidate before it may be offered.** Per candidate: maintained, broadly adopted, no fresh supply-chain event — and, against the scored needs, **what it bundles and what it leaves out**: table with sorting and paging, charting, date picker, calendar, drag-and-drop, notifications, skeletons, and the icon pack it ships or does not ship. That bundled-versus-missing pair is the option's consequence, and it is researched per candidate, never recalled from memory alone. The pass `interview.md` already mandates covers this; what is mandatory is coverage per option, never one search per option.
 
-| Library | Bundled | Needs extra |
-|---|---|---|
-| shadcn/ui | alert · toast (sonner) · skeleton · chart (Recharts) · table · dialog · form | large tables: TanStack Table · full calendar · drag-and-drop |
-| Mantine | all of the above · table with sorting and paging · date picker · notifications | heavy charting · drag-and-drop |
-| MUI | all of the above · basic Data Grid | paid Data Grid for configurable columns · charting |
-| Chakra UI | alert · toast · skeleton · form | tables · charts · calendar · drag-and-drop |
-| Own components | nothing | everything |
+**An option without researched backing is not shown.** Every option carries its source label like every interview option.
 
-### Mobile
-
-| Library | Bundled | Needs extra |
-|---|---|---|
-| React Native Paper | alert · snackbar · basic skeleton · form | charts · tables · calendar |
-| Tamagui | shared primitives across web and native · animation | charts · tables · calendar |
-| Flutter Material | nearly everything, including basic charts and calendar | large tables |
-
-### Desktop
-
-Follow the stacks available in the `data/stacks/` folder of `ui-ux-pro-max` — WPF, WinUI, Avalonia, Uno, and JavaFX each carry their own guidance there.
+For desktop stacks, the `data/stacks/` folder of `ui-ux-pro-max` carries per-stack guidance — read it alongside the research, not instead of it.
 
 ## Rules for assembling the options
 
-**Three to four options**, all satisfying every need scored yes. A library that fails on one need does not make the list — unless nothing satisfies all of them, in which case say plainly what will not be met.
+**Three to four options**, all satisfying every need scored yes. A library that fails on one need does not make the list — unless nothing satisfies all of them, in which case say plainly what will not be met. "Own components" — no library at all — is offered when the needs are few enough that it is honest, with its consequence stated: everything is hand-written and hand-maintained.
 
 **Recommendation:** the one that satisfies everything with the **fewest extra dependencies**. Not the most complete, not the most popular.
 
-**The consequence must name the Needs extra column.** The user is entitled to know what will have to be installed or hand-written before they choose.
+**The consequence must name what the library leaves out.** The user is entitled to know what will have to be installed or hand-written before they choose — that is the researched missing-list, stated per option.
+
+**Each option names the icon pack it bundles, or names itself headless** — `interview.md` decision 7's icon facet reads this.
 
 **Copy-in versus package.** A packaged library installs faster but bends less when you need something it does not provide. A library that copies code into the repo carries three consequences that must be stated:
 
@@ -59,4 +46,4 @@ Follow the stacks available in the `data/stacks/` folder of `ui-ux-pro-max` — 
 - Copied components are **existing code** from `ui-build`'s point of view, so a pattern appearing a second time still triggers extraction.
 - Raw color or spacing values that came along with the copy are **findings to report**, not a pattern to imitate.
 
-Answers outside the list are always accepted. The user names a library not listed here → use it, and if you do not know what it brings, say so.
+Answers outside the list are always accepted. The user names a library the research did not surface → verify it the same way, use it, and if you do not know what it brings, say so.

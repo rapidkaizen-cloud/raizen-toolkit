@@ -129,7 +129,7 @@ The output is the canvas's **baseline, not a gate** — do not stop to show it a
 
 ## Step 4 — Install, before anything is drawn
 
-**Canvas path: the install block is approved inside the interview itself** — in Fast at the three dialogs, in Full as the **last question of the final batch**, its contents known once decisions 6 and 7 are answered — and installed before the canvas is drawn (`canvas.md`). Do not ask twice.
+**Canvas path: the install block is its own chat gate, right after the interview closes** — in Full it follows the closing ledger, in Fast it follows the three dialogs; its contents are known once decisions 6 and 7 are answered, and everything is installed before the canvas is drawn (`canvas.md`). Do not ask twice, and **never put this block inside an AskUserQuestion** — a dialog covers the very block the user must read. Present the block, end the turn, and wait for the reply in chat.
 
 One block, one approval:
 
@@ -137,7 +137,7 @@ One block, one approval:
 Will install:
   npm install
   <component library>          [from decision 7]
-  <what the library omits>     [the "Needs extra" column in library-rubric.md]
+  <what the library omits>     [researched per candidate under library-rubric.md]
   <icon pack>                  [from decision 7 — bundled, or its icon dialog]
   <engines>                    [chart · table · date · drag-and-drop — only what an
                                 engine-rubric.md trigger decided, nothing speculative]
@@ -209,7 +209,7 @@ No isolated branch is needed — a fresh repo has no parallel work to disturb; t
 
 **The densest page is the bar.** `build-flow` Section 4 judges every later page against it — building it thin lowers the bar for the whole app. Its fixtures must include `bulk` and `messy` cases: a direction that only holds for five tidy rows has not been proven. `ui-build` binds every promoted page in full — tokens only, zero raw values, states drawn.
 
-Page running → **prove it at two widths with screenshots**: the desktop breakpoint from Section 5 and the lower bound from decision 10's minimum width. No browser tooling → say so and report the dev-server URL with both widths named — never claim the widths were judged without either.
+Page running → **prove it at two widths with screenshots**: the desktop breakpoint from Section 5 and the lower bound from decision 10's minimum width. Capture follows PRD Section 1's Proof profile — the browser is the web profile's answer; a platform whose profile names an emulator or a window capture proves the same two bounds through it. No capture tooling → say so and report the profile's run target with both widths named — never claim the widths were judged without either.
 
 **Rework rounds.** A page collapsing under its fixtures, or the user asking for a rework, is a rework round of that page. **A second rework of the same page → STOP, reopen Section 5**: Fast rises to the full interview, Full re-asks decisions 1–3, and the canvas is regenerated fresh from the answers, never patched. Section 5 changed → the styling values are updated with it, and the pages are rebuilt from the new tokens rather than patched.
 
@@ -227,7 +227,7 @@ Before reporting done:
 
 Any of them fails → fix it in the same session.
 
-**The canvas files stay after promotion** — frozen references under `canvas.md`'s lifecycle: each dies only when its page is wired with real data, survives both widths, and the user confirms the side-by-side through AskUserQuestion. `build-flow` carries that per page through the queue. Never delete unasked.
+**The canvas files stay after promotion** — frozen references under `canvas.md`'s lifecycle: each dies only when its page is wired with real data, survives both widths, and the user confirms the side-by-side at a chat stop — never through an AskUserQuestion, which would cover the comparison being read. `build-flow` carries that per page through the queue. Never delete unasked.
 
 ## Step 9 — Close
 

@@ -204,6 +204,8 @@ The app's most data-dense page is the bar — born on the design canvas and veri
 
 **The tested widths are fixed by Section 5, not chosen per session:** the desktop breakpoint it names — 1440px when it names none — and the supported lower bound. A width picked ad hoc lets a narrow window pass a page that dies on the screens people actually use.
 
+**How proof is captured is fixed by PRD Section 1's Proof profile, not by this skill.** The chains and audits here say *browser* and *dev server* because the web profile is the default; a repo whose profile names an emulator or a window capture substitutes its own Run and Visual lines wherever those words appear, at the same two widths or the platform's equivalent bounds. Section 1 has no Proof profile (the app predates the rule) → the web default applies as written. A profile line still `[needs verification]` → capture what is possible and report what was not, never claim it.
+
 Two questions decide, and both have answers:
 
 > With the `bulk` fixture, at the desktop width: is there dead space taller than one table row carrying nothing?

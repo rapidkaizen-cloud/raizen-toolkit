@@ -27,7 +27,7 @@ Before anything, check the working directory and the available skills, then repo
 
 ```
 Directory : [path] — [empty / contains N files]
-Flow      : story → reading → 6 domain themes → 6 stack questions → PRD → scaffold
+Flow      : story → reading → 6 domain themes → 7 stack questions → PRD → scaffold
 ```
 
 Directory not empty → **STOP**, ask whether to continue here or move. Do not overwrite anything.
@@ -67,15 +67,17 @@ One thing must never be skipped no matter how short the interview runs: **the re
 
 Stop when the six points are answered, not when the questions run out.
 
-## Step 2 — Stack, six questions
+## Step 2 — Stack, seven questions
 
 Read `references/stack-questions.md` and `references/stack-consequences.md`, then run them.
 
 Questions travel in batches — up to four per AskUserQuestion call, several calls per turn, sequential only where a question's options or recommendation read an earlier answer (the rubric's *Fits when* column is the map). Answers are reconciled after every batch: two that pull in opposite directions go back as one question naming both and what collides, never resolved silently. Each question carries **more than two options**, one marked recommendation, and a **one-sentence consequence** of that choice. Two options always read like a trap, and options without a recommendation force a decision with nothing to base it on. Answers outside the options are always accepted — if the user names something not on the list, use it and state its consequence if you know it, or say you don't.
 
-**The stack is not locked.** Framework, hosting, and database options are assembled from the rubric in `stack-questions.md`, filtered by the needs readable from the user's story. One hard limit: **options marked Not ready are not offered** — there are no templates for them, and a half-built repo is worse than a shorter list. The user names one anyway → accept it, and say plainly what they will have to set up themselves.
+**The stack is not locked.** Platform, framework, hosting, and database options are assembled from the rubric in `stack-questions.md`, filtered by the needs readable from the user's story. One hard limit: **options marked Not ready are not offered** — there are no templates for them, and a half-built repo is worse than a shorter list. The user names one anyway → accept it, and say plainly what they will have to set up themselves.
 
-After the six questions, show the **list of defaults that were not asked** and invite the user to name anything they want changed. Do not walk through them one by one.
+**Options marked Pioneer are offered, with their cost written into the option itself.** A Pioneer answer — chosen from the list or typed in — puts the bootstrap under the Pioneer path in `stack-questions.md`: name what does not exist, research-assembled stack questions, a minimal scaffold, `Platform: <name> (pioneer)` in Section 1, and a Proof profile proven before it is written.
+
+After the seven questions, show the **list of defaults that were not asked** and invite the user to name anything they want changed. Do not walk through them one by one.
 
 Locale — UI language, date format, thousands and decimal separators — is inferred from the user's story and shown in that same block as concrete values. Do not make it a separate question, and do not leave it unwritten: a session opened months later in a different language cannot re-derive it.
 
@@ -93,6 +95,8 @@ Then **STOP** and wait for explicit approval. Write no file before this is answe
 
 Follow `references/prd-structure.md`. Six sections. Section 5 is deleted entirely for a product without UI.
 
+Section 1 carries the **Proof profile** per `prd-structure.md` — on a web platform the web default is written as-is; on a Pioneer platform, only lines that were actually executed are written as fact, the rest `[needs verification]`.
+
 Rejected stack alternatives go into **Section 1 Non-goals**, one line per alternative plus a one-sentence reason. Not a full write-up — if the reason needs three paragraphs, it is not a non-goal.
 
 Section 5 is filled with `[needs verification]` throughout. Bootstrap is not the moment to decide typography, and Section 5 is never written by an agent on its own initiative.
@@ -101,7 +105,7 @@ Section 5 is filled with `[needs verification]` throughout. Bootstrap is not the
 
 ## Step 5 — Scaffold
 
-Copy from `${CLAUDE_PLUGIN_ROOT}/templates/`, fill the placeholders from the Step 2 answers, drop what is unused:
+Copy from `${CLAUDE_PLUGIN_ROOT}/templates/`, fill the placeholders from the Step 2 answers, drop what is unused. **On a Pioneer platform this table does not apply**: the scaffold follows the Pioneer path in `stack-questions.md` — the platform's own init command plus `.claude/settings.json` and `CLAUDE.md`, nothing that assumes web; `supabase/config.toml` still lands when the database is Supabase, whatever the platform.
 
 | File | Contents |
 |---|---|
@@ -109,7 +113,7 @@ Copy from `${CLAUDE_PLUGIN_ROOT}/templates/`, fill the placeholders from the Ste
 | `.claude/settings.json` | Enables `raizen-norms` from the marketplace |
 | `vercel.json` | Only when hosting is Vercel **and** the framework is a static SPA. Next.js, Nuxt, SvelteKit, and Astro are auto-detected — do not create it |
 | `.github/workflows/` | Only when migrations run through CI |
-| `supabase/config.toml` | Only when the database is Supabase. Carries the one placeholder, `{{SUPABASE_PROJECT_REF}}` — an identifier, not a secret. This value is what the `guard_project_ref` hook pins every Supabase MCP call to. **Which ref goes in** follows Question 6 — staging exists → the staging project, never production |
+| `supabase/config.toml` | Only when the database is Supabase. Carries the one placeholder, `{{SUPABASE_PROJECT_REF}}` — an identifier, not a secret. This value is what the `guard_project_ref` hook pins every Supabase MCP call to. **Which ref goes in** follows Question 7 — staging exists → the staging project, never production |
 
 **No `.mcp.json` is written — ever.** Database MCP servers are connected **user scope**, once per machine, never per repo; for Supabase the exact `claude mcp add -s user` one-liner is printed at Step 6. A repo-level server config would only duplicate what the machine already has. Project pinning does not come from server config: `supabase/config.toml` declares the repo's project, and the `guard_project_ref` hook in `raizen-norms` blocks any Supabase MCP call aimed at a different one. A database whose official MCP server exists follows the same pattern; a database with no server → say so rather than leaving the gap silent.
 
@@ -117,18 +121,18 @@ Then `git init`, `git branch -M main`, create `development` from `main`, and `gi
 
 ### Connectors are recommended, never a precondition
 
-Where the database chosen at Question 5 has a Claude connector or an MCP server, say so once, say what it automates, and carry on whatever the answer is. Bootstrap never waits for one — every connector replaces work the user can also do by hand, and an app that cannot be started without one is an app held hostage to somebody's catalogue.
+Where the database chosen at Question 6 has a Claude connector or an MCP server, say so once, say what it automates, and carry on whatever the answer is. Bootstrap never waits for one — every connector replaces work the user can also do by hand, and an app that cannot be started without one is an app held hostage to somebody's catalogue.
 
 Two rules stop this from rotting:
 
-- **Derive it from the stack, not from this file.** Name what Question 5 actually produced. Supabase appears here because the template covers it, not because it is the answer.
+- **Derive it from the stack, not from this file.** Name what Question 6 actually produced. Supabase appears here because the template covers it, not because it is the answer.
 - **Never claim a connector exists.** The catalogue changes and this file does not. Point at the connector settings and let the user see what is really there; a promise that turns out false costs more than saying nothing.
 
 Connectors for **hosting** are not raised here. Step 6 explains why, and `build-flow` raises them at the one moment they matter.
 
 ## Step 6 — Close
 
-Report one block: the files created, then what the **user must do by hand right now** — create the database project chosen at Question 5, plus its staging counterpart if Question 6 asked for one, and connect it. For Supabase that means putting the **project ref** into `supabase/config.toml`, and — only on a machine not yet set up — connecting the MCP server user-scope, then approving the browser login on first use:
+Report one block: the files created, then what the **user must do by hand right now** — create the database project chosen at Question 6, plus its staging counterpart if Question 7 asked for one, and connect it. For Supabase that means putting the **project ref** into `supabase/config.toml`, and — only on a machine not yet set up — connecting the MCP server user-scope, then approving the browser login on first use:
 
 ```
 claude mcp add -s user --transport http supabase "https://mcp.supabase.com/mcp"

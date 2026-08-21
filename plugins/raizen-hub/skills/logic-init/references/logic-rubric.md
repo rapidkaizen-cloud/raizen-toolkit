@@ -1,26 +1,37 @@
-# Logic rubric — candidates per question
+# Logic rubric — categories, criteria, and the research duty
 
-Used in Step 2 of `logic-init`. There is no database for this layer — a `ui-ux-pro-max` query for it returns styling rows, nothing else — so this table is maintained by hand and **re-verified at decision time**, never trusted as written.
+Used in Step 2 of `logic-init`. There is no database for this layer — a `ui-ux-pro-max` query for it returns styling rows, nothing else. **This file names no candidates.** It holds the questions, the criteria a candidate must meet, and the rules for recommending; the candidates themselves are assembled live, per the research duty below. A product name written here would only go stale and then anchor the interview to its staleness.
+
+## Assembling candidates — the research duty
+
+Candidates are assembled at decision time, per scored need:
+
+1. **The model's own knowledge proposes** — the libraries a working developer would name for this category today.
+2. **Web research verifies every candidate before it may be offered.** Per candidate: adoption still broad, maintenance still alive, no fresh supply-chain event or advisory, and what it brings versus what it leaves out — that last pair becomes the option's one-sentence consequence. One research pass may cover all candidates of the interview; what is mandatory is the coverage per option, never one search per option.
+
+**An option without researched backing is not shown.** Zero candidates surviving verification → say so plainly and offer handwritten; never pad the list, and never present memory alone as if verified.
 
 ## Admission rule
 
-A candidate earns a row only with all three, and keeps it only while all three hold:
+A candidate earns a place in the options only with all three:
 
 1. **Broad adoption** — widely used in production by many teams, not a one-maintainer experiment.
 2. **Actively maintained** — recent releases, security response, no abandonment signal.
 3. **Proven at scale** — known to hold up as the app grows, not just in a demo.
 
-At decision time, run a short web check per candidate before presenting it: adoption still broad, maintenance still alive, **no fresh supply-chain event**. The check outranks the table — the axios npm compromise of March 2026 is exactly the kind of fact a static table cannot know. A candidate that fails the check is dropped from the options and reported as a finding against this file.
+This rule is what keeps the research pass from seating this week's trending library. The user naming a candidate that fails it still gets it — with the failure stated as its consequence.
 
 ## The platform ladder
 
-Before any row is offered, answer in order — stop at the first rung that holds:
+Before any candidate is offered, answer in order — stop at the first rung that holds:
 
 1. Does the platform already provide it? (native `fetch`, `Intl`, Temporal, a DB extension)
 2. Does an already-installed dependency provide it?
-3. Only then: the rows below.
+3. Only then: researched candidates.
 
 This ladder is why the "none" option appears in every question, and why it is the recommendation — and therefore listed first — whenever the ladder stops before the library rung. A library must beat the platform, not merely equal it; when one does, that library is the recommendation and takes the first slot, with "none" still in the list.
+
+A candidate that belongs to a library family names that family in its consequence — the family is part of what is being chosen, because an installed member shifts later recommendations (`design-init` reads PRD Section 1). The ecosystem question is never asked on its own; it is decided inside the need's question, in the open.
 
 ---
 
@@ -28,55 +39,43 @@ This ladder is why the "none" option appears in every question, and why it is th
 
 *Asked when Section 2 has a role that reads, searches, or filters records.*
 
-| Option | Fits when | Consequence |
-|---|---|---|
-| **Handwritten** (effect + state) | One or two list screens, no cross-screen invalidation | Zero dependencies; every screen re-implements loading, error, and cancellation, and invalidation is manual |
-| TanStack Query | Several screens read the same data, edits must reflect elsewhere, optimistic updates wanted | The de-facto standard; adds a provider at the root and a cache-key discipline every screen follows — and consciously opens the whole headless TanStack family for later needs (Table, Virtual, Form among them, not limited to them) |
-| SWR | Same needs, smaller surface preferred, mutation story can stay simple | Lighter API; less machinery for optimistic updates and fine-grained invalidation; no library family behind it |
+**Candidates are measured on:** cross-screen invalidation, optimistic-update support, the discipline the cache imposes (a root provider, a cache-key convention every screen follows), and whether a library family rides along — a family is a consequence to name, in both directions.
 
-**Recommendation rule:** handwritten below roughly three list screens; TanStack Query at or above. A realtime mention in the story adds one note, not one row: the chosen cache's invalidation is the natural place to hang a realtime subscription.
-
-A candidate that belongs to a library family names that family in its consequence — the family is part of what is being chosen. The ecosystem question is never asked on its own; it is decided inside this question, in the open.
+**Recommendation rule:** handwritten (effect + state) below roughly three list screens — zero dependencies, at the price of every screen re-implementing loading, error, and cancellation, with manual invalidation; the researched de-facto standard at or above three. A realtime mention in the story adds one note, not one candidate: the chosen cache's invalidation is the natural place to hang a realtime subscription.
 
 ## L2 — Validation at the trust boundary
 
 *Asked when a server surface exists. `logic-build` §4 already mandates the parsing itself — this question only decides the tool.*
 
-| Option | Fits when | Consequence |
-|---|---|---|
-| **Handwritten parse** | One handler, one or two fields | No dependency; every new field is hand-checked, and the checks drift from the types |
-| Zod | Node runtime (the common case), schemas shared with the frontend | Standard choice with first-class TS inference; full build is heavyweight for Edge |
-| Valibot | Edge runtime, or the validator ships to the client and bytes count | Far smaller shipped size; smaller ecosystem around it |
+**Candidates are measured on:** first-class type inference, shipped bundle size, and runtime fit — a validator that is comfortable on Node may be heavyweight for Edge or for shipping to the client.
 
-**Recommendation rule:** the runtime decides — Node → Zod, Edge or client-shipped → Valibot. Both implement Standard Schema, so the choice does not lock the surrounding tools; say so in the consequence.
+**Recommendation rule:** the runtime decides — Node → the ecosystem standard; Edge, or a validator that ships to the client where bytes count → the smallest shipped size that holds the admission rule. Prefer candidates implementing Standard Schema, so the choice does not lock the surrounding tools — say so in the consequence. Handwritten parsing fits one handler with one or two fields, and its consequence is that the checks drift from the types as fields accrete.
 
 ## L3 — Dates and timezones
 
 *Asked when Section 3 Timing & Deadlines is non-empty.*
 
-| Option | Fits when | Consequence |
-|---|---|---|
-| **Platform** — `Intl` + Temporal where shipped | Formatting, day boundaries, simple arithmetic | Zero dependencies; Temporal still needs feature detection while Safari catches up, and the polyfill is heavy |
-| date-fns | Arithmetic and parsing beyond what `Intl` covers, today, on every browser | Tree-shakeable and everywhere; a dependency the platform is visibly in the process of replacing |
-| Day.js | Same, smallest possible footprint preferred | Tiny; plugin system carries the less-common needs |
+**Candidates are measured on:** what they cover beyond `Intl` and Temporal, tree-shakeability and footprint, and how visibly the platform is in the process of absorbing them — a date library is a dependency the web is actively replacing, and that is a consequence to state.
 
-**Recommendation rule:** platform first, always. A library enters only when a concrete rule in Section 3 exceeds `Intl` — name that rule when recommending. Whatever is chosen, the date helpers live in one extracted module (`logic-build` §7: the second occurrence extracts), so a later move to Temporal touches one file.
+**Recommendation rule:** platform first, always — `Intl` for formatting and day boundaries, Temporal where shipped (it still needs feature detection, and its polyfill is heavy). A library enters only when a concrete rule in Section 3 exceeds what the platform covers — name that rule when recommending. Whatever is chosen, the date helpers live in one extracted module (`logic-build` §7: the second occurrence extracts), so a later move to Temporal touches one file.
 
 ## L4 — Error reporting destination
 
 *Asked when a server surface exists **and** Section 1 reads operational rather than experiment. `logic-build` §5 already mandates that the log gets the detail — this question decides where the log goes.*
 
-| Option | Fits when | Consequence |
+**The options are destination categories, researched into named services at decision time:**
+
+| Category | Fits when | Consequence shape |
 |---|---|---|
 | **Host's built-in logs** | Experiment stage, or failures are noticed by users faster than by dashboards | Nothing to install; logs expire with the host's retention and are hard to search |
-| Sentry | Someone must be told when production breaks, with stack traces grouped | The standard for error triage; one more service, one more DSN to manage |
-| Axiom / structured log drain | The need is searchable history rather than alerting | Queryable logs; alerting still has to be built on top |
+| An error-triage service | Someone must be told when production breaks, with stack traces grouped | One more service and one more credential to manage — research which service currently owns this category |
+| A structured log drain | The need is searchable history rather than alerting | Queryable logs; alerting still has to be built on top |
 
-**Recommendation rule:** host logs until the app is operational and someone is on the hook for its failures; then Sentry. The reason recorded in the PRD must name **who reads the errors** — a destination nobody reads is the host log with extra cost.
+**Recommendation rule:** host logs until the app is operational and someone is on the hook for its failures; then the researched triage service. The reason recorded in the PRD must name **who reads the errors** — a destination nobody reads is the host log with extra cost.
 
 ## L5 — Where scheduled work runs
 
-*Asked when Section 3 names a recurring run. The question is placement, not package.*
+*Asked when Section 3 names a recurring run. The question is placement, not package — every option is a platform rung, and nothing here is researched as a product.*
 
 | Option | Fits when | Consequence |
 |---|---|---|
@@ -90,7 +89,9 @@ A candidate that belongs to a library family names that family in its consequenc
 
 *Asked when Section 2 gives a role the power to change or delete records another role created, or Section 3 Approval is non-empty.*
 
-This question does not pick a package. **The options are resolved from the database already chosen in `app-init`**, because the only layer that knows which application user made a change is the one the database itself provides, and that differs per platform. Present the resolved option, never a cross-platform menu.
+This question does not pick a package, and **it is deliberately exempt from the research duty**: its mechanism is a Postgres API stable for a decade, and the two product names below are trap warnings that a fresh research pass would get wrong — research surfaces pgaudit as if it answered this question, and rejects supa_audit for being archived, which is exactly backwards.
+
+**The options are resolved from the database already chosen in `app-init`**, because the only layer that knows which application user made a change is the one the database itself provides, and that differs per platform. Present the resolved option, never a cross-platform menu.
 
 | Database (Stack table of `CLAUDE.md`) | What the trigger option resolves to |
 |---|---|
@@ -128,4 +129,4 @@ coalesce(auth.uid(), nullif(current_setting('app.actor_id', true), '')::uuid)
 
 ## Maintaining this file
 
-A row is added or dropped only with the admission rule re-checked, and the change says why — the same discipline as the stack rubric in `app-init`. Category names (the L-numbers and their questions) are the stable part; candidate names are expected to turn over.
+What this file maintains is the stable part: the L-numbers and their questions, the admission rule, the ladder, and the per-question criteria. **Candidate names are never written back into it** — a session that learns a name records the choice and its reason in the app's PRD, and the next session researches fresh. A criterion is added or dropped only with a stated reason — the same discipline as the stack rubric in `app-init`.

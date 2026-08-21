@@ -21,7 +21,7 @@
 | Mode | Dialogs |
 |---|---|
 | **Fast** | Three — decision 7 (library) · its icon facet, only when the library bundles none · decision 10's minimum-width facet, asked directly. The canvas improvises every other value. See `canvas.md` |
-| **Full** | Every decision's primary axis: **16 dialogs** (17 when the library bundles no icons), plus the install block riding as the last question of the final batch. Facets stay derived — reported, cancellable, never silently settled |
+| **Full** | Every decision's primary axis: **16 dialogs** (17 when the library bundles no icons), plus the install block presented as a chat stop right after the closing ledger — never as a dialog. Facets stay derived — reported, cancellable, never silently settled |
 
 **Group skips still apply in every mode:** an app with no lists or tables skips decision 11; an app with no text beyond field labels skips decision 15's norms report.
 
@@ -33,7 +33,7 @@ The full-mode shape:
 
 - **Turn 1** — decisions 1 and 2, alone: nearly everything downstream reads them.
 - **Turn 2** — call A: decisions 3, 4, 5, 6 · call B: decisions 7, 8, 9, 10. The icon dialog opens after decision 7 only when the chosen library bundles none.
-- **Turn 3** — call C: decision 11 (two dialogs), decision 12, decision 13's first dialog · call D: decision 13's second dialog, decision 14, and the **install block as the last question** — its contents known once decisions 6 and 7 are answered.
+- **Turn 3** — call C: decision 11 (two dialogs), decision 12, decision 13's first dialog · call D: decision 13's second dialog and decision 14. The **install block follows the closing ledger as a chat stop** — its contents known once decisions 6 and 7 are answered; the skill's install step holds the gate rule.
 
 Each dialog still requires: **more than two options** · **one marked recommendation** · **a one-sentence consequence**. Asked through the **AskUserQuestion tool**, never as prose text — recommendation first and marked "(Recommended)"; the tool's automatic "Other" is how answers outside the options arrive. **Everything the user needs to answer lives inside the dialog** — in the question field or the option descriptions. The dialog may render without the prose around it, so a question referring to text "above" can arrive pointing at nothing.
 
@@ -156,7 +156,7 @@ Font names go into the styling files. The CSV's `Tailwind Config` column can be 
 
 ### 7. Component library and icon family · PRD+CSS
 
-**Options from:** `library-rubric.md`. Score the needs from PRD Sections 1–3 (platform · large tables · charts · calendar · drag-and-drop · offline), then assemble 3–4 libraries that satisfy all of them. Charting needs are matched against `--domain chart`. **Each option names the icon pack it bundles**, or names itself headless.
+**Options from:** `library-rubric.md` — which names no libraries. Score the needs from PRD Sections 1–3 (platform · large tables · charts · calendar · drag-and-drop · offline), then assemble 3–4 candidates from the model's own knowledge and the research pass, each researched per that file's research duty: what it bundles, what it leaves out, maintained and adopted. Charting needs are matched against `--domain chart`. **Each option names the icon pack it bundles**, or names itself headless.
 
 **Recommendation:** the one that satisfies every need with the fewest extra dependencies.
 

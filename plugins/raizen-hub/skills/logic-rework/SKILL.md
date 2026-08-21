@@ -17,7 +17,7 @@ description: Rework the logic layer of an app that already runs — server-state
 
 Two documents may be written, and no third: **PRD Section 1** (choice + one-sentence reason, rejections one line each) and the **Stack table of `CLAUDE.md`** (names only). No `ARCHITECTURE.md`, no `DECISIONS.md`, no audit report as a file.
 
-Options come from `references/logic-rubric.md` in `logic-init`, **verified live at decision time**. Do not present a stale table row as current fact.
+Candidates are **assembled live** under `references/logic-rubric.md` in `logic-init` — the rubric holds the categories, criteria, and research duty, and names no candidates. Do not present an unresearched candidate as current fact.
 
 Do not commit and do not push. Staging is fine.
 
@@ -64,7 +64,7 @@ Deviates from S1: [per line the PRD claims but the code does not do]
 
 Three rows carry the weight:
 
-**Call sites** decides the size of any replacement, and the user is entitled to see it before deciding anything. A library imported in four files and one imported in ninety are not the same decision, however identical the rubric row.
+**Call sites** decides the size of any replacement, and the user is entitled to see it before deciding anything. A library imported in four files and one imported in ninety are not the same decision, however identical the candidates look.
 
 **Duplicates** is the finding that pays for this audit. Two date libraries, or a validator sitting beside a hand-rolled checker, means every later session picks one at random. Consolidating is repair — it changes no decision, so it needs approval but no interview.
 
@@ -105,7 +105,7 @@ Three rules replace the `logic-init` ones:
 
 | Concrete finding | Not a finding |
 |---|---|
-| Unmaintained, or a fresh supply-chain event or advisory | The rubric ranks another candidate higher |
+| Unmaintained, or a fresh supply-chain event or advisory | Research ranks another candidate higher |
 | Past end-of-life for security fixes | A newer option exists |
 | **It blocks a norm** — something in `raizen-norms` cannot hold while this library stands | You would have picked differently |
 
@@ -113,9 +113,9 @@ A finding exists → the replacement may be recommended, and the finding **is** 
 
 **Every option quotes its migration size from the audit** — `Replace with X — 31 call sites` beside `Keep — 0`. A decision priced after it is made is not a decision.
 
-Candidates are **verified live** before being presented: still widely adopted, still maintained, no fresh supply-chain event. A check that contradicts the rubric wins over the rubric, and the contradiction is itself a finding worth reporting. Zero verifiable candidates → say so and offer handwritten; never present a stale row as verified.
+Candidates are **assembled and researched live** before being presented: the model's knowledge proposes, web research covers each one — still widely adopted, still maintained, no fresh supply-chain event, and what it brings versus what it leaves out. Zero candidates surviving → say so and offer handwritten; never present memory alone as verified.
 
-Answers outside the options are accepted. A library not in the rubric → verify it the same way, use it, and state its consequence — or say you do not know it.
+Answers outside the options are accepted. A library the research did not surface → verify it the same way, use it, and state its consequence — or say you do not know it.
 
 ## Step 4 — Record
 
@@ -134,7 +134,7 @@ A library belonging to a family is recorded with its family — `TanStack Query 
 
 ## Step 5 — Install, one block
 
-Skip when every answer was *keep*. Otherwise one block, one approval:
+Skip when every answer was *keep*. Otherwise one block, one approval — answered in chat at a hard stop, never an AskUserQuestion (a dialog covers the block being read):
 
 ```
 Will install:

@@ -15,7 +15,7 @@ Run **once per repo**, after `app-init`, before `design-init`. The pages `design
 
 **Only what a scored need asks for is asked, and only what is asked may be installed.** No dependency arrives outside the Step 4 block.
 
-Options come from `references/logic-rubric.md`, **verified live at decision time** (Step 2). Do not present a stale table row as current fact, and do not invent candidates the rubric's admission rule would refuse.
+Candidates are **assembled live** (Step 2): the model's own knowledge proposes, web research verifies each one. `references/logic-rubric.md` holds the categories, the criteria, the admission rule, and the research duty — **it names no candidates**. Do not present an unresearched candidate, and do not offer one the admission rule would refuse.
 
 The interview's output lands in exactly two documents: **PRD Section 1** (choice + one-sentence reason, rejections one line each) and the **Stack table of `CLAUDE.md`** (names). No `ARCHITECTURE.md`, no `DECISIONS.md`, no interview summary as a file.
 
@@ -65,7 +65,7 @@ Right after the score is confirmed, asked with the AskUserQuestion tool like eve
 
 | Mode | What is asked | For whom |
 |---|---|---|
-| **Fast** | Nothing. Every scored need is decided from the rubric and the PRD reading, then shown once as a list to correct | An app that must ship today, or needs whose platform answer nobody disputes |
+| **Fast** | Nothing. Every scored need is decided from the rubric's criteria, the research, and the PRD reading, then shown once as a list to correct | An app that must ship today, or needs whose platform answer nobody disputes |
 | **Full** | Every scored need, batched — sequential only across a real dependency | **Recommended.** The interview is at most six questions, and each answer is a dependency the repo carries for years |
 
 Exactly one need scored → skip this question and ask that need directly; a mode question would cost as much as the interview it replaces.
@@ -75,8 +75,8 @@ Exactly one need scored → skip this question and ask that need directly; a mod
 Fast mode **must not be silent.** Every decision is reported on one line with its basis:
 
 ```
-L1 cache → TanStack Query  (rubric: several list screens share server rows)
-L3 dates → Intl built-in   (platform ladder: format-only, no date arithmetic)
+L1 cache → <researched standard>  (criteria: several list screens share server rows; verified live)
+L3 dates → Intl built-in          (platform ladder: format-only, no date arithmetic)
 ```
 
 Fast skips the questions, never the verification — a candidate chosen in fast mode is still verified live first, and "none" still wins wherever the platform ladder says it does. The user may cancel any line, and cancelling it opens that question normally.
@@ -91,11 +91,11 @@ Three rules specific to this interview:
 
 **The "none" option is always among the options.** *Handwritten*, *platform built-in*, or *not yet* — whichever the rubric names for that question — is never dropped from the list. It becomes the recommendation whenever the platform already covers the need or the app is too small for the library to pay for itself — and only then does it sit first; when a library is the recommendation, the library sits first and "none" stays in the list below it. The candidates are the fallback; the platform is the default.
 
-**Candidates are verified at decision time.** Before presenting options, run a short web check against the rubric's admission rule — still widely adopted, still maintained, no fresh supply-chain event. The landscape this rubric covers moves faster than any table; a check that contradicts a row wins over the row, and the row is the finding. Zero verifiable candidates → say so and offer handwritten, never present the stale row as if verified.
+**Candidates are assembled and researched at decision time.** The model's knowledge proposes them; before presenting, web research covers each one against the rubric's admission rule — still widely adopted, still maintained, no fresh supply-chain event — and what it brings versus what it leaves out, which becomes the option's consequence. One pass may cover all candidates; the coverage per option is what is mandatory. Zero candidates surviving → say so and offer handwritten, never present memory alone as if verified.
 
-**The story bends the options.** The rubric's *Fits when* column filters and re-ranks: an Edge runtime reorders L2, a realtime mention extends L1, a two-screen app moves the recommendation to handwritten. Read the story from the PRD, not from the rubric.
+**The story bends the options.** The rubric's criteria filter and re-rank: an Edge runtime reorders L2, a realtime mention extends L1, a two-screen app moves the recommendation to handwritten. Read the story from the PRD, not from the rubric.
 
-Answers outside the options are accepted. The user names a library not in the rubric → verify it the same way, use it, and state its consequence if known — or say you don't know it.
+Answers outside the options are accepted. The user names a library the research did not surface → verify it the same way, use it, and state its consequence if known — or say you don't know it.
 
 ## Step 3 — Record
 
@@ -124,7 +124,7 @@ Will install:
   ...
 ```
 
-One approval. Refused → hand over the commands, then wait.
+One approval, answered in chat at a hard stop — present the block, end the turn, wait. Never an AskUserQuestion: a dialog covers the very block the user must read. Refused → hand over the commands, then wait.
 
 A trigger chosen at L6 installs nothing — it is a migration. It goes in the same approval block, named as a migration rather than a package, and it is applied the way every other schema change in this repo is applied.
 

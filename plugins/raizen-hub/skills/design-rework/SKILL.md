@@ -35,12 +35,23 @@ PRD.md        : [present / missing]
 Section 5     : [filled / empty / absent]
 Branch        : [name · clean or has uncommitted changes]
 UI components : [file count]
-Path          : [rework / ratify — from the routing below]
+Leftover      : [none / canvas alive / pass applied — from src/design-canvas/ and git state]
+Path          : [rework / ratify / re-entry — from the routing below]
 Flow          : audit → [repair · overhaul · ratify] → interview → install →
                 canvas rounds → gate → pass (isolated) → verify → close
 ```
 
+**The block is printed on every invocation** — fresh, re-entry, or ratify — before any work beyond the reads that fill it. A session that starts editing, or even auditing, without having shown this block has routed itself in the dark, and everything it concludes about where the flow stands is a private guess the user never saw.
+
 The `Skill build` line exists so a stale install is visible before the pass, not after: rules fixed in the toolkit reach an app repo only through `/plugin update`, and a session on an old build re-makes exactly the mistakes the fix closed. The user sees the version and decides; the skill does not block on it.
+
+**Re-entry is a gate, never an inference.** A leftover from a previous rework — `src/design-canvas/` still present, or a pass already applied on a branch or in the working tree — means this invocation *may* be a continuation, and prior-session summaries or repo state make that likely, not decided. When the `Leftover` line is not `none`, one mandatory AskUserQuestion follows the block, before any other work:
+
+- **Continue** — resume the unfinished flow at the step the state shows: a pass applied but unverified resumes at Step 8; a canvas ratified but not promoted resumes at Step 7; a canvas mid-rounds resumes at Step 5. Announce the resumed step and what remains before touching anything.
+- **New rework** — the full flow from Step 1, exactly as a first run: audit, repair-or-overhaul, interview. The leftover canvas is an audit finding; its deletion is proposed at the same chat-stop confirmation Step 8 uses, never assumed.
+- **Stop** — report the detected state in one block and close.
+
+A session that skips this dialog and routes itself — because the state "obviously" says where the flow stands — re-makes exactly the mistake this gate exists to close: the user watches edits land without ever having chosen the path.
 
 `PRD.md` missing → **STOP.** An app with no PRD has no prior intent to protect and nothing to read the audit against. Point to `app-rework` for a repo that already exists, `app-init` for one that does not.
 
@@ -86,7 +97,7 @@ That last number matters most — it decides the size of the final pass, and the
 
 **The walk may also expose the logic layer bleeding** — handwritten data-fetching in UI files, hand-parsed dates, unvalidated inputs. That is not this skill's work: make the `logic-rework` offer under that skill's own rule — evidence, cost, and recommendation in one AskUserQuestion — and carry on with the audit either way.
 
-**While walking the pages, screenshot one page per archetype at desktop width.** Step 8 compares the finished pass against these; without a before, "it looks redesigned" is an assertion nobody can check. The screenshots are for that comparison and the judgement's before/after — they are not looked at while the canvas is drawn.
+**While walking the pages, screenshot one page per archetype at desktop width** — captured per PRD Section 1's Proof profile: the browser for web, the profile's Visual line elsewhere. Step 8 compares the finished pass against these; without a before, "it looks redesigned" is an assertion nobody can check. The screenshots are for that comparison and the judgement's before/after — they are not looked at while the canvas is drawn.
 
 **The same walk writes the function inventory** — every function the app carries, one line each, page-agnostic: what can be done, not where it sits or how it looks. In an overhaul this list is the canvas's brief-floor (`canvas.md`), and collecting it here is what lets the drawing phase keep the old pages closed: the audit is the last time they are opened before the pass.
 
@@ -189,7 +200,7 @@ Five differences from `design-init`:
 
 ## Step 4 — Install, before anything is drawn — Overhaul only
 
-The canvas is built from real packages, so everything it will draw with exists **before** the first file is written (`canvas.md`). One block, one approval:
+The canvas is built from real packages, so everything it will draw with exists **before** the first file is written (`canvas.md`). One block, one approval — answered in chat at a hard stop, never an AskUserQuestion (a dialog covers the block being read):
 
 ```
 Will install:
@@ -216,7 +227,7 @@ This phase only adds files under `src/design-canvas/`, so it runs safely beside 
 
 Everything so far has been drawing and answers. This is the **single stop** where the user authorizes the change — Section 5, the file plan, and the known deviations together, because approving pixels is not the same as approving which files move.
 
-**Overhaul** — one message, three parts, then one AskUserQuestion:
+**Overhaul** — one message, three parts, then a hard stop answered in chat — never an AskUserQuestion:
 
 1. **Section 5 as a diff.** Only what changes, old value beside new — and removals are changes:
 
@@ -242,7 +253,9 @@ UNTOUCHED        PhoneContact.tsx
 
 3. **Deviations known so far.** Every canvas element the real flow contradicts, and every real control the canvas never drew (`canvas.md`'s canvas-error rule) — one decision line each, answered here, never absorbed silently.
 
-The user may approve some lines and reject others. Rejected values return to the canvas rounds (Step 5) and nothing is written anywhere; approved everything → the pass. Nothing changed at all → say so and close at Step 9.
+**The gate is a chat stop, not a dialog.** End the turn on the three-part message and wait for the user's reply in chat. An AskUserQuestion here covers the very summary being approved — the user answers the dialog without having read the diff. Ending the turn is what keeps this safe in auto mode: nothing proceeds without an answer. The ban on prose questions elsewhere in this skill covers questions that let the turn carry on, not a gate that stops it.
+
+The user may approve some lines and reject others, naming them in the reply. Rejected values return to the canvas rounds (Step 5) and nothing is written anywhere; approved everything → the pass. Nothing changed at all → say so and close at Step 9.
 
 **Repair** — the same gate shows the findings list instead:
 
@@ -284,7 +297,7 @@ A claim of parity from the session that produced the code is worth nothing on it
 
 - **The build passes.** It does not → stop, fix it, do not report done.
 - **The structural diff per promoted page — the primary evidence.** Put each canvas file beside its live page: the differences must be confined to the data seam — the fixture import swapped for the data layer, plus its loading and error wiring — and to deviation lines the user approved. Any other difference is a failed item to fix now, whichever side reads better. Report the verdict per page; a page whose diff cannot be shown is not verified.
-- **Computed styles probed in the browser.** The fonts resolve to the loaded webfonts, not a fallback stack; spot-check token slots on live surfaces against the theme files.
+- **Computed styles probed in the browser.** The fonts resolve to the loaded webfonts, not a fallback stack; spot-check token slots on live surfaces against the theme files. (The web profile's check — a platform whose Proof profile names no browser verifies the equivalent through its Visual line, and says what could not be verified.)
 - **No unapproved extras.** An element on a live page that its canvas file does not draw is a deviation to raise, not a bonus — "richer than the canvas" is drift wearing a compliment.
 - **Zero raw values remain.** Search again for hex, font sizes, and raw spacing across every component.
 - **Every surviving override names its line.** Search again for props, provider options, and theme values departing from the library default, and check each against Section 5. The count must match what the Step 6 file plan promised.
@@ -295,7 +308,7 @@ A claim of parity from the session that produced the code is worth nothing on it
 
 Any of them fails → fix it in the same session. A half-finished rework is worse than none: the app still runs, so nobody knows it is broken.
 
-**All of them passing earns the right to propose deletion — never to delete.** The canvas is removed only through an explicit **AskUserQuestion**: report the diff verdict per page, invite the user to walk canvas and app side by side at `/design-canvas`, and ask whether the canvas and the seed rows may go. Only a granted confirmation deletes — the page files, the entry route, the foundations board, and the canvas CSS together, per `canvas.md`'s lifecycle. The user refusing, or naming any page, turns each named page into a failed item of the pass to fix now; the canvas stays alive until a later confirmation clears it.
+**All of them passing earns the right to propose deletion — never to delete.** The canvas is removed only through an explicit confirmation at a chat stop — never an AskUserQuestion, which would cover the verdict being read: report the diff verdict per page, invite the user to walk canvas and app side by side at `/design-canvas`, then end the turn and ask whether the canvas and the seed rows may go. Only a granted confirmation deletes — the page files, the entry route, the foundations board, and the canvas CSS together, per `canvas.md`'s lifecycle. The user refusing, or naming any page, turns each named page into a failed item of the pass to fix now; the canvas stays alive until a later confirmation clears it.
 
 ## Step 9 — Close
 
