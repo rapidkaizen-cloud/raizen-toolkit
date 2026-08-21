@@ -148,7 +148,7 @@ Section 5 is empty, so the code has been making these decisions on its own. Walk
 
 | What Step 1 measured | How the entry is put |
 |---|---|
-| **A coherent value** — a real scale, one family, a consistent radius | **Confirmation.** Show the measured value; `Ratify — <measured value>` sits first and is the recommendation |
+| **A coherent value** — a real scale, one family, a consistent radius | **Confirmation.** Show the measured value; first and recommended is an option naming the action plainly — `Keep this value — 8px` — never this file's vocabulary |
 | **Nothing coherent** — scattered raw values, no scale, contradictory usage | **A real question**, asked exactly as `design-init` asks it |
 
 The split is what keeps this honest in both directions. Re-interviewing everything produces answers that contradict the running app, and a PRD that does not describe its own app is worse than no PRD. Ratifying everything writes the stylesheet's accidents into the PRD as norms. Where the code has a real answer the user checks it; where the code has none, nobody may pretend otherwise — offering a "measured value" assembled from noise is inventing a norm and labelling it a finding.
@@ -240,18 +240,19 @@ Signature    : ledger seam, sole vertical rule  →  removed
 
 A line of the old Section 5 that no new answer, derivation, or canvas ratification re-created leaves through this diff as `→ removed`, never by omission. Arriving here from Step 2b, the *old* column is the **measured** value and is marked as such — `Radius : 8px (measured) → 0`; there is no prior Section 5 line to diff against, and writing one as if there were would claim a decision nobody ever made.
 
-2. **The file plan.** Every page line names its source: `replaced by its canvas file`, or `retoken only — no canvas frame` (a stray component the canvas never drew). There is no third label. A page whose canvas file exists is replaced by it; listing it `retoken only` is proposing to break the ratified canvas, and that line is put to the user as its own question, never slipped through inside the list. Chrome and shared components created or replaced, styling files, and `UNTOUCHED` files are all listed — a file that should have been listed and is not is a finding, not good news.
+2. **The file plan.** Every page line names its source: `replaced by its canvas file`, or `retoken only — no canvas frame` (a stray component the canvas never drew). There is no third label. **Shared canvas files carry their own line under the production path their header names** — a plan that lists only pages leaves the largest promotions unwatched, and a composition promoted as loose parts downgrades every page built on it. The plan closes with its **seam points** — where the pass may stop between sessions, read off Step 7's fixed order rather than chosen, and never an estimate of time: what the user needs before approving is where the app will sit half-migrated, not how long it takes. A page whose canvas file exists is replaced by it; listing it `retoken only` is proposing to break the ratified canvas, and that line is put to the user as its own question, never slipped through inside the list. Chrome and shared components created or replaced, styling files, and `UNTOUCHED` files are all listed — a file that should have been listed and is not is a finding, not good news.
 
 ```
 PASS — [n] files
 LeadTable.tsx    replaced by its canvas file
+wizard.tsx       → src/components/import-wizard.tsx · shared by 7 pages · replaced by its canvas file
 StatusChip.tsx   retoken only — no canvas frame · 4 status colors updated
 index.css        11 tokens replaced · 3 deleted · fonts now load here
 App.tsx          replaced by its canvas file (chrome)
 UNTOUCHED        PhoneContact.tsx
 ```
 
-3. **Deviations known so far.** Every canvas element the real flow contradicts, and every real control the canvas never drew (`canvas.md`'s canvas-error rule) — one decision line each, answered here, never absorbed silently.
+3. **What approval orders, then what it contradicts.** Ratified elements whose data does not exist yet come first, one line each — element, page, and the work it orders (column · RPC · migration). **Approving the gate orders that work**, so its cost is read here rather than discovered mid-pass; these are not deviations, because the user has decided to build them. Then the deviations: every canvas element the real flow contradicts, and every real control the canvas never drew (`canvas.md`'s canvas-error rule) — one decision line each, answered here, never absorbed silently. **And what approval removes is its own group, confirmed item by item** — every function or control leaving the app because the canvas does not carry it. A blanket *approve everything* covers the other two groups; not this one. A wrong addition is visible on the screen the moment the page opens, and a wrong removal is visible to nobody.
 
 **The gate is a chat stop, not a dialog.** End the turn on the three-part message and wait for the user's reply in chat. An AskUserQuestion here covers the very summary being approved — the user answers the dialog without having read the diff. Ending the turn is what keeps this safe in auto mode: nothing proceeds without an answer. The ban on prose questions elsewhere in this skill covers questions that let the turn carry on, not a gate that stops it.
 
@@ -275,6 +276,8 @@ STOP and wait for approval per item. A rejected item is not silently dropped —
 
 **First act: write Section 5** — the approved text, in full, rebuilt from zero. Then `CLAUDE.md`'s Component library row if decision 7 changed. This is the only moment the PRD is written.
 
+**The gate block travels with the branch.** The pass's first commit carries it in its message body — Section 5 diff, file plan, ordered work, and the deviations the user answered. Chat scrollback does not survive the session, and a later session that cannot read what was approved cannot tell drift from a decision; neither can the user. `git log` is where this repo already keeps that kind of memory.
+
 **Second act: the freshness check.** Time may have passed between ratification and this session, and parallel work may have changed the app. Re-walk the function inventory against the current code; a flow that changed since the canvas was ratified is a new deviation line, put to the user **before** its page moves — the canvas is frozen, so reality has to win by decision, not by silence.
 
 Then one session, every approved file, in an order that cannot be reversed:
@@ -289,6 +292,12 @@ Then one session, every approved file, in an order that cannot be reversed:
 
 **The UI code is the pass's to rewrite — the behavior is not.** What must come out unchanged is the business behavior — the queries and mutations called, the guard conditions, the route paths, the outcome of every action a user can take. Do not slip in unrelated fixes: a redesign that also tidies logic produces a diff nobody can read, and one mistake will hide among hundreds of legitimate changes.
 
+**The approved canvas is the specification, and the pass implements it rather than negotiating with it.** An element the canvas drew lands as drawn; an element it did not draw does not land, and prose the canvas left out is deleted rather than carried over — the user answered that by approving the drawing, so asking again re-opens a settled decision and is how the result drifts. A difference the session would prefer is refused, not raised as a question.
+
+**One exception, and no other: an element the user ratified whose data does not exist yet.** The pass writes no query for it — that stays forbidden. It promotes the element **rendered empty and labelled as waiting**, and writes one `QUEUE.md` line naming the data it needs. Dropping it silently is a failed promotion, and so is hiding it behind a flag: a page that reads finished while an approved element is missing is the one state nobody can see.
+
+**One thing still stops the pass**, and it is the freshness check above plus this: a drawn element that would make the app claim what it cannot do. That is a `build-flow` stop, not a design question.
+
 **Repair** runs here too, on the same isolated branch: fix the approved findings, nothing else.
 
 ## Step 8 — Verification: evidence, not eyes
@@ -296,9 +305,9 @@ Then one session, every approved file, in an order that cannot be reversed:
 A claim of parity from the session that produced the code is worth nothing on its own — every check below leaves something the user can inspect. All of them before reporting done:
 
 - **The build passes.** It does not → stop, fix it, do not report done.
-- **The structural diff per promoted page — the primary evidence.** Put each canvas file beside its live page: the differences must be confined to the data seam — the fixture import swapped for the data layer, plus its loading and error wiring — and to deviation lines the user approved. Any other difference is a failed item to fix now, whichever side reads better. Report the verdict per page; a page whose diff cannot be shown is not verified.
+- **The structural diff per canvas file — the primary evidence.** Every canvas file, not every promoted page: a page whose body delegates to a shared file diffs empty, and the diff that matters moves to that shared file, under the production path its header names. The differences must be confined to the data seam — the fixture import swapped for the data layer, plus its loading and error wiring — and to lines the user answered at the gate. Any other difference is a failed item to fix now, whichever side reads better. Report the verdict per file; a file whose diff cannot be shown is not verified.
 - **Computed styles probed in the browser.** The fonts resolve to the loaded webfonts, not a fallback stack; spot-check token slots on live surfaces against the theme files. (The web profile's check — a platform whose Proof profile names no browser verifies the equivalent through its Visual line, and says what could not be verified.)
-- **No unapproved extras.** An element on a live page that its canvas file does not draw is a deviation to raise, not a bonus — "richer than the canvas" is drift wearing a compliment.
+- **The rendered structure matches, counted.** Both sides are live in the same dev server — the canvas at its dev route, the page at its real one. Read the element tree of each page body (element names and class lists, **text and numbers discarded** — discarding the text is what takes the data out of the comparison) and report one line per page: `canvas n · live n · differs n`. Anything above zero names the extra or missing elements and is a failed item now. "Richer than the canvas" is drift wearing a compliment, and this count is what sees it — the prose verdict this bullet used to carry did not. Chrome the two sides do not share is excluded and said so; a page whose count cannot be produced is not verified.
 - **Zero raw values remain.** Search again for hex, font sizes, and raw spacing across every component.
 - **Every surviving override names its line.** Search again for props, provider options, and theme values departing from the library default, and check each against Section 5. The count must match what the Step 6 file plan promised.
 - **Contrast still passes** the Section 5 target, for every new color pair.
