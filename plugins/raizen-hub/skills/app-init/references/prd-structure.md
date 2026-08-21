@@ -23,17 +23,27 @@ Cross-references between sections use the topic name, not a numeric ID.
 
 ## Section 1 — Context
 
-A three-row table: **Surface** · **Data** · **Deploy**. Those three rows only. Stack, framework, versions, auth configuration, integration lists **are not written** — all of it is readable from the repo. A Pioneer platform adds one marker to the Surface row: `Platform: <name> (pioneer)` — the signal that this repo runs ahead of the toolkit's templates.
+A three-row table: **Surface** · **Data** · **Deploy**. Those three rows only. Stack, framework, versions, auth configuration, integration lists **are not written** — all of it is readable from the repo. **The Surface row names the platform, always** — `Platform: <name>`, with `(pioneer)` appended where the platform runs ahead of the toolkit's templates. Written for every platform including web, because the skills downstream read it to decide what a page is proven on and which vocabulary its options are drawn from. **A Surface row naming no platform means web** — that reading is fixed rather than inferred, so every PRD written before this rule stays correct and no repo becomes ambiguous by being old.
 
-Below the table, when the product has a UI, one block the table cannot carry — the **Proof profile**, three lines:
+Below the table, when the product has a UI, one block the table cannot carry — the **Proof profile**, seven lines:
 
 ```
 Run    : <the command that starts the app for a session>
-Visual : <how a session captures visual proof — browser screenshot, emulator screenshot, window capture>
+Visual : <how a session captures visual proof — browser screenshot, simulator screenshot, window capture>
+Bounds : <the two sizes a screen is judged at — two widths on the web · the smallest supported device and
+         the largest device class on a phone · the window minimum and a working size in a desktop binary>
+Cases  : <how a session switches the fixture case and the role without a rebuild — two search params on the
+         web · launch arguments or a debug-only picker elsewhere>
 Roles  : <how a session exercises another role — RLS role test, or the platform's equivalent>
+A11y   : <how a control's role and name reach the platform's accessibility tree — semantic HTML and ARIA on
+         the web · Semantics, contentDescription, AutomationProperties elsewhere>
+Theme  : <where the styling values live, and how a session verifies one actually applied at runtime —
+         computed style in the browser · the platform's own inspector elsewhere>
 ```
 
-It exists because `build-flow` and the design skills must prove pages on every platform, and "screenshot the browser" is only the web's answer. On the web stack the profile is the known default — dev server · browser screenshots at the widths Section 5 will fix · RLS role test — and is still written, so no later session has to assume it. A line that was not executed at bootstrap is written `[needs verification]` — except the web default, which the templates have already proven — and the skills that read it report what they could not capture instead of claiming proof.
+**This block is the toolkit's whole answer to "which platform is this".** Every rule that proves something about a screen reads one of these lines instead of naming a browser, a URL, or a CSS pixel — the rule states what must be true, the profile states how this app shows it. A rule naming a browser without naming the line it stands in for is a finding, and so is a profile line left as the web's answer on a platform that has no browser.
+
+It exists because `build-flow` and the design skills must prove pages on every platform, and "screenshot the browser" is only the web's answer. On the web stack every line has a known default — dev server · browser screenshots at the widths Section 5 fixes · two search params · RLS role test · semantic HTML and ARIA · computed style — and the block is still written, so no later session has to assume it. A line that was not executed at bootstrap is written `[needs verification]` — except the web default, which the templates have already proven — and the skills that read it report what they could not capture instead of claiming proof.
 
 Then three blocks:
 

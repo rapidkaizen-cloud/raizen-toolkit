@@ -269,14 +269,15 @@ Accepted, it runs over this session's diff only:
 
 | Pass | What it looks for |
 |---|---|
-| Accessibility | contrast, visible focus, keyboard reachability, touch target size, every control paired with a label, images given alternatives |
+| Accessibility | contrast, visible focus, keyboard reachability, target size for this surface (`ui-build`), every control paired with a label, images given alternatives |
 | Interaction polish | hover, active, focus, disabled and empty states present; hit area no smaller than the control it belongs to; spacing and radius matching the densest page |
 | Click path | per handler — does the final state match what the control's label promises, and does any later call undo what an earlier one just did |
+| Platform conventions | the shell affordances this Surface's users expect and no design decision produces — window chrome and menus, context menu and the gesture that opens it, system back, safe areas and insets, file and permission dialogs. Empty where the Surface is the web |
 | Screenshot | re-shoot the `bulk` case at the two Section 4 widths **after** the fixes, and judge the result rather than the intention |
 
-Where the session has skills covering these — `accessibility`, `make-interfaces-feel-better`, `click-path-audit` in the `ecc` plugin — use them. Where it does not, the four rows above are the whole checklist. The audit never depends on a plugin being installed.
+Where the session has skills covering these — `accessibility`, `make-interfaces-feel-better`, `click-path-audit` in the `ecc` plugin — use them. Where it does not, the rows above are the whole checklist. The audit never depends on a plugin being installed.
 
-The Click path row needs wired handlers, so it is empty in a UI batch running on fixtures. The other three run in both batches.
+The Click path row needs wired handlers, so it is empty in a UI batch running on fixtures. The others run in both batches.
 
 **A finding fixable inside the pages this session built is fixed now**, before the commit — which is the reason the audit runs before it rather than after. Everything else becomes a `QUEUE.md` line. No browser tooling in the session → the same rule as the walk above: say so and judge the widths live at the dev server. The audit produces no document.
 

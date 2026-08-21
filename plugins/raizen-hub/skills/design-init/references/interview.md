@@ -60,6 +60,8 @@ Every decision — asked or derived — is visible twice, in the same shape:
 
 **Context removes a dialog → skip it and say why.** An app without tables skips decision 11 entirely.
 
+**On a non-web Surface, the vocabulary substitutes before any pool is assembled.** The database is indexed by kind of product, never by platform, so its rows answer in the web's terms whatever the query carries — and for typography, color, and icons it holds no native row at all. Three substitutions, stated once here rather than forked into every decision: the **design language** — the target OS's own enters every pool where a style, palette, or icon family is chosen, as a fixed option labelled `platform`; the **unit** — the platform's own rather than the CSS pixel, so a frame facet reads window minimum size, size classes, or window size classes in dp; the **shell** — that platform's navigation model rather than sidebar-or-top-bar. Pass `--stack` alongside `--domain` where the platform has a stack file. A substitution with no row behind it comes from the research layer and says so, under the zero-result rule below. Written per decision instead, thirty-two forks would double a file that every web session reads in full.
+
 **Zero search results, no Python, or the skill is not installed → the database layer drops out, the interview continues.** Say so plainly, then build the options from the other two layers, each still labelled with its source. What stays forbidden is the lie, not the layer — this rule is from `ui-ux-pro-max` itself: *never present a 0-result search as if it returned data.*
 
 Read the `search.py` command shape from the `ui-ux-pro-max` SKILL.md. Do not copy a path from here.
@@ -241,7 +243,7 @@ This answer decides what is installed, and fills the Component library row in `C
 
 **Recommendation:** an icon for the primary action, a menu for the rest.
 
-**Consequence:** the most-used action stays one click away while rare actions stop eating column width — and nothing is hidden behind hover, which does not exist on a touch screen.
+**Consequence:** the most-used action stays one click away while rare actions stop eating column width — and nothing is hidden behind hover, which does not exist on a touch screen. A desktop application binary is the exception `ui-build` names: there hover-revealed row actions are the platform's own convention.
 
 **Facets — derived, never asked:**
 

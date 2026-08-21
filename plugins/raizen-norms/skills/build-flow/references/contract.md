@@ -38,16 +38,16 @@ A page is not accepted until all six render without the layout breaking. They ar
 
 Where no real document can be used, say so in the session and name what was substituted.
 
-## Switching cases in the browser
+## Switching cases
 
-Two search params, and no tooling beyond them:
+Two switches — one for the fixture case, one for the role — reachable without a rebuild, and no tooling beyond them. On the web they are two search params; elsewhere they are whatever PRD Section 1's Proof profile's **Cases** line names:
 
 ```
 ?fixture=messy
 ?role=approver
 ```
 
-No Storybook, no mock server, no fixture generator. If two search params ever stop being enough, that is the moment to reach for more — not before.
+No Storybook, no mock server, no fixture generator, on any platform. If two switches ever stop being enough, that is the moment to reach for more — not before.
 
 ## Wiring, in the backend batch
 

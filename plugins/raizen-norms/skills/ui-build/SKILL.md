@@ -11,9 +11,9 @@ description: Rules for building or changing any UI — component reuse, icon sou
 
 Section 5 still `[needs verification]`, empty, or absent → **STOP.** Do not write a component, do not write a styling value, do not add a token.
 
-**One exemption: the design canvas and the `/styleguide` scaffold.** `src/design-canvas/` and the styleguide route are the instruments that *produce* Section 5 — a design skill building them while Section 5 is still empty is the gate working, not a breach. The exemption is theirs alone: no real page, component, or token is written until Section 5 lands.
+**One exemption: the design canvas and the `/styleguide` scaffold.** `src/design-canvas/` and the styleguide route — on a non-web Surface, whatever `canvas.md` defines for that platform — are the instruments that *produce* Section 5 — a design skill building them while Section 5 is still empty is the gate working, not a breach. The exemption is theirs alone: no real page, component, or token is written until Section 5 lands.
 
-**And the canvas folder belongs to the design session that is building it.** A session doing any other work does not edit, move, or delete anything under `src/design-canvas/` — a problem found there is a finding reported to the user, never fixed in place. The canvas is a ratified reference; an edit from outside the design flow silently changes what the user approved.
+**And the canvas folder belongs to the design session that is building it.** A session doing any other work does not edit, move, or delete anything under that canvas folder — a problem found there is a finding reported to the user, never fixed in place. The canvas is a ratified reference; an edit from outside the design flow silently changes what the user approved.
 
 Which skill to point at is decided by **whether this repo already has UI components**, not by the state of Section 5 alone:
 
@@ -98,7 +98,7 @@ Name the line in the same breath as the override. An override whose justificatio
 
 Three levels decide, in this order:
 
-1. **The accessibility rules below.** They outrank a default, because a default can be wrong — a library's medium button is often under the 44px touch target, and the target still wins.
+1. **The accessibility rules below.** They outrank a default, because a default can be wrong — a library's medium button is often under the platform's target size, and the target still wins.
 2. **A line in PRD Section 5.**
 3. **The library default**, which beats a session's taste.
 
@@ -154,10 +154,14 @@ These bind the same way the loading, empty, and failed states above do: written 
 
 ## Accessibility
 
-For new code: 4.5:1 contrast for text and 3:1 for non-text, visible focus, semantic HTML, ARIA where needed.
+For new code: 4.5:1 contrast for text and 3:1 for non-text, visible focus, keyboard reachability, and every control's role and name reaching the platform's accessibility tree — semantic HTML and ARIA where needed is the web's answer.
 
 Color is never the only status marker.
 
-Minimum touch target 44×44px. An action that only appears on hover does not exist on a touch screen — provide another route to it.
+Spacing and alignment are written direction-neutral — the inline-start / inline-end form rather than left / right, which is what every platform's own layout system already uses. Costs nothing at the moment of writing and cannot be retrofitted cheaply, because it is every edge in the app at once rather than a component.
+
+**Minimum target size follows the surface, read from PRD Section 1.** A web page reaches a touchscreen whatever its users are said to work on, so the web keeps its floor whatever the input: the Section 5 phone profile's touch target, 44×44px where Section 5 is silent, and never below WCAG 2.2's 24×24 CSS px. A mobile app follows its own platform — 44pt on iOS, 48dp on Android, which is above the web figure rather than equal to it. A **desktop application binary**, which only ever runs in the window it ships as, takes its size from the Section 5 density profile instead. Everywhere except that desktop binary, an action revealed only on hover does not exist — provide another route to it; on the desktop binary a hover-revealed row action is the platform's own convention rather than a defect.
+
+Why conditional: written as one number this rule outranks Section 5 by the order above, so it silently overrules a ratified density profile on a surface with no touch screen to protect — while being under Android's minimum on the surface that does have one.
 
 Motion honors `prefers-reduced-motion`.

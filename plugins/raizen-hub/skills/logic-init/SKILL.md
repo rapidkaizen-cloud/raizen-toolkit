@@ -47,7 +47,7 @@ Six needs. Each is read from the PRD, not asked. **Not mentioned in the PRD mean
 | L1 | Screens read lists from the database | Section 2 — a role reads, searches, or filters records |
 | L2 | Input crosses a trust boundary | A server surface exists (Step 0) |
 | L3 | Rules bound to dates, deadlines, or timezones | Section 3 Timing & Deadlines is non-empty |
-| L4 | Errors need a destination beyond the host's default log | A server surface exists, **and** Section 1 says the app is operational rather than an experiment |
+| L4 | Errors need a destination beyond the host's default log | A server surface exists — or the Surface ships as an installed binary, whose failures happen where no host log can see them — **and** Section 1 says the app is operational rather than an experiment |
 | L5 | Work runs on a schedule | Section 3 names a recurring run |
 | L6 | A change has to be traceable to the person who made it | Section 2 — a role may change or delete records another role created; **or** Section 3 Approval is non-empty |
 

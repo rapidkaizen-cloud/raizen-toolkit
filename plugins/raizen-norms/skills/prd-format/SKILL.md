@@ -19,6 +19,8 @@ Conflict about what exists → the code wins, the PRD is corrected. Conflict abo
 
 The PRD holds only what a **live check cannot recover**. Test every sentence: *if this sentence were deleted, could reading the repo or introspecting the database bring it back?* Yes → do not write it.
 
+**One named exception: Section 1's Surface row carries the platform, and the Proof profile under it carries how a session runs this app and captures visual proof.** Both are recoverable from the repo in principle and are written regardless, because every skill that proves a page reads them *before* it has read enough of the repo to derive them — and a session that derives the platform wrongly proves nothing while believing it did. Nothing else about the stack joins them.
+
 **The trigger is narrow.** This document is touched only when a sentence inside it **becomes false**, or a new prohibition needs to be remembered by later sessions. **A new feature, a new screen, a new table, a new column are not triggers.** In doubt → do not write.
 
 The PRD is not a changelog. History lives in git. Snapshot numbers are not written — they go wrong within days and nothing triggers their correction.

@@ -33,6 +33,7 @@ The pass's commit is **proposed at the close, on the pass's own branch** — mad
 Skill build   : [raizen-hub x.y.z — read from this plugin's own .claude-plugin/plugin.json]
 PRD.md        : [present / missing]
 Section 5     : [filled / empty / absent]
+Platform      : [from Section 1 Surface — web, or the platform named there; a non-web value routes every browser-named check below to that Surface's Proof profile line]
 Branch        : [name · clean or has uncommitted changes]
 UI components : [file count]
 Leftover      : [none / canvas alive / pass applied — from src/design-canvas/ and git state]

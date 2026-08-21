@@ -29,8 +29,8 @@ That is what the prefix means. Vite additionally freezes its value at **build** 
 rotating the secret does not clear the one already baked into a deployed bundle. Never
 give one of these prefixes to a secret, whatever else the name says.
 
-Before writing any environment variable, answer one question out loud: *can a visitor
-read this?* Yes and it is a secret → stop, it needs a server surface (Section 3).
+Before writing any environment variable, answer one question out loud: *can whoever
+holds the client read this?* Yes and it is a secret → stop, it needs a server surface (Section 3).
 
 **A secret already committed is a stop, not a fix.** Deleting the line does not un-leak it:
 it stays in git history and in every bundle already built. Report it, name the key, and
@@ -58,7 +58,7 @@ Section 6 — one of three in a backend batch, and the only one in a UI batch. D
 allows Sections 3 and 4 only *before* implementation, precisely so a rule stays a
 decision rather than a description of code.
 
-## 3 — No server layer (static SPA)
+## 3 — No server layer, the client reaches the database directly (a static SPA on the web)
 
 The client speaks to the database directly. There is no place in this app to hide a
 secret and no code path the user cannot reach. It follows that:

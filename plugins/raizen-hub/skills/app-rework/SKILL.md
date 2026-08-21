@@ -57,7 +57,8 @@ Everything in this block is readable, so none of it is a question. Report one bl
 STACK — read from the repo
 Framework     : [name · version — from which file]
 Language      : [and whether types are enforced]
-Surface       : [server routes / static SPA — name the files that decided it]
+Surface       : [platform — web / desktop / mobile, and the files that decided it · then
+                server routes or static SPA where it is web]
 Database      : [name · how it is reached · migrations present or not]
 Hosting       : [from config present, or "not readable"]
 Auth          : [library or service / handwritten / none found]
@@ -121,7 +122,7 @@ Follow `references/prd-structure.md` in `app-init`. The same six sections, with 
 
 | Section | Difference from `app-init` |
 |---|---|
-| 1 | The stack is recorded **as found**, not as chosen. Each line reads as a measurement. No rejected alternatives — nobody rejected anything, because nobody chose from a list |
+| 1 | The stack is recorded **as found**, not as chosen. Each line reads as a measurement. No rejected alternatives — nobody rejected anything, because nobody chose from a list. The Surface row and Proof profile are still written, measured rather than chosen |
 | 5 | **Left absent entirely**, with one line saying `design-rework` fills it. Not a template full of `[needs verification]`: an absent section and an unverified one are read differently by `ui-build`, and only one of them is honest here |
 | 6 | Prohibitions the user states now. A prohibition inferred from code is not a prohibition, it is a habit |
 

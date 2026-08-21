@@ -18,7 +18,7 @@ Two reasons, and the second is the one that matters:
 - **The installed plugin copy drifts from this repo.** `raizen-hub` needs a version bump and `/plugin update` before a change reaches a machine, so a session in an app repo reads rules that may already be fixed here. A trace against the wrong text is a void trace.
 - **An agent inside a ruleset is the worst judge of that ruleset.** A session in an app repo has the `raizen-norms` block printed and the guards live: it is being *governed* by the thing under review, and it reads every constraint as the definition of correct. Here the skills are text under review instead. That posture is the whole method — without it this skill reproduces, one level up, exactly the self-referential bar described above.
 
-The `raizen-norms` session block appeared at the start of this session → wrong repo. **STOP** and say so.
+The primary working directory is not this repo → **STOP** and say so. The `raizen-norms` session block is no signal either way — its hook is installed globally and prints in every session, this one included.
 
 **Nothing in the app repo is written, moved, or deleted.** Fixing the app and fixing the toolkit are separate jobs, and the second may never quietly do the first. A defect worth fixing in the app is reported as a finding.
 

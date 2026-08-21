@@ -33,6 +33,7 @@ Check and report one short block:
 PRD.md      : [present / missing]
 Section 5   : [empty / already filled / product without UI]
 Kind of app : [from Section 1]
+Platform    : [from Section 1 Surface — web, or the platform named there]
 Primary role: [from Section 2]
 Reading     : [one sentence — see Step 1]
 Flow        : mode → interview or dialogs → install → canvas rounds →
@@ -49,7 +50,9 @@ Product without UI → **STOP**, this skill does not apply.
 
 ## Step 1 — The reading, then route the supporting skills
 
-There is no audit — nothing exists to audit; this step is its sibling. **Reading** is your own conclusion before asking anything, one sentence, shaped as: *"I read this as [kind of app] for [who uses it], leaning [the feel that fits], because [reason from the PRD]."*
+There is no audit — nothing exists to audit; this step is its sibling. **Reading** is your own conclusion before asking anything, one sentence, shaped as: *"I read this as [kind of app] on [platform] for [who uses it], leaning [the feel that fits], because [reason from the PRD]."*
+
+**The platform slot is not decoration.** `app-init` already asked the platform and PRD Section 1 already holds the answer — it is never asked again. It rides in this sentence because the corrected reading becomes the keywords for every query in Step 3, so one word here is what puts the platform into all of them at once. Left out, the queries return the web's answer to every question and no later decision can tell that anything was lost.
 
 Concluding first beats asking from nothing: the user only corrects what missed, and the correction carries more than an empty question would. A wrong reading is not a failure — it draws out detail that no question would surface.
 

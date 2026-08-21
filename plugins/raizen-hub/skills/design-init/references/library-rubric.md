@@ -2,7 +2,7 @@
 
 Used in decision 7. Score the needs from PRD Sections 1–3, then assemble 3–4 libraries that satisfy **all** of them.
 
-`ui-ux-pro-max` has no data for choosing a library — its `stacks/` folder holds guidance **for** a library already chosen, not a way to choose one. **And this file names no libraries either**: it holds the scoring, the assembly rules, and the research duty; the candidates are assembled live. A needs-to-library map written here goes stale the moment the ecosystem moves, and then anchors every interview to a list nobody re-checked.
+`ui-ux-pro-max` has no data for choosing a library — its `stacks/` folder holds guidance **for** a library already chosen, not a way to choose one. **And this file names no libraries either**: it holds the scoring, the assembly rules, and the research duty; the candidates are assembled live. A needs-to-library map written here goes stale the moment the ecosystem moves, and then anchors every interview to a list nobody re-checked. That folder is worth reading once the library is chosen, and only for a stack it actually covers — a web-hosted desktop or mobile shell (Tauri, Electron, Capacitor) has no file there, and its web framework's file is not a substitute.
 
 ## Scoring the needs
 
@@ -28,13 +28,13 @@ Candidates come from two layers, and both are mandatory:
 
 **An option without researched backing is not shown.** Every option carries its source label like every interview option.
 
-For desktop stacks, the `data/stacks/` folder of `ui-ux-pro-max` carries per-stack guidance — read it alongside the research, not instead of it.
-
 ## Rules for assembling the options
 
 **Three to four options**, all satisfying every need scored yes. A library that fails on one need does not make the list — unless nothing satisfies all of them, in which case say plainly what will not be met. "Own components" — no library at all — is offered when the needs are few enough that it is honest, with its consequence stated: everything is hand-written and hand-maintained.
 
-**Recommendation:** the one that satisfies everything with the **fewest extra dependencies**. Not the most complete, not the most popular.
+**Recommendation on the web:** the one that satisfies everything with the **fewest extra dependencies**. Not the most complete, not the most popular.
+
+**Recommendation on every other platform: the design language outranks the dependency count.** A library that ships the target OS's visual language beats one that does not, and the dependency count only separates libraries that carry it. The Platform row above is a **pass mark** — it asks whether the library runs there, never whether it belongs there. Recommending a library because it saves one icon package, on a platform whose users know instantly what its applications look like, spends the app's whole appearance to save an install line. What the option must then say is which OS language it carries, or that it carries none. Where no candidate carries the target OS's language at all — common on macOS, and wherever the ecosystem is web-hosted — say so plainly, fall back to the dependency count, and name what the app will not inherit. A heavier dependency bought for a language none of them actually carries is the same mistake pointing the other way.
 
 **The consequence must name what the library leaves out.** The user is entitled to know what will have to be installed or hand-written before they choose — that is the researched missing-list, stated per option.
 

@@ -25,6 +25,7 @@ Reply language is not set here — it follows whichever language the user writes
 
 | Aspect | Choice |
 |---|---|
+| Platform | {{PLATFORM}} |
 | Frontend | {{FRONTEND}} |
 | Hosting | {{HOSTING}} |
 | Database | {{DATABASE}} |

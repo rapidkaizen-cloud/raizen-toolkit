@@ -18,7 +18,7 @@ This is the primary source. The table below only patches what it does not map.
 
 `Decision_Rules` is keyed per product type and does not map decision to decision. The table below does. Decision numbers are `interview.md`'s; a shift may land on a decision's dialog or on one of its facets — the facet is named where it matters.
 
-Apply these as **recommendation shifts**, not as answers. The user still chooses.
+Apply these as **recommendation shifts**, not as answers. The user still chooses. A shift landing a size below the target size for this surface is a collision, not a shift — resolved the way `interview.md`'s row-height rule states, and reported as a derived line.
 
 | Answer | Shifts |
 |---|---|
@@ -31,9 +31,10 @@ Apply these as **recommendation shifts**, not as answers. The user still chooses
 | D7 brings large tables natively | D11 → follow the library's capability, report as derived lines |
 | D7 = a copy-in library | its icon facet → the bundled icons become the recommendation |
 | D9 = very dense | D6 steps facet → four or five, no more · D6 line facet → bound prose · D11 row height → compact · D11 row actions → icon plus menu, not all icons · D15 supporting text → at most one sentence |
-| D10 minimum width = 360px (known from the PRD before the shell dialog) | D10 shell → collapsible sidebar, not fixed · D11 → prepare a collapsed form for tables, and nothing revealed on hover |
+| D10 lower bound = 360px, or the narrow bound the Proof profile names (known from the PRD before the shell dialog) | D10 shell → one that hands the width back on demand, a collapsible rather than fixed sidebar on the web · D11 → prepare a collapsed form for tables, and nothing revealed on hover |
 | D10 shell = top bar only | D10 content-width facet → bounded and centered |
 | D2 selects reference apps | Every later query carries those app names as keywords |
+| D2 references are all non-native for this platform | D7 → the recommendation follows the references' design language rather than the OS's, and the option states which OS language it drops · the canvas platform comparison names those references as its bar instead of an OS application |
 
 ## 3. What `logic-init` already installed
 
