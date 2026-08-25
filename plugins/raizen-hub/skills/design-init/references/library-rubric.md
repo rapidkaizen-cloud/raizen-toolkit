@@ -2,7 +2,7 @@
 
 Used in decision 7. Score the needs from PRD Sections 1–3, then assemble 3–4 libraries that satisfy **all** of them.
 
-`ui-ux-pro-max` has no data for choosing a library — its `stacks/` folder holds guidance **for** a library already chosen, not a way to choose one. **And this file names no libraries either**: it holds the scoring, the assembly rules, and the research duty; the candidates are assembled live. A needs-to-library map written here goes stale the moment the ecosystem moves, and then anchors every interview to a list nobody re-checked. That folder is worth reading once the library is chosen, and only for a stack it actually covers — a web-hosted desktop or mobile shell (Tauri, Electron, Capacitor) has no file there, and its web framework's file is not a substitute.
+**This file names no libraries**: it holds the scoring, the assembly rules, and the research duty; the candidates are assembled live. A needs-to-library map written here goes stale the moment the ecosystem moves, and then anchors every interview to a list nobody re-checked. Once the library is chosen on a non-web platform, research its platform's implementation idioms from the platform's own documentation before building with it — findings labelled with their source, never recalled from memory alone.
 
 ## Scoring the needs
 
@@ -17,7 +17,7 @@ Read the PRD and answer these six yes or no. Not mentioned in the PRD means no.
 | Drag-and-drop | Section 2 mentions work that reorders items or moves them between columns |
 | Works offline | Section 2 names a role working without reliable connectivity |
 
-Charts needed → run `--domain chart "<data kind> <stack>"` to learn which chart types suit that stack. Its output feeds the options.
+Charts needed → the turn's research pass covers which chart types suit this data and stack. Its findings feed the options.
 
 ## The research duty — candidates assembled live
 

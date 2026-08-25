@@ -194,7 +194,7 @@ Unchecking one of these means changing the PRD. That is a separate decision and 
 
 Pre-selected is the whole point of the step. The old bias builds the minimum that passes; this one proposes the full page and lets the user cut it down. Thin pages are born of the first bias, and no later check recovers what was never proposed.
 
-Where the PRD runs out, optional candidates come first from the components of the page's archetype in Section 5, then from the product-type database `design-init` already queries live. Same sources the app was designed from, no new one.
+Where the PRD runs out, optional candidates come first from the components of the page's archetype in Section 5, then from live product-type research — what a mature product of this kind conventionally carries, the same research `design-init` ran. Same kind of sources the app was designed from, no new one.
 
 **Both lists coming out short is an answer, not a problem.** Login screens and small settings pages are legitimately quiet, and padding them is worse than leaving them alone. The lists are derived, so a sparse page produces sparse lists by itself — no separate judgement about whether emptiness is acceptable, and none invented on the user's behalf.
 

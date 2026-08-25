@@ -16,7 +16,7 @@ Split because their context cost differs: bootstrap norms have no business being
 | Needed | Why | Check |
 |---|---|---|
 | Claude Code | — | `claude --version` |
-| Python 3, reachable as `python3` | `ui-ux-pro-max` runs `search.py`, and all four `raizen-norms` hooks are invoked as `python3`. A machine where only `python` resolves loses every guard **without an error** — they simply never run, and with the account-wide Supabase MCP that includes the project pin | `python3 --version` |
+| Python 3, reachable as `python3` | All four `raizen-norms` hooks are invoked as `python3`. A machine where only `python` resolves loses every guard **without an error** — they simply never run, and with the account-wide Supabase MCP that includes the project pin | `python3 --version` |
 | Node.js | For the `npx skills add` route — the Supabase and taste skills both arrive that way | `node --version` |
 | git | A private marketplace is pulled over git | `git --version` |
 
@@ -25,9 +25,6 @@ Split because their context cost differs: bootstrap norms have no business being
 **Required.** Run these in order:
 
 ```
-/plugin marketplace add nextlevelbuilder/ui-ux-pro-max-skill
-/plugin install ui-ux-pro-max@ui-ux-pro-max-skill
-
 /plugin marketplace add <source-of-this-repo>
 /plugin install raizen-hub@raizen
 ```
@@ -64,7 +61,6 @@ Restart the session once you are done installing.
 
 | Skill | Used for |
 |---|---|
-| `ui-ux-pro-max` | The source of every option and recommendation across the 27 visual questions. Without it `design-init` can only offer self-assembled options, which it must mark as not coming from the database |
 | `raizen-hub` | The six skills themselves — `app-init`, `app-rework`, `logic-init`, `logic-rework`, `design-init`, `design-rework` |
 
 **Recommended** — nothing errors without them:
@@ -85,19 +81,19 @@ The Supabase MCP server is connected **user scope, once per machine** — no `.m
 
 `raizen-norms` is **not installed by hand** — `app-init` writes it into the app repo's `.claude/settings.json` at bootstrap.
 
-The mechanisms differ deliberately: `ui-ux-pro-max`, `raizen-hub`, and `ponytail` are Claude Code plugins, while the Supabase and taste skills arrive through the Vercel Agent Skills framework (`npx skills add`) rather than a plugin marketplace. taste-skill is MIT licensed.
+The mechanisms differ deliberately: `raizen-hub` and `ponytail` are Claude Code plugins, while the Supabase and taste skills arrive through the Vercel Agent Skills framework (`npx skills add`) rather than a plugin marketplace. taste-skill is MIT licensed.
+
+`ui-ux-pro-max` is no longer part of any flow here — no skill queries it, installed or not. Where it is installed it stays a standalone tool the user may invoke by name; nothing in this toolkit reads it, and its `--persist` flag must not be used inside an app repo (it writes a rival `MASTER.md` that competes with PRD Section 5).
 
 `caveman` and `i-have-adhd` change how answers read, not what this toolkit does. They are unrelated to it — install them or not.
 
 ### Verify
 
-In a fresh session, run `/plugin` and confirm `ui-ux-pro-max` and `raizen-hub` are active.
+In a fresh session, run `/plugin` and confirm `raizen-hub` is active.
 
 Skills added with `npx skills add` never appear there. Check `~/.claude/skills/` for them, or run `/reload-skills` and look for `supabase-postgres-best-practices` by name.
 
-The only absence that actually costs output quality is **`ui-ux-pro-max`**: `design-init` still runs, but its options become agent-assembled ones that must be marked *not from the database*, and Section 5 comes out far poorer.
-
-`design-init` fails to run its search → check Python first.
+`design-init`'s interview depends on WebSearch for its per-batch research passes — a session without it still runs, but every option falls back to the anchors and domain reading, labelled as such.
 
 ## Use
 

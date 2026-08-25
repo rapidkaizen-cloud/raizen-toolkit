@@ -1,6 +1,6 @@
 # Logic rubric — categories, criteria, and the research duty
 
-Used in Step 2 of `logic-init`. There is no database for this layer — a `ui-ux-pro-max` query for it returns styling rows, nothing else. **This file names no candidates.** It holds the questions, the criteria a candidate must meet, and the rules for recommending; the candidates themselves are assembled live, per the research duty below. A product name written here would only go stale and then anchor the interview to its staleness.
+Used in Step 2 of `logic-init`. There is no database for this layer. **This file names no candidates.** It holds the questions, the criteria a candidate must meet, and the rules for recommending; the candidates themselves are assembled live, per the research duty below. A product name written here would only go stale and then anchor the interview to its staleness.
 
 ## Assembling candidates — the research duty
 

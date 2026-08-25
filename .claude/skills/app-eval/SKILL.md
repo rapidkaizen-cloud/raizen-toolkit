@@ -28,7 +28,7 @@ The primary working directory is not this repo → **STOP** and say so. The `rai
 
 **No input from the user → do not run.**
 
-This is mechanical, not a courtesy. The user's dissatisfaction is the only signal from outside the app. Without it there is nothing to measure against, and the run collapses into listing whatever differs from the product-type database — taste presented as evidence.
+This is mechanical, not a courtesy. The user's dissatisfaction is the only signal from outside the app. Without it there is nothing to measure against, and the run collapses into listing whatever differs from product-type convention — taste presented as evidence.
 
 Refusing is not the same as demanding a brief. The user often feels something is wrong well before they can name it, and helping them name it is part of the job. Ask three questions **in one turn**:
 
@@ -36,7 +36,7 @@ Refusing is not the same as demanding a brief. The user often feels something is
 2. **Compared to what** — another product, an earlier version, a picture in their head → this is the external bar
 3. **What did you expect to see instead** → this is the target
 
-Question 2 may be answered *I don't know, it just feels off*. Then offer candidates from the product-type database `design-init` already queries and let the user point at one. A reference the user selects is evidence; a reference invented on their behalf is not.
+Question 2 may be answered *I don't know, it just feels off*. Then offer candidates from a live research pass of the kind `design-init`'s interview runs — well-known products of this app's type — and let the user point at one. A reference the user selects is evidence; a reference invented on their behalf is not.
 
 The input may be a complaint or a direction — *"I want this app to feel more like X"* is as usable as *"this looks dead"*.
 
@@ -51,7 +51,7 @@ The input may be a complaint or a direction — *"I want this app to feel more l
 | What the app was supposed to be | Its `PRD.md`, Section 5 above all |
 | What was built when, and what is still owed | `git log`, `git log QUEUE.md` |
 | What happened while it was built | The app's session transcripts under `~/.claude/projects/<app-slug>/` |
-| The external bar | The reference the user pointed at, plus the product-type database |
+| The external bar | The reference the user pointed at, plus product-type research run live |
 
 The app is **run**, not only read. Screenshot the pages named in the input at the two widths PRD Section 5 fixes. A judgement about how a screen feels, made from source alone, is a guess.
 

@@ -1,6 +1,6 @@
 ---
 name: design-init
-description: Decide the visual direction and component library of an app whose PRD Section 5 is still unwritten. By default a batched interview over 15 decisions (options assembled live from the ui-ux-pro-max database, domain reading, and a web-research pass) captures the user's preferences, and a temporary in-repo canvas — real component library, canvas-owned theme, the user's feature brief — renders them as every page of the app, expanding thin briefs into a full product with tagged feature proposals and tagged departures; fast mode draws the canvas straight from three dialogs. Ratifies the canvas, writes the rules and the screen-archetype table into PRD Section 5, writes the concrete values into the styling files, generates the dev-only /styleguide route, then promotes every canvas page into the app's real pages on contract fixtures — real data arrives page by page through the build queue. Use before the first UI component of a repo is written, or when PRD Section 5 is still marked as unverified.
+description: Decide the visual direction and component library of an app whose PRD Section 5 is still unwritten. By default a batched interview over 15 decisions (options assembled live from the user's reference apps, the platform's design language, domain reading, and per-batch web research) captures the user's preferences, and a temporary in-repo canvas — real component library, canvas-owned theme, the user's feature brief — renders them as every page of the app, expanding thin briefs into a full product with tagged feature proposals and tagged departures; fast mode draws the canvas straight from three dialogs. Ratifies the canvas, writes the rules and the screen-archetype table into PRD Section 5, writes the concrete values into the styling files, generates the dev-only /styleguide route, then promotes every canvas page into the app's real pages on contract fixtures — real data arrives page by page through the build queue. Use before the first UI component of a repo is written, or when PRD Section 5 is still marked as unverified.
 ---
 
 # design-init — set the visual direction once, in code
@@ -14,8 +14,6 @@ The step skeleton below is `design-rework`'s, on purpose — one flow to learn, 
 ## Hard limits
 
 `PRD.md` Section 5 is the only part of the document written. **Do not** create `MASTER.md`, `DESIGN.md`, `design-system/`, or an interview summary as a file. If another skill in this session produces a document, it is not committed and not referenced.
-
-`ui-ux-pro-max` is run **without `--persist`**. That flag writes `design-system/<slug>/MASTER.md` and calls itself the *Global Source of Truth* — two normative documents for the same thing means Section 5 dies slowly.
 
 This is one of only two paths allowed to write Section 5, and only while Section 5 is still empty. Its contents come from the user's answers, not from the agent's taste and not from another skill's output. A Section 5 that is already filled changes only by the user's decision — see `prd-format` in `raizen-norms`.
 
@@ -52,26 +50,21 @@ Product without UI → **STOP**, this skill does not apply.
 
 There is no audit — nothing exists to audit; this step is its sibling. **Reading** is your own conclusion before asking anything, one sentence, shaped as: *"I read this as [kind of app] on [platform] for [who uses it], leaning [the feel that fits], because [reason from the PRD]."*
 
-**The platform slot is not decoration.** `app-init` already asked the platform and PRD Section 1 already holds the answer — it is never asked again. It rides in this sentence because the corrected reading becomes the keywords for every query in Step 3, so one word here is what puts the platform into all of them at once. Left out, the queries return the web's answer to every question and no later decision can tell that anything was lost.
+**The platform slot is not decoration.** `app-init` already asked the platform and PRD Section 1 already holds the answer — it is never asked again. It rides in this sentence because the corrected reading becomes the keywords for every research pass in Step 3, so one word here is what puts the platform into all of them at once. Left out, the passes return the web's answer to every question and no later decision can tell that anything was lost.
 
 Concluding first beats asking from nothing: the user only corrects what missed, and the correction carries more than an empty question would. A wrong reading is not a failure — it draws out detail that no question would surface.
 
-State the reading, ask for correction, then continue. When the correction is asked through AskUserQuestion, **the full reading sentence goes inside the question field itself** — the dialog may render without the prose around it, so a question that points at text "above" can arrive pointing at nothing. The corrected reading becomes the keywords for every query in Step 3.
+State the reading, ask for correction, then continue. When the correction is asked through AskUserQuestion, **the full reading sentence goes inside the question field itself** — the dialog may render without the prose around it, so a question that points at text "above" can arrive pointing at nothing. The corrected reading becomes the keywords for every research pass in Step 3.
 
 **The Step 2 mode question rides in this same AskUserQuestion call** — two questions, one dialog, one turn. Neither reads the other's answer, so nothing is lost by pairing them.
 
 Then read the kind of app from PRD Section 1, and decide once which skills feed the interview:
 
-| Kind of app | Skills used |
-|---|---|
-| Internal dashboard · single-role internal tool | `ui-ux-pro-max` only |
-| Public site | `ui-ux-pro-max` **and** `design-taste-frontend` |
+`design-taste-frontend` is the one live interview authority, and only for a **public site**. It states itself that it is not for dashboards, data tables, or multi-step product UI — outside that boundary its motion dials and icon rules fight the interview's own anchors. Its prohibitions still serve every kind of app through `references/anti-pattern.md` — material, not a live authority. Internal apps run the interview on its three layers alone.
 
-`design-taste-frontend` states itself that it is not for dashboards, data tables, or multi-step product UI. Using it outside that boundary produces motion dials and icon rules that collide with `ui-ux-pro-max`. Its prohibitions are still used for every kind of app through `references/anti-pattern.md` — that is material, not a live authority.
+This routes the **interview's** live authorities only. The canvas phase additionally reads `high-end-visual-design` and `frontend-design` as material for every kind of app — `canvas.md` states the rule and the same limit: material raises the floor of the free hand, and the user's answer wins every collision.
 
-This table routes the **interview's** live authorities only. The canvas phase additionally reads `high-end-visual-design` and `frontend-design` as material for every kind of app — `canvas.md` states the rule and the same limit: material raises the floor of the free hand, and the user's answer wins every collision.
-
-The two skills disagree about icon pack, motion level, or typeface → **the user's answer wins**, which is exactly why all three are asked.
+A live authority disagrees with an anchor or a research finding about icon pack, motion level, or typeface → **the user's answer wins**, which is exactly why those decisions are asked.
 
 ## Step 2 — The mode
 
@@ -91,20 +84,20 @@ Offer two, with a recommendation — asked in the Step 1 call:
 Derived decisions are **never silent, in either mode.** Every decision not asked is reported on one line with its basis:
 
 ```
-D8 radius+shadow → 8px, soft cards (from Design System Variables of style "Minimalism & Swiss")
-D12 motion       → subtle (from the Effects & Animation column of the same style)
-D13 feedback     → inline failures, toast successes (built-in; no basis in the data)
+D3 hover step    → accent darkened ~10%, passes AA (derived with the palette)
+D11 row height   → ~36px compact-to-medium (derived from D9 dense)
+D13 feedback     → inline failures, toast successes (built-in; no anchor behind it)
 ```
 
 A line whose basis is "built-in" is marked as such. The user may cancel any line, and cancelling it opens that dialog normally. `interview.md`'s ledger rules govern the full report: facets between batches, the 15-row ledger at the interview's close, and the same ledger once more at ratification.
 
-## Step 3 — The interview, then translate into values
+## Step 3 — The interview, then compile into values
 
 Read `references/interview.md`, `references/adaptation.md`, and — for decision 7 — `references/library-rubric.md`. Engine dialogs — charts, heavy tables, drag-and-drop, and the rest of what the component pack does not own — have no slot of their own: they fire only on the triggers in `references/engine-rubric.md`, and an app that trips none hears none.
 
 **The order in `interview.md` is the order asked.** No question is promoted to the front because it feels foundational, and none is deferred because its answer looks obvious.
 
-**The options for each question are not written in any file, and the database is not their only source.** `interview.md` names three layers — the `ui-ux-pro-max` query, the model's own domain reading, and a mandatory one-off WebSearch research pass run before the first question — every option labelled with its source. Run the layers, assemble the pool, then ask. This is what makes the choices follow the user's story instead of being one fixed list for every app.
+**The options for each question are not written in any file, and no single source owns them.** `interview.md` names three layers — the anchors (the user's reference apps and, off-web, the platform's design language), the model's own domain reading, and a mandatory WebSearch research pass run per turn — every option labelled with its source and the anchor it stands on. Run the layers, assemble the pool, then ask. This is what makes the choices follow the user's story instead of being one fixed list for every app.
 
 **Questions travel in batches** — up to four per AskUserQuestion call, several calls per turn, sequential only across a real dependency. `interview.md` holds the batching rules, the four-option cap, and which questions are `multiSelect`.
 
@@ -112,21 +105,19 @@ Read `references/interview.md`, `references/adaptation.md`, and — for decision
 
 Every question must carry **more than two options**, **one marked recommendation**, and a **one-sentence consequence**. The user is a junior developer — options without a recommendation force a decision with nothing to base it on, and two options always read like a trap.
 
-**Earlier answers shift later recommendations.** `adaptation.md` holds both sources: `Decision_Rules` from `ui-reasoning.csv` as the primary one, and a question-to-question table for what it does not map. Shifting a recommendation is allowed; removing an option is not, unless that option is genuinely impossible.
+**Earlier answers shift later recommendations.** `adaptation.md` holds both sources: the decision-to-decision table, and the family rule from what `logic-init` already installed. Shifting a recommendation is allowed; removing an option is not, unless that option is genuinely impossible.
 
 **Questions whose answer is already settled are not asked.** Decide, report one line as a derived decision, move on. Deciding silently is forbidden — the user must be able to cancel it.
 
 Answers outside the options are always accepted. The user names something not listed → use it, state its consequence if you know it, or say you don't.
 
-A search returning zero results, no Python, or the skill not installed → **the database layer drops out, the interview continues** on the other two layers, every option still labelled with its source. Never present a 0-result search as if it returned data.
+A research pass returning nothing useful → **the research layer drops out for that batch, the interview continues** on the anchors and the domain reading, every option still labelled with its source. Never present an empty pass as if it returned findings.
 
-### Translate into values
+### Compile into values
 
-**Fast: this does not run** — the values come from the canvas, not from the database. In Full, run `ui-ux-pro-max` to turn the answers into concrete palettes, font pairings, and icon entries — the canvas's baseline. Read the script path and command shape from that skill's own SKILL.md — do not guess, and do not copy a path from here.
+**Fast: this does not run** — the values come from the canvas, not from the answers. In Full, compile the answers into the canvas's baseline: concrete hex values, font names, and icon entries, each traced to its anchor — the reference it was read from, the platform language, or the research finding. A value with no anchor behind it is labelled `assembled` and said so — never dressed as researched.
 
-The `--variance --motion --density` dials are filled from the answers to decisions 1, 10, 12, and 9, never from any skill's built-in baseline.
-
-Zero results → do not invent. Tell the user this recommendation came from general defaults, not from the database.
+**The compile step closes through the default gate** — `interview.md` names the stock values that mark a decision nobody made. A value the user chose passes outright; a compiled or derived value on that list with no written reason reopens its decision before the canvas renders it.
 
 The output is the canvas's **baseline, not a gate** — do not stop to show it as its own proposal. The user corrects values where they are visible: on the canvas, at the judgement. Stopping here would judge the same values twice.
 
