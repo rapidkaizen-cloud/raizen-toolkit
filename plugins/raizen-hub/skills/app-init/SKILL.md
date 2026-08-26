@@ -151,8 +151,8 @@ Two sessions remain before pages can be built, in this order:
   /logic-init  — the logic layer: cache, validation, dates, logging,
                  scheduling, audit trail. Scored from the PRD; often
                  installs nothing.
-  /design-init — the visual direction: a judged canvas page, then one real
-                 page to judge.
+  /design-init — the visual direction: a short taste interview, then every
+                 page drawn on a canvas, judged, and promoted.
 Until design-init is done, any session will refuse to write UI components.
 ```
 

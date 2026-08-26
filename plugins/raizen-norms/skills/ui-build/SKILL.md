@@ -19,7 +19,7 @@ Which skill to point at is decided by **whether this repo already has UI compone
 
 | UI components in the repo | Point the user to |
 |---|---|
-| None | `design-init` — it interviews the visual direction from nothing, then proves it on one real page |
+| None | `design-init` — it interviews the visual direction from nothing, then proves it as every page of the app on a staged canvas |
 | Some already exist | `design-rework` — it measures what those components actually use and puts each value to the user to ratify or overrule |
 
 Getting that wrong sends the user in a circle: `design-init` refuses a repo that already has components, so naming it there produces a second STOP and no way forward. A repo in that state usually arrived through `app-rework`'s document mode, which writes the PRD for an existing app and deliberately leaves Section 5 unwritten.
@@ -136,7 +136,7 @@ This does not shorten the empty and failed states above. Those explain a situati
 
 **A rationale found on screen is a finding, reported to the user** — the same standing as a raw color value, and removed the same way. Without that sentence this rule states a preference nobody is obliged to act on, and the text accumulates one paragraph at a time until a screen is mostly explanation.
 
-How much supporting text a screen may carry, and how long a repeated label may be, are recorded per app in PRD Section 5 — decision 15 of the design interview, fixed norms unless the user cancelled them there. This rule governs what may be said, not how much.
+How much supporting text a screen may carry, and how long a repeated label may be, are recorded per app in PRD Section 5 — ratified from the canvas's copy decisions in the design interview. This rule governs what may be said, not how much.
 
 ## Wording
 

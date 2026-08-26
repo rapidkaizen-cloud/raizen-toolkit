@@ -47,13 +47,9 @@ npx skills add supabase/agent-skills
 /plugin install ponytail@ponytail
 ```
 
-**Only if you build public sites** — `design-init` references it in one branch only, and its prohibitions are already copied into `anti-pattern.md`, so internal apps do not need it:
-
-```
-npx skills add https://github.com/Leonxlnx/taste-skill --skill "design-taste-frontend"
-```
-
 Restart the session once you are done installing.
+
+The design flow loads exactly one taste material: the `frontend-design` plugin (Anthropic's), installed via `/plugin` — divergence guidance that names templated defaults to avoid without prescribing a style, the same kind of guidance Claude Design runs on. It is optional: absent, the canvas draws on the model's own taste. Skills that prescribe a fixed look (exact fonts, shadows, card recipes) are deliberately not read by any flow — a house style read for every app makes every app look like the house.
 
 ### Why each one
 
@@ -69,7 +65,7 @@ Restart the session once you are done installing.
 |---|---|
 | `supabase-postgres-best-practices` | Consulted by `db-ops` before a migration is written — index patterns, column types, constraints, RLS policy shape. Disagreement with `db-ops` → `db-ops` wins, and `db-ops` already says to continue when it is absent. It earns its place on RLS, where the wrong shape leaks data rather than merely running slow |
 | `ponytail` | Holds back over-engineering. This repo governs other repos, so excess here spreads — but that is a habit it enforces, not something any file calls |
-| `design-taste-frontend` | Public sites only, as above |
+| `frontend-design` | Read by the canvas phase of `design-init`/`design-rework` as divergence guidance against templated defaults — never a house style. The canvas runs without it |
 
 `npx skills add supabase/agent-skills` installs a second skill alongside it, `supabase`, covering Auth, Storage, and `@supabase/ssr`. Nothing in this repo refers to that one; it rides along.
 
@@ -93,7 +89,7 @@ In a fresh session, run `/plugin` and confirm `raizen-hub` is active.
 
 Skills added with `npx skills add` never appear there. Check `~/.claude/skills/` for them, or run `/reload-skills` and look for `supabase-postgres-best-practices` by name.
 
-`design-init`'s interview depends on WebSearch for its per-batch research passes — a session without it still runs, but every option falls back to the anchors and domain reading, labelled as such.
+`design-init`'s taste interview runs on the model's own design knowledge and needs no WebSearch. The stack questions (component library, engines) still verify their candidates live — a session without WebSearch says what could not be verified instead of recalling it from memory as fact.
 
 ## Use
 
@@ -125,7 +121,7 @@ To rework only the look or the logic layer of an app that already has a PRD, the
 | `app-rework` | Application code present. No `PRD.md` → document mode; present → rework mode | Document mode: `PRD.md` with Section 5 **absent**, `CLAUDE.md`, norms enabled — changes nothing about the app. Rework mode: Sections 1–4 and 6 re-decided keep-first, execution handed to build sessions |
 | `logic-init` | `PRD.md` present, logic layer never decided | Section 1 records cache, validator, dates, errors, jobs, attribution — often installing nothing |
 | `logic-rework` | `PRD.md` present, app already running | Audit of what is installed, then keep / adopt / replace per need, migrated in one pass |
-| `design-init` | Section 5 empty **and** no component exists | Section 5 filled, styling tokens, one working reference page |
+| `design-init` | Section 5 empty **and** no component exists | Section 5 filled, styling tokens, every page promoted from the ratified canvas on contract fixtures |
 | `design-rework` | Section 5 filled, **or** empty while components exist | Section 5 changed or ratified line by line, plus every component updated in one pass |
 | `build-flow` | Section 5 filled | `QUEUE.md` on first run, then usable pages — a UI batch built against contracts first, wired in a backend batch after |
 

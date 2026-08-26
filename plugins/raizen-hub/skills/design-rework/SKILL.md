@@ -17,7 +17,7 @@ Section 5 is normally already filled when this skill runs. One case where it is 
 
 **PRD.md is written exactly once, and only after the Step 6 gate approves it** — as the first act of the pass, on the pass's own branch. Until then nothing touches it, and no draft document stands in for it: the canvas is the draft, its variables and foundations board carry every value the user can inspect. Approval writes Section 5 in full; rejection leaves the PRD exactly as it was. Section 5 changes only by **explicit user decision**, line by line — audit results are findings, not proposed norms.
 
-Two places in the documents may be written, and no third: **PRD Section 5**, and the **Component library row of `CLAUDE.md`** when decision 7 is answered with something other than *keep*. Do not create `MASTER.md`, `DESIGN.md`, `design-system/`, a staging PRD, or an audit report as a file.
+Two places in the documents may be written, and no third: **PRD Section 5**, and the **Component library row of `CLAUDE.md`** when the library question is answered with something other than *keep*. Do not create `MASTER.md`, `DESIGN.md`, `design-system/`, a staging PRD, or an audit report as a file.
 
 **The canvas is the final front-end, staged** (`canvas.md`). Its files are the future pages, written production-grade — the user approves code, not pictures, and promotion relocates that code instead of imitating it. The one legitimate difference between a canvas file and its live page is the data flowing through it; everything else is a failure to fix or a deviation the user has named.
 
@@ -102,7 +102,7 @@ That last number matters most — it decides the size of the final pass, and the
 
 **The same walk writes the function inventory** — every function the app carries, one line each, page-agnostic: what can be done, not where it sits or how it looks. In an overhaul this list is the canvas's brief-floor (`canvas.md`), and collecting it here is what lets the drawing phase keep the old pages closed: the audit is the last time they are opened before the pass.
 
-The **Component library** and **Supporting text** rows exist because decision 7 builds its options from measured numbers, and decision 15's supporting-text line is confirmed against the measured counts; **Repeated labels** is measured as findings against the fixed short-label norm (`interview.md` decision 15). Measuring them here means the interview never stops to go looking.
+The **Component library** row exists because the library question builds its options from measured numbers; **Repeated labels** and **Supporting text** are measured so the canvas's copy decisions are judged against real counts rather than guesses (`interview.md`, the designer-settles list). Measuring them here means the interview never stops to go looking.
 
 **Unbacked overrides** are counted against the `Library defaults` rule in `ui-build`: a component prop, a provider option, or a theme value departing from what the library ships, with no Section 5 line requiring it. They hide from the *stray raw values* row — a `size` or a `variant` is neither a hex nor a spacing — and they are usually the larger of the two numbers. An audit that skips them reports a clean app and sends the user to *repair* with nothing to repair.
 
@@ -120,7 +120,7 @@ Do not report it as a deviation, and do not fill it. Hand it to `build-flow` Sec
 
 **What is out of scope is the content, not the layout.** In an overhaul the page is not exempt from the pass: its shell and arrangement are rebuilt to its archetype like every other page, using only the content it already has. What stays with `build-flow` is deciding what *else* the page should hold.
 
-**Section 5 without an archetype table is itself a finding** — apps older than the archetype rule have one shell decision and nothing about what pages hold. Derive the table from the routes that exist (grouped as `interview.md` decision 10 describes, usually 4–7 archetypes), and present it for ratification the way Step 2b presents measured values: ratify or correct, never adopt silently. A ratified table enters Section 5 at repair scale — it records what the pages already are, no visual direction changes — and every page falling far short of its archetype goes to `build-flow` Section 4 through the hand-over above, one `QUEUE.md` line each. Where the app has no `/styleguide` route, offer generating one as `design-init` Step 6 specifies; the user decides.
+**Section 5 without an archetype table is itself a finding** — apps older than the archetype rule have one shell decision and nothing about what pages hold. Derive the table from the routes that exist (grouped as `interview.md`'s archetype rule describes, usually 4–7 archetypes), and present it for ratification the way Step 2b presents measured values: ratify or correct, never adopt silently. A ratified table enters Section 5 at repair scale — it records what the pages already are, no visual direction changes — and every page falling far short of its archetype goes to `build-flow` Section 4 through the hand-over above, one `QUEUE.md` line each. Where the app has no `/styleguide` route, offer generating one as `design-init` Step 6 specifies; the user decides.
 
 ## Step 2 — Repair or overhaul
 
@@ -131,13 +131,13 @@ One question, two options, with a recommendation:
 | Choice | What changes | Questions asked | Components touched |
 |---|---|---|---|
 | **Repair** | Zero new norms — only bringing code back in line with the existing Section 5 | None | Only the deviating ones |
-| **Overhaul** | **Section 5 is rebuilt from zero, as `design-init` would write it** — every line re-decided, archetype shells and visual-direction prose included; today's values survive only as *keep* answers. The app looks redesigned afterwards, not retuned | Full: the interview with a keep option per dialog (16–17 dialogs over 15 decisions), then the canvas from its answers · Fast: canvas after three dialogs, each carrying keep (see `canvas.md`) | Every page, replaced by its canvas file |
+| **Overhaul** | **Section 5 is rebuilt from zero, as `design-init` would write it** — every line re-decided, archetype shells and visual-direction prose included; today's values survive only as *keep* answers. The app looks redesigned afterwards, not retuned | The taste batch with a keep option per slot (one turn), the stack questions, then the canvas from its answers (see `canvas.md`) | Every page, replaced by its canvas file |
 
 There is no third option that narrows the scope, because **every question carries a *keep* option** (see Step 3). Answering *keep* to the parts you do not want touched is what narrowing looks like here — scope is narrowed by answers, not by a mode chosen before the user has seen a single question.
 
 **Recommendation:** repair, when the audit shows Section 5 is actually still right and the code is what strayed. Reworking a norm that was never followed solves nothing — it just produces a second norm that is also not followed.
 
-**Consequence:** quote the affected-component count from the audit, and state that overhaul includes decision 7, the component library. Answering that one with anything but *keep* rewrites every component whatever the tokens say, and revokes the stack lock recorded in `CLAUDE.md`.
+**Consequence:** quote the affected-component count from the audit, and state that overhaul includes the component-library question. Answering that one with anything but *keep* rewrites every component whatever the tokens say, and revokes the stack lock recorded in `CLAUDE.md`.
 
 **State also what overhaul promises: the app looks different afterwards.** Name the pages the audit handed to `build-flow` — their shells will be rebuilt like every other page, but how much they *read* differently is capped until their content proposal lands, and the user hears that before choosing, not after the pass.
 
@@ -145,7 +145,7 @@ Repair → jump to Step 6; the gate there shows the findings instead of a canvas
 
 ## Step 2b — Ratify — ratify path only
 
-Section 5 is empty, so the code has been making these decisions on its own. Walk every entry in `interview.md` once. The audit decides **how** each entry is put to the user, and that is the whole design of this step:
+Section 5 is empty, so the code has been making these decisions on its own. Walk every entry in `interview.md` once — the taste slots, the stack questions, and the derived values its designer-settles list names. The audit decides **how** each entry is put to the user, and that is the whole design of this step:
 
 | What Step 1 measured | How the entry is put |
 |---|---|
@@ -154,7 +154,7 @@ Section 5 is empty, so the code has been making these decisions on its own. Walk
 
 The split is what keeps this honest in both directions. Re-interviewing everything produces answers that contradict the running app, and a PRD that does not describe its own app is worse than no PRD. Ratifying everything writes the stylesheet's accidents into the PRD as norms. Where the code has a real answer the user checks it; where the code has none, nobody may pretend otherwise — offering a "measured value" assembled from noise is inventing a norm and labelling it a finding.
 
-**Batch the confirmations and batch the questions.** A confirmation carries a measured number and the user is checking it rather than deciding it, so several fit in one call. An entry with no measured basis is an ordinary interview question and follows `interview.md`'s batching rules — grouped with its peers, sequential only across a real dependency.
+**Batch the confirmations and batch the questions.** A confirmation carries a measured number and the user is checking it rather than deciding it, so several fit in one call. An entry with no measured basis is an ordinary interview question — grouped with its peers in one call (taste entries with the taste batch, stack entries with the stack batch), sequential only across a real dependency.
 
 Every entry goes through the **AskUserQuestion tool** either way, never prose — a prose question at the end of a turn is skipped in auto mode and answered by no one.
 
@@ -173,31 +173,25 @@ Decided by the answers, not chosen:
 
 Nothing else in this skill behaves differently for this path.
 
-## Step 3 — Full or fast, then the interview — Overhaul only
+## Step 3 — The interview — Overhaul only
 
-**Overhaul asks one more question first — full or fast** (`references/canvas.md` of `design-init`). **Full (recommended):** the interview below runs — fresh options and fresh recommendations as `design-init` assembles them, a keep option on every question — and the canvas is then drawn from its answers as the baseline; the canvas may still improvise anywhere, every departure from an answer tagged and confirmed at the judgement. **Fast:** the canvas is drawn straight after the three fast dialogs, each carrying keep, values improvised too. Either way the canvas is built from the installed library and icon pack against the user's feature brief, and its ratified values enter Step 6 as the *new* column of the diff.
+Read `interview.md` in the `references/` folder of `design-init`. The rules are identical: the taste batch's seven slots in one turn, options invented for this app from the model's own design knowledge, every slot carrying "Decide for me", one marked recommendation per slot — then the stack questions, their candidates verified per `library-rubric.md` and `engine-rubric.md`. The canvas is drawn from the answers as the baseline and may still improvise anywhere, every departure from an answer tagged and confirmed at the judgement; its ratified values enter Step 6 as the *new* column of the diff.
 
-**Escalation:** a canvas that misses twice on Fast rises to this interview; on Full, decisions 1–3 are re-asked.
+**Escalation:** a canvas that misses twice re-opens the taste batch with sharpened options (`canvas.md`).
 
-Read `interview.md`, `adaptation.md`, and `anti-pattern.md` in the `references/` folder of `design-init`. The rules are identical: options assembled from `interview.md`'s three labelled layers — the anchors, domain reading, the per-batch research pass — questions batched under its batching rules, more than two options, one marked recommendation.
-
-**The order in `interview.md` is followed exactly.** No question is promoted to the front because its consequence is large, and none is deferred because its answer looks settled. A skill that reorders them produces a different interview from `design-init` for the same app, and the two stop being comparable.
-
-**Engine dialogs fire on triggers, never on a schedule** (`engine-rubric.md` of `design-init`): a need the user or the PRD names, a job the product draft implies, or an engine the audit indicts. An installed engine is already decided — it is the declared stack, and no dialog re-opens it without an indictment. Swapping one rewrites every page that uses it, so it is priced and recommended the way decision 7 is — *keep* first, and keep stays the recommendation unless the indictment stands. A need that only emerges mid-canvas is drawn tagged with the no-engine rendering and settled at the judgement, per the rubric.
+**Engine dialogs fire on triggers, never on a schedule** (`engine-rubric.md` of `design-init`): a need the user or the PRD names, a job the product draft implies, or an engine the audit indicts. An installed engine is already decided — it is the declared stack, and no dialog re-opens it without an indictment. Swapping one rewrites every page that uses it, so it is priced and recommended the way the library question is — *keep* first, and keep stays the recommendation unless the indictment stands. A need that only emerges mid-canvas is drawn tagged with the no-engine rendering and settled at the judgement, per the rubric.
 
 Six differences from `design-init`:
 
-**Every dialog carries a *keep* option, written first.** Labelled `Keep — <the value in Section 5 today>`, and it does not count toward the "more than two options" requirement. A value that is only a recommendation is a suggestion; a value written as an option is a choice. Answering *keep* throughout ends the session with the PRD unchanged. A facet defaults to the value Section 5 holds today, reported on its ledger line — cancelling it opens the dialog with the same keep option first.
+**Every slot and stack dialog carries a *keep* option, written first.** Labelled `Keep — <the value in Section 5 today>`, and it does not replace the invented options the slot must still offer. A value that is only a recommendation is a suggestion; a value written as an option is a choice. Answering *keep* throughout ends the session with the PRD unchanged. A derived value defaults to the value Section 5 holds today, reported on its line — cancelling it opens a dialog with the same keep option first.
 
-**Keep stays an option, but it stops being the recommendation.** The user chose overhaul, and that choice already says the current sum is wrong — recommending every current value back re-litigates it, and an overhaul answered by its recommendations then changes nothing. For the look-bearing entries — palette, type, radius, density, shell — the recommendation is a real departure, anchored in the decision 1 answer, and it names what it departs from. **And the canvas that follows draws blind to the current look** — `canvas.md`'s full-overhaul rule: today's design is not an input, **Section 5's own prose included** — its signature, ornament rules, and shell column bind the canvas no more than the CSS does; only the brief and the answers are inputs. The audit's numbers price the pass and power the before/after, never anchor the new direction. Decision 7 is the one exception: its recommendation stays *keep* unless the audit indicts the library itself, because answering it otherwise rewrites every component for reasons of cost, not of look. Derived decisions derive from the new answers, not from the old Section 5 — `interview.md` states the same split, and an overhaul that reads old values into its derivations has re-imported the design it was told to leave outside.
+**Keep stays an option, but it stops being the recommendation.** The user chose overhaul, and that choice already says the current sum is wrong — recommending every current value back re-litigates it, and an overhaul answered by its recommendations then changes nothing. For the look-bearing slots — direction, palette, surface, density, typography, shell — the recommendation is a real departure, anchored in the reference the user named or the chosen direction, and it names what it departs from. **And the canvas that follows draws blind to the current look** — `canvas.md`'s full-overhaul rule: today's design is not an input, **Section 5's own prose included** — its signature, ornament rules, and shell column bind the canvas no more than the CSS does; only the brief and the answers are inputs. The audit's numbers price the pass and power the before/after, never anchor the new direction. The library question is the one exception: its recommendation stays *keep* unless the audit indicts the library itself, because answering it otherwise rewrites every component for reasons of cost, not of look. Derived decisions derive from the new answers, not from the old Section 5 — `interview.md` states the same split, and an overhaul that reads old values into its derivations has re-imported the design it was told to leave outside.
 
-**The new Section 5 is rebuilt from zero, not patched.** Every line of it traces to the same four sources `design-init` names: a new answer, a derived decision reported to the user, a canvas value the user ratified, or `anti-pattern.md`. A line of the old Section 5 that none of the four re-created — a signature paragraph, an ornament rule, a reference-app list — does not carry over by default: it survives only through a *keep* answer or a canvas re-ratification, and otherwise it appears in the Step 6 diff as a removal. Silent carry-over is the mechanism by which an overhaul stays caged by its predecessor, and one ratified sentence is enough bars.
+**The new Section 5 is rebuilt from zero, not patched.** Every line of it traces to the same three sources `design-init` names: a new answer, a derived decision reported to the user, or a canvas value the user ratified. A line of the old Section 5 that none of the three re-created — a signature paragraph, an ornament rule, a reference-app list — does not carry over by default: it survives only through a *keep* answer or a canvas re-ratification, and otherwise it appears in the Step 6 diff as a removal. Silent carry-over is the mechanism by which an overhaul stays caged by its predecessor, and one ratified sentence is enough bars.
 
-**The archetype table is reopened with everything else.** Under the new direction, run the decision 10 archetype derivation again and present each archetype old shell beside new for ratification, the way Step 6 diffs a token. This is where an overhaul stops being a repaint: the rooms move, not only the walls. A user who ratifies every shell as it was is told plainly that the pages will read similar afterwards.
+**The archetype table is reopened with everything else.** Under the new direction, run the archetype derivation again and present each archetype old shell beside new for ratification, the way Step 6 diffs a token. This is where an overhaul stops being a repaint: the rooms move, not only the walls. A user who ratifies every shell as it was is told plainly that the pages will read similar afterwards.
 
-**Decision 1 is mandatory** — the app or site that feels right. A redesign always has a reference in the user's head, and drawing it out early cuts rounds at the canvas.
-
-**Decision 15's norms are checked against the audit**, never re-derived — the label lengths and supporting-text counts measured in Step 1 are reported as findings and measured confirmations against the fixed norms; a cancelled norm line builds its options around the measured counts. `interview.md` decision 15 holds the rule.
+**A reference is drawn out, not waited for.** A redesign always has a reference in the user's head — the taste batch's lead text asks for it by name (the app or site this should feel like, typed under Other), and an answer naming one becomes the anchor the canvas designs toward. Drawing it out early cuts rounds at the canvas.
 
 ## Step 4 — Install, before anything is drawn — Overhaul only
 
@@ -205,8 +199,8 @@ The canvas is built from real packages, so everything it will draw with exists *
 
 ```
 Will install:
-  <component library>   [decision 7 — only if it changed]
-  <icon pack>           [decision 7's icon dialog — only if it changed]
+  <component library>   [the library answer — only if it changed]
+  <icon pack>           [its icon dialog — only if it changed]
   <engines>             [chart · table · date · drag-and-drop — newly chosen, or
                          needed by the brief and missing from the UI stack row]
   <fonts>               [only if the type answer changed them — say how they load]
@@ -275,7 +269,7 @@ STOP and wait for approval per item. A rejected item is not silently dropped —
 
 **Branch first.** Create the pass's own branch or worktree from a committed base (`design/rework-<date>` or the user's naming). Parallel work continues in the main tree untouched; the canvas folder, if untracked, is brought along into the worktree. Revert of the whole overhaul is now one move — drop the branch — available at the user's word at any point, closing the session at Step 9.
 
-**First act: write Section 5** — the approved text, in full, rebuilt from zero. Then `CLAUDE.md`'s Component library row if decision 7 changed. This is the only moment the PRD is written.
+**First act: write Section 5** — the approved text, in full, rebuilt from zero. Then `CLAUDE.md`'s Component library row if the library answer changed. This is the only moment the PRD is written.
 
 **The gate block travels with the branch.** The pass's first commit carries it in its message body — Section 5 diff, file plan, ordered work, and the deviations the user answered. Chat scrollback does not survive the session, and a later session that cannot read what was approved cannot tell drift from a decision; neither can the user. `git log` is where this repo already keeps that kind of memory.
 

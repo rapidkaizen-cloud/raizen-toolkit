@@ -1,6 +1,6 @@
 ---
 name: design-init
-description: Decide the visual direction and component library of an app whose PRD Section 5 is still unwritten. By default a batched interview over 15 decisions (options assembled live from the user's reference apps, the platform's design language, domain reading, and per-batch web research) captures the user's preferences, and a temporary in-repo canvas — real component library, canvas-owned theme, the user's feature brief — renders them as every page of the app, expanding thin briefs into a full product with tagged feature proposals and tagged departures; fast mode draws the canvas straight from three dialogs. Ratifies the canvas, writes the rules and the screen-archetype table into PRD Section 5, writes the concrete values into the styling files, generates the dev-only /styleguide route, then promotes every canvas page into the app's real pages on contract fixtures — real data arrives page by page through the build queue. Use before the first UI component of a repo is written, or when PRD Section 5 is still marked as unverified.
+description: Decide the visual direction and component library of an app whose PRD Section 5 is still unwritten. One single-turn taste interview — seven slots (direction, palette, surface, density, typography, motion, shell) whose options are invented for this app from the model's own design knowledge, every slot carrying a "Decide for me" option — then the stack questions that gate the install (component library, icon pack, engines by trigger, verified live). A temporary in-repo canvas — real component library, canvas-owned theme, the user's feature brief — renders the answers as every page of the app, expanding thin briefs into a full product with tagged feature proposals and tagged departures. Ratifies the canvas, writes the rules and the screen-archetype table into PRD Section 5, writes the concrete values into the styling files, generates the dev-only /styleguide route, then promotes every canvas page into the app's real pages on contract fixtures — real data arrives page by page through the build queue. Use before the first UI component of a repo is written, or when PRD Section 5 is still marked as unverified.
 ---
 
 # design-init — set the visual direction once, in code
@@ -34,7 +34,7 @@ Kind of app : [from Section 1]
 Platform    : [from Section 1 Surface — web, or the platform named there]
 Primary role: [from Section 2]
 Reading     : [one sentence — see Step 1]
-Flow        : mode → interview or dialogs → install → canvas rounds →
+Flow        : taste batch → stack questions → install → canvas rounds →
               ratify + Section 5 → promotion (all pages) → verify → close
 ```
 
@@ -46,93 +46,56 @@ Section 5 already filled → **STOP**, ask whether the user really wants to rewo
 
 Product without UI → **STOP**, this skill does not apply.
 
-## Step 1 — The reading, then route the supporting skills
+## Step 1 — The reading
 
 There is no audit — nothing exists to audit; this step is its sibling. **Reading** is your own conclusion before asking anything, one sentence, shaped as: *"I read this as [kind of app] on [platform] for [who uses it], leaning [the feel that fits], because [reason from the PRD]."*
 
-**The platform slot is not decoration.** `app-init` already asked the platform and PRD Section 1 already holds the answer — it is never asked again. It rides in this sentence because the corrected reading becomes the keywords for every research pass in Step 3, so one word here is what puts the platform into all of them at once. Left out, the passes return the web's answer to every question and no later decision can tell that anything was lost.
+**The platform slot is not decoration.** `app-init` already asked the platform and PRD Section 1 already holds the answer — it is never asked again. It rides in this sentence because the corrected reading is what every slot's options are invented from, so one word here is what puts the platform into all of them at once. Left out, the options arrive in the web's vocabulary and no later decision can tell that anything was lost.
 
 Concluding first beats asking from nothing: the user only corrects what missed, and the correction carries more than an empty question would. A wrong reading is not a failure — it draws out detail that no question would surface.
 
-State the reading, ask for correction, then continue. When the correction is asked through AskUserQuestion, **the full reading sentence goes inside the question field itself** — the dialog may render without the prose around it, so a question that points at text "above" can arrive pointing at nothing. The corrected reading becomes the keywords for every research pass in Step 3.
+State the reading, ask for correction, then continue. When the correction is asked through AskUserQuestion, **the full reading sentence goes inside the question field itself** — the dialog may render without the prose around it, so a question that points at text "above" can arrive pointing at nothing.
 
-**The Step 2 mode question rides in this same AskUserQuestion call** — two questions, one dialog, one turn. Neither reads the other's answer, so nothing is lost by pairing them.
+The slots' options and the canvas's values come from the model's own design knowledge of this app and its platform, and the user's judgement on screen is what checks the result. The one material the canvas phase loads is `frontend-design`, where installed — divergence guidance against templated defaults, never a house style; `canvas.md` holds the rule and the limit. No skill that prescribes a fixed look is read.
 
-Then read the kind of app from PRD Section 1, and decide once which skills feed the interview:
+## Step 2 — The taste batch
 
-`design-taste-frontend` is the one live interview authority, and only for a **public site**. It states itself that it is not for dashboards, data tables, or multi-step product UI — outside that boundary its motion dials and icon rules fight the interview's own anchors. Its prohibitions still serve every kind of app through `references/anti-pattern.md` — material, not a live authority. Internal apps run the interview on its three layers alone.
+Read `references/interview.md` and run its taste batch: **seven slots, two AskUserQuestion calls, one turn.** The options are invented for this app from the model's own design knowledge — no fixed list anywhere, and no research pass for taste — each option named in plain words with its consequence in parentheses, one real option marked "(Recommended)". Every slot carries **"Decide for me"**, and the lead question invites references and wishes through Other — an Other answer naming an app it should feel like is the best possible outcome, not a deviation.
 
-This routes the **interview's** live authorities only. The canvas phase additionally reads `high-end-visual-design` and `frontend-design` as material for every kind of app — `canvas.md` states the rule and the same limit: material raises the floor of the free hand, and the user's answer wins every collision.
+The answered slots are the user's preferences and the canvas's baseline; a slot answered "Decide for me" belongs wholly to the canvas's taste license. Either way the canvas may depart from any answered slot with a drawn, tagged, reasoned departure the user settles at the judgement (`canvas.md`), and the archetype table, the `/styleguide` route (Step 6), and real running pages are produced whatever was answered — what an answer changes is only where a value starts.
 
-A live authority disagrees with an anchor or a research finding about icon pack, motion level, or typeface → **the user's answer wins**, which is exactly why those decisions are asked.
+**Every question goes through the AskUserQuestion tool, never prose text** — the recommendation first and marked "(Recommended)", the consequence in each option's description, everything the user needs inside the dialog itself. This holds in auto mode too: a prose question simply ends the turn unanswered.
 
-## Step 2 — The mode
+**Nothing the user did not choose is silent.** A "Decide for me" slot and every derived value surface as one line each with their basis — in the canvas assumptions block before drawing or the ratification report after approval — and the user may cancel any line; cancelling opens that value as a normal dialog. `interview.md` holds the list of what is derived and the floors that bind it.
 
-Offer two, with a recommendation — asked in the Step 1 call:
+**A canvas that misses twice escalates by re-opening this batch:** every slot re-asked with sharpened options built from what the two rejections taught, the user invited to name the app it should feel like, and the canvas regenerated fresh from the new answers — never patched.
 
-| Mode | What is asked | For whom |
-|---|---|---|
-| **Fast** | Three dialogs — decision 7 · its icon dialog when the library bundles none · decision 10's minimum-width facet — then the canvas is designed whole from the feature brief, **every value the designer's own**. See `references/canvas.md` | An app that must ship today, or a user who wants to judge a finished proposal rather than answer questions |
-| **Full** | Every decision's primary axis in `interview.md` — 15 decisions, 16 dialogs (17 when the library bundles no icons), batched into three turns; facets stay derived, reported, and cancellable. The answers are the user's preferences and the canvas's baseline; the canvas departs wherever the designer judges better, every departure tagged and settled by the user at the judgement. See `references/canvas.md` | **Recommended.** The preferences are captured before anything is drawn, and the canvas shows them as an app instead of as a list |
+## Step 3 — The stack questions, then compile into values
 
-**Consequence:** both still end at real pages running on screen, so no mode decides blind — the difference is only where the correction happens, before or after the first screen.
+Read `references/library-rubric.md` and `references/engine-rubric.md`, then ask the second batch: the **component library**, its **icon dialog** when the library bundles none, and the **engine dialogs** whose triggers in `engine-rubric.md` have fired — nothing speculative; an app that trips no trigger hears no engine dialog. These are asked rather than improvised because they install code, and their candidates are **verified live** per the rubrics' duty — the one place research survives in this interview. The family rule in `interview.md` shifts recommendations toward already-installed ecosystems.
 
-**Fast and Full both end at the canvas; they differ in where the values start.** In Full the interview captures the user's preferences as the baseline and the canvas renders them, departing wherever the designer judges better — each departure tagged and settled by the user at the judgement; in Fast the canvas improvises the values too. Either way the archetype table is still derived and ratified, Section 5 is still written, the styleguide still renders from production tokens, and the pages still end real. **A canvas that misses twice escalates:** Fast rises to the full interview; Full re-asks decisions 1–3.
+**Draft the full product before these dialogs close** — `canvas.md`'s expansion duty, run here rather than at drawing time, because the draft is what trips draft-implied engine triggers: it existing now is what lets every engine ride this batch and the install block close complete the first time.
 
-**A mode skips questions, never outputs.** The archetype table (decision 10), the `/styleguide` route (Step 6), and real running pages are produced in both modes — what changes per mode is only where their decisions come from.
-
-Derived decisions are **never silent, in either mode.** Every decision not asked is reported on one line with its basis:
-
-```
-D3 hover step    → accent darkened ~10%, passes AA (derived with the palette)
-D11 row height   → ~36px compact-to-medium (derived from D9 dense)
-D13 feedback     → inline failures, toast successes (built-in; no anchor behind it)
-```
-
-A line whose basis is "built-in" is marked as such. The user may cancel any line, and cancelling it opens that dialog normally. `interview.md`'s ledger rules govern the full report: facets between batches, the 15-row ledger at the interview's close, and the same ledger once more at ratification.
-
-## Step 3 — The interview, then compile into values
-
-Read `references/interview.md`, `references/adaptation.md`, and — for decision 7 — `references/library-rubric.md`. Engine dialogs — charts, heavy tables, drag-and-drop, and the rest of what the component pack does not own — have no slot of their own: they fire only on the triggers in `references/engine-rubric.md`, and an app that trips none hears none.
-
-**The order in `interview.md` is the order asked.** No question is promoted to the front because it feels foundational, and none is deferred because its answer looks obvious.
-
-**The options for each question are not written in any file, and no single source owns them.** `interview.md` names three layers — the anchors (the user's reference apps and, off-web, the platform's design language), the model's own domain reading, and a mandatory WebSearch research pass run per turn — every option labelled with its source and the anchor it stands on. Run the layers, assemble the pool, then ask. This is what makes the choices follow the user's story instead of being one fixed list for every app.
-
-**Questions travel in batches** — up to four per AskUserQuestion call, several calls per turn, sequential only across a real dependency. `interview.md` holds the batching rules, the four-option cap, and which questions are `multiSelect`.
-
-**Every question goes through the AskUserQuestion tool, never prose text.** Options live in the tool call — the recommendation first and marked "(Recommended)", the consequence in each option's description. The tool caps at four options and adds "Other" on its own, which is how answers outside the options arrive. This holds in auto mode too: the interview is a decision only the user can make, and a prose question there simply ends the turn unanswered.
-
-Every question must carry **more than two options**, **one marked recommendation**, and a **one-sentence consequence**. The user is a junior developer — options without a recommendation force a decision with nothing to base it on, and two options always read like a trap.
-
-**Earlier answers shift later recommendations.** `adaptation.md` holds both sources: the decision-to-decision table, and the family rule from what `logic-init` already installed. Shifting a recommendation is allowed; removing an option is not, unless that option is genuinely impossible.
-
-**Questions whose answer is already settled are not asked.** Decide, report one line as a derived decision, move on. Deciding silently is forbidden — the user must be able to cancel it.
-
-Answers outside the options are always accepted. The user names something not listed → use it, state its consequence if you know it, or say you don't.
-
-A research pass returning nothing useful → **the research layer drops out for that batch, the interview continues** on the anchors and the domain reading, every option still labelled with its source. Never present an empty pass as if it returned findings.
+Answers outside the options are always accepted. The user names something not listed → verify it the same way, use it, state its consequence if you know it, or say you don't.
 
 ### Compile into values
 
-**Fast: this does not run** — the values come from the canvas, not from the answers. In Full, compile the answers into the canvas's baseline: concrete hex values, font names, and icon entries, each traced to its anchor — the reference it was read from, the platform language, or the research finding. A value with no anchor behind it is labelled `assembled` and said so — never dressed as researched.
-
-**The compile step closes through the default gate** — `interview.md` names the stock values that mark a decision nobody made. A value the user chose passes outright; a compiled or derived value on that list with no written reason reopens its decision before the canvas renders it.
+Compile the answered slots into the canvas's baseline: concrete hex values, font names, and icon entries. A slot answered "Decide for me" compiles to nothing — the canvas owns it.
 
 The output is the canvas's **baseline, not a gate** — do not stop to show it as its own proposal. The user corrects values where they are visible: on the canvas, at the judgement. Stopping here would judge the same values twice.
 
 ## Step 4 — Install, before anything is drawn
 
-**Canvas path: the install block is its own chat gate, right after the interview closes** — in Full it follows the closing ledger, in Fast it follows the three dialogs; its contents are known once decisions 6 and 7 are answered, and everything is installed before the canvas is drawn (`canvas.md`). Do not ask twice, and **never put this block inside an AskUserQuestion** — a dialog covers the very block the user must read. Present the block, end the turn, and wait for the reply in chat.
+**The install block is its own chat gate, right after the stack questions close** — its contents are known once the typography slot and the library and engine dialogs are answered (a typography answered "Decide for me" is decided by the designer here: the block's font line is where the user first sees that call, and refusing the block reopens it as a dialog), and everything is installed before the canvas is drawn (`canvas.md`). Do not ask twice, and **never put this block inside an AskUserQuestion** — a dialog covers the very block the user must read. Present the block, end the turn, and wait for the reply in chat.
 
 One block, one approval:
 
 ```
 Will install:
   npm install
-  <component library>          [from decision 7]
+  <component library>          [from the library answer]
   <what the library omits>     [researched per candidate under library-rubric.md]
-  <icon pack>                  [from decision 7 — bundled, or its icon dialog]
+  <icon pack>                  [from the library answer — bundled, or its icon dialog]
   <engines>                    [chart · table · date · drag-and-drop — only what an
                                 engine-rubric.md trigger decided, nothing speculative]
   <font>                       [self-hosted or a package — say which, and where it loads]
@@ -156,16 +119,16 @@ The split is permanent:
 
 | Written in | Contents |
 |---|---|
-| `PRD.md` Section 5 | **Rules and scale** — how many may exist, what is forbidden. "One icon family", "at most one accent", "four text steps" |
+| `PRD.md` Section 5 | **Rules and scale** — how many may exist, what is forbidden, written from what the user ratified — never from a stock phrasing |
 | Styling files (`tailwind.config`, CSS variables, the component library's theme file) | **Values** — font name, icon pack name, hex, radius number, spacing number |
 
 Color and spacing are the exception: their roles, values, and usage rules are written in Section 5, because contrast is a norm and not an implementation detail.
 
-Follow the sub-section structure in `prd-structure.md` under `app-init`. Fill the Anti-patterns sub-section from `references/anti-pattern.md`, taking only what is relevant to this kind of app.
+Follow the sub-section structure in `prd-structure.md` under `app-init`. The Anti-patterns sub-section holds only prohibitions the user ratified — a canvas decision or an interview answer that forbids something — and may be empty; no stock ban list exists to copy from.
 
-**Page Composition holds the ratified archetype table from decision 10** — one row per archetype: shell layout, components, density profile, empty/loading wording, and the routes it owns. This table is what `build-flow` Section 4 opens every later page proposal from. Where decision 9 produced two density profiles, their numbers land under Breakpoints & Density.
+**Page Composition holds the ratified archetype table** — one row per archetype: shell layout, components, density profile, empty/loading wording, and the routes it owns. This table is what `build-flow` Section 4 opens every later page proposal from. Where a role split produced two density profiles, their numbers land under Breakpoints & Density.
 
-**Every line in Section 5 traces back to one of four sources:** an interview answer, a derived decision already reported to the user, a canvas value the user ratified, or `references/anti-pattern.md`. A rule belonging to none of them is not written, however sensible it looks — no question asks it, so nobody decided it.
+**Every line in Section 5 traces back to one of three sources:** an interview answer, a derived decision already reported to the user, or a canvas value the user ratified. A rule belonging to none of them is not written, however sensible it looks — no question asks it, so nobody decided it.
 
 ### Four rules bind the styling files
 
@@ -179,6 +142,8 @@ Follow the sub-section structure in `prd-structure.md` under `app-init`. Fill th
 
 ### The `/styleguide` route
 
+The route already exists — generated before the canvas was drawn (`canvas.md`) — and, importing production tokens, it follows the newly written values by itself; this step verifies it against the done-check below.
+
 **One route file** (for example `src/pages/styleguide.tsx`), reachable at `/styleguide` in dev and kept out of the app's navigation and production build. It renders the whole visual language on one screen so the user corrects it here, while a correction is one token — not twenty screens later.
 
 **It imports the production components and tokens.** Never hand-drawn copies, never a separate HTML file, never a second source of values. Deleting it later is deleting one file — offer that, never require it.
@@ -187,7 +152,7 @@ Sections, in order — each rendered from what Steps 2–6 actually decided, not
 
 | Section | Contents |
 |---|---|
-| Foundations | Color roles or scales as Section 5 defines them, with the semantic token list read from the styling files · every text step with a real sample sentence · spacing scale · the density profile table with its numbers, both profiles where decision 9 produced two · radius, shadow, breakpoints, motion |
+| Foundations | Color roles or scales as Section 5 defines them, with the semantic token list read from the styling files · every text step with a real sample sentence · spacing scale · the density profile table with its numbers, both profiles where a role split produced two · radius, shadow, breakpoints, motion |
 | Components | Every component the app uses or an archetype names — variants, sizes, and states per component, including loading, empty, and failed where they apply, with a short real-usage snippet |
 | Archetypes | The Section 5 archetype table, one card per archetype: shell sketch, components, routes |
 
@@ -203,9 +168,9 @@ No isolated branch is needed — a fresh repo has no parallel work to disturb; t
 
 **The densest page is the bar.** `build-flow` Section 4 judges every later page against it — building it thin lowers the bar for the whole app. Its fixtures must include `bulk` and `messy` cases: a direction that only holds for five tidy rows has not been proven. `ui-build` binds every promoted page in full — tokens only, zero raw values, states drawn.
 
-Page running → **prove it at two widths with screenshots**: the desktop breakpoint from Section 5 and the lower bound from decision 10's minimum width. Capture follows PRD Section 1's Proof profile — the browser is the web profile's answer; a platform whose profile names an emulator or a window capture proves the same two bounds through it. No capture tooling → say so and report the profile's run target with both widths named — never claim the widths were judged without either.
+Page running → **prove it at two widths with screenshots**: the desktop breakpoint from Section 5 and the ratified lowest supported width. Capture follows PRD Section 1's Proof profile — the browser is the web profile's answer; a platform whose profile names an emulator or a window capture proves the same two bounds through it. No capture tooling → say so and report the profile's run target with both widths named — never claim the widths were judged without either.
 
-**Rework rounds.** A page collapsing under its fixtures, or the user asking for a rework, is a rework round of that page. **A second rework of the same page → STOP, reopen Section 5**: Fast rises to the full interview, Full re-asks decisions 1–3, and the canvas is regenerated fresh from the answers, never patched. Section 5 changed → the styling values are updated with it, and the pages are rebuilt from the new tokens rather than patched.
+**Rework rounds.** A page collapsing under its fixtures, or the user asking for a rework, is a rework round of that page. **Two rework rounds of the same page at most — a third does not run, and Section 5 reopens**: the taste batch is re-asked with sharpened options, and the canvas is regenerated fresh from the new answers, never patched. Section 5 changed → the styling values are updated with it, and the pages are rebuilt from the new tokens rather than patched.
 
 ## Step 8 — Verification: evidence, not eyes
 

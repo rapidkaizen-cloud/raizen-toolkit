@@ -61,7 +61,7 @@ All six no → jump to Step 5 and close.
 
 ### Pick the mode first — one question, before anything else
 
-Right after the score is confirmed, asked with the AskUserQuestion tool like everything else. Offer two, with a recommendation — the same shape as the `design-init` mode question, shrunk to an interview of at most six:
+Right after the score is confirmed, asked with the AskUserQuestion tool like everything else. Offer two, with a recommendation — one dialog before an interview of at most six:
 
 | Mode | What is asked | For whom |
 |---|---|---|
@@ -132,7 +132,7 @@ A trigger has its own smoke check, because it never passes through the compiler:
 
 After installing, one smoke check: a single throwaway usage that exercises each library, `tsc --noEmit` (or the stack's equivalent) passing, then the throwaway is deleted. A library that does not compile against this repo's TypeScript config is cheaper to discover now than mid-page.
 
-No canvas and no proof page. `design-init` needs them because visual direction can only be judged by looking; a library choice is judged by the build passing and by use, and its first real use arrives with the first page.
+No canvas. `design-init` needs one because visual direction can only be judged by looking; a library choice is judged by the build passing and by use, and its first real use arrives with the first page.
 
 When writing against a chosen library later, the installed `docs-lookup` skill (Context7) can pull current documentation — a pointer, not a dependency.
 

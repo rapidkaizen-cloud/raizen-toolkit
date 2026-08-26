@@ -94,11 +94,11 @@ The difference is not cosmetic. `[needs verification]` says *a decision is pendi
 
 Either way: do not fill it from your own taste, and do not copy it from another skill.
 
-What gets written is only **rules and scale** — how many of a thing may exist, what is forbidden. "One icon family", "at most one accent", "five text steps". The values — font name, icon pack name, radius number — live in the styling files.
+What gets written is only **rules and scale** — how many of a thing may exist, what is forbidden — phrased from what the user actually ratified, never from a stock phrasing. The values — font name, icon pack name, radius number — live in the styling files.
 
 Color and spacing are the exception: their roles, values, and usage rules are written here, because contrast is a norm and not an implementation detail.
 
-Sub-sections: Visual Direction (2–3 sentences + what is deliberately not used) · Typography (number of steps + what each is for; color is not a hierarchy tool) · Spacing (base unit + permitted values) · Breakpoints & Density (including the lower bound that is not supported) · Page Composition (the shell, plus the screen archetype table: per archetype one row naming its shell layout, components, density profile, empty/loading wording, and the routes it owns — every route lands in exactly one archetype) · Color (role · value · usage rule; minimum contrast 4.5:1 for text, 3:1 for non-text; color is never the only status marker) · Reusable Components (rules, not a list) · Anti-patterns.
+Sub-sections: Visual Direction (2–3 sentences + what is deliberately not used) · Typography (number of steps + what each is for; color is not a hierarchy tool) · Spacing (base unit + permitted values) · Breakpoints & Density (including the lower bound that is not supported) · Page Composition (the shell, plus the screen archetype table: per archetype one row naming its shell layout, components, density profile, empty/loading wording, and the routes it owns — every route lands in exactly one archetype) · Color (role · value · usage rule; minimum contrast 4.5:1 for text, 3:1 for non-text; color is never the only status marker) · Reusable Components (rules, not a list) · Anti-patterns (only prohibitions the user ratified; may be empty — no stock list exists to copy from).
 
 ### A legacy shape: an app that adopted its library whole
 

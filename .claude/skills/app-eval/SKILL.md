@@ -36,7 +36,7 @@ Refusing is not the same as demanding a brief. The user often feels something is
 2. **Compared to what** — another product, an earlier version, a picture in their head → this is the external bar
 3. **What did you expect to see instead** → this is the target
 
-Question 2 may be answered *I don't know, it just feels off*. Then offer candidates from a live research pass of the kind `design-init`'s interview runs — well-known products of this app's type — and let the user point at one. A reference the user selects is evidence; a reference invented on their behalf is not.
+Question 2 may be answered *I don't know, it just feels off*. Then propose candidates the way `design-init`'s interview invents its options — well-known products of this app's type, from the model's own knowledge — and let the user point at one. A reference the user selects is evidence; a reference invented on their behalf is not.
 
 The input may be a complaint or a direction — *"I want this app to feel more like X"* is as usable as *"this looks dead"*.
 
