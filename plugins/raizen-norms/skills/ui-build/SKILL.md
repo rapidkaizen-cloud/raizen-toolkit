@@ -74,10 +74,10 @@ The split between the PRD and the styling files is permanent:
 
 | Source | Contents |
 |---|---|
-| PRD Section 5 | **Rules and scale** — one icon family, at most one accent, how many text steps, one radius scale. Plus the roles, values, and usage rules for color and spacing |
+| PRD Section 5 | **Rules and scale** — one icon family, how many accent hues Section 5 records, how many text steps, one radius scale. Plus the roles, values, and usage rules for color and spacing, and the per-component numbers Section 5 carries as its second value-bearing exception |
 | Styling files | **Values** — font name, icon pack name, hex, radius number |
 
-Code that breaks a **rule** in Section 5 (a second icon family, a second accent, a sixth step) → **a finding**. The derivation direction is PRD → CSS, never the reverse. Deviating code is not a new norm.
+Code that breaks a **rule** in Section 5 (a second icon family, an accent hue beyond the number Section 5 records, a sixth step) → **a finding**. The derivation direction is PRD → CSS, never the reverse. Deviating code is not a new norm.
 
 A need that no token covers → **report it as a finding**. Do not write a raw value and do not add a token yourself: adding or changing a token means changing PRD Section 5, and that requires an explicit user decision.
 

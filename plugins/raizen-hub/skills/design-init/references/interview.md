@@ -1,6 +1,6 @@
 # Frontend interview — one taste batch, then the stack
 
-**The interview is small on purpose.** Seven taste slots answered in one turn, then the stack questions that gate the install. Everything else is the designer's call, made on the canvas and reported as a cancellable line — never a dialog, never silent. A long interview does not produce a designed app; it produces a questionnaire's average. The design happens on the canvas (`canvas.md`); the batch exists to capture the preferences the user already has, not to manufacture opinions they do not.
+**The interview is small on purpose.** Eight taste slots answered in one turn, then the stack questions that gate the install. Everything else is the designer's call, made on the canvas and reported as a cancellable line — never a dialog, never silent. A long interview does not produce a designed app; it produces a questionnaire's average. The design happens on the canvas (`canvas.md`); the batch exists to capture the preferences the user already has, not to manufacture opinions they do not.
 
 ## Where options come from
 
@@ -16,7 +16,9 @@ Rules per option:
 
 ## The taste batch — one turn, two calls
 
-Seven slots, **two AskUserQuestion calls in the same turn** (the tool caps four questions per call). Single-select per slot. The lead question's text invites everything the options cannot hold: *anything you want that isn't listed — an app it should feel like, a screen you liked, a hard requirement — type it under Other.* An Other answer naming a reference is the best possible outcome, not a deviation: it becomes an anchor the canvas designs toward. An Other answer may carry an option and its detail together ("Option 1, but with the brand green") — read it as that option with the detail attached.
+Eight slots, **two AskUserQuestion calls in the same turn** (the tool caps four questions per call). Single-select per slot. The lead question's text invites everything the options cannot hold: *anything you want that isn't listed — a screen you liked, a hard requirement — type it under Other.* An Other answer may carry an option and its detail together ("Option 1, but with the brand green") — read it as that option with the detail attached.
+
+**Reference is asked first, and the second call is written after the first is answered.** The two calls are sequential tool calls in one turn, so the reference answer is in hand before the second call's options exist — and it is the one answer that should reshape them. A reference named in call one and ignored by call two's options was not an anchor, it was a formality.
 
 **Every slot carries "Decide for me".** Choosing it hands that slot to the canvas's taste license (`canvas.md`): the designer draws their own call, and the user settles it at the judgement — on screen, where a junior developer's judgement is sharpest. "Decide for me" is a real answer, not a failure to answer, and it is never silent: what the designer chose surfaces in the ratification report like every other canvas value. One slot resolves early: **typography** — the install block needs the font's name before the canvas is drawn, so a typography answered "Decide for me" is decided by the designer when the install block is assembled; the block's font line is where the user first sees that call, and refusing the block reopens it as a dialog.
 
@@ -26,18 +28,31 @@ Call one:
 
 | Slot | What it decides | Notes |
 |---|---|---|
+| **Reference** | The app or site this one should feel like — the anchor everything else is measured against | Its own rules below. Asked first, because a named anchor reshapes every option that follows |
 | **Direction** | The overall look — including dark, light, or both | 2–3 invented directions, plus the platform language off-web. Dark mode is part of a direction, not its own question: an option designed dark says so, and its consequence names the cost (every color token carries two values that both must pass contrast) |
 | **Palette & accent** | The neutrals and accent, as one designed unit | One fixed option: follow an existing brand color, hex typed via Other |
 | **Surface** | Radius and elevation together — the card style | Each option names what it does to depth, read from the direction candidates |
-| **Density** | How much fits on screen | Phrased in this app's own terms — what the density means on its actual screens, never as abstract levels |
 
-Call two:
+Call two — its options written after call one is answered:
 
 | Slot | What it decides | Notes |
 |---|---|---|
-| **Typography** | The text family or pairing | Options name real faces or pairings, invented for this app |
+| **Density** | How much fits on screen | Phrased in this app's own terms — what the density means on its actual screens, never as abstract levels |
+| **Typography** | The text family or pairing | Options name real faces or pairings, invented for this app. A named reference puts the pairing that reads like it among them, named as such |
 | **Motion** | How much the interface moves | Options invented for this app — how much motion its work tolerates. Whatever is chosen honors `prefers-reduced-motion` — that part is a rule, not an option |
 | **Shell** | The page frame — the navigation model, invented from how this app is used; off-web, the platform's own model is one of the options | The supported widths ride as derived values below, not as questions |
+
+### The reference slot
+
+**The options are real products, proposed by name.** Two or three the model actually knows, each one arguable for *this* app and this platform — never a famous name dropped for its own sake, which `interview.md`'s option rules already forbid. Each option's consequence says what picking it buys in one clause (`the density and the keyboard-first feel of a tracker built for daily use`), not what the product is. One is marked "(Recommended)". No research pass runs here: naming products a working designer would name is model knowledge, and a search adds latency rather than taste.
+
+Four options is the cap, so the slot carries: up to two named products · **`No reference — explore freely`** · **`Decide for me`**. In `design-rework` a reference already recorded in Section 5 takes the first place as `Keep — <it>`, and the named products trim to fit. The user's own answer arrives through Other — a product the options missed, a screenshot, a file, a URL — and that is the best outcome, not a deviation.
+
+**The two non-product answers are different answers, not synonyms.** `No reference` says draw without an anchor; the difference list below never runs. `Decide for me` hands the choice of *whether to work to an anchor* to the designer, who names the anchor they chose — or says they chose none — as a line in the design plan, cancellable like every derived decision.
+
+**What a named reference actually costs and buys** is stated in the question text, because it is the only slot whose answer changes what happens later: the canvas is put beside it and every difference is written out one by one, each settled as a departure with its reason or as a correction round (`canvas.md`, Judging). It also stands the direction frames down — an anchor is a direction, so drawing candidates for one re-opens a question the answer already closed.
+
+**A reference sets direction, never reproduction.** It is measured where reachable and never transplanted (`canvas.md`); imitating a company's distinctive interface is refused however the request is phrased, and an option that would amount to that is not offered.
 
 **Four options is the tool's cap per slot.** Where a slot also carries a platform-language or Keep entry, the invented list trims to fit — the cap trims invented options, never the Keep, platform, or "Decide for me" entries.
 

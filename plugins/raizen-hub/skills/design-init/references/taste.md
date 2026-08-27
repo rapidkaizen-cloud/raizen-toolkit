@@ -1,6 +1,6 @@
 # taste — the direction, and the defaults it must not fall into
 
-Read at the canvas phase, together with `frontend-design` where that is installed. **Material, never an authority**: where this file collides with a user's answer or a ratified value, the user wins.
+Read before the taste batch, together with `frontend-design` where that is installed — not at the canvas phase. The batch's options are the first place taste is exercised, and an option written before this file is read is written out of the defaults it exists to close. **Material, never an authority**: where this file collides with a user's answer or a ratified value, the user wins.
 
 It never names the look this app should have. It narrows the space the look is chosen from, and it names the method for choosing — which is why it is loaded for every app without making every app look the same. A file that named the look would do the opposite.
 

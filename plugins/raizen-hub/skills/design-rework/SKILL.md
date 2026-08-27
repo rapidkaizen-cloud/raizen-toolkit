@@ -38,8 +38,9 @@ Branch        : [name · clean or has uncommitted changes]
 UI components : [file count]
 Leftover      : [none / canvas alive / pass applied — from src/design-canvas/ and git state]
 Path          : [rework / ratify / re-entry — from the routing below]
-Flow          : audit → [repair · overhaul · ratify] → interview → install →
-                canvas rounds → gate → pass (isolated) → verify → close
+Flow          : audit → [repair · overhaul · ratify] → interview → design plan
+                (narrated) → install → direction frames + pick, where the direction
+                is still open → canvas rounds → gate → pass (isolated) → verify → close
 ```
 
 **The block is printed on every invocation** — fresh, re-entry, or ratify — before any work beyond the reads that fill it. A session that starts editing, or even auditing, without having shown this block has routed itself in the dark, and everything it concludes about where the flow stands is a private guess the user never saw.
@@ -175,7 +176,9 @@ Nothing else in this skill behaves differently for this path.
 
 ## Step 3 — The interview — Overhaul only
 
-Read `interview.md` in the `references/` folder of `design-init`. The rules are identical: the taste batch's seven slots in one turn, options invented for this app from the model's own design knowledge, every slot carrying "Decide for me", one marked recommendation per slot — then the stack questions, their candidates verified per `library-rubric.md` and `engine-rubric.md`. The canvas is drawn from the answers as the baseline and may still improvise anywhere, every departure from an answer tagged and confirmed at the judgement; its ratified values enter Step 6 as the *new* column of the diff.
+**Load `design-init`'s `references/taste.md` and `frontend-design` first, before a single option is written** — same reason as there: the batch's options are the first place taste is exercised, and options written out of the defaults are a menu the user can only pick from. On this path the pull toward the defaults is stronger, not weaker: the audit has just filled the session with the app's current values, and every one of them is a default asking to be offered back.
+
+Read `interview.md` in the `references/` folder of `design-init`. The rules are identical: the taste batch's eight slots in one turn — reference first, its options real products named by you — options invented for this app from the model's own design knowledge, every slot carrying "Decide for me", one marked recommendation per slot — then the stack questions, their candidates verified per `library-rubric.md` and `engine-rubric.md`. The canvas is drawn from the answers as the baseline and may still improvise anywhere, every departure from an answer tagged and confirmed at the judgement; its ratified values enter Step 6 as the *new* column of the diff.
 
 **Escalation:** a canvas that misses twice re-opens the taste batch with sharpened options (`canvas.md`).
 
@@ -191,7 +194,7 @@ Six differences from `design-init`:
 
 **The archetype table is reopened with everything else.** Under the new direction, run the archetype derivation again and present each archetype old shell beside new for ratification, the way Step 6 diffs a token. This is where an overhaul stops being a repaint: the rooms move, not only the walls. A user who ratifies every shell as it was is told plainly that the pages will read similar afterwards.
 
-**A reference is drawn out, not waited for.** A redesign always has a reference in the user's head — the taste batch's lead text asks for it by name (the app or site this should feel like, typed under Other), and an answer naming one becomes the anchor the canvas designs toward. Drawing it out early cuts rounds at the canvas.
+**A reference is drawn out, not waited for — and here it has its own slot.** A redesign always has a reference in the user's head, so the taste batch's first question asks for it directly, with real products as options rather than an invitation buried in the lead text (`interview.md`, the reference slot). Where Section 5 already records one, it takes the first place as `Keep — <it>`; where it does not, the audit's own reading of what this app was reaching for is what the proposed products are argued from. A named answer becomes the anchor the canvas designs toward and the list the canvas is measured against at the judgement — drawing it out here is what cuts rounds later.
 
 ## Step 4 — Install, before anything is drawn — Overhaul only
 
@@ -212,7 +215,7 @@ Nothing to install → say so in one line and continue; a complete stack never s
 
 ## Step 5 — The canvas: rounds until final — Overhaul only
 
-Drawn and judged under `canvas.md` entire: the direction frames first where the direction is still open, then files written production-grade — every state drawn, fixtures in one contract-shaped file that closes arithmetically, imports only from the declared stack — the three-scan self-check before every round (imports · the render · the arithmetic), the signature drawn and tagged, tagged departures and proposals, the judgement through AskUserQuestion, two rounds then escalation. The design plan is narrated before drawing here too, under `design-init` Step 3, and `references/taste.md` is loaded with it.
+Drawn and judged under `canvas.md` entire: the direction frames first where the direction is still open, then files written production-grade — every state drawn, fixtures in one contract-shaped file that closes arithmetically, imports only from the declared stack — the three-scan self-check before every round (imports · the render · the arithmetic), the signature drawn and tagged, tagged departures and proposals, the judgement through AskUserQuestion, two rounds then escalation. The design plan is narrated before drawing here too, under `design-init` Step 3 — after the pick where frames ran; `references/taste.md` and `frontend-design` have been in hand since Step 3's interview. **Frames rarely run on this path**: every slot here carries `Keep — <today's value>` and the look-bearing slots carry a real departure as the recommendation, so a Direction left at "Decide for me" is the exception rather than the norm.
 
 **The PRD is not touched during rounds, and neither is any production file.** The foundations board is the living draft of every value; the user inspects it there, not in a document. The `/styleguide` route keeps rendering the old theme until the pass — the canvas never looks at it.
 
@@ -277,7 +280,7 @@ STOP and wait for approval per item. A rejected item is not silently dropped —
 
 Then one session, every approved file, in an order that cannot be reversed:
 
-1. **Foundations.** The theme files take the new token values — old tokens **deleted**, not deprecated — and everything the canvas CSS carries beyond values lands with them: **the font loading itself** (link or package — then verify in the browser that the computed font-family resolves to the loaded webfont, not a fallback; a token grep cannot see a font that never loads), element-level rules, shadows, motion durations. The four styling-file rules in `design-init` Step 6 bind here too: every semantic slot mapped, no unread tokens, duplicate roles collapsed, both theme files in the same edit.
+1. **Foundations.** The theme files take the new token values — old tokens **deleted**, not deprecated — and everything the canvas CSS carries beyond values lands with them: **the font loading itself** (link or package — then verify in the browser that the computed font-family resolves to the loaded webfont, not a fallback; a token grep cannot see a font that never loads), element-level rules, shadows, motion durations. The five styling-file rules in `design-init` Step 6 bind here too: the two-layer palette the canvas ratified, every semantic slot mapped, no unread tokens, duplicate roles collapsed, both theme files in the same edit.
 2. **Chrome and shared components, from the canvas chrome.** Each shared component a canvas page imports lives in the production chrome before any page importing it counts as moved — the canvas markup is the component; the production logic (auth, navigation state, data) is wired into it, never the reverse.
 3. **Pages — the most data-dense page of the primary role first.** Each canvas file **copied to its real path**, the canvas wrapper removed, the fixture import swapped for the real data layer. The markup body does not change — that is what Step 8 will diff. Checked at both widths for survival of real data: holding → report and continue; the first collapse → stop, a rework round of that page, two at most, then Section 5 reopens through `canvas.md`'s escalation.
 4. **Components not on the canvas** — retoken only, until zero raw values remain and every surviving override names its Section 5 line. An override with no line goes back to the library default in this same pass.

@@ -1,6 +1,6 @@
 ---
 name: design-init
-description: Decide the visual direction and component library of an app whose PRD Section 5 is still unwritten. One single-turn taste interview — seven slots (direction, palette, surface, density, typography, motion, shell) whose options are invented for this app from the model's own design knowledge, every slot carrying a "Decide for me" option — then the stack questions that gate the install (component library, icon pack, engines by trigger, verified live). A temporary in-repo canvas — real component library, canvas-owned theme, the user's feature brief — renders the answers as every page of the app, expanding thin briefs into a full product with tagged feature proposals and tagged departures. Ratifies the canvas, writes the rules and the screen-archetype table into PRD Section 5, writes the concrete values into the styling files, generates the dev-only /styleguide route, then promotes every canvas page into the app's real pages on contract fixtures — real data arrives page by page through the build queue. Use before the first UI component of a repo is written, or when PRD Section 5 is still marked as unverified.
+description: Decide the visual direction and component library of an app whose PRD Section 5 is still unwritten. One single-turn taste interview — eight slots (reference, direction, palette, surface, density, typography, motion, shell) whose options are invented for this app from the model's own design knowledge, the reference slot naming real products as options, every slot carrying a "Decide for me" option — then the stack questions that gate the install (component library, icon pack, engines by trigger, verified live). A temporary in-repo canvas — real component library, canvas-owned theme, the user's feature brief — renders the answers as every page of the app, expanding thin briefs into a full product with tagged feature proposals and tagged departures. Ratifies the canvas, writes the rules and the screen-archetype table into PRD Section 5, writes the concrete values into the styling files, generates the dev-only /styleguide route, then promotes every canvas page into the app's real pages on contract fixtures — real data arrives page by page through the build queue. Use before the first UI component of a repo is written, or when PRD Section 5 is still marked as unverified.
 ---
 
 # design-init — set the visual direction once, in code
@@ -34,9 +34,11 @@ Kind of app : [from Section 1]
 Platform    : [from Section 1 Surface — web, or the platform named there]
 Primary role: [from Section 2]
 Reading     : [one sentence — see Step 1]
-Flow        : taste batch → stack questions → design plan (narrated) → install →
-              direction frames if the direction is open → canvas rounds →
-              ratify + Section 5 → promotion (all pages) → verify → close
+Flow        : load taste.md + frontend-design → reading → taste batch →
+              stack questions → design plan (narrated; only its axes
+              where direction frames will run) → install → direction frames + pick,
+              where the direction is still open → canvas rounds → ratify + Section 5
+              → promotion (all pages) → verify → close
 ```
 
 `PRD.md` missing → **STOP**, point to `app-init`.
@@ -49,6 +51,12 @@ Product without UI → **STOP**, this skill does not apply.
 
 ## Step 1 — The reading
 
+**Load the two materials first, before the reading sentence is written**: `references/taste.md` beside this skill, and `frontend-design` where it is installed. Step 0 has already routed, so nothing is read for a session that stops.
+
+They come first because **the reading sentence is itself the first taste output** — its *leaning* clause is a judgement about how this app should feel, and the paragraph below says every slot's options are invented from the corrected reading. A leaning written before the material is read seeds every option that follows out of the same defaults the material exists to close, and the batch then offers the user a menu of them: a Typography slot offering Inter, a Direction slot offering a cream ground with a serif and a terracotta accent, a reference slot proposing whichever product came to mind first. **A choice never offered is not recovered by any later round** — the judgement can reject what was drawn, but it cannot reach an option that was never written.
+
+Both are divergence guidance: they name the defaults that read as generated and the method for choosing a direction, never the direction itself; `canvas.md` holds the rule and where the line falls. No skill that prescribes a fixed look — a fixed palette, a fixed pairing, a card recipe — is read. They stay in hand for the rest of the flow: the design plan at Step 3, the canvas, the judgement.
+
 There is no audit — nothing exists to audit; this step is its sibling. **Reading** is your own conclusion before asking anything, one sentence, shaped as: *"I read this as [kind of app] on [platform] for [who uses it], leaning [the feel that fits], because [reason from the PRD]."*
 
 **The platform slot is not decoration.** `app-init` already asked the platform and PRD Section 1 already holds the answer — it is never asked again. It rides in this sentence because the corrected reading is what every slot's options are invented from, so one word here is what puts the platform into all of them at once. Left out, the options arrive in the web's vocabulary and no later decision can tell that anything was lost.
@@ -57,11 +65,13 @@ Concluding first beats asking from nothing: the user only corrects what missed, 
 
 State the reading, ask for correction, then continue. When the correction is asked through AskUserQuestion, **the full reading sentence goes inside the question field itself** — the dialog may render without the prose around it, so a question that points at text "above" can arrive pointing at nothing.
 
-The slots' options and the canvas's values come from the model's own design knowledge of this app and its platform, and the user's judgement on screen is what checks the result. Two materials are loaded before designing — `references/taste.md` beside this file, and `frontend-design` where installed. Both are divergence guidance: they name the defaults that read as generated and the method for choosing a direction, never the direction itself; `canvas.md` holds the rule and where the line falls. No skill that prescribes a fixed look — a fixed palette, a fixed pairing, a card recipe — is read.
+The slots' options and the canvas's values come from the model's own design knowledge of this app and its platform, sharpened by the two materials above, and the user's judgement on screen is what checks the result.
 
 ## Step 2 — The taste batch
 
-Read `references/interview.md` and run its taste batch: **seven slots, two AskUserQuestion calls, one turn.** The options are invented for this app from the model's own design knowledge — no fixed list anywhere, and no research pass for taste — each option named in plain words with its consequence in parentheses, one real option marked "(Recommended)". Every slot carries **"Decide for me"**, and the lead question invites references and wishes through Other — an Other answer naming an app it should feel like is the best possible outcome, not a deviation.
+Read `references/interview.md` and run its taste batch: **eight slots, two AskUserQuestion calls, one turn.** The options are invented for this app from the model's own design knowledge — no fixed list anywhere, and no research pass for taste — each option named in plain words with its consequence in parentheses, one real option marked "(Recommended)". Every slot carries **"Decide for me"**.
+
+**The first slot is the reference** — the app or site this one should feel like — and its options are **real products named by you**, two or three that are arguable for this app, plus `No reference — explore freely` and `Decide for me`. It is asked first because a named anchor reshapes every option that follows, and the second call's options are written after the first is answered. A product the options missed, a screenshot, or a URL arrives through Other, and that is the best outcome rather than a deviation. `interview.md` holds the slot's own rules — what a named reference costs, and the line between setting a direction and reproducing an interface.
 
 The answered slots are the user's preferences and the canvas's baseline; a slot answered "Decide for me" belongs wholly to the canvas's taste license. Either way the canvas may depart from any answered slot with a drawn, tagged, reasoned departure the user settles at the judgement (`canvas.md`), and the archetype table, the `/styleguide` route (Step 6), and real running pages are produced whatever was answered — what an answer changes is only where a value starts.
 
@@ -69,7 +79,7 @@ The answered slots are the user's preferences and the canvas's baseline; a slot 
 
 **Nothing the user did not choose is silent.** A "Decide for me" slot and every derived value surface as one line each with their basis — in the canvas assumptions block before drawing or the ratification report after approval — and the user may cancel any line; cancelling opens that value as a normal dialog. `interview.md` holds the list of what is derived and the floors that bind it.
 
-**A canvas that misses twice escalates by re-opening this batch:** every slot re-asked with sharpened options built from what the two rejections taught, the user invited to name the app it should feel like, and the canvas regenerated fresh from the new answers — never patched.
+**A canvas that misses twice escalates by re-opening this batch:** `taste.md` and `frontend-design` are re-read first (`canvas.md`), then every slot is re-asked with sharpened options built from what the two rejections taught — the reference slot with products chosen against what was rejected — and the canvas is regenerated fresh from the new answers, never patched.
 
 ## Step 3 — The stack questions, then compile into values
 
@@ -87,7 +97,7 @@ The output is the canvas's **baseline, not a gate**. The user corrects values wh
 
 ### Then state the design plan — narrated, not gated
 
-Load `references/taste.md` and `frontend-design` where installed, then **write the plan out in this same turn, before the install block**. This is the step that separates a designed app from a competent average, and it is skipped by exactly the sessions that most needed it.
+Both materials were loaded at Step 1 and are already in hand. **Write the plan out in this same turn, before the install block.** This is the step that separates a designed app from a competent average, and it is skipped by exactly the sessions that most needed it.
 
 Five parts, short:
 
@@ -98,6 +108,8 @@ Five parts, short:
 | Type | The pairing and each face's job. Never the four `taste.md` names as failed choices |
 | Layout | The shell and the composition in one or two sentences — where the density sits, what breaks the grid |
 | Signature | The single element this app is remembered by (`canvas.md`, the taste licence) |
+
+**Where the direction frames will run (`canvas.md`), this step states only their axes — and the plan itself waits for the pick.** One line per candidate axis, no palette values, no type pairing, no signature. A plan that names a palette before the candidates are drawn has already decided the vote it is about to hold, and candidates drawn around a published direction are the rigged set `canvas.md` forbids. The five-part plan is then written in the turn after the user picks, to the candidate they picked, and critiqued as below. Everywhere else — a Direction slot the user answered, a reference named, a brand palette to follow — the frames do not run and the full plan is written here.
 
 **Then critique it against the brief before drawing, in the same turn.** Work through what a session with a similar brief would produce; any part of the plan that arrives at the same place is a default rather than a decision. **Revise that part and say what changed and why** — one line. A plan reported without that pass has skipped the only step in it that does any work.
 
