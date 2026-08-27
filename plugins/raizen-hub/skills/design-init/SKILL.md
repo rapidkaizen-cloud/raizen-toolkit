@@ -29,12 +29,13 @@ Check and report one short block:
 
 ```
 PRD.md      : [present / missing]
+Design mat. : [impeccable present/absent · frontend-design present/absent — both Required]
 Section 5   : [empty / already filled / product without UI]
 Kind of app : [from Section 1]
 Platform    : [from Section 1 Surface — web, or the platform named there]
 Primary role: [from Section 2]
 Reading     : [one sentence — see Step 1]
-Flow        : load taste.md + frontend-design → reading → taste batch →
+Flow        : load taste.md + impeccable + frontend-design → reading → taste batch →
               stack questions → design plan (narrated; only its axes
               where direction frames will run) → install → direction frames + pick,
               where the direction is still open → canvas rounds → ratify + Section 5
@@ -51,7 +52,7 @@ Product without UI → **STOP**, this skill does not apply.
 
 ## Step 1 — The reading
 
-**Load the two materials first, before the reading sentence is written**: `references/taste.md` beside this skill, and `frontend-design` where it is installed. Step 0 has already routed, so nothing is read for a session that stops.
+**Load the three materials first, before the reading sentence is written**: `references/taste.md` beside this skill, and the two Required installs, `impeccable` and `frontend-design`. `taste.md` names which of `impeccable`'s reference files carry the material and `canvas.md` draws the boundary; one absent is reported and does not stop the session. Step 0 has already routed, so nothing is read for a session that stops.
 
 They come first because **the reading sentence is itself the first taste output** — its *leaning* clause is a judgement about how this app should feel, and the paragraph below says every slot's options are invented from the corrected reading. A leaning written before the material is read seeds every option that follows out of the same defaults the material exists to close, and the batch then offers the user a menu of them: a Typography slot offering Inter, a Direction slot offering a cream ground with a serif and a terracotta accent, a reference slot proposing whichever product came to mind first. **A choice never offered is not recovered by any later round** — the judgement can reject what was drawn, but it cannot reach an option that was never written.
 
@@ -65,7 +66,7 @@ Concluding first beats asking from nothing: the user only corrects what missed, 
 
 State the reading, ask for correction, then continue. When the correction is asked through AskUserQuestion, **the full reading sentence goes inside the question field itself** — the dialog may render without the prose around it, so a question that points at text "above" can arrive pointing at nothing.
 
-The slots' options and the canvas's values come from the model's own design knowledge of this app and its platform, sharpened by the two materials above, and the user's judgement on screen is what checks the result.
+The slots' options and the canvas's values come from the model's own design knowledge of this app and its platform, sharpened by the three materials above, and the user's judgement on screen is what checks the result.
 
 ## Step 2 — The taste batch
 
@@ -79,7 +80,7 @@ The answered slots are the user's preferences and the canvas's baseline; a slot 
 
 **Nothing the user did not choose is silent.** A "Decide for me" slot and every derived value surface as one line each with their basis — in the canvas assumptions block before drawing or the ratification report after approval — and the user may cancel any line; cancelling opens that value as a normal dialog. `interview.md` holds the list of what is derived and the floors that bind it.
 
-**A canvas that misses twice escalates by re-opening this batch:** `taste.md` and `frontend-design` are re-read first (`canvas.md`), then every slot is re-asked with sharpened options built from what the two rejections taught — the reference slot with products chosen against what was rejected — and the canvas is regenerated fresh from the new answers, never patched.
+**A canvas that misses twice escalates by re-opening this batch:** `taste.md`, `impeccable`, and `frontend-design` are re-read first (`canvas.md`), then every slot is re-asked with sharpened options built from what the two rejections taught — the reference slot with products chosen against what was rejected — and the canvas is regenerated fresh from the new answers, never patched.
 
 ## Step 3 — The stack questions, then compile into values
 
@@ -143,6 +144,8 @@ Drawn and judged under `canvas.md` entire: the direction frames first where the 
 The PRD is not touched during rounds. The foundations board is the living draft of every value.
 
 ## Step 6 — Ratification: Section 5, the styling files, and `/styleguide`
+
+**The styling files are scanned once they are written.** The values land from the canvas, so `impeccable`'s `design-system-*` rules have a theme to compare against for the first time here — run the detector over the styling files and the styleguide route before this step is reported done, and report the count. A hit against a value the user just ratified is a finding, not a correction: name it and leave it standing.
 
 **Approving the canvas is the approval — there is no second gate here.** This is the delta from `design-rework`: no old Section 5 exists, so there is no diff to protect and no separate stop. The values behind the approved canvas are read and reported as derived decisions are reported — one line each, cancellable — then written (`canvas.md`, Ratification).
 
@@ -225,6 +228,7 @@ Before reporting done:
 - **The styleguide passes its done-check** (the table in Step 6), its foundations rendered as specimens rather than as a table of names and values.
 - **Every contrast ratio on the page was computed**, not recalled, and every semantic dark shade clears 4.5 against its own light shade.
 - **The fixtures close** on every page still running on them — totals, percentages, bar widths, pagination — per `canvas.md`'s Coverage.
+- **The detector ran against the running app**, not only against `src/` — `impeccable`'s full rule set needs a rendered page. Report the hit count, and triage every hit in the same block: fixed, or left standing as a finding with one line saying why. A hit left standing is not a failure of this step; an unreported one is. `impeccable` absent → say the check could not run, and do not report the step as passed on silence.
 - **The signature survived promotion**, on the pages that carry it.
 - **The densest page holds at both widths**, screenshots taken.
 - **Pages running on fixtures are listed by name.** This list matches the `QUEUE.md` wire lines one for one — a page on neither list does not exist.
@@ -236,6 +240,8 @@ Any of them fails → fix it in the same session.
 ## Step 9 — Close
 
 **Nothing stays a draft.** Every canvas page ends promoted into a real route; a page left in the repo unrouted is dead code that reads as finished work.
+
+The close reports the detector's final count beside Step 8's, and names every hit left standing with the one line that justified it. A design flow that ends without that number has verified its own work by assertion.
 
 One block: the visual decisions that settled · files changed · each page's fate — promoted and wired, or promoted on fixtures with its `QUEUE.md` wire line · the canvas files still standing and the queue line that will retire each · the `/styleguide` route named as staying dev-only, deletable at the user's word · what is still `[needs verification]`.
 

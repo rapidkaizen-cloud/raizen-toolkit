@@ -49,7 +49,11 @@ npx skills add supabase/agent-skills
 
 Restart the session once you are done installing.
 
-The design flow loads exactly one taste material: the `frontend-design` plugin (Anthropic's), installed via `/plugin` — divergence guidance that names templated defaults to avoid without prescribing a style, the same kind of guidance Claude Design runs on. It is optional: absent, the canvas draws on the model's own taste. Skills that prescribe a fixed look (exact fonts, shadows, card recipes) are deliberately not read by any flow — a house style read for every app makes every app look like the house.
+The design flow loads two taste materials, and both are Required: `impeccable` (`npx impeccable install`, or the marketplace) and `frontend-design` (Anthropic's, via `/plugin`). Both are divergence guidance — they name templated defaults to avoid without prescribing a style. Skills that prescribe a fixed look (exact fonts, shadows, card recipes) are deliberately not read by any flow: a house style read for every app makes every app look like the house.
+
+`impeccable` carries what `taste.md` and `ui-build` used to state themselves — the ban list, the display faces that mean the model stopped looking, the calibration against the three clusters AI interfaces converge on, the Operate register, and 59 deterministic detector rules. Only `reference/craft-floor.md`, `reference/operate.md`, and `new-work.md`'s two calibrations are read; `shape.md` and the rest of `new-work.md` are a competing pipeline and are not. `canvas.md` draws that boundary.
+
+**Required means the flow is designed around them, not that it stops without them.** Absent, a session says which one is missing and what could not be checked, then carries on. Two notes on the install: its hook fires on every UI edit in every repo and asks to be told what was fixed — `design-rework` Steps 5 and 7 deliberately defer that to Step 8; and its skill description overlaps `design-rework`'s, so invoke the flow as `/design-rework` rather than typing "redesign my app".
 
 ### Why each one
 
@@ -58,6 +62,8 @@ The design flow loads exactly one taste material: the `frontend-design` plugin (
 | Skill | Used for |
 |---|---|
 | `raizen-hub` | The six skills themselves — `app-init`, `app-rework`, `logic-init`, `logic-rework`, `design-init`, `design-rework` |
+| `impeccable` | The craft rules `taste.md` and `ui-build` no longer state, plus the detector `design-rework` reports at Step 1 and Step 8. Loaded before the taste batch and before any component is written |
+| `frontend-design` | Divergence guidance against templated defaults, loaded alongside `impeccable` — never a house style |
 
 **Recommended** — nothing errors without them:
 
@@ -65,7 +71,7 @@ The design flow loads exactly one taste material: the `frontend-design` plugin (
 |---|---|
 | `supabase-postgres-best-practices` | Consulted by `db-ops` before a migration is written — index patterns, column types, constraints, RLS policy shape. Disagreement with `db-ops` → `db-ops` wins, and `db-ops` already says to continue when it is absent. It earns its place on RLS, where the wrong shape leaks data rather than merely running slow |
 | `ponytail` | Holds back over-engineering. This repo governs other repos, so excess here spreads — but that is a habit it enforces, not something any file calls |
-| `frontend-design` | Read by the canvas phase of `design-init`/`design-rework` as divergence guidance against templated defaults — never a house style. The canvas runs without it |
+
 
 `npx skills add supabase/agent-skills` installs a second skill alongside it, `supabase`, covering Auth, Storage, and `@supabase/ssr`. Nothing in this repo refers to that one; it rides along.
 

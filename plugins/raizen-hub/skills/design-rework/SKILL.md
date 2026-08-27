@@ -34,6 +34,7 @@ Skill build   : [raizen-hub x.y.z — read from this plugin's own .claude-plugin
 PRD.md        : [present / missing]
 Section 5     : [filled / empty / absent]
 Platform      : [from Section 1 Surface — web, or the platform named there; a non-web value routes every browser-named check below to that Surface's Proof profile line]
+Design material : [impeccable present/absent · frontend-design present/absent — both Required]
 Branch        : [name · clean or has uncommitted changes]
 UI components : [file count]
 Leftover      : [none / canvas alive / pass applied — from src/design-canvas/ and git state]
@@ -44,6 +45,8 @@ Flow          : audit → [repair · overhaul · ratify] → interview → desig
 ```
 
 **The block is printed on every invocation** — fresh, re-entry, or ratify — before any work beyond the reads that fill it. A session that starts editing, or even auditing, without having shown this block has routed itself in the dark, and everything it concludes about where the flow stands is a private guess the user never saw.
+
+The `Design material` line exists for the same reason the `Skill build` line does: both skills are Required installs, they carry the craft rules `taste.md` and `ui-build` no longer state, and a session missing one writes its options out of the very defaults that material exists to close. It is reported, never blocking — a redesign that refuses to start until an npm install lands costs more than one unenforced rule, and the row is what keeps the gap visible instead of silent.
 
 The `Skill build` line exists so a stale install is visible before the pass, not after: rules fixed in the toolkit reach an app repo only through `/plugin update`, and a session on an old build re-makes exactly the mistakes the fix closed. The user sees the version and decides; the skill does not block on it.
 
@@ -80,7 +83,8 @@ AUDIT
 Tokens defined      : [how many colors · text steps · spacing values · radii]
 Token health        : [how many never read · duplicate roles · library slots unmapped]
 Stray raw values    : [how many hex · font sizes · spacings, across how many files]
-Unbacked overrides  : [how many · across how many files]
+Slop detectors      : [how many hits · how many rules, from `npx impeccable detect` on the
+                       source tree — the source tier only; the full set needs the running app]
 Icons               : [families, named · how many sizes · how many weights]
 Fonts loaded        : [from the styling files AND the HTML entry — a family named in CSS
                        but never loaded renders as its fallback, and only this row sees it]
@@ -105,11 +109,11 @@ That last number matters most — it decides the size of the final pass, and the
 
 The **Component library** row exists because the library question builds its options from measured numbers; **Repeated labels** and **Supporting text** are measured so the canvas's copy decisions are judged against real counts rather than guesses (`interview.md`, the designer-settles list). Measuring them here means the interview never stops to go looking.
 
-**Unbacked overrides** are counted against the `Library defaults` rule in `ui-build`: a component prop, a provider option, or a theme value departing from what the library ships, with no Section 5 line requiring it. They hide from the *stray raw values* row — a `size` or a `variant` is neither a hex nor a spacing — and they are usually the larger of the two numbers. An audit that skips them reports a clean app and sends the user to *repair* with nothing to repair.
+**The `Slop detectors` row is deterministic and is the only row here that is.** Run `impeccable`'s detector over the source tree and report both numbers. It is a **source-tier** scan: the rules that need a rendered page — measure, touch target, occlusion, nested containers — do not fire here, and Step 8 runs the full set against the running app. Its hits are **findings**, never repairs made on the way past: a finding becomes a Section 5 line only once the user ratifies it, like every other line in this block. `impeccable` absent → report the row as `n/a — not installed` and say so in the same breath.
 
 **Token health** needs the library's own slot list, read from the installed package rather than remembered. Three numbers: tokens defined but never read, roles sharing one value, and semantic slots the theme file left unmapped. An unmapped slot means the app has been carrying a palette nobody chose, and it surfaces nowhere else in this block.
 
-**An app on a stock Section 5 is the exception**, and Section 5 is read before this row is computed. A legacy repo whose Section 5 adopts the library defaults unmodified (a `design-init` mode since retired — `prd-structure.md` holds the shape) has no theme file on purpose: report the row as `n/a — stock` and count no unmapped slots. Every slot there is unmapped by design, and reporting them as findings would push the user to write the very theme file that Section 5 refuses. The `Unbacked overrides` row runs the opposite way on the same repo — with no rule in Section 5 for an override to cite, every override counted is unbacked, and that number is the whole reason to audit such an app.
+**An app on a stock Section 5 is the exception**, and Section 5 is read before this row is computed. A legacy repo whose Section 5 adopts the library defaults unmodified (a `design-init` mode since retired — `prd-structure.md` holds the shape) has no theme file on purpose: report the row as `n/a — stock` and count no unmapped slots. Every slot there is unmapped by design, and reporting them as findings would push the user to write the very theme file that Section 5 refuses.
 
 A deviation from Section 5 is a **finding**, not a reason to change Section 5. Some of it may need fixing without any redesign at all — offer that as the cheaper path when the audit shows the problem is deviation, not direction.
 
@@ -176,7 +180,7 @@ Nothing else in this skill behaves differently for this path.
 
 ## Step 3 — The interview — Overhaul only
 
-**Load `design-init`'s `references/taste.md` and `frontend-design` first, before a single option is written** — same reason as there: the batch's options are the first place taste is exercised, and options written out of the defaults are a menu the user can only pick from. On this path the pull toward the defaults is stronger, not weaker: the audit has just filled the session with the app's current values, and every one of them is a default asking to be offered back.
+**Load `design-init`'s `references/taste.md` and the two Required installs, `impeccable` and `frontend-design`, first, before a single option is written** — same reason as there: the batch's options are the first place taste is exercised, and options written out of the defaults are a menu the user can only pick from. On this path the pull toward the defaults is stronger, not weaker: the audit has just filled the session with the app's current values, and every one of them is a default asking to be offered back.
 
 Read `interview.md` in the `references/` folder of `design-init`. The rules are identical: the taste batch's eight slots in one turn — reference first, its options real products named by you — options invented for this app from the model's own design knowledge, every slot carrying "Decide for me", one marked recommendation per slot — then the stack questions, their candidates verified per `library-rubric.md` and `engine-rubric.md`. The canvas is drawn from the answers as the baseline and may still improvise anywhere, every departure from an answer tagged and confirmed at the judgement; its ratified values enter Step 6 as the *new* column of the diff.
 
@@ -217,6 +221,8 @@ Nothing to install → say so in one line and continue; a complete stack never s
 
 Drawn and judged under `canvas.md` entire: the direction frames first where the direction is still open, then files written production-grade — every state drawn, fixtures in one contract-shaped file that closes arithmetically, imports only from the declared stack — the three-scan self-check before every round (imports · the render · the arithmetic), the signature drawn and tagged, tagged departures and proposals, the judgement through AskUserQuestion, two rounds then escalation. The design plan is narrated before drawing here too, under `design-init` Step 3 — after the pick where frames ran; `references/taste.md` and `frontend-design` have been in hand since Step 3's interview. **Frames rarely run on this path**: every slot here carries `Keep — <today's value>` and the look-bearing slots carry a real departure as the recommendation, so a Direction left at "Decide for me" is the exception rather than the norm.
 
+**Detector findings are not an input to a round.** `impeccable`'s hook fires on every canvas file written and asks, in its own words, to be told what was fixed. Do not answer it here. The three self-check scans are the only gate before a round is shown, and the canvas is pre-ratification — a `nested-cards` or `monotonous-spacing` hit may be the very direction the user is about to choose, and acting on it changes what is being judged without the user ever seeing it happen. Carry the hits to Step 8.
+
 **The PRD is not touched during rounds, and neither is any production file.** The foundations board is the living draft of every value; the user inspects it there, not in a document. The `/styleguide` route keeps rendering the old theme until the pass — the canvas never looks at it.
 
 This phase only adds files under `src/design-canvas/`, so it runs safely beside any other session — days may pass between rounds without holding anything else up.
@@ -225,7 +231,7 @@ This phase only adds files under `src/design-canvas/`, so it runs safely beside 
 
 Everything so far has been drawing and answers. This is the **single stop** where the user authorizes the change — Section 5, the file plan, and the known deviations together, because approving pixels is not the same as approving which files move.
 
-**Overhaul** — one message, three parts, then a hard stop answered in chat — never an AskUserQuestion:
+**Overhaul** — one message, four parts, then a hard stop answered in chat — never an AskUserQuestion:
 
 1. **Section 5 as a diff.** Only what changes, old value beside new — and removals are changes:
 
@@ -250,9 +256,11 @@ App.tsx          replaced by its canvas file (chrome)
 UNTOUCHED        PhoneContact.tsx
 ```
 
-3. **What approval orders, then what it contradicts.** Ratified elements whose data does not exist yet come first, one line each — element, page, and the work it orders (column · RPC · migration). **Approving the gate orders that work**, so its cost is read here rather than discovered mid-pass; these are not deviations, because the user has decided to build them. Then the deviations: every canvas element the real flow contradicts, and every real control the canvas never drew (`canvas.md`'s canvas-error rule) — one decision line each, answered here, never absorbed silently. **And what approval removes is its own group, confirmed item by item** — every function or control leaving the app because the canvas does not carry it. A blanket *approve everything* covers the other two groups; not this one. A wrong addition is visible on the screen the moment the page opens, and a wrong removal is visible to nobody.
+3. **The detector's Step 1 count, and what the new direction does to it.** One line: the audit's number, and how many of those hits the canvas removes by construction. The user is about to approve a pass sized in files; this is the one number saying what it buys beyond the look. Hits the canvas does not remove are listed by rule — they survive the pass and return at Step 8.
 
-**The gate is a chat stop, not a dialog.** End the turn on the three-part message and wait for the user's reply in chat. An AskUserQuestion here covers the very summary being approved — the user answers the dialog without having read the diff. Ending the turn is what keeps this safe in auto mode: nothing proceeds without an answer. The ban on prose questions elsewhere in this skill covers questions that let the turn carry on, not a gate that stops it.
+4. **What approval orders, then what it contradicts.** Ratified elements whose data does not exist yet come first, one line each — element, page, and the work it orders (column · RPC · migration). **Approving the gate orders that work**, so its cost is read here rather than discovered mid-pass; these are not deviations, because the user has decided to build them. Then the deviations: every canvas element the real flow contradicts, and every real control the canvas never drew (`canvas.md`'s canvas-error rule) — one decision line each, answered here, never absorbed silently. **And what approval removes is its own group, confirmed item by item** — every function or control leaving the app because the canvas does not carry it. A blanket *approve everything* covers the other two groups; not this one. A wrong addition is visible on the screen the moment the page opens, and a wrong removal is visible to nobody.
+
+**The gate is a chat stop, not a dialog.** End the turn on the four-part message and wait for the user's reply in chat. An AskUserQuestion here covers the very summary being approved — the user answers the dialog without having read the diff. Ending the turn is what keeps this safe in auto mode: nothing proceeds without an answer. The ban on prose questions elsewhere in this skill covers questions that let the turn carry on, not a gate that stops it.
 
 The user may approve some lines and reject others, naming them in the reply. Rejected values return to the canvas rounds (Step 5) and nothing is written anywhere; approved everything → the pass. Nothing changed at all → say so and close at Step 9.
 
@@ -260,7 +268,7 @@ The user may approve some lines and reject others, naming them in the reply. Rej
 
 ```
 REPAIR — [n] findings
-1  Usage.tsx:185-188   rationale on screen     ui-build · Supporting text
+1  Usage.tsx:185-188   gradient text           impeccable · craft-floor Refuse
    3 sentences  →  removed
 2  StatusChip.tsx:19   label 15 chars          S5 · Repeated label length
    "Belum dihubungi"  →  icon only, text to aria-label
@@ -283,12 +291,14 @@ Then one session, every approved file, in an order that cannot be reversed:
 1. **Foundations.** The theme files take the new token values — old tokens **deleted**, not deprecated — and everything the canvas CSS carries beyond values lands with them: **the font loading itself** (link or package — then verify in the browser that the computed font-family resolves to the loaded webfont, not a fallback; a token grep cannot see a font that never loads), element-level rules, shadows, motion durations. The five styling-file rules in `design-init` Step 6 bind here too: the two-layer palette the canvas ratified, every semantic slot mapped, no unread tokens, duplicate roles collapsed, both theme files in the same edit.
 2. **Chrome and shared components, from the canvas chrome.** Each shared component a canvas page imports lives in the production chrome before any page importing it counts as moved — the canvas markup is the component; the production logic (auth, navigation state, data) is wired into it, never the reverse.
 3. **Pages — the most data-dense page of the primary role first.** Each canvas file **copied to its real path**, the canvas wrapper removed, the fixture import swapped for the real data layer. The markup body does not change — that is what Step 8 will diff. Checked at both widths for survival of real data: holding → report and continue; the first collapse → stop, a rework round of that page, two at most, then Section 5 reopens through `canvas.md`'s escalation.
-4. **Components not on the canvas** — retoken only, until zero raw values remain and every surviving override names its Section 5 line. An override with no line goes back to the library default in this same pass.
+4. **Components not on the canvas** — retoken only, until zero raw values remain. A component prop or theme value departing from what the library ships goes back to the library default in this same pass, unless a Section 5 line requires the departure.
 5. **`/styleguide`** — part of the pass: archetype cards updated to the ratified shells, every component the pass created rendering there, held to `design-init` Step 6's done-check.
 6. **Assets** locked to the old colors: inline SVG, favicon, images carrying brand color.
 7. **The old library and engines are removed**, if their decisions changed.
 
 **The UI code is the pass's to rewrite — the behavior is not.** What must come out unchanged is the business behavior — the queries and mutations called, the guard conditions, the route paths, the outcome of every action a user can take. Do not slip in unrelated fixes: a redesign that also tidies logic produces a diff nobody can read, and one mistake will hide among hundreds of legitimate changes.
+
+**Detector findings are deferred here too, and this is where it matters most.** `impeccable`'s `craft-floor.md` tells the model to act on hook findings as it edits; inside this pass that instruction is overridden. The canvas is already approved, so a hit is a difference the session would prefer — refused by the rule below, not weighed. Collect them and report them at Step 8, where there is already a fix loop and the user can see the whole list at once.
 
 **The approved canvas is the specification, and the pass implements it rather than negotiating with it.** An element the canvas drew lands as drawn; an element it did not draw does not land, and prose the canvas left out is deleted rather than carried over — the user answered that by approving the drawing, so asking again re-opens a settled decision and is how the result drifts. A difference the session would prefer is refused, not raised as a question.
 
@@ -307,7 +317,7 @@ A claim of parity from the session that produced the code is worth nothing on it
 - **Computed styles probed in the browser.** The fonts resolve to the loaded webfonts, not a fallback stack; spot-check token slots on live surfaces against the theme files. (The web profile's check — a platform whose Proof profile names no browser verifies the equivalent through its Visual line, and says what could not be verified.)
 - **The rendered structure matches, counted.** Both sides are live in the same dev server — the canvas at its dev route, the page at its real one. Read the element tree of each page body (element names and class lists, **text and numbers discarded** — discarding the text is what takes the data out of the comparison) and report one line per page: `canvas n · live n · differs n`. Anything above zero names the extra or missing elements and is a failed item now. "Richer than the canvas" is drift wearing a compliment, and this count is what sees it — the prose verdict this bullet used to carry did not. Chrome the two sides do not share is excluded and said so; a page whose count cannot be produced is not verified.
 - **Zero raw values remain.** Search again for hex, font sizes, and raw spacing across every component.
-- **Every surviving override names its line.** Search again for props, provider options, and theme values departing from the library default, and check each against Section 5. The count must match what the Step 6 file plan promised.
+- **The detector runs against the running app, and its count is reported beside Step 1's.** `impeccable`'s full rule set needs a rendered page, so this is the pass where it is complete — point it at the dev server, not only at `src/`. Every hit is triaged in the report: fixed, or left standing as a finding with one line saying why. A hit left standing is not a failure of this step; an unreported one is. `impeccable` absent → say the check could not run, and do not report the step as passed on silence.
 - **Contrast still passes** the Section 5 target, for every new color pair — the ratio **computed**, never recalled, per `canvas.md`'s Ratification, and every semantic dark shade clearing 4.5 against its own light shade.
 - **The fixtures close** on any page still running on them, and the `/styleguide` foundations render as specimens rather than as a table of names and values — `design-init` Step 6's done-check, which this pass's styleguide is generated to.
 - **The signature survived promotion**, on the pages that carry it. A signature that exists on the canvas and not in the app is a failed item, not a simplification.
@@ -320,6 +330,8 @@ Any of them fails → fix it in the same session. A half-finished rework is wors
 **All of them passing earns the right to propose deletion — never to delete.** The canvas is removed only through an explicit confirmation at a chat stop — never an AskUserQuestion, which would cover the verdict being read: report the diff verdict per page, invite the user to walk canvas and app side by side at `/design-canvas`, then end the turn and ask whether the canvas and the seed rows may go. Only a granted confirmation deletes — the page files, the entry route, the foundations board, and the canvas CSS together, per `canvas.md`'s lifecycle. The user refusing, or naming any page, turns each named page into a failed item of the pass to fix now; the canvas stays alive until a later confirmation clears it.
 
 ## Step 9 — Close
+
+The close carries the detector's before and after — Step 1's count beside Step 8's — and names every hit left standing with the line that justified it. A rework that reports no number has claimed the app is better without measuring it.
 
 One block: the Section 5 lines that changed · files touched with their count · files `UNTOUCHED` · items the user rejected, still standing as findings · the canvas outcome and how many rework rounds it took · the verification results, the per-page diff verdicts included · what is still `[needs verification]`.
 
