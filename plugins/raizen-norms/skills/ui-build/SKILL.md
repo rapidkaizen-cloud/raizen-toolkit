@@ -7,7 +7,7 @@ description: Rules for building or changing any UI — component reuse, loading 
 
 ## The material — loaded before the first component
 
-**Two skills carry the craft rules this file no longer states, and both are read before any component is written**: `impeccable` (its `reference/craft-floor.md` and, for an operational app, `reference/operate.md`) and `frontend-design`. Icons, tokens and raw values, library defaults, supporting text, wording, and accessibility all live there now.
+**Two skills carry the craft rules this file no longer states, and both are read before any component is written**: `impeccable` (its `reference/craft-floor.md`, and `reference/operate.md` for an operational app) and `frontend-design`. **Where PRD Section 1's Surface is iOS or Android, `reference/ios.md` or `reference/android.md` is read with them** — both on an adaptive surface — because the platform's navigation, type scale, insets, and touch-target floor live only there. Icons, tokens and raw values, library defaults, supporting text, wording, and accessibility all live there now.
 
 Both are **Required** installs for a repo under these skills, and the load is not optional for a session that touches UI — a component written before they are read is written out of the defaults they exist to close.
 
