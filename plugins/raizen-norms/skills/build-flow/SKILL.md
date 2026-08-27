@@ -269,7 +269,7 @@ Accepted, it runs over this session's diff only:
 
 | Pass | What it looks for |
 |---|---|
-| Accessibility | contrast, visible focus, keyboard reachability, every control paired with a label, images given alternatives — the ratios and the state list are `impeccable`'s `reference/craft-floor.md` Verify section, loaded per `ui-build`. **No minimum target size is stated anywhere any more**; where a page needs one, it is a Section 5 line the user ratifies |
+| Accessibility | contrast, visible focus, keyboard reachability, every control paired with a label, images given alternatives — the ratios and the state list are `impeccable`'s `reference/craft-floor.md` Verify section, loaded per `ui-build`. the touch-target floor is `impeccable`'s too — 44×44px on the web (`reference/audit.md`, `reference/adapt.md`), 44×44pt on iOS and 48×48dp on Android (`reference/ios.md`, `reference/android.md`). A surface needing tighter than its platform floor is a Section 5 line the user ratifies |
 | Interaction polish | hover, active, focus, disabled and empty states present; hit area no smaller than the control it belongs to; spacing and radius matching the densest page |
 | Click path | per handler — does the final state match what the control's label promises, and does any later call undo what an earlier one just did |
 | Platform conventions | the shell affordances this Surface's users expect and no design decision produces — window chrome and menus, context menu and the gesture that opens it, system back, safe areas and insets, file and permission dialogs. Empty where the Surface is the web |
