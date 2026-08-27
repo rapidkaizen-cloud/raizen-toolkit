@@ -84,7 +84,8 @@ Tokens defined      : [how many colors · text steps · spacing values · radii]
 Token health        : [how many never read · duplicate roles · library slots unmapped]
 Stray raw values    : [how many hex · font sizes · spacings, across how many files]
 Slop detectors      : [how many hits · how many rules, from `npx impeccable detect` on the
-                       source tree — the source tier only; the full set needs the running app]
+                       source tree — the source tier only; the full set needs the running app.
+                       `n/a — native surface` where Section 1's Surface is not web technology]
 Icons               : [families, named · how many sizes · how many weights]
 Fonts loaded        : [from the styling files AND the HTML entry — a family named in CSS
                        but never loaded renders as its fallback, and only this row sees it]
@@ -109,7 +110,7 @@ That last number matters most — it decides the size of the final pass, and the
 
 The **Component library** row exists because the library question builds its options from measured numbers; **Repeated labels** and **Supporting text** are measured so the canvas's copy decisions are judged against real counts rather than guesses (`interview.md`, the designer-settles list). Measuring them here means the interview never stops to go looking.
 
-**The `Slop detectors` row is deterministic and is the only row here that is.** Run `impeccable`'s detector over the source tree and report both numbers. It is a **source-tier** scan: the rules that need a rendered page — measure, touch target, occlusion, nested containers — do not fire here, and Step 8 runs the full set against the running app. Its hits are **findings**, never repairs made on the way past: a finding becomes a Section 5 line only once the user ratifies it, like every other line in this block. `impeccable` absent → report the row as `n/a — not installed` and say so in the same breath.
+**The `Slop detectors` row is deterministic and is the only row here that is** — and it runs only where the Surface is web technology, per `canvas.md`'s rule; a native Surface reports `n/a — native surface` here and at every later detector step. Run `impeccable`'s detector over the source tree and report both numbers. It is a **source-tier** scan: the rules that need a rendered page — measure, touch target, occlusion, nested containers — do not fire here, and Step 8 runs the full set against the running app. Its hits are **findings**, never repairs made on the way past: a finding becomes a Section 5 line only once the user ratifies it, like every other line in this block. `impeccable` absent → report the row as `n/a — not installed` and say so in the same breath.
 
 **Token health** needs the library's own slot list, read from the installed package rather than remembered. Three numbers: tokens defined but never read, roles sharing one value, and semantic slots the theme file left unmapped. An unmapped slot means the app has been carrying a palette nobody chose, and it surfaces nowhere else in this block.
 
