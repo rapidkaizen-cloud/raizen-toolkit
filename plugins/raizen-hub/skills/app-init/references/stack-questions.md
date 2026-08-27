@@ -154,8 +154,12 @@ These have an answer the moment an earlier question is answered, so asking them 
 
 | Item | Derived from | Value |
 |---|---|---|
+| Language | The platform answer | Web, Tauri, or Electron → TypeScript. iOS → Swift. Android → Kotlin. A cross-platform native shell → whatever its own toolchain speaks — Dart for Flutter, TypeScript for React Native, Kotlin for KMP. **Never named as TypeScript before the platform is known**; on a native platform TypeScript is not a default, it is a category error |
+| Package manager | The platform answer | Node-based platforms → npm, with pnpm and bun as the named alternatives the user may take on the spot. Android → Gradle. iOS → Swift Package Manager. Flutter → pub. On every native platform the toolchain ships one and there is nothing to choose |
 | Migrations | The database answer | Supabase → the Supabase CLI's migration files, run by GitHub Actions. Another database → that engine's own migration tool, named |
 | Styling | **Not decided here.** The component library decides it, and that question belongs to `design-init` | Reported there, not here — see `design-init` Step 3 |
+
+**Language carries one real choice, and only on the web.** A small surface — a landing page, a single-form tool — can ship plain JavaScript, and the derived line says so rather than hiding it: report TypeScript with the reason, and take a plain-JavaScript answer without argument where the app's Kind makes it reasonable. What is never reported is a language the platform cannot run.
 
 Styling is named in this block only to say where it is decided. Writing a styling default at bootstrap and letting `design-init` pick a library that contradicts it is how a repo ends up with a decision nobody made: shadcn requires Tailwind, MUI brings its own, and the library answer arrives later.
 
@@ -175,8 +179,6 @@ Show them all at once after the last question. Invite the user to name anything 
 
 | Item | Default | Why |
 |---|---|---|
-| Language | TypeScript | Without types, a wrong data shape only surfaces at runtime |
 | Branches | `main` for production, `development` for work | A session never works on `main` |
-| Package manager | npm | No strong reason for anything else at this size |
 | UI language | Inferred from the user's story | What the app writes on screen. Shown as a concrete value, together with date format and thousands and decimal separators, so a later session cannot re-derive it wrongly |
 | Code language | English, in every app | Comments, identifiers, file names, URL routes, API endpoint paths, and every database name. Never inferred from the UI language — written as its own line so "UI in X" is not read as permission for identifiers in X. Enum values are the one judgement call, decided per enum |
