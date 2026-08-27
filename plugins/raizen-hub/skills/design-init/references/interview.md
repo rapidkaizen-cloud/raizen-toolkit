@@ -76,7 +76,7 @@ Everything a long-form interview would have asked is the designer's call on the 
 
 What it covers, with the floors that are rules rather than preferences:
 
-- **Contrast** — WCAG AA (4.5:1 text, 3:1 non-text) is the floor `ui-build` already gates on; off-web the platform's own accessibility bar applies where it is stricter.
+- **Contrast** — WCAG AA (4.5:1 text, 3:1 non-text) is the floor, from `impeccable`'s `reference/craft-floor.md` Verify section, which `ui-build` loads before any component is written; off-web the platform's own accessibility bar applies where it is stricter (`reference/ios.md`, `reference/android.md`).
 - **Status colors and markers** — how many statuses, their hues and tints. **Color is never the only marker**: an icon, label, or shape rides with it, readable by someone who cannot tell red from green.
 - **Text scale, spacing scale, hover steps** — the designer's own, read off the canvas at ratification.
 - **Supported and judged widths** — the lowest supported width derives from PRD Section 2's roles: a field or phone role pulls it down to phone width, an all-desk cast keeps it at desktop; the desktop judged width becomes the Section 5 desktop breakpoint. Off the web, both are read from and kept consistent with the Proof profile's Bounds line. Both widths are named in the canvas assumptions block — the round-1 screenshots are taken at them — and the lower bound is stated explicitly in Section 5, so anything below it is *unsupported rather than broken*; without that sentence, every "looks wrong on my phone" report becomes work nobody decided to take on.
