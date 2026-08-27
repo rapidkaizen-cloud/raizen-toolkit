@@ -62,7 +62,7 @@ Surface       : [platform — web / desktop / mobile, and the files that decided
 Database      : [name · how it is reached · migrations present or not]
 Hosting       : [from config present, or "not readable"]
 Auth          : [library or service / handwritten / none found]
-Logic layer   : [the six of logic-init — cache · validator · dates · errors · jobs · attribution, each named or "none"]
+Logic layer   : [the six of logic-settle — cache · validator · dates · errors · jobs · attribution, each named or "none"]
 UI components : [file count] · [library · version, or "none"]
 Styling       : [tokens defined / raw values only]
 Tests         : [runner · how many files, or "none"]
@@ -169,7 +169,7 @@ Section 5  : absent — design-rework fills it
 Then the next sessions, in this order:
 
 ```
-/logic-rework   — the logic layer as it stands: what is installed, what is
+/logic-settle   — the logic layer as it stands: what is installed, what is
                   missing, what is the wrong tool. Keeping everything is a
                   valid ending.
 /design-rework  — audits the styling, then puts every visual decision to you:
@@ -179,7 +179,7 @@ Then the next sessions, in this order:
 Until Section 5 exists, any session will refuse to write a UI component.
 ```
 
-`logic-rework` runs first for the same reason `logic-init` does: the promoted pages carry loading, empty, and failed states, and those belong to the data layer.
+`logic-settle` runs first, for the same reason it does on a new repo: the promoted pages carry loading, empty, and failed states, and those belong to the data layer.
 
 Do not run any of them now. Close by reminding the user that the first commit waits for their word, and that `raizen-norms` becomes active only once the next session starts in this repo.
 
@@ -269,13 +269,13 @@ Section 5  : untouched — design-rework owns it
 Then the sessions that execute the decisions, in this order:
 
 ```
-/logic-rework   — only when a logic-layer choice changed or the rework opened one
+/logic-settle   — only when a logic-layer choice changed or the rework opened one
 /design-rework  — when the look changes: audits the styling, rewrites Section 5,
                   proves it on the design canvas
 build sessions  — build-flow queues and executes the rest, page by page;
                   schema and constraint changes go through db-ops on the way
 ```
 
-`logic-rework` before `design-rework`, for the same reason as always: the promoted pages carry loading, empty, and failed states, and those belong to the data layer.
+`logic-settle` before `design-rework`, for the same reason as always: the promoted pages carry loading, empty, and failed states, and those belong to the data layer.
 
 Do not run any of them now. Close by reminding the user that the commit waits for their word.

@@ -118,12 +118,12 @@ add context and re-raise is fine; catching in order to continue is a finding.
 
 ## 6 — Which libraries this layer uses
 
-Decided once, by the `logic-init` skill in `raizen-hub` — cache, validator, dates, error destination, job placement, change attribution. The names live in the Stack table of `CLAUDE.md`; the choice and its reason live in `PRD.md` Section 1, including every deliberate "none".
+Decided once, by the `logic-settle` skill in `raizen-hub` — cache, validator, dates, error destination, job placement, change attribution. The names live in the Stack table of `CLAUDE.md`; the choice and its reason live in `PRD.md` Section 1, including every deliberate "none".
 
 Three rules bind every session after that:
 
 - **A recorded "none" is a decision, not a gap.** Handwritten fetching in a repo whose PRD says "cache: none — two screens" is the norm being followed, not a finding.
-- **A need surfacing that `logic-init` never scored** — a screen that now wants caching, a handler appearing where none existed — is **raised to the user, never solved by a quiet install**. One question re-opens; the interview does not. Several at once, or a library that is the wrong tool rather than a missing one, is `logic-rework` in `raizen-hub` — still the user's to start, never yours.
+- **A need surfacing that `logic-settle` never scored** — a screen that now wants caching, a handler appearing where none existed — is **raised to the user, never solved by a quiet install**. One question re-opens; the interview does not. Several at once, or a library that is the wrong tool rather than a missing one, re-opens `logic-settle` in `raizen-hub` — still the user's to start, never yours.
 - **A library's defaults are the decision.** `staleTime`, `retry`, `refetchOnWindowFocus`, preload behaviour, and their equivalents ship with an answer, and it holds until `PRD.md` Section 1 records a reason to change it — the same standing `ui-build` gives component defaults. These knobs decide how much traffic reaches the database and how stale a screen may be, so an unrecorded change to one is a finding, not a tuning detail.
 
 ## 7 — Reuse, and types

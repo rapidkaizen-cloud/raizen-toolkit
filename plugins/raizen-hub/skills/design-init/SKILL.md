@@ -209,7 +209,7 @@ Sections, in order — each rendered from what Steps 2–6 actually decided, not
 
 No isolated branch is needed — a fresh repo has no parallel work to disturb; the pass runs in place.
 
-**Every promoted-but-unwired page gets a `QUEUE.md` line** — `wire <page> to real data` — written by this pass. An app full of fixture-driven pages looks finished while every number on it is fake; the queue lines and the close block are what keep that visible. Where `logic-init` already chose the data layer, its loading, empty, and failed states come from the chosen cache when wiring happens — never from a handwritten effect.
+**Every promoted-but-unwired page gets a `QUEUE.md` line** — `wire <page> to real data` — written by this pass. An app full of fixture-driven pages looks finished while every number on it is fake; the queue lines and the close block are what keep that visible. Where `logic-settle` already chose the data layer, its loading, empty, and failed states come from the chosen cache when wiring happens — never from a handwritten effect.
 
 **The densest page is the bar.** `build-flow` Section 4 judges every later page against it — building it thin lowers the bar for the whole app. Its fixtures must include `bulk` and `messy` cases: a direction that only holds for five tidy rows has not been proven. `ui-build` binds every promoted page in full — tokens only, zero raw values, states drawn.
 

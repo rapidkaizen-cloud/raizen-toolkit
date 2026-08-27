@@ -148,7 +148,7 @@ Then offer the next steps, unless the product has no UI:
 
 ```
 Two sessions remain before pages can be built, in this order:
-  /logic-init  — the logic layer: cache, validation, dates, logging,
+  /logic-settle — the logic layer: cache, validation, dates, logging,
                  scheduling, audit trail. Scored from the PRD; often
                  installs nothing.
   /design-init — the visual direction: a short taste interview, then every
@@ -156,7 +156,7 @@ Two sessions remain before pages can be built, in this order:
 Until design-init is done, any session will refuse to write UI components.
 ```
 
-`logic-init` runs first because the pages `design-init` promotes carry loading, empty, and failed states — and those belong to the data layer.
+`logic-settle` runs first because the pages `design-init` promotes carry loading, empty, and failed states — and those belong to the data layer.
 
 Do not run it now. Bootstrap ends with zero dependencies installed, and `design-init` needs to install several.
 

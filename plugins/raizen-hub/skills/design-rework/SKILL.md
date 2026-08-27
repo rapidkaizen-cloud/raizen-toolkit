@@ -102,7 +102,7 @@ That last number matters most — it decides the size of the final pass, and the
 
 **The `UI stack` row is the canvas's import whitelist** (`canvas.md`, declared stack). A job the brief needs that no installed engine covers becomes an install question at Step 4; an engine installed but unused is a finding.
 
-**The walk may also expose the logic layer bleeding** — handwritten data-fetching in UI files, hand-parsed dates, unvalidated inputs. That is not this skill's work: make the `logic-rework` offer under that skill's own rule — evidence, cost, and recommendation in one AskUserQuestion — and carry on with the audit either way.
+**The walk may also expose the logic layer bleeding** — handwritten data-fetching in UI files, hand-parsed dates, unvalidated inputs. That is not this skill's work: make the `logic-settle` offer under that skill's own rule — evidence, cost, and recommendation in one AskUserQuestion — and carry on with the audit either way.
 
 **While walking the pages, screenshot one page per archetype at desktop width** — captured per PRD Section 1's Proof profile: the browser for web, the profile's Visual line elsewhere. Step 8 compares the finished pass against these; without a before, "it looks redesigned" is an assertion nobody can check. The screenshots are for that comparison and the judgement's before/after — they are not looked at while the canvas is drawn.
 

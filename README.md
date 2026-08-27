@@ -61,7 +61,7 @@ The design flow loads two taste materials, and both are Required: `impeccable` (
 
 | Skill | Used for |
 |---|---|
-| `raizen-hub` | The six skills themselves — `app-init`, `app-rework`, `logic-init`, `logic-rework`, `design-init`, `design-rework` |
+| `raizen-hub` | The five skills themselves — `app-init`, `app-rework`, `logic-settle`, `design-init`, `design-rework` |
 | `impeccable` | The craft rules `taste.md` and `ui-build` no longer state, plus the detector `design-rework` reports at Step 1 and Step 8. Loaded before the taste batch and before any component is written |
 | `frontend-design` | Divergence guidance against templated defaults, loaded alongside `impeccable` — never a house style |
 
@@ -115,7 +115,7 @@ For an app that is **already running**, the entry point is `app-rework`, which r
 
 ```
 /raizen-hub:app-rework
-/raizen-hub:logic-rework
+/raizen-hub:logic-settle
 /raizen-hub:design-rework
 ```
 
@@ -125,8 +125,7 @@ To rework only the look or the logic layer of an app that already has a PRD, the
 |---|---|---|
 | `app-init` | Empty directory | `PRD.md` with an empty Section 5, scaffold, `git init` |
 | `app-rework` | Application code present. No `PRD.md` → document mode; present → rework mode | Document mode: `PRD.md` with Section 5 **absent**, `CLAUDE.md`, norms enabled — changes nothing about the app. Rework mode: Sections 1–4 and 6 re-decided keep-first, execution handed to build sessions |
-| `logic-init` | `PRD.md` present, logic layer never decided | Section 1 records cache, validator, dates, errors, jobs, attribution — often installing nothing |
-| `logic-rework` | `PRD.md` present, app already running | Audit of what is installed, then keep / adopt / replace per need, migrated in one pass |
+| `logic-settle` | `PRD.md` present | Audits what the repo runs today — empty on a new repo — then Section 1 records cache, validator, dates, errors, jobs, attribution: keep, adopt, or replace per need, often installing nothing. One skill for both cases; the audit is what tells them apart |
 | `design-init` | Section 5 empty **and** no component exists | Section 5 filled, styling tokens, every page promoted from the ratified canvas on contract fixtures |
 | `design-rework` | Section 5 filled, **or** empty while components exist | Section 5 changed or ratified line by line, plus every component updated in one pass |
 | `build-flow` | Section 5 filled | `QUEUE.md` on first run, then usable pages — a UI batch built against contracts first, wired in a backend batch after |
