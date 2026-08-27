@@ -34,7 +34,8 @@ Kind of app : [from Section 1]
 Platform    : [from Section 1 Surface — web, or the platform named there]
 Primary role: [from Section 2]
 Reading     : [one sentence — see Step 1]
-Flow        : taste batch → stack questions → install → canvas rounds →
+Flow        : taste batch → stack questions → design plan (narrated) → install →
+              direction frames if the direction is open → canvas rounds →
               ratify + Section 5 → promotion (all pages) → verify → close
 ```
 
@@ -56,7 +57,7 @@ Concluding first beats asking from nothing: the user only corrects what missed, 
 
 State the reading, ask for correction, then continue. When the correction is asked through AskUserQuestion, **the full reading sentence goes inside the question field itself** — the dialog may render without the prose around it, so a question that points at text "above" can arrive pointing at nothing.
 
-The slots' options and the canvas's values come from the model's own design knowledge of this app and its platform, and the user's judgement on screen is what checks the result. The one material the canvas phase loads is `frontend-design`, where installed — divergence guidance against templated defaults, never a house style; `canvas.md` holds the rule and the limit. No skill that prescribes a fixed look is read.
+The slots' options and the canvas's values come from the model's own design knowledge of this app and its platform, and the user's judgement on screen is what checks the result. Two materials are loaded before designing — `references/taste.md` beside this file, and `frontend-design` where installed. Both are divergence guidance: they name the defaults that read as generated and the method for choosing a direction, never the direction itself; `canvas.md` holds the rule and where the line falls. No skill that prescribes a fixed look — a fixed palette, a fixed pairing, a card recipe — is read.
 
 ## Step 2 — The taste batch
 
@@ -82,7 +83,25 @@ Answers outside the options are always accepted. The user names something not li
 
 Compile the answered slots into the canvas's baseline: concrete hex values, font names, and icon entries. A slot answered "Decide for me" compiles to nothing — the canvas owns it.
 
-The output is the canvas's **baseline, not a gate** — do not stop to show it as its own proposal. The user corrects values where they are visible: on the canvas, at the judgement. Stopping here would judge the same values twice.
+The output is the canvas's **baseline, not a gate**. The user corrects values where they are visible: on the canvas, at the judgement. Waiting here for an approval would judge the same values twice.
+
+### Then state the design plan — narrated, not gated
+
+Load `references/taste.md` and `frontend-design` where installed, then **write the plan out in this same turn, before the install block**. This is the step that separates a designed app from a competent average, and it is skipped by exactly the sessions that most needed it.
+
+Five parts, short:
+
+| Part | What is stated |
+|---|---|
+| Direction | Purpose · the one tone held · what makes this app memorable rather than adequate (`taste.md`) |
+| Colour | 4–6 named values with their roles, and where they came from — a brand palette, a reference, or an accent chosen first and the neutrals pulled toward it |
+| Type | The pairing and each face's job. Never the four `taste.md` names as failed choices |
+| Layout | The shell and the composition in one or two sentences — where the density sits, what breaks the grid |
+| Signature | The single element this app is remembered by (`canvas.md`, the taste licence) |
+
+**Then critique it against the brief before drawing, in the same turn.** Work through what a session with a similar brief would produce; any part of the plan that arrives at the same place is a default rather than a decision. **Revise that part and say what changed and why** — one line. A plan reported without that pass has skipped the only step in it that does any work.
+
+**It is a narration, not a gate: state it and keep going in the same turn.** Do not end the turn, do not open an AskUserQuestion, do not wait. What it buys is a decision the user can object to before the canvas exists, and a direction this session cannot quietly drift off later — the judgement still settles every value on screen.
 
 ## Step 4 — Install, before anything is drawn
 
@@ -107,7 +126,7 @@ Install nothing outside that block. Something extra turns out to be needed → a
 
 ## Step 5 — The canvas: rounds until final
 
-Drawn and judged under `canvas.md` entire: files written production-grade — every state drawn, fixtures in one contract-shaped file, imports only from the declared stack — the import self-check before every round, tagged departures and proposals, the judgement through AskUserQuestion, two rounds then escalation.
+Drawn and judged under `canvas.md` entire: the direction frames first where the direction is still open, then files written production-grade — every state drawn, fixtures in one contract-shaped file that closes arithmetically, imports only from the declared stack — the three-scan self-check before every round (imports · the render · the arithmetic), the signature drawn and tagged, tagged departures and proposals, the judgement through AskUserQuestion, two rounds then escalation.
 
 The PRD is not touched during rounds. The foundations board is the living draft of every value.
 
@@ -124,13 +143,24 @@ The split is permanent:
 
 Color and spacing are the exception: their roles, values, and usage rules are written in Section 5, because contrast is a norm and not an implementation detail.
 
+**The component-token table is the second exception, and it is written in Section 5.** A scale alone guarantees drift: two sessions given `radius: sm 4 · md 6 · lg 8 · xl 12` will pick differently for a card, and neither is wrong against the scale. So the table states the **per-component number**, one row each, for every component an archetype names: control height per size · input height · field padding · card padding and radius · row height and vertical padding for a table · header treatment · badge size and radius · modal radius · toast padding · focus ring. It lives in Section 5 rather than only in the theme file because `build-flow` Section 4 opens every later page from Section 5 and never reads the theme — a number the queue cannot see is a number the queue will re-decide.
+
 Follow the sub-section structure in `prd-structure.md` under `app-init`. The Anti-patterns sub-section holds only prohibitions the user ratified — a canvas decision or an interview answer that forbids something — and may be empty; no stock ban list exists to copy from.
 
 **Page Composition holds the ratified archetype table** — one row per archetype: shell layout, components, density profile, empty/loading wording, and the routes it owns. This table is what `build-flow` Section 4 opens every later page proposal from. Where a role split produced two density profiles, their numbers land under Breakpoints & Density.
 
 **Every line in Section 5 traces back to one of three sources:** an interview answer, a derived decision already reported to the user, or a canvas value the user ratified. A rule belonging to none of them is not written, however sensible it looks — no question asks it, so nobody decided it.
 
-### Four rules bind the styling files
+### Five rules bind the styling files
+
+**The palette is two layers, and the second one is the system.** A list of hexes is a palette; what makes it a design system is that product code never names one.
+
+- **A ramp per functional hue, deep enough that nothing is improvised.** Hover, active, a subtle fill, a border, and text on that fill must each land on **a step that already exists** — a value invented mid-build is a value no board ever showed and no later page will find again. In practice that is around ten steps. **Where the stack carries a convention, follow it rather than inventing a parallel scale**: Tailwind's `50 … 950` is the one most component libraries already assume, and a second scale beside it means every future session picks between two answers.
+- **Three shades per semantic family** — light, base, dark. The dark shade is not decoration: it is what makes text on the light fill clear 4.5, which is why Ratification chooses it by measuring it against its own light shade (`canvas.md`) rather than by stepping once along the ramp.
+- **A semantic alias layer, and product code reads only that.** Surfaces, text, and borders are named by their role — the ground, the raised surface, the muted text, the focus ring — each pointing at a step. A component that names a numbered step has hard-coded a decision the alias layer exists to hold, and that is the line that has to move when the direction changes.
+- **The chart palette belongs to the token set**, chosen once with the rest, not picked per chart. Where `dataviz` is loaded it decides series colour inside the plot; the token set is where those colours live.
+
+State the step count and the alias list in Section 5's colour table, since colour is already Section 5's exception.
 
 **Every semantic slot the component library exposes is mapped.** Libraries ship a full set of role colors, including a neutral one — usually named `default` — that every component falls back to when given no color. A slot left unmapped keeps the library's own value, so the app carries two neutral families: the one Section 5 chose, and the one nobody chose. List the library's slots before writing the theme file, then map all of them.
 
@@ -152,7 +182,7 @@ Sections, in order — each rendered from what Steps 2–6 actually decided, not
 
 | Section | Contents |
 |---|---|
-| Foundations | Color roles or scales as Section 5 defines them, with the semantic token list read from the styling files · every text step with a real sample sentence · spacing scale · the density profile table with its numbers, both profiles where a role split produced two · radius, shadow, breakpoints, motion |
+| Foundations | Color roles or scales as Section 5 defines them, with the semantic token list read from the styling files · every text step with a real sample sentence · spacing scale · the density profile table with its numbers, both profiles where a role split produced two · radius, shadow, breakpoints, motion · the contrast section, one row per pair with its computed ratio. **Rendered by `canvas.md`'s specimen rule, not as a table of names and values** — each token applied to itself with every other variable held constant, one caption treatment throughout printing the key and its resolved value together. This route outlives the canvas, so it is where that board's method has to survive |
 | Components | Every component the app uses or an archetype names — variants, sizes, and states per component, including loading, empty, and failed where they apply, with a short real-usage snippet |
 | Archetypes | The Section 5 archetype table, one card per archetype: shell sketch, components, routes |
 
@@ -180,7 +210,10 @@ Before reporting done:
 - **The structural diff per promoted page.** Put each canvas file beside its live page: with fixtures kept, the only legitimate differences are the removed canvas wrapper and the contract-shaped fixture import. Any other difference is a failed promotion to fix now.
 - **Fonts load for real.** The computed font-family in the browser resolves to the loaded webfont, not a fallback stack — the canvas CSS carried the loading, and the production entry must carry it now.
 - **Zero raw values** across every promoted page and component.
-- **The styleguide passes its done-check** (the table in Step 6).
+- **The styleguide passes its done-check** (the table in Step 6), its foundations rendered as specimens rather than as a table of names and values.
+- **Every contrast ratio on the page was computed**, not recalled, and every semantic dark shade clears 4.5 against its own light shade.
+- **The fixtures close** on every page still running on them — totals, percentages, bar widths, pagination — per `canvas.md`'s Coverage.
+- **The signature survived promotion**, on the pages that carry it.
 - **The densest page holds at both widths**, screenshots taken.
 - **Pages running on fixtures are listed by name.** This list matches the `QUEUE.md` wire lines one for one — a page on neither list does not exist.
 

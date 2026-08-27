@@ -38,6 +38,8 @@ Candidates come from two layers, and both are mandatory:
 
 **The consequence must name what the library leaves out.** The user is entitled to know what will have to be installed or hand-written before they choose — that is the researched missing-list, stated per option.
 
+**And it must name the styling system the library brings** — a utility-CSS layer, its own theme object, CSS-in-JS, or nothing at all. `app-init` already set a styling default in its unasked-defaults block, and a library that carries a different one does not quietly win: **the collision is a decision line the user answers here**, keeping the default and adapting the library, or replacing the default and saying so. Left unstated, the app ends up with a default nobody uses or two token systems holding the same hex — which is the failure `design-init` Step 6's *One palette, two consumers* rule can only clean up after, never prevent.
+
 **Each option names the icon pack it bundles, or names itself headless** — `interview.md`'s icon dialog reads this.
 
 **Copy-in versus package.** A packaged library installs faster but bends less when you need something it does not provide. A library that copies code into the repo carries three consequences that must be stated:
