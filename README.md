@@ -61,7 +61,7 @@ The design flow loads two taste materials, and both are Required: `impeccable` (
 
 | Skill | Used for |
 |---|---|
-| `raizen-hub` | The five skills themselves — `app-init`, `app-rework`, `logic-settle`, `design-init`, `design-rework` |
+| `raizen-hub` | The four skills themselves — `app-settle`, `logic-settle`, `design-init`, `design-rework` |
 | `impeccable` | The craft rules `taste.md` and `ui-build` no longer state, plus the detector `design-rework` reports at Step 1 and Step 8. Loaded before the taste batch and before any component is written |
 | `frontend-design` | Divergence guidance against templated defaults, loaded alongside `impeccable` — never a house style |
 
@@ -77,11 +77,11 @@ The design flow loads two taste materials, and both are Required: `impeccable` (
 
 **Do not install the `supabase` plugin** from `claude-plugins-official`. It carries a Supabase MCP server of its own, duplicating whatever already reaches that database — the user-scope server (`claude mcp add -s user`, the one-liner in `plugins/raizen-hub/templates/README.md`), or a claude.ai connector where one is connected. Two servers means duplicated tools and an ambiguous pick at every call. The skill route above gives the same Postgres guidance without adding a server.
 
-Connectors themselves — database, host, anything the stack uses — are **recommended where they exist and never required**. `app-init` says so for the database and `build-flow` for the host, each at the point where it matters, derived from the stack the user actually chose. No list of connectors is kept here on purpose: the catalogue changes, this file would not, and a stale promise costs more than none.
+Connectors themselves — database, host, anything the stack uses — are **recommended where they exist and never required**. `app-settle` says so for the database and `build-flow` for the host, each at the point where it matters, derived from the stack the user actually chose. No list of connectors is kept here on purpose: the catalogue changes, this file would not, and a stale promise costs more than none.
 
 The Supabase MCP server is connected **user scope, once per machine** — no `.mcp.json` is scaffolded into app repos, and the account-wide URL means one browser login covers every project. The URL carries **no query parameters at all**: Supabase's OAuth rejects any query string (`resource: Resource must be a valid MCP endpoint`), which is also why the old per-project `?project_ref=` URLs kept failing authentication. That rules out `read_only=true` (which `db-ops` Phase 3 never wanted — it sends guarded destructive statements, and read-only would replace a gated design with a blanket ban) and also rules out a `features` filter, so the full toolset is exposed; the context cost is accepted. Which project an MCP call may touch is pinned by `supabase/config.toml` plus the `guard_project_ref` hook in `raizen-norms`, not by the server config — the pin covers MCP calls only, not the `supabase` CLI or raw HTTP from Bash.
 
-`raizen-norms` is **not installed by hand** — `app-init` writes it into the app repo's `.claude/settings.json` at bootstrap.
+`raizen-norms` is **not installed by hand** — `app-settle` writes it into the app repo's `.claude/settings.json` at bootstrap.
 
 The mechanisms differ deliberately: `raizen-hub` and `ponytail` are Claude Code plugins, while the Supabase and taste skills arrive through the Vercel Agent Skills framework (`npx skills add`) rather than a plugin marketplace. taste-skill is MIT licensed.
 
@@ -102,19 +102,20 @@ Skills added with `npx skills add` never appear there. Check `~/.claude/skills/`
 From an empty directory, in a Claude Code session:
 
 ```
-/raizen-hub:app-init
+/raizen-hub:app-settle
 ```
 
-Then in the next session, inside the app repo just created:
+Then in the next sessions, inside the app repo just created:
 
 ```
+/raizen-hub:logic-settle
 /raizen-hub:design-init
 ```
 
-For an app that is **already running**, the entry point is `app-rework`, which runs in one of two modes. No `PRD.md` yet → document mode: it writes the PRD the repo never had and changes nothing about the app. `PRD.md` present → rework mode: it re-opens the app-level decisions — business rules, scope, stack — with keep always option one and every change carrying its cost and a recommendation. Then the two narrower rework skills follow:
+For an app that is **already running**, the entry point is `app-settle`, which reads the directory and runs in one of three modes. No `PRD.md` yet → document mode: it writes the PRD the repo never had and changes nothing about the app. `PRD.md` present → rework mode: it re-opens the app-level decisions — business rules, scope, stack — with keep always option one and every change carrying its cost and a recommendation. Then the two narrower rework skills follow:
 
 ```
-/raizen-hub:app-rework
+/raizen-hub:app-settle
 /raizen-hub:logic-settle
 /raizen-hub:design-rework
 ```
@@ -123,14 +124,13 @@ To rework only the look or the logic layer of an app that already has a PRD, the
 
 | Skill | Precondition | Produces |
 |---|---|---|
-| `app-init` | Empty directory | `PRD.md` with an empty Section 5, scaffold, `git init` |
-| `app-rework` | Application code present. No `PRD.md` → document mode; present → rework mode | Document mode: `PRD.md` with Section 5 **absent**, `CLAUDE.md`, norms enabled — changes nothing about the app. Rework mode: Sections 1–4 and 6 re-decided keep-first, execution handed to build sessions |
+| `app-settle` | Any directory — the mode is read from what it holds | Empty → `PRD.md` with an empty Section 5, scaffold, `git init`. Code without a PRD → document mode. Code with a PRD → rework mode |
 | `logic-settle` | `PRD.md` present | Audits what the repo runs today — empty on a new repo — then Section 1 records cache, validator, dates, errors, jobs, attribution: keep, adopt, or replace per need, often installing nothing. One skill for both cases; the audit is what tells them apart |
 | `design-init` | Section 5 empty **and** no component exists | Section 5 filled, styling tokens, every page promoted from the ratified canvas on contract fixtures |
 | `design-rework` | Section 5 filled, **or** empty while components exist | Section 5 changed or ratified line by line, plus every component updated in one pass |
 | `build-flow` | Section 5 filled | `QUEUE.md` on first run, then usable pages — a UI batch built against contracts first, wired in a backend batch after |
 
-The two columns that matter are on the `design-init` and `design-rework` rows. An app with components but no Section 5 — which is exactly what `app-rework`'s document mode hands over — belongs to `design-rework`, not `design-init`: its values are measured and put to the user for ratification rather than overwritten by an interview that has never seen them.
+The two columns that matter are on the `design-init` and `design-rework` rows. An app with components but no Section 5 — which is exactly what `app-settle`'s document mode hands over — belongs to `design-rework`, not `design-init`: its values are measured and put to the user for ratification rather than overwritten by an interview that has never seen them.
 
 `build-flow` is the only one with no command to type — it lives in `raizen-norms` and loads in every working session, which is the point: the build order has to be known before anyone thinks to ask for it.
 

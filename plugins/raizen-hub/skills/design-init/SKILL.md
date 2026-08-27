@@ -42,11 +42,11 @@ Flow        : load taste.md + impeccable + frontend-design → reading → taste
               → promotion (all pages) → verify → close
 ```
 
-`PRD.md` missing → **STOP**, point to `app-init`.
+`PRD.md` missing → **STOP**, point to `app-settle`.
 
 Section 5 already filled → **STOP**, ask whether the user really wants to rework the existing visual direction. That work belongs to `design-rework`.
 
-**Section 5 empty but UI components already exist → STOP as well.** This skill decides a direction before any code carries one. An app that already has components needs its existing values measured and put to the user, not overwritten by an interview that has never seen them. That is `design-rework` on its ratify path — the case a repo arrives in through `app-rework`'s document mode.
+**Section 5 empty but UI components already exist → STOP as well.** This skill decides a direction before any code carries one. An app that already has components needs its existing values measured and put to the user, not overwritten by an interview that has never seen them. That is `design-rework` on its ratify path — the case a repo arrives in through `app-settle`'s document mode.
 
 Product without UI → **STOP**, this skill does not apply.
 
@@ -60,7 +60,7 @@ Both are divergence guidance: they name the defaults that read as generated and 
 
 There is no audit — nothing exists to audit; this step is its sibling. **Reading** is your own conclusion before asking anything, one sentence, shaped as: *"I read this as [kind of app] on [platform] for [who uses it], leaning [the feel that fits], because [reason from the PRD]."*
 
-**The platform slot is not decoration.** `app-init` already asked the platform and PRD Section 1 already holds the answer — it is never asked again. It rides in this sentence because the corrected reading is what every slot's options are invented from, so one word here is what puts the platform into all of them at once. Left out, the options arrive in the web's vocabulary and no later decision can tell that anything was lost.
+**The platform slot is not decoration.** `app-settle` already asked the platform and PRD Section 1 already holds the answer — it is never asked again. It rides in this sentence because the corrected reading is what every slot's options are invented from, so one word here is what puts the platform into all of them at once. Left out, the options arrive in the web's vocabulary and no later decision can tell that anything was lost.
 
 Concluding first beats asking from nothing: the user only corrects what missed, and the correction carries more than an empty question would. A wrong reading is not a failure — it draws out detail that no question would surface.
 
@@ -160,7 +160,7 @@ Color and spacing are the exception: their roles, values, and usage rules are wr
 
 **The component-token table is the second exception, and it is written in Section 5.** A scale alone guarantees drift: two sessions given `radius: sm 4 · md 6 · lg 8 · xl 12` will pick differently for a card, and neither is wrong against the scale. So the table states the **per-component number**, one row each, for every component an archetype names: control height per size · input height · field padding · card padding and radius · row height and vertical padding for a table · header treatment · badge size and radius · modal radius · toast padding · focus ring. It lives in Section 5 rather than only in the theme file because `build-flow` Section 4 opens every later page from Section 5 and never reads the theme — a number the queue cannot see is a number the queue will re-decide.
 
-Follow the sub-section structure in `prd-structure.md` under `app-init`. The Anti-patterns sub-section holds only prohibitions the user ratified — a canvas decision or an interview answer that forbids something — and may be empty; no stock ban list exists to copy from.
+Follow the sub-section structure in `prd-structure.md` under `app-settle`. The Anti-patterns sub-section holds only prohibitions the user ratified — a canvas decision or an interview answer that forbids something — and may be empty; no stock ban list exists to copy from.
 
 **Page Composition holds the ratified archetype table** — one row per archetype: shell layout, components, density profile, empty/loading wording, and the routes it owns. This table is what `build-flow` Section 4 opens every later page proposal from. Where a role split produced two density profiles, their numbers land under Breakpoints & Density.
 

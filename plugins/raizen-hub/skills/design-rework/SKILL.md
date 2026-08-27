@@ -1,6 +1,6 @@
 ---
 name: design-rework
-description: Rework the visual direction of an app that already has UI. Audits what the code actually uses, decides repair or overhaul, draws every page as final front-end code on a staged canvas, approves everything at one gate, then relocates the canvas files into the app on an isolated branch — the only difference between canvas and production is the data. Use when the user wants to redesign, restyle, or overhaul the look of an existing app — whether Section 5 is already filled, or still empty because the repo arrived through `app-rework`'s document mode.
+description: Rework the visual direction of an app that already has UI. Audits what the code actually uses, decides repair or overhaul, draws every page as final front-end code on a staged canvas, approves everything at one gate, then relocates the canvas files into the app on an isolated branch — the only difference between canvas and production is the data. Use when the user wants to redesign, restyle, or overhaul the look of an existing app — whether Section 5 is already filled, or still empty because the repo arrived through `app-settle`'s document mode.
 ---
 
 # design-rework — reworking the visual direction of an existing app
@@ -13,7 +13,7 @@ A `PRD.md` is an **absolute precondition**. Missing → STOP.
 
 **Section 5 is never written from existing code.** That direction — `CSS → PRD` instead of `user → PRD → CSS` — turns every accident in the stylesheet into an official norm nobody decided on. The audit produces **findings**; a finding becomes a Section 5 line only once the user ratifies it.
 
-Section 5 is normally already filled when this skill runs. One case where it is legitimately empty: a repo that arrived through `app-rework`'s document mode, which writes the PRD for an app that already has UI and deliberately leaves Section 5 unwritten. Step 0 routes it and Step 2b handles it — under the same direction rule, not as an exemption from it.
+Section 5 is normally already filled when this skill runs. One case where it is legitimately empty: a repo that arrived through `app-settle`'s document mode, which writes the PRD for an app that already has UI and deliberately leaves Section 5 unwritten. Step 0 routes it and Step 2b handles it — under the same direction rule, not as an exemption from it.
 
 **PRD.md is written exactly once, and only after the Step 6 gate approves it** — as the first act of the pass, on the pass's own branch. Until then nothing touches it, and no draft document stands in for it: the canvas is the draft, its variables and foundations board carry every value the user can inspect. Approval writes Section 5 in full; rejection leaves the PRD exactly as it was. Section 5 changes only by **explicit user decision**, line by line — audit results are findings, not proposed norms.
 
@@ -58,7 +58,7 @@ The `Skill build` line exists so a stale install is visible before the pass, not
 
 A session that skips this dialog and routes itself — because the state "obviously" says where the flow stands — re-makes exactly the mistake this gate exists to close: the user watches edits land without ever having chosen the path.
 
-`PRD.md` missing → **STOP.** An app with no PRD has no prior intent to protect and nothing to read the audit against. Point to `app-rework` for a repo that already exists, `app-init` for one that does not.
+`PRD.md` missing → **STOP.** An app with no PRD has no prior intent to protect and nothing to read the audit against. Point to `app-settle`, which reads the directory and picks its own mode.
 
 Two readings decide the path, in this order:
 
@@ -68,7 +68,7 @@ Two readings decide the path, in this order:
 | Empty or absent | none | **STOP** — nothing built, nothing to audit. This is `design-init` |
 | Empty or absent | present | **Ratify.** Step 2 is not asked; go to Step 2b |
 
-That third row is the `app-rework` document-mode case: an app whose visual direction was never decided by anyone, only accumulated. It gets the same audit as any other, and then every entry is put to the user before it becomes a norm.
+That third row is the `app-settle` document-mode case: an app whose visual direction was never decided by anyone, only accumulated. It gets the same audit as any other, and then every entry is put to the user before it becomes a norm.
 
 **Working tree not clean → say it and carry on.** Name the dirty paths in one line. The pass no longer runs in this tree — it branches from a committed base — so what a dirty tree costs is the base itself: uncommitted work is invisible to the pass's branch, and the promoted app will not carry it until the user commits and the branches meet. Advice, not a gate: the user decides.
 

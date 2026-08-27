@@ -91,7 +91,7 @@ A candidate that belongs to a library family names that family in its consequenc
 
 This question does not pick a package, and **it is deliberately exempt from the research duty**: its mechanism is a Postgres API stable for a decade, and the two product names below are trap warnings that a fresh research pass would get wrong — research surfaces pgaudit as if it answered this question, and rejects supa_audit for being archived, which is exactly backwards.
 
-**The options are resolved from the database already chosen in `app-init`**, because the only layer that knows which application user made a change is the one the database itself provides, and that differs per platform. Present the resolved option, never a cross-platform menu.
+**The options are resolved from the database already chosen in `app-settle`**, because the only layer that knows which application user made a change is the one the database itself provides, and that differs per platform. Present the resolved option, never a cross-platform menu.
 
 | Database (Stack table of `CLAUDE.md`) | What the trigger option resolves to |
 |---|---|
@@ -129,4 +129,4 @@ coalesce(auth.uid(), nullif(current_setting('app.actor_id', true), '')::uuid)
 
 ## Maintaining this file
 
-What this file maintains is the stable part: the L-numbers and their questions, the admission rule, the ladder, and the per-question criteria. **Candidate names are never written back into it** — a session that learns a name records the choice and its reason in the app's PRD, and the next session researches fresh. A criterion is added or dropped only with a stated reason — the same discipline as the stack rubric in `app-init`.
+What this file maintains is the stable part: the L-numbers and their questions, the admission rule, the ladder, and the per-question criteria. **Candidate names are never written back into it** — a session that learns a name records the choice and its reason in the app's PRD, and the next session researches fresh. A criterion is added or dropped only with a stated reason — the same discipline as the stack rubric in `app-settle`.

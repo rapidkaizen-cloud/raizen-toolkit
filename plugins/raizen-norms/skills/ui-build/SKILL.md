@@ -34,7 +34,7 @@ Which skill to point at is decided by **whether this repo already has UI compone
 | None | `design-init` — it interviews the visual direction from nothing, then proves it as every page of the app on a staged canvas |
 | Some already exist | `design-rework` — it measures what those components actually use and puts each value to the user to ratify or overrule |
 
-Getting that wrong sends the user in a circle: `design-init` refuses a repo that already has components, so naming it there produces a second STOP and no way forward. A repo in that state usually arrived through `app-rework`'s document mode, which writes the PRD for an existing app and deliberately leaves Section 5 unwritten.
+Getting that wrong sends the user in a circle: `design-init` refuses a repo that already has components, so naming it there produces a second STOP and no way forward. A repo in that state usually arrived through `app-settle`'s document mode, which writes the PRD for an existing app and deliberately leaves Section 5 unwritten.
 
 Why stop rather than choose for them: every rule below — tokens, components, contrast — measures the code against Section 5. Without Section 5 there is nothing to measure against, and a session that decides for itself is setting the app's norms through the back door.
 
