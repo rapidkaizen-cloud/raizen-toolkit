@@ -1,4 +1,4 @@
-# Stack questions — seven, with dynamic options
+# Stack questions — eight, with dynamic options
 
 Questions travel in batches — up to four per AskUserQuestion call, several calls per turn; a question whose options or recommendation read an earlier answer (the *Fits when* column is the map) goes in a later call than its source. Answers are reconciled after every batch: two that collide go back as one question naming both, never resolved silently. Each: **more than two options** · one marked recommendation · a one-sentence consequence. Answers outside the options are accepted.
 
@@ -76,7 +76,7 @@ Without item three, do not raise the status. A repo that looks protected while i
 
 ---
 
-# The seven questions
+# The eight questions
 
 ## 1. Kind of app
 
@@ -148,6 +148,27 @@ Production only · production + staging · production + staging + local for deve
 
 ---
 
+# Derived, not asked — reported as a line with its value
+
+These have an answer the moment an earlier question is answered, so asking them again offers a choice that is already made. Each is reported as its own line with the value and the answer it came from, and the user may overrule any of them on the spot. Never folded into the defaults table below: a table read once at bootstrap is exactly where a decision nobody took goes to hide.
+
+| Item | Derived from | Value |
+|---|---|---|
+| Migrations | The database answer | Supabase → the Supabase CLI's migration files, run by GitHub Actions. Another database → that engine's own migration tool, named |
+| Styling | **Not decided here.** The component library decides it, and that question belongs to `design-init` | Reported there, not here — see `design-init` Step 3 |
+
+Styling is named in this block only to say where it is decided. Writing a styling default at bootstrap and letting `design-init` pick a library that contradicts it is how a repo ends up with a decision nobody made: shadcn requires Tailwind, MUI brings its own, and the library answer arrives later.
+
+## 8. Testing at bootstrap
+
+**Question:** install a test runner now, or leave it until something is stable enough to test?
+
+**Options:** assembled under the rubric like every other package question — verified live, never named from memory — with the runner that suits the chosen framework as the recommendation. The two answers differ in what they cost now: a runner installed at bootstrap is configuration to carry through every early change, and one added later is a small setup on a codebase that has stopped moving.
+
+**Recommendation:** leave it until later for a first internal app; install now where the app carries money, permissions, or a rule that is expensive to get wrong.
+
+---
+
 # Defaults that are not asked
 
 Show them all at once after the last question. Invite the user to name anything they want changed — do not walk through them one by one.
@@ -155,10 +176,7 @@ Show them all at once after the last question. Invite the user to name anything 
 | Item | Default | Why |
 |---|---|---|
 | Language | TypeScript | Without types, a wrong data shape only surfaces at runtime |
-| Styling | Tailwind | Keeps values in tokens rather than raw numbers in components |
-| Migrations | Files in the repo, run by GitHub Actions | Schema gets versioned in git |
 | Branches | `main` for production, `development` for work | A session never works on `main` |
 | Package manager | npm | No strong reason for anything else at this size |
-| Testing | Not installed at bootstrap | Installed once something is stable enough to test, not before |
 | UI language | Inferred from the user's story | What the app writes on screen. Shown as a concrete value, together with date format and thousands and decimal separators, so a later session cannot re-derive it wrongly |
 | Code language | English, in every app | Comments, identifiers, file names, URL routes, API endpoint paths, and every database name. Never inferred from the UI language — written as its own line so "UI in X" is not read as permission for identifiers in X. Enum values are the one judgement call, decided per enum |

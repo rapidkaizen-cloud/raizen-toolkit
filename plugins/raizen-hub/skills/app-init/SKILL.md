@@ -67,7 +67,7 @@ One thing must never be skipped no matter how short the interview runs: **the re
 
 Stop when the six points are answered, not when the questions run out.
 
-## Step 2 — Stack, seven questions
+## Step 2 — Stack, eight questions
 
 Read `references/stack-questions.md` and `references/stack-consequences.md`, then run them.
 
@@ -77,7 +77,7 @@ Questions travel in batches — up to four per AskUserQuestion call, several cal
 
 **Options marked Pioneer are offered, with their cost written into the option itself.** A Pioneer answer — chosen from the list or typed in — puts the bootstrap under the Pioneer path in `stack-questions.md`: name what does not exist, research-assembled stack questions, a minimal scaffold, `Platform: <name> (pioneer)` in Section 1, and a Proof profile proven before it is written.
 
-After the seven questions, show the **list of defaults that were not asked** and invite the user to name anything they want changed. Do not walk through them one by one.
+After the eight questions, show the **derived lines** — each with its value and the answer it came from — then the **list of defaults that were not asked** and invite the user to name anything they want changed. Do not walk through them one by one.
 
 Locale — UI language, date format, thousands and decimal separators — is inferred from the user's story and shown in that same block as concrete values. Do not make it a separate question, and do not leave it unwritten: a session opened months later in a different language cannot re-derive it.
 
