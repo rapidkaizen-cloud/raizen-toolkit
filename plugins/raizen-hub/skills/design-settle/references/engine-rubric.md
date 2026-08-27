@@ -13,7 +13,7 @@ Engine dialogs have no slot in the interview. They fire only when triggered, and
 | **The user or the PRD names the need** — "a trend chart", an import feature implying a dropzone, a schedule board | Through the overview multiselect below, riding the stack batch that carries the library question — stack decisions read side by side; the chosen engine is installed before the canvas is drawn |
 | **The product draft needs it** — the canvas's full-product draft (`canvas.md`, assumptions block) implies a job no installed engine covers | Alongside the install approval, before drawing |
 | **It emerges mid-drawing** | The frame is drawn with the no-engine rendering and tagged as a proposal; the judgement settles it — an approved adoption installs the engine and redraws that frame in the next round |
-| **The audit indicts an installed engine** (`design-rework` only) | In the interview, priced like the library question — *keep* first, and keep stays the recommendation unless the indictment stands |
+| **The audit indicts an installed engine** (`design-settle` only) | In the interview, priced like the library question — *keep* first, and keep stays the recommendation unless the indictment stands |
 
 An engine **already installed is already decided**: it is part of the declared stack, the canvas draws with it, and no dialog re-opens it without an audit indictment. Swapping or dropping one is always an explicit dialog, never a side effect of approving pixels.
 

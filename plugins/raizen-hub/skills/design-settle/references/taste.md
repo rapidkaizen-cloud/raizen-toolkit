@@ -18,11 +18,11 @@ Three answers, settled before the first file is written:
 
 Maximalism and refined minimalism both work. **What is judged is intentionality, not intensity** — and a direction that would describe any internal tool is not a direction.
 
-These three ride the design plan `design-init` Step 3 narrates. The tone chosen is what the assumption lines and the judgement are read against afterwards.
+These three ride the design plan the design plan step narrates. The tone chosen is what the assumption lines and the judgement are read against afterwards.
 
 ## Colour
 
-- **Accents: none, one, or two.** This counts **hues, not values** — each hue still gets its full ramp, and how deep that ramp runs is `design-init` Step 6's rule, not a taste decision. The colour strategy and the ramp derivation are `impeccable`'s (`reference/colorize.md`, and the strategy list in `reference/new-work.md`).
+- **Accents: none, one, or two.** This counts **hues, not values** — each hue still gets its full ramp, and how deep that ramp runs is `F6`'s rule, not a taste decision. The colour strategy and the ramp derivation are `impeccable`'s (`reference/colorize.md`, and the strategy list in `reference/new-work.md`).
 - **Colour is derived, not invented.** Where a brand palette exists, everything else is derived from it in `oklch`. Where none exists, the accent is chosen first and the neutrals are pulled toward it. A hex picked from nothing is the one that will not sit with the rest.
 - **A dominant colour with a sharp accent beats an even, timid palette.** A palette where every role carries equal weight has made no decision.
 
