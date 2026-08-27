@@ -49,8 +49,8 @@ Applies to every session. **Two paths, and only two:**
 
 | Skill | When | Its limit |
 |---|---|---|
-| `design-init` | Section 5 is empty **and** no component exists yet | Writes from the user's answers, before a single line of CSS exists |
-| `design-rework` | Section 5 is filled, **or** it is empty while components already exist | Writes only what the user approved one by one — an old-versus-new diff, or a ratification of what the audit measured |
+| `design-settle` | Section 5 is empty **and** no component exists yet | Writes from the user's answers, before a single line of CSS exists |
+| `design-settle` | Section 5 is filled, **or** it is empty while components already exist | Writes only what the user approved one by one — an old-versus-new diff, or a ratification of what the audit measured |
 
 What is protected is not who types it, but the **derivation direction user → PRD → CSS**. If a session that just wrote a deviation were allowed to edit Section 5, it could legalize its own deviation and the direction collapses. Both skills above follow that direction: both start from a user decision rather than from code, and both stop for approval before writing.
 

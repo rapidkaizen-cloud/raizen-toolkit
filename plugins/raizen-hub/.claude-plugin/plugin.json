@@ -1,6 +1,14 @@
 {
   "name": "raizen-hub",
-  "version": "0.40.0",
-  "description": "Bootstrap a new internal app, decide its logic layer and visual direction, or rework any of the three on an app already running: domain and stack interview, PRD.md, scaffold, git init, logic-layer libraries, design system, design canvas, keep-first rework of rules and stack.",
-  "keywords": ["bootstrap", "prd", "scaffold", "logic-layer", "design-system", "rework", "brownfield"]
+  "version": "0.41.0",
+  "description": "Settle an internal app one layer at a time, whether the layer is empty or already running: app-settle for the domain, stack and PRD.md; logic-settle for the layer between database and UI; design-settle for the visual direction and PRD Section 5. Each audits what exists first, so one skill covers bootstrap, documentation and rework alike.",
+  "keywords": [
+    "bootstrap",
+    "prd",
+    "scaffold",
+    "logic-layer",
+    "design-system",
+    "rework",
+    "brownfield"
+  ]
 }

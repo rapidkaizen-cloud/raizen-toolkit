@@ -87,10 +87,10 @@ What this section looks like when the PRD is first written, and which skill fill
 
 | Written by | Section 5 at the end of that session | Filled later by |
 |---|---|---|
-| bootstrap mode | Present, every line `[needs verification]` | `design-init`, from the user's answers, before any component exists |
-| document mode | **Absent entirely**, with one line naming the skill that fills it | `design-rework`, on its ratify path |
+| bootstrap mode | Present, every line `[needs verification]` | `design-settle`, from the user's answers, before any component exists |
+| document mode | **Absent entirely**, with one line naming the skill that fills it | `design-settle`, on its ratify path |
 
-The difference is not cosmetic. `[needs verification]` says *a decision is pending in a repo where nothing has been built yet*; an absent section says *this app has UI that nobody ever decided on*. `ui-build` routes on exactly that distinction, and a documented repo handed `[needs verification]` would be sent to `design-init`, which refuses a repo that already has components.
+The difference is not cosmetic. `[needs verification]` says *a decision is pending in a repo where nothing has been built yet*; an absent section says *this app has UI that nobody ever decided on*. `ui-build` routes on exactly that distinction, and a documented repo handed `[needs verification]` would be sent to `design-settle`, which refuses a repo that already has components.
 
 Either way: do not fill it from your own taste, and do not copy it from another skill.
 
@@ -102,9 +102,9 @@ Sub-sections: Visual Direction (2–3 sentences + the **signature**, the single 
 
 ### A legacy shape: an app that adopted its library whole
 
-An older Section 5 may hold only the decision itself: a library and version adopted unmodified, an icon family, and three prohibitions — no theme file, no custom token, no override. That shape came from a `design-init` mode since retired; no new Section 5 is written this way, but the shape stays normative where it already exists, and the sub-sections above have nothing to hold there — the spacing scale in use is the library's.
+An older Section 5 may hold only the decision itself: a library and version adopted unmodified, an icon family, and three prohibitions — no theme file, no custom token, no override. That shape came from a `design-settle` mode since retired; no new Section 5 is written this way, but the shape stays normative where it already exists, and the sub-sections above have nothing to hold there — the spacing scale in use is the library's.
 
-Two things hold for it. It is **never `[needs verification]`**: the decision was made, and marking it pending stops `ui-build` on a question the user already answered. And it is **not a weaker Section 5** — stating no rule that an override could cite, it refuses overrides more completely than a filled one does. Reworking such an app is `design-rework`, which reads this shape on its audit.
+Two things hold for it. It is **never `[needs verification]`**: the decision was made, and marking it pending stops `ui-build` on a question the user already answered. And it is **not a weaker Section 5** — stating no rule that an override could cite, it refuses overrides more completely than a filled one does. Reworking such an app is `design-settle`, which reads this shape on its audit.
 
 Everything else on this page still binds, including that changing it later is the user's decision and never an agent's.
 

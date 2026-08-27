@@ -53,7 +53,7 @@ The design flow loads two taste materials, and both are Required: `impeccable` (
 
 `impeccable` carries what `taste.md` and `ui-build` used to state themselves — the ban list, the display faces that mean the model stopped looking, the calibration against the three clusters AI interfaces converge on, the Operate register, and 59 deterministic detector rules. Only `reference/craft-floor.md`, `reference/operate.md`, and `new-work.md`'s two calibrations are read; `shape.md` and the rest of `new-work.md` are a competing pipeline and are not. `canvas.md` draws that boundary.
 
-**Required means the flow is designed around them, not that it stops without them.** Absent, a session says which one is missing and what could not be checked, then carries on. Two notes on the install: its hook fires on every UI edit in every repo and asks to be told what was fixed — `design-rework` Steps 5 and 7 deliberately defer that to Step 8; and its skill description overlaps `design-rework`'s, so invoke the flow as `/design-rework` rather than typing "redesign my app".
+**Required means the flow is designed around them, not that it stops without them.** Absent, a session says which one is missing and what could not be checked, then carries on. Two notes on the install: its hook fires on every UI edit in every repo and asks to be told what was fixed — `design-settle` Steps 5 and 7 deliberately defer that to Step 8; and its skill description overlaps `design-settle`'s, so invoke the flow as `/design-settle` rather than typing "redesign my app".
 
 ### Why each one
 
@@ -61,8 +61,8 @@ The design flow loads two taste materials, and both are Required: `impeccable` (
 
 | Skill | Used for |
 |---|---|
-| `raizen-hub` | The four skills themselves — `app-settle`, `logic-settle`, `design-init`, `design-rework` |
-| `impeccable` | The craft rules `taste.md` and `ui-build` no longer state, plus the detector `design-rework` reports at Step 1 and Step 8. Loaded before the taste batch and before any component is written |
+| `raizen-hub` | The three skills themselves — `app-settle`, `logic-settle`, `design-settle` |
+| `impeccable` | The craft rules `taste.md` and `ui-build` no longer state, plus the detector `design-settle` reports at Step 1 and Step 8. Loaded before the taste batch and before any component is written |
 | `frontend-design` | Divergence guidance against templated defaults, loaded alongside `impeccable` — never a house style |
 
 **Recommended** — nothing errors without them:
@@ -95,7 +95,7 @@ In a fresh session, run `/plugin` and confirm `raizen-hub` is active.
 
 Skills added with `npx skills add` never appear there. Check `~/.claude/skills/` for them, or run `/reload-skills` and look for `supabase-postgres-best-practices` by name.
 
-`design-init`'s taste interview runs on the model's own design knowledge and needs no WebSearch. The stack questions (component library, engines) still verify their candidates live — a session without WebSearch says what could not be verified instead of recalling it from memory as fact.
+`design-settle`'s taste interview runs on the model's own design knowledge and needs no WebSearch. The stack questions (component library, engines) still verify their candidates live — a session without WebSearch says what could not be verified instead of recalling it from memory as fact.
 
 ## Use
 
@@ -109,7 +109,7 @@ Then in the next sessions, inside the app repo just created:
 
 ```
 /raizen-hub:logic-settle
-/raizen-hub:design-init
+/raizen-hub:design-settle
 ```
 
 For an app that is **already running**, the entry point is `app-settle`, which reads the directory and runs in one of three modes. No `PRD.md` yet → document mode: it writes the PRD the repo never had and changes nothing about the app. `PRD.md` present → rework mode: it re-opens the app-level decisions — business rules, scope, stack — with keep always option one and every change carrying its cost and a recommendation. Then the two narrower rework skills follow:
@@ -117,7 +117,7 @@ For an app that is **already running**, the entry point is `app-settle`, which r
 ```
 /raizen-hub:app-settle
 /raizen-hub:logic-settle
-/raizen-hub:design-rework
+/raizen-hub:design-settle
 ```
 
 To rework only the look or the logic layer of an app that already has a PRD, the last two are run on their own.
@@ -126,11 +126,10 @@ To rework only the look or the logic layer of an app that already has a PRD, the
 |---|---|---|
 | `app-settle` | Any directory — the mode is read from what it holds | Empty → `PRD.md` with an empty Section 5, scaffold, `git init`. Code without a PRD → document mode. Code with a PRD → rework mode |
 | `logic-settle` | `PRD.md` present | Audits what the repo runs today — empty on a new repo — then Section 1 records cache, validator, dates, errors, jobs, attribution: keep, adopt, or replace per need, often installing nothing. One skill for both cases; the audit is what tells them apart |
-| `design-init` | Section 5 empty **and** no component exists | Section 5 filled, styling tokens, every page promoted from the ratified canvas on contract fixtures |
-| `design-rework` | Section 5 filled, **or** empty while components exist | Section 5 changed or ratified line by line, plus every component updated in one pass |
+| `design-settle` | `PRD.md` present | Audits the styling the code uses today — empty on a repo with no UI — then Section 5 filled or changed line by line, styling tokens written, and every page promoted from the ratified canvas. One skill for all three cases; the audit is what tells them apart |
 | `build-flow` | Section 5 filled | `QUEUE.md` on first run, then usable pages — a UI batch built against contracts first, wired in a backend batch after |
 
-The two columns that matter are on the `design-init` and `design-rework` rows. An app with components but no Section 5 — which is exactly what `app-settle`'s document mode hands over — belongs to `design-rework`, not `design-init`: its values are measured and put to the user for ratification rather than overwritten by an interview that has never seen them.
+An app with components but no Section 5 — which is exactly what `app-settle`'s document mode hands over — takes `design-settle`'s **ratify** path: its values are measured and put to the user for ratification rather than adopted silently. The routing table at the top of that skill is what picks the path, and the audit is what feeds it.
 
 `build-flow` is the only one with no command to type — it lives in `raizen-norms` and loads in every working session, which is the point: the build order has to be known before anyone thinks to ask for it.
 

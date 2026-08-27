@@ -117,7 +117,7 @@ Locale — UI language, date format, thousands and decimal separators — is inf
 
 Write UI language and code language as **two separate lines**, never one. Code language is English in every app and is not inferred from anything. Merged into one line it reads as permission for both, and the app ends up with identifiers, file names, and view names in the UI language. That has already happened once.
 
-Component library is not asked here — it belongs to `design-init`, which asks it once the app's real needs are readable and which also installs it.
+Component library is not asked here — it belongs to `design-settle`, which asks it once the app's real needs are readable and which also installs it.
 
 ## N3 — Summary, then STOP
 
@@ -135,7 +135,7 @@ Rejected stack alternatives go into **Section 1 Non-goals**, one line per altern
 
 Section 5 is filled with `[needs verification]` throughout. Bootstrap is not the moment to decide typography, and Section 5 is never written by an agent on its own initiative.
 
-`design-init` fills it, in a separate session after bootstrap. Until then the `ui-build` skill blocks writing any component — so an empty Section 5 is not a gaping hole, it is a gate that has not been opened.
+`design-settle` fills it, in a separate session after bootstrap. Until then the `ui-build` skill blocks writing any component — so an empty Section 5 is not a gaping hole, it is a gate that has not been opened.
 
 ## N5 — Scaffold
 
@@ -185,14 +185,14 @@ Two sessions remain before pages can be built, in this order:
   /logic-settle — the logic layer: cache, validation, dates, logging,
                  scheduling, audit trail. Scored from the PRD; often
                  installs nothing.
-  /design-init — the visual direction: a short taste interview, then every
+  /design-settle — the visual direction: a short taste interview, then every
                  page drawn on a canvas, judged, and promoted.
-Until design-init is done, any session will refuse to write UI components.
+Until design-settle is done, any session will refuse to write UI components.
 ```
 
-`logic-settle` runs first because the pages `design-init` promotes carry loading, empty, and failed states — and those belong to the data layer.
+`logic-settle` runs first because the pages `design-settle` promotes carry loading, empty, and failed states — and those belong to the data layer.
 
-Do not run it now. Bootstrap ends with zero dependencies installed, and `design-init` needs to install several.
+Do not run it now. Bootstrap ends with zero dependencies installed, and `design-settle` needs to install several.
 
 Once the visual direction is agreed, building runs under the `build-flow` skill, which writes `QUEUE.md` on its first run. A new app builds its screens first — a UI batch, every page against a hand-written contract with no database behind it — then wires them in a backend batch. `build-flow` owns both, and the size of one session is set there.
 
@@ -274,7 +274,7 @@ Follow `references/prd-structure.md` beside this skill. The same six sections, w
 | Section | Difference from bootstrap mode |
 |---|---|
 | 1 | The stack is recorded **as found**, not as chosen. Each line reads as a measurement. No rejected alternatives — nobody rejected anything, because nobody chose from a list. The Surface row and Proof profile are still written, measured rather than chosen |
-| 5 | **Left absent entirely**, with one line saying `design-rework` fills it. Not a template full of `[needs verification]`: an absent section and an unverified one are read differently by `ui-build`, and only one of them is honest here |
+| 5 | **Left absent entirely**, with one line saying `design-settle` fills it. Not a template full of `[needs verification]`: an absent section and an unverified one are read differently by `ui-build`, and only one of them is honest here |
 | 6 | Prohibitions the user states now. A prohibition inferred from code is not a prohibition, it is a habit |
 
 Then:
@@ -314,7 +314,7 @@ Written    : PRD.md · CLAUDE.md [new / N rows added] · .claude/settings.json
 Not read   : [rows still unreadable]
 Unverified : [what carries [needs verification]]
 Findings   : [concrete stack findings only — or "none"]
-Section 5  : absent — design-rework fills it
+Section 5  : absent — design-settle fills it
 ```
 
 Then the next sessions, in this order:
@@ -323,7 +323,7 @@ Then the next sessions, in this order:
 /logic-settle   — the logic layer as it stands: what is installed, what is
                   missing, what is the wrong tool. Keeping everything is a
                   valid ending.
-/design-rework  — audits the styling, then puts every visual decision to you:
+/design-settle  — audits the styling, then puts every visual decision to you:
                   ratify what the code already does, or decide otherwise.
 /app-settle     — again, once this PRD exists: rework mode re-opens business
                   rules, scope, or stack when the app itself must change.
@@ -360,7 +360,7 @@ Then state what you took from it in one paragraph and **stop for correction**:
 
 > *"I read this as [what hurts] driving changes to [which decisions], with [what] staying as it is."*
 
-The reading names which PRD sections the rework touches. A rework that turns out to touch only Section 5 is not this skill — close and point to `design-rework` directly.
+The reading names which PRD sections the rework touches. A rework that turns out to touch only Section 5 is not this skill — close and point to `design-settle` directly.
 
 ## R3 — Decisions, keep-first
 
@@ -414,19 +414,19 @@ Kept       : [N decisions — walked and unasked]
 Drift      : [resolved which way, or "none found"]
 Execution  : [what build sessions must now do — or "none"]
 Unverified : [what carries [needs verification]]
-Section 5  : untouched — design-rework owns it
+Section 5  : untouched — design-settle owns it
 ```
 
 Then the sessions that execute the decisions, in this order:
 
 ```
 /logic-settle   — only when a logic-layer choice changed or the rework opened one
-/design-rework  — when the look changes: audits the styling, rewrites Section 5,
+/design-settle  — when the look changes: audits the styling, rewrites Section 5,
                   proves it on the design canvas
 build sessions  — build-flow queues and executes the rest, page by page;
                   schema and constraint changes go through db-ops on the way
 ```
 
-`logic-settle` before `design-rework`, for the same reason as always: the promoted pages carry loading, empty, and failed states, and those belong to the data layer.
+`logic-settle` before `design-settle`, for the same reason as always: the promoted pages carry loading, empty, and failed states, and those belong to the data layer.
 
 Do not run any of them now. Close by reminding the user that the commit waits for their word.

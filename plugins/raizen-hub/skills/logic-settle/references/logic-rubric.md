@@ -31,7 +31,7 @@ Before any candidate is offered, answer in order — stop at the first rung that
 
 This ladder is why the "none" option appears in every question, and why it is the recommendation — and therefore listed first — whenever the ladder stops before the library rung. A library must beat the platform, not merely equal it; when one does, that library is the recommendation and takes the first slot, with "none" still in the list.
 
-A candidate that belongs to a library family names that family in its consequence — the family is part of what is being chosen, because an installed member shifts later recommendations (`design-init` reads PRD Section 1). The ecosystem question is never asked on its own; it is decided inside the need's question, in the open.
+A candidate that belongs to a library family names that family in its consequence — the family is part of what is being chosen, because an installed member shifts later recommendations (`design-settle` reads PRD Section 1). The ecosystem question is never asked on its own; it is decided inside the need's question, in the open.
 
 ---
 

@@ -180,7 +180,7 @@ PRD Section 5's Page Composition holds the screen archetype table. **The page be
 
 **No archetype fits → that is the first of the bundled questions below**, put to the user in the same single turn: either a new archetype enters Section 5 — a user decision, like any Section 5 change — or the page is reshaped to fit an existing one. A bespoke layout invented silently is how the archetype table dies one page at a time.
 
-**Section 5 has no archetype table** (the app predates the rule) → the proposal still runs on the two derived lists alone, and the missing table is reported as a finding pointing at `design-rework`, which retrofits it.
+**Section 5 has no archetype table** (the app predates the rule) → the proposal still runs on the two derived lists alone, and the missing table is reported as a finding pointing at `design-settle`, which retrofits it.
 
 ### The two lists are derived, never invented
 
@@ -194,7 +194,7 @@ Unchecking one of these means changing the PRD. That is a separate decision and 
 
 Pre-selected is the whole point of the step. The old bias builds the minimum that passes; this one proposes the full page and lets the user cut it down. Thin pages are born of the first bias, and no later check recovers what was never proposed.
 
-Where the PRD runs out, optional candidates come first from the components of the page's archetype in Section 5, then from live product-type research — what a mature product of this kind conventionally carries; the same floor `design-init`'s canvas draft already assumed (`canvas.md`).
+Where the PRD runs out, optional candidates come first from the components of the page's archetype in Section 5, then from live product-type research — what a mature product of this kind conventionally carries; the same floor `design-settle`'s canvas draft already assumed (`canvas.md`).
 
 **Both lists coming out short is an answer, not a problem.** Login screens and small settings pages are legitimately quiet, and padding them is worse than leaving them alone. The lists are derived, so a sparse page produces sparse lists by itself — no separate judgement about whether emptiness is acceptable, and none invented on the user's behalf.
 
@@ -247,7 +247,7 @@ Backend batch
 
 Backend first **inside one page**, never backend first across the whole app. Splitting the batches does not contradict that: a UI batch has no backend to put anywhere, and a backend batch still builds each page's backend before its wiring.
 
-**A page with a frozen canvas reference retires it here.** `src/design-canvas/<page>` still standing means the design session ratified this page and left the file for comparison. After the wiring walk passes at both widths, put the real page beside its canvas file, fix what silently diverged, then **propose the deletion at a chat stop** — naming the page and inviting the side-by-side look — and delete only on the user's granted confirmation (`design-init`'s canvas lifecycle: never delete unasked). Kept past its verified page the file becomes a second source of values, which is why the proposal is made in this same session. The last page file to go takes the canvas index route and CSS with it.
+**A page with a frozen canvas reference retires it here.** `src/design-canvas/<page>` still standing means the design session ratified this page and left the file for comparison. After the wiring walk passes at both widths, put the real page beside its canvas file, fix what silently diverged, then **propose the deletion at a chat stop** — naming the page and inviting the side-by-side look — and delete only on the user's granted confirmation (`design-settle`'s canvas lifecycle: never delete unasked). Kept past its verified page the file becomes a second source of values, which is why the proposal is made in this same session. The last page file to go takes the canvas index route and CSS with it.
 
 The six fixture cases and the rules governing contract files are in `references/contract.md`. Read it in a UI batch; a backend batch does not need it.
 

@@ -4,7 +4,7 @@ Questions travel in batches — up to four per AskUserQuestion call, several cal
 
 **The stack is not locked.** Options are assembled from the rubric below, filtered by the needs readable from the user's story. Two things are locked. **Options marked Not ready are not offered** — a bootstrap that produces a repo without config and without migrations is a failed bootstrap, and a junior developer will not know what is missing. And **a Pioneer option never hides its cost**: it is offered, but its description opens with what does not exist for it yet, and choosing it routes the bootstrap through the Pioneer path below.
 
-Component library is **not asked here** — it is the library question in `design-init`, once the app's real needs are readable from the PRD, and `design-init` also installs it.
+Component library is **not asked here** — it is the library question in `design-settle`, once the app's real needs are readable from the PRD, and `design-settle` also installs it.
 
 ---
 
@@ -86,7 +86,7 @@ Multi-role internal dashboard · single-role internal tool · public site · CLI
 
 **Consequence:** multi-role means RLS and an access matrix from day one — slower in week one, but adding it later means touching every query again.
 
-This answer filters every question after it. No UI → Section 5 is deleted entirely, questions 2, 3, and 4 are skipped, `design-init` does not apply.
+This answer filters every question after it. No UI → Section 5 is deleted entirely, questions 2, 3, and 4 are skipped, `design-settle` does not apply.
 
 ## 2. Platform
 
@@ -157,13 +157,13 @@ These have an answer the moment an earlier question is answered, so asking them 
 | Language | The platform answer | **The chosen platform's own toolchain language — read from its row in the Platform rubric above, never from a list kept here.** A second list in this block is a list that drifts from the rubric the moment a platform is added to it. On a native platform TypeScript is not a weak default, it is a category error |
 | Package manager | The platform answer | **Whatever that platform's toolchain ships.** Where it ships exactly one, there is nothing to choose and the line says so. Where the ecosystem has real competitors — Node is the case that matters — name them under `library-rubric.md`'s method, verified live rather than recalled, because that field changes faster than this file does |
 | Migrations | The database answer | Supabase → the Supabase CLI's migration files, run by GitHub Actions. Another database → that engine's own migration tool, named |
-| Styling | **Not decided here.** The component library decides it, and that question belongs to `design-init` | Reported there, not here — see `design-init` Step 3 |
+| Styling | **Not decided here.** The component library decides it, and that question belongs to `design-settle` | Reported there, not here — see `design-settle` Step 3 |
 
 Both rows are **rules, not tables**, and deliberately so: the Platform rubric above is the single list, it carries a documented path for adding a stack, and anything restated here would go stale without anyone noticing. Where a platform's row does not make its toolchain obvious, that is a gap in the rubric to report — not a reason to invent the mapping in this block.
 
 **Language carries one real choice, and only on the web.** A small surface — a landing page, a single-form tool — can ship plain JavaScript, and the derived line says so rather than hiding it: report TypeScript with the reason, and take a plain-JavaScript answer without argument where the app's Kind makes it reasonable. What is never reported is a language the platform cannot run.
 
-Styling is named in this block only to say where it is decided. Writing a styling default at bootstrap and letting `design-init` pick a library that contradicts it is how a repo ends up with a decision nobody made: shadcn requires Tailwind, MUI brings its own, and the library answer arrives later.
+Styling is named in this block only to say where it is decided. Writing a styling default at bootstrap and letting `design-settle` pick a library that contradicts it is how a repo ends up with a decision nobody made: shadcn requires Tailwind, MUI brings its own, and the library answer arrives later.
 
 ## 8. Testing at bootstrap
 
