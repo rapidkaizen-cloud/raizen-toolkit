@@ -154,10 +154,12 @@ These have an answer the moment an earlier question is answered, so asking them 
 
 | Item | Derived from | Value |
 |---|---|---|
-| Language | The platform answer | Web, Tauri, or Electron → TypeScript. iOS → Swift. Android → Kotlin. A cross-platform native shell → whatever its own toolchain speaks — Dart for Flutter, TypeScript for React Native, Kotlin for KMP. **Never named as TypeScript before the platform is known**; on a native platform TypeScript is not a default, it is a category error |
-| Package manager | The platform answer | Node-based platforms → npm, with pnpm and bun as the named alternatives the user may take on the spot. Android → Gradle. iOS → Swift Package Manager. Flutter → pub. On every native platform the toolchain ships one and there is nothing to choose |
+| Language | The platform answer | **The chosen platform's own toolchain language — read from its row in the Platform rubric above, never from a list kept here.** A second list in this block is a list that drifts from the rubric the moment a platform is added to it. On a native platform TypeScript is not a weak default, it is a category error |
+| Package manager | The platform answer | **Whatever that platform's toolchain ships.** Where it ships exactly one, there is nothing to choose and the line says so. Where the ecosystem has real competitors — Node is the case that matters — name them under `library-rubric.md`'s method, verified live rather than recalled, because that field changes faster than this file does |
 | Migrations | The database answer | Supabase → the Supabase CLI's migration files, run by GitHub Actions. Another database → that engine's own migration tool, named |
 | Styling | **Not decided here.** The component library decides it, and that question belongs to `design-init` | Reported there, not here — see `design-init` Step 3 |
+
+Both rows are **rules, not tables**, and deliberately so: the Platform rubric above is the single list, it carries a documented path for adding a stack, and anything restated here would go stale without anyone noticing. Where a platform's row does not make its toolchain obvious, that is a gap in the rubric to report — not a reason to invent the mapping in this block.
 
 **Language carries one real choice, and only on the web.** A small surface — a landing page, a single-form tool — can ship plain JavaScript, and the derived line says so rather than hiding it: report TypeScript with the reason, and take a plain-JavaScript answer without argument where the app's Kind makes it reasonable. What is never reported is a language the platform cannot run.
 
