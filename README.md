@@ -75,7 +75,7 @@ The design flow loads two taste materials, and both are Required: `impeccable` (
 
 `npx skills add supabase/agent-skills` installs a second skill alongside it, `supabase`, covering Auth, Storage, and `@supabase/ssr`. Nothing in this repo refers to that one; it rides along.
 
-**Do not install the `supabase` plugin** from `claude-plugins-official`. It carries a Supabase MCP server of its own, duplicating whatever already reaches that database — the user-scope server (`claude mcp add -s user`, the one-liner in `plugins/raizen-hub/templates/README.md`), or a claude.ai connector where one is connected. Two servers means duplicated tools and an ambiguous pick at every call. The skill route above gives the same Postgres guidance without adding a server.
+**Do not install the `supabase` plugin** from `claude-plugins-official`. It carries a Supabase MCP server of its own, duplicating whatever already reaches that database — the user-scope server (`claude mcp add -s user`, the one-liner printed by `app-settle` at N6), or a claude.ai connector where one is connected. Two servers means duplicated tools and an ambiguous pick at every call. The skill route above gives the same Postgres guidance without adding a server.
 
 Connectors themselves — database, host, anything the stack uses — are **recommended where they exist and never required**. `app-settle` says so for the database and `build-flow` for the host, each at the point where it matters, derived from the stack the user actually chose. No list of connectors is kept here on purpose: the catalogue changes, this file would not, and a stale promise costs more than none.
 
@@ -137,7 +137,7 @@ An app with components but no Section 5 — which is exactly what `app-settle`'s
 
 Change files in this repo, commit, then on the user's machine run `/plugin update raizen-norms@raizen`. Installed from a ZIP → replace the folder's contents and run `/reload-plugins`; `/plugin update` pulls nothing from a `directory` source.
 
-An app bootstrapped from the current template needs no touching. Its `CLAUDE.md` holds only that app's locale, stack, and the two gates that must survive the plugin being absent — norms are never copied there.
+An app bootstrapped by the current `app-settle` needs no touching. Its `CLAUDE.md` holds only that app's locale, stack, and the two gates that must survive the plugin being absent — norms are never copied there. **Nothing is scaffolded from a template**: every file a new repo gets is written for that repo's own answers, so there is no stock file to go stale between releases.
 
 An app bootstrapped **before** a norm moved into the plugin still carries the old copy, and the two contradict each other without failing. The `SessionStart` hook detects this and names the sections to delete at the start of that repo's next session. Delete them once and the repo is done — sections retired so far:
 

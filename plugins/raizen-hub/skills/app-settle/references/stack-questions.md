@@ -78,7 +78,7 @@ Without item two, do not raise the status. A repo that looks protected while it 
 5. **`PRD.md` Section 1 records `Platform: <name> (pioneer)`** — the marker later skills read to know this repo runs ahead of the toolkit's templates.
 6. **The Proof profile is proven, not asserted.** Its shape lives in `prd-structure.md`. Before a line is written into Section 1, execute it once — run the run command, take one capture. A line that was not executed is written `[needs verification]`, and the skills that read it report instead of claim.
 
-**After one real repo ships on a Pioneer platform, offer the promotion**: a row in the rubric above, through the two-item checklist — the migration or deploy path written out, and the guard line stated. That is what turns Pioneer into Ready, and no file is copied into `templates/` to do it.
+**After one real repo ships on a Pioneer platform, offer the promotion**: a row in the rubric above, through the two-item checklist — the migration or deploy path written out, and the guard line stated. That is what turns Pioneer into Ready. No file is copied anywhere to do it — this plugin ships no templates for any stack.
 
 ---
 

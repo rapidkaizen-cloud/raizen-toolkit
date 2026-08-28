@@ -16,7 +16,7 @@ Do not add a skill to `raizen-norms` without naming what would be lost if it did
 
 Hooks block without being able to ask. A new hook must first be tested against the cases that **should pass**, not only the ones that must be refused. A hook that is too strict costs more than no hook.
 
-Do not put secrets in `templates/`. This repo is private, but what it copies lands in app repos that may not be.
+This plugin ships no templates. What a new app repo gets is written by `app-settle` for that repo's answers — never a stock file, which is a decision taken before its question was asked and goes stale without anyone re-reading it. Whatever a skill here tells a session to write lands in app repos that may not be private, so a rule that produces a file must never produce a secret in it: name the variable, never its value.
 
 ## Git
 

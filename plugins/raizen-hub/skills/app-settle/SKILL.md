@@ -139,15 +139,34 @@ Section 5 is filled with `[needs verification]` throughout. Bootstrap is not the
 
 ## N5 — Scaffold
 
-Copy the two files in `${CLAUDE_PLUGIN_ROOT}/templates/` and fill their placeholders from the N2 answers. **Nothing else is copied, on any platform** — no hosting config, no CI workflow, no database config is scaffolded for any stack. What the chosen stack needs beyond these two, this step **writes**, from the rows below. A Pioneer platform therefore receives the same two files as a Ready one, plus its own init command.
+**Nothing is copied — every file here is written for the answers this session got.** This plugin ships no template folder, deliberately: a stock file is a decision taken before its question was asked, and it goes stale without anyone re-reading it. A Pioneer platform therefore receives exactly what a Ready one does, plus its own init command.
 
 | File | Contents |
 |---|---|
-| `CLAUDE.md` | From `templates/CLAUDE.md.tpl` — **thin**. This app's locale, stack, and the two gates that must survive the plugin being absent. Norms are printed by `raizen-norms` every session; do not copy any of them into it. **Keep the prose in English, exactly as the template writes it — do not translate it.** Only the placeholder values follow the app's locale. A translated file is invisible to the stale-section detector in `session_norms.py`, which matches the template's own English phrasing, so translating it silently disables the one mechanism that migrates this file later |
-| `.claude/settings.json` | Enables `raizen-norms` from the marketplace |
+| `CLAUDE.md` | **Thin**, written to the shape below |
+| `.claude/settings.json` | `{"enabledPlugins": {"raizen-norms@raizen": true}}` — that key and nothing else; a repo that already has the file keeps the rest of it |
 | Host rewrite rule | Only when the framework is a **static SPA**, and written for the host chosen at Question 4 — `vercel.json` on Vercel, `netlify.toml` on Netlify, a `try_files` line on an own server. Next.js, Nuxt, SvelteKit, and Astro carry their own server layer — do not write one |
 | CI workflow | Only when the user asks for migrations through CI at N6. Written for the host and migration tool actually chosen — there is no stock workflow to copy, and one written for the wrong runner is worse than none |
 | `supabase/config.toml` | Only when the database is Supabase. **Written here, not copied** — one line, `project_id = "<ref>"`, an identifier and not a secret. This value is what the `guard_project_ref` hook pins every Supabase MCP call to, so a repo that skips it is a repo the guard stays silent in. **Which ref goes in** follows Question 7 — staging exists → the staging project, never production |
+
+### The shape of `CLAUDE.md`
+
+**English prose, whatever the app's UI language** — only the values follow the app's locale. A file written in another language is invisible to the stale-section detector in `session_norms.py`, which matches English phrases from retired sections, so translating it disables the one mechanism that migrates this file later.
+
+Six parts, nothing else. A rule that would hold in another app belongs in the plugin, never here.
+
+| Part | Holds |
+|---|---|
+| Opening line | That this file holds what is true of this app alone, and that norms are printed by `raizen-norms` every session — a norm living in two places is a norm that will disagree with itself |
+| `## Locale` | On screen · in the code · dates · numbers. The first two rows stay separate: a UI language is never a licence for an identifier, a route, or a database name written in it |
+| `## Stack` | One row per N2 answer — platform, frontend, hosting, database, auth, component library, environments, migrations — and the line stating this app's stack is locked, re-opened only through `app-settle` rework mode |
+| `## Ground truth` | Code and the live database are ground truth for **facts**; `PRD.md` for **intent and prohibitions** |
+| `## Gate` | Section 5 empty or `[needs verification]` → `ui-build` refuses to write components, and `design-settle` is what sets it |
+| `## Rules for this app only` | Empty at bootstrap. Only rules that would be wrong in another app |
+
+**The last two parts stay in the file on purpose** — they must still bite in a session where the plugin is absent, disabled, or failed to start. Everything else there is a value, not a rule.
+
+**Name the skills that exist today, never from memory of an older flow.** The retired template this replaced still pointed at `/app-init` and `/design-rework` long after both were folded into `app-settle` and `design-settle`: a file nobody re-reads is a file that goes stale in silence, and that is the whole reason this is a shape rather than a template.
 
 **No `.mcp.json` is written — ever.** Database MCP servers are connected **user scope**, once per machine, never per repo; for Supabase the exact `claude mcp add -s user` one-liner is printed at Step 6. A repo-level server config would only duplicate what the machine already has. Project pinning does not come from server config: `supabase/config.toml` declares the repo's project, and the `guard_project_ref` hook in `raizen-norms` blocks any Supabase MCP call aimed at a different one. A database whose official MCP server exists follows the same pattern; a database with no server → say so rather than leaving the gap silent.
 
@@ -279,7 +298,7 @@ Follow `references/prd-structure.md` beside this skill. The same six sections, w
 
 Then:
 
-- **`CLAUDE.md`** from `${CLAUDE_PLUGIN_ROOT}/templates/CLAUDE.md.tpl`, filled from D1. Keep the prose in English exactly as the template writes it — only placeholder values follow the app's locale. A translated file is invisible to the stale-section detector in `session_norms.py`, which matches the template's own English phrasing. Already present → **do not overwrite.** Add only the missing rows and report what was left alone.
+- **`CLAUDE.md`** written to the shape in N5, filled from D1. English prose whatever the app's UI language — a translated file is invisible to the stale-section detector in `session_norms.py`. Already present → **do not overwrite.** Add only the missing rows and report what was left alone.
 - **`.claude/settings.json`** enabling `raizen-norms`. Already present with other plugins → add the key, keep the rest.
 - **`supabase/config.toml`** only when the database is Supabase **and** the file is missing. One line, `project_id = "<ref>"` — an identifier, not a secret — which the `guard_project_ref` hook pins every Supabase MCP call to. Present already → leave it alone.
 
