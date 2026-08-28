@@ -327,6 +327,8 @@ Then the next sessions, in this order:
                   ratify what the code already does, or decide otherwise.
 /app-settle     — again, once this PRD exists: rework mode re-opens business
                   rules, scope, or stack when the app itself must change.
+/app-conform    — only where the Findings row above is not "none": it changes
+                  the existing code to match the rules, one commit per finding.
 Until Section 5 exists, any session will refuse to write a UI component.
 ```
 
