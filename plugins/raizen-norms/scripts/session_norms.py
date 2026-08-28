@@ -77,6 +77,17 @@ waiting on the user.
 `main` never receives a direct commit. A push or a pull request is never started on
 your own initiative - the user asks for it.
 
+DECISIONS
+An answer carrying two or more decisions, options, or recommendations closes with one
+table: question - options - recommendation. An answer that only explains, with nothing
+for anyone to choose, does not get one; a table where no decision is due only teaches
+the reader to skip past every other table.
+The recommendation column is never left out, and it names its trade-off. A
+recommendation without a trade-off has not finished being thought through - no solution
+is free, and where the price has not been found, say that it has not been found.
+This comes before the work, while it can still change the plan. The block below is the
+report afterwards, and neither replaces the other.
+
 CLOSING THE SESSION
 Report per scope item: what changed, or "UNTOUCHED". A scope item that did not change
 is flagged. Then this block, always, even where the answer is "none":
