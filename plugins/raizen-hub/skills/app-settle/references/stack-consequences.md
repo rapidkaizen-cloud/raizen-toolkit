@@ -34,4 +34,4 @@ The consequence that changes other rules: **schema gets git, data does not.** A 
 
 ## Static SPA on any host
 
-Needs every path rewritten to `index.html`, otherwise refreshing on a nested route returns a 404. This is what `vercel.json` in the templates holds.
+Needs every path rewritten to `index.html`, otherwise refreshing on a nested route returns a 404. Nothing here scaffolds it — the session writes it for the host chosen at question 4: a `rewrites` entry in `vercel.json`, a `redirects` line in `netlify.toml`, or one `try_files $uri /index.html;` on an own server.

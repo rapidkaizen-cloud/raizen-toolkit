@@ -2,6 +2,8 @@
 
 Questions travel in batches — up to four per AskUserQuestion call, several calls per turn; a question whose options or recommendation read an earlier answer (the *Fits when* column is the map) goes in a later call than its source. Answers are reconciled after every batch: two that collide go back as one question naming both, never resolved silently. Each: **more than two options** · one marked recommendation · a one-sentence consequence. Answers outside the options are accepted.
 
+**Two questions carry no recommendation, and say so where they are asked** — hosting and which database. Both are vendor picks this toolkit no longer has a stake in, and a recommendation there is a default wearing a question's clothes. Every other question keeps one.
+
 **The stack is not locked.** Options are assembled from the rubric below, filtered by the needs readable from the user's story. Two things are locked. **Options marked Not ready are not offered** — a bootstrap that produces a repo without config and without migrations is a failed bootstrap, and a junior developer will not know what is missing. And **a Pioneer option never hides its cost**: it is offered, but its description opens with what does not exist for it yet, and choosing it routes the bootstrap through the Pioneer path below.
 
 Component library is **not asked here** — it is the library question in `design-settle`, once the app's real needs are readable from the PRD, and `design-settle` also installs it.
@@ -10,7 +12,9 @@ Component library is **not asked here** — it is the library question in `desig
 
 # Rubric — what may be offered
 
-The **Status** column decides how a row is offered. **Ready** appears as a normal option. **Pioneer** appears as an option whose description opens with its cost — no templates, a research-driven bootstrap — governed by the Pioneer path below. **Not ready** is not offered at all.
+The **Status** column decides how a row is offered. **Ready** appears as a normal option. **Pioneer** appears as an option whose description opens with its cost — no rubric row to read from, a research-driven bootstrap — governed by the Pioneer path below. **Not ready** is not offered at all.
+
+**Status does not measure templates.** This toolkit scaffolds no hosting, CI, or database config for any stack — only `CLAUDE.md` and `.claude/settings.json`, which every repo gets whatever it runs on. What a row's status measures is whether its **guard coverage is stated** and its **migration or deploy path is named**. A row that cannot say what protects a destructive statement is not Ready however many repos already run on it.
 
 ## Platform
 
@@ -29,7 +33,7 @@ Mobile and desktop frameworks are platforms, not framework rows — they are dec
 | Choice | Fits when | Status |
 |---|---|---|
 | Vite + React, static SPA | App behind a login, SEO is not at stake | **Ready** |
-| Next.js | There are public pages that must be indexed, or a server layer is needed | **Ready** — Vercel auto-detects it, `vercel.json` is unused |
+| Next.js | There are public pages that must be indexed, or a server layer is needed | **Ready** — carries its own server layer, so no rewrite rule is needed wherever it is hosted |
 | Nuxt | Same, team already writes Vue | **Ready** |
 | SvelteKit | Same, the bundle must stay as small as possible | **Ready** |
 | Astro | The content is mostly static | **Ready** |
@@ -38,41 +42,43 @@ Mobile and desktop frameworks are platforms, not framework rows — they are dec
 
 | Choice | Fits when | Status |
 |---|---|---|
-| Vercel | Default for everything above | **Ready** |
-| Cloudflare Workers | Team already uses it, or cost is the deciding factor | **Not ready** — needs `wrangler.toml`; see `stack-consequences.md` on build-time `VITE_*` |
-| Netlify | Team already uses it | **Not ready** — needs `netlify.toml` |
+| Vercel | Nothing pulls elsewhere, and per-scope environment variables are wanted without configuring them | **Ready** — one rewrite rule for a static SPA, written by the session |
+| Own server (VPS) | The app must sit beside services already running there, or the server is already paid for | **Ready** — web server config and a deploy path, both written by the session |
+| Cloudflare Workers | Cost is the deciding factor, or the team already uses it | **Ready** — needs `wrangler.toml`; see `stack-consequences.md` on build-time `VITE_*` |
+| Netlify | Team already uses it | **Ready** — needs `netlify.toml` |
+
+**None of these is a default.** What separates them is operational rather than technical: who already pays for what, and what else has to run beside the app.
 
 ## Database
 
 | Choice | Fits when | Status |
 |---|---|---|
 | Supabase | Database and login are both needed | **Ready** |
-| Another Postgres (Neon, RDS) | The database already exists, or auth lives in another system | **Not ready** — needs a replacement migration workflow; the destructive guard still applies |
+| Another Postgres (Neon, RDS) | The database already exists, or auth lives in another system | **Ready** — its own migration tool is named in the derived block, and auth is answered separately; the destructive guard still applies |
 | No database | Nothing persists between sessions | **Ready** |
 | Non-SQL (Firebase, MongoDB) | The data genuinely is not relational | **Not ready** — and **the destructive guard does not cover it**; see the rule below |
 
 ## Adding a new stack to this rubric
 
-**Not ready** becomes **Ready** only once three things exist:
+**Not ready** becomes **Ready** only once two things exist:
 
-1. Its config template in `templates/`, already tried in one real repo.
-2. Its migration or deploy template, if that choice needs one.
-3. **A statement of guard coverage.** The `raizen-norms` destructive guard works by matching SQL syntax in the `query`, `command`, `sql`, and `statement` fields. It survives any SQL database. It **does not apply** to non-SQL storage, and a hook that finds nothing does not report — it simply stays quiet. A stack outside the guard's reach must bring a replacement, or make the guard announce its own inapplicability once at session start.
+1. **A named migration or deploy path**, written out once in a real repo so the session that chooses this row knows what it has to produce. Not a template — this toolkit ships none — a description precise enough to follow.
+2. **A statement of guard coverage.** The `raizen-norms` destructive guard works by matching SQL syntax in the `query`, `command`, `sql`, and `statement` fields. It survives any SQL database. It **does not apply** to non-SQL storage, and a hook that finds nothing does not report — it simply stays quiet. A stack outside the guard's reach must bring a replacement, or make the guard announce its own inapplicability once at session start.
 
-Without item three, do not raise the status. A repo that looks protected while it is not is more dangerous than one that is plainly unprotected.
+Without item two, do not raise the status. A repo that looks protected while it is not is more dangerous than one that is plainly unprotected.
 
 ## The Pioneer path
 
 **Pioneer** exists so that a platform without templates is a visible choice with a stated cost, instead of undefined behavior when the user names one anyway. It governs any Pioneer answer to question 2, and any platform typed in from outside the list. Six rules:
 
-1. **Name what does not exist, first.** Three lines before anything continues: no config template in `templates/`, no deploy or build template, and the guard line below. One confirmation; declining routes back to a Ready platform.
+1. **Name what does not exist, first.** Three lines before anything continues: no rubric row to read the options from, no repo that has run this platform under these plugins, and the guard line below. One confirmation; declining routes back to a Ready platform. The absence of templates is **not** one of the lines — no platform has any, so naming it here would price a cost every choice carries.
 2. **Storage decides the guard line.** The destructive guard matches SQL syntax, so any SQL store — Supabase, SQLite, Room, Drift — stays covered wherever the app runs. A non-SQL store is not covered, and the existing non-SQL rule applies unchanged: say so before question 6 is answered.
 3. **The stack questions the tables cannot serve are assembled by live research.** Framework or language where the platform leaves a choice, distribution instead of hosting, project layout — real current options, more than two, one marked recommendation, a one-sentence consequence each. Never from memory alone.
-4. **The scaffold is minimal and honest.** The platform's own init command, `.claude/settings.json`, and `CLAUDE.md` — nothing copied from `templates/` that assumes web. What a Ready platform would have received from templates is listed in the close block as work still owed.
+4. **The scaffold is minimal and honest.** The platform's own init command, `.claude/settings.json`, and `CLAUDE.md` — the same two files a Ready platform receives, since nothing else is scaffolded for anyone. What is still owed is the platform's own config and deploy path, listed in the close block.
 5. **`PRD.md` Section 1 records `Platform: <name> (pioneer)`** — the marker later skills read to know this repo runs ahead of the toolkit's templates.
 6. **The Proof profile is proven, not asserted.** Its shape lives in `prd-structure.md`. Before a line is written into Section 1, execute it once — run the run command, take one capture. A line that was not executed is written `[needs verification]`, and the skills that read it report instead of claim.
 
-**After one real repo ships on a Pioneer platform, offer the promotion**: its config into `templates/`, through the three-item checklist above — that checklist is unchanged, and it is exactly what turns Pioneer into Ready.
+**After one real repo ships on a Pioneer platform, offer the promotion**: a row in the rubric above, through the two-item checklist — the migration or deploy path written out, and the guard line stated. That is what turns Pioneer into Ready, and no file is copied into `templates/` to do it.
 
 ---
 
@@ -110,13 +116,13 @@ The story says nothing about public pages or SEO → do not recommend Next.js. A
 
 ## 4. Frontend hosting
 
-**Options from:** the Hosting table, rows marked **Ready**.
+**Options from:** the Hosting table, rows marked **Ready**, plus anything the user already runs.
 
-**Recommendation:** Vercel.
+**No recommendation.** This is the one question where the toolkit has nothing to add: every row costs the same in scaffolding — nothing — and what decides it lives outside the code. Ask what already runs where, and what is already paid for. Presenting a default here would answer a question only the user can.
 
-**Consequence:** Vercel separates environment variables per scope by default, so per-PR previews point at the staging database with no extra configuration.
+**Consequence, per option, in one sentence each** — Vercel separates environment variables per scope with no configuration; a VPS puts the app beside whatever else runs there and makes those variables and the TLS certificate the user's to manage; Cloudflare and Netlify each need their own config file, named in the Hosting table.
 
-The user names Cloudflare or Netlify → accept it, but say plainly that this repo carries no template for it, and name what they will have to set up themselves.
+Whatever is chosen, say plainly what the session will have to write for it, and write it.
 
 ## 5. Database and login needed?
 
@@ -130,11 +136,11 @@ Neither → skip questions 6 and 7.
 
 ## 6. Which database
 
-**Options from:** the Database table, rows marked **Ready**.
+**Options from:** the Database table, rows marked **Ready**, plus anything the user already runs.
 
-**Recommendation:** Supabase.
+**No recommendation**, for the same reason as question 4: what decides it is what already exists and what is already paid for.
 
-**Consequence:** Supabase brings Postgres, auth, and RLS at once — and RLS becomes where access rules live, rather than application code.
+**Consequence, per option, in one sentence each** — Supabase brings Postgres, auth, and RLS together, so access rules live in the database rather than in application code; another Postgres means auth is a separate choice and the migration tool is that engine's own; no database means nothing survives between sessions.
 
 The user names a non-SQL store → **say first that the destructive guard does not cover it**, then ask whether to proceed. This is not refusing their choice; it is making sure they know what they lose.
 
@@ -144,7 +150,7 @@ Production only · production + staging · production + staging + local for deve
 
 **Recommendation:** production + staging if the data is operational; production only if the app is still an experiment.
 
-**Consequence:** staging means a second database project and a second monthly bill, traded for per-PR previews that never touch real data. Adding local means the Supabase CLI and Docker must run on every machine.
+**Consequence:** staging means a second database project and a second monthly bill, traded for per-PR previews that never touch real data. Adding local means that engine's own local stack on every machine — for Supabase, its CLI and Docker.
 
 ---
 
@@ -156,7 +162,7 @@ These have an answer the moment an earlier question is answered, so asking them 
 |---|---|---|
 | Language | The platform answer | **The chosen platform's own toolchain language — read from its row in the Platform rubric above, never from a list kept here.** A second list in this block is a list that drifts from the rubric the moment a platform is added to it. On a native platform TypeScript is not a weak default, it is a category error |
 | Package manager | The platform answer | **Whatever that platform's toolchain ships.** Where it ships exactly one, there is nothing to choose and the line says so. Where the ecosystem has real competitors — Node is the case that matters — name them under `library-rubric.md`'s method, verified live rather than recalled, because that field changes faster than this file does |
-| Migrations | The database answer | Supabase → the Supabase CLI's migration files, run by GitHub Actions. Another database → that engine's own migration tool, named |
+| Migrations | The database answer | Supabase → the Supabase CLI's migration files. Another database → that engine's own migration tool, named. **How they run is not derived** — by hand from a machine, or through CI the user sets up; nothing here scaffolds a runner, so a repo with no CI is the normal state, not a gap |
 | Styling | **Not decided here.** The component library decides it, and that question belongs to `design-settle` | Reported there, not here — see `design-settle` Step 3 |
 
 Both rows are **rules, not tables**, and deliberately so: the Platform rubric above is the single list, it carries a documented path for adding a stack, and anything restated here would go stale without anyone noticing. Where a platform's row does not make its toolchain obvious, that is a gap in the rubric to report — not a reason to invent the mapping in this block.

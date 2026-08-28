@@ -345,7 +345,7 @@ of the repository itself says something is waiting on the user.
 
 ## 9 — Before the app has ever shipped
 
-**This section applies only while `main` carries nothing beyond the bootstrap commit.** In this toolkit `main` is production — `migrate-production.yml` triggers on a push to it — so anything merged there means the app has shipped at least once. Once it has, this section stops applying entirely and deploy is ordinary business.
+**This section applies only while `main` carries nothing beyond the bootstrap commit.** In these repos `main` is production, which is why no session commits to it directly — so anything merged there means the app has shipped at least once. Once it has, this section stops applying entirely and deploy is ordinary business.
 
 **`QUEUE.md` is not the test for that.** A running app growing a new feature also has a queue. The queue answers *what is not built yet*; `main` answers *has this app ever shipped*. Going quiet about deploy for an app that is already live would be nonsense.
 
@@ -353,7 +353,7 @@ Inside a never-shipped app, the queue decides one thing only — whether it is t
 
 | `QUEUE.md` | What to do about deploy |
 |---|---|
-| Still has lines | **Do not raise deploy, hosting, CI, or production environment variables on your own initiative.** None of them is needed to build a page and use it locally, and an app whose RLS has not been role-tested does not belong on the internet. Bootstrap already wrote `vercel.json` and the CI workflows — inert files, simply not wired up yet |
+| Still has lines | **Do not raise deploy, hosting, CI, or production environment variables on your own initiative.** None of them is needed to build a page and use it locally, and an app whose RLS has not been role-tested does not belong on the internet. Bootstrap wrote none of them — no host config, no CI workflow — so there is nothing half-wired waiting either |
 | Gone | **Raise it, once.** Every page is usable, so this is the launch moment and the only time this skill brings deploy up by itself: name what is still unwired — hosting connection, production environment variables, CI migrations. Add that the host chosen at bootstrap may have a Claude connector automating the first of those — derived from the stack actually chosen, and worded as *may*, never as a promise that one exists. A shortcut offered, not a step required: deploying by hand works and nothing here waits on it. Then leave it to the user |
 
 **The user asks to deploy → do it.** No lecture and no gate. One sentence naming any table whose RLS has not been role-tested, and only if such a table exists. RLS leaks are silent; nothing else will surface them.

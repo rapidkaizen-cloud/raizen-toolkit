@@ -139,15 +139,15 @@ Section 5 is filled with `[needs verification]` throughout. Bootstrap is not the
 
 ## N5 — Scaffold
 
-Copy from `${CLAUDE_PLUGIN_ROOT}/templates/`, fill the placeholders from the N2 answers, drop what is unused. **On a Pioneer platform this table does not apply**: the scaffold follows the Pioneer path in `stack-questions.md` — the platform's own init command plus `.claude/settings.json` and `CLAUDE.md`, nothing that assumes web; `supabase/config.toml` still lands when the database is Supabase, whatever the platform.
+Copy the two files in `${CLAUDE_PLUGIN_ROOT}/templates/` and fill their placeholders from the N2 answers. **Nothing else is copied, on any platform** — no hosting config, no CI workflow, no database config is scaffolded for any stack. What the chosen stack needs beyond these two, this step **writes**, from the rows below. A Pioneer platform therefore receives the same two files as a Ready one, plus its own init command.
 
 | File | Contents |
 |---|---|
 | `CLAUDE.md` | From `templates/CLAUDE.md.tpl` — **thin**. This app's locale, stack, and the two gates that must survive the plugin being absent. Norms are printed by `raizen-norms` every session; do not copy any of them into it. **Keep the prose in English, exactly as the template writes it — do not translate it.** Only the placeholder values follow the app's locale. A translated file is invisible to the stale-section detector in `session_norms.py`, which matches the template's own English phrasing, so translating it silently disables the one mechanism that migrates this file later |
 | `.claude/settings.json` | Enables `raizen-norms` from the marketplace |
-| `vercel.json` | Only when hosting is Vercel **and** the framework is a static SPA. Next.js, Nuxt, SvelteKit, and Astro are auto-detected — do not create it |
-| `.github/workflows/` | Only when migrations run through CI |
-| `supabase/config.toml` | Only when the database is Supabase. Carries the one placeholder, `{{SUPABASE_PROJECT_REF}}` — an identifier, not a secret. This value is what the `guard_project_ref` hook pins every Supabase MCP call to. **Which ref goes in** follows Question 7 — staging exists → the staging project, never production |
+| Host rewrite rule | Only when the framework is a **static SPA**, and written for the host chosen at Question 4 — `vercel.json` on Vercel, `netlify.toml` on Netlify, a `try_files` line on an own server. Next.js, Nuxt, SvelteKit, and Astro carry their own server layer — do not write one |
+| CI workflow | Only when the user asks for migrations through CI at N6. Written for the host and migration tool actually chosen — there is no stock workflow to copy, and one written for the wrong runner is worse than none |
+| `supabase/config.toml` | Only when the database is Supabase. **Written here, not copied** — one line, `project_id = "<ref>"`, an identifier and not a secret. This value is what the `guard_project_ref` hook pins every Supabase MCP call to, so a repo that skips it is a repo the guard stays silent in. **Which ref goes in** follows Question 7 — staging exists → the staging project, never production |
 
 **No `.mcp.json` is written — ever.** Database MCP servers are connected **user scope**, once per machine, never per repo; for Supabase the exact `claude mcp add -s user` one-liner is printed at Step 6. A repo-level server config would only duplicate what the machine already has. Project pinning does not come from server config: `supabase/config.toml` declares the repo's project, and the `guard_project_ref` hook in `raizen-norms` blocks any Supabase MCP call aimed at a different one. A database whose official MCP server exists follows the same pattern; a database with no server → say so rather than leaving the gap silent.
 
@@ -176,7 +176,7 @@ The URL must stay **bare** — Supabase's OAuth rejects any query string, so add
 
 Both are once per machine and account, never per repo, so a machine already set up needs nothing beyond the ref. For another database, whatever its own equivalent is. Pointed at production because there is no staging → say that plainly, since from then on every guarded destructive statement lands on live data. **No token is written into any file**; asking for one would be wrong. Name the variables, never their values. Without a live database there is no migration and no role test, so not a single page can be built.
 
-Hosting connection, production environment variables, and the CI migration workflow are **not mentioned here**. None of them is needed to build a page locally, and naming them at bootstrap turns infrastructure into homework before anything exists to deploy. `vercel.json` and `.github/workflows/` are still written — inert files cost nothing — they are simply not wired up yet. The `build-flow` skill raises them once the app is ready to ship.
+Hosting connection, production environment variables, and the CI migration workflow are **not mentioned here**. None of them is needed to build a page locally, and naming them at bootstrap turns infrastructure into homework before anything exists to deploy. Nothing was scaffolded for any of them either — this toolkit writes no hosting or CI file at bootstrap, so there is no inert config sitting in the repo to explain. The `build-flow` skill raises them once the app is ready to ship.
 
 Then offer the next steps, unless the product has no UI:
 
@@ -281,9 +281,9 @@ Then:
 
 - **`CLAUDE.md`** from `${CLAUDE_PLUGIN_ROOT}/templates/CLAUDE.md.tpl`, filled from D1. Keep the prose in English exactly as the template writes it — only placeholder values follow the app's locale. A translated file is invisible to the stale-section detector in `session_norms.py`, which matches the template's own English phrasing. Already present → **do not overwrite.** Add only the missing rows and report what was left alone.
 - **`.claude/settings.json`** enabling `raizen-norms`. Already present with other plugins → add the key, keep the rest.
-- **`supabase/config.toml`** only when the database is Supabase **and** the file is missing. It carries `{{SUPABASE_PROJECT_REF}}` — an identifier, not a secret — which the `guard_project_ref` hook pins every Supabase MCP call to. Present already → leave it alone.
+- **`supabase/config.toml`** only when the database is Supabase **and** the file is missing. One line, `project_id = "<ref>"` — an identifier, not a secret — which the `guard_project_ref` hook pins every Supabase MCP call to. Present already → leave it alone.
 
-**No scaffold, no `git init` on an existing repo, no `vercel.json`, no CI workflow.** Those belong to bootstrap mode on an empty directory. Here they either already exist or the user decided against them, and either way it is not this session's business.
+**No scaffold, no `git init` on an existing repo, no host config, no CI workflow.** Here they either already exist or the user decided against them, and either way it is not this session's business.
 
 `git add` the new files. **Stop before committing.**
 
