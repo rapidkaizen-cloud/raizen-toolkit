@@ -44,6 +44,8 @@ Section 5 filled → this gate is done. Later pages need no further visual appro
 
 Before building any UI element, **check the components already in the repo**. A required step, not a suggestion. Name which existing component covers each element in scope.
 
+**Read the ratified set first, do not search for it.** List the components folder, then read the file holding the shared set the last design pass promoted — one listing, one read, never a grep. A session hunting for `Pagination` does not find a `Pager`, and writes it a second time under a second name; a year of that leaves three components doing one job and no way to tell which one a page should have used.
+
 The order of sources is fixed:
 
 1. **A component already in the repo.**
@@ -51,14 +53,17 @@ The order of sources is fixed:
 
    **List the library's component directory before deciding it lacks something.** One command against `node_modules/<library>/dist/components` or the equivalent for that package. "It probably doesn't have one" without listing is not a reason to build.
 
-3. **A new component** — allowed when the library ships nothing for the case, or ships something that genuinely does not fit. Two conditions:
+3. **A new component** — allowed when the library ships nothing for the case, or ships something that genuinely does not fit. Three conditions:
 
    - **Say what fails.** Which component was examined, and what it cannot do here. "Not quite the right look" is not it.
    - **Follow the library's idiom.** Same compound shape (`Root` / `Trigger` / `Item`), same prop names (`isDisabled`, `isActive`, `size`), same source of styling. A hand-written component with its own conventions forces every later reader to hold two systems in their head at once.
+   - **Say which rule it holds.** A shared component exists for one of two reasons, and its header names which: it freezes a PRD Section 5 line so no call site can break it — a status marker deriving its icon from its tone cannot pair a warning colour with a success icon — or it is the second appearance of a pattern. Neither → it is page code, not a shared component. Leave it in the page.
 
 Creating a new component → say why the existing one is not enough. **Looking slightly different is NOT a reason** — that is what props are for.
 
 A visual pattern appearing a second time → **extract it into a component, do not copy it.** The second appearance is the trigger to extract, not permission to duplicate.
+
+**Where it lands is fixed too.** The components holding Section 5 rules live in **one file**, so a later session reads the whole set in a single pass — that file is what the ratified-set rule above points at. A component carrying a flow of its own — a wizard, the app shell — gets its own file. Split the shared file by group, never one file per component, and only once it has stopped being readable in one pass.
 
 Where the app has a `/styleguide` route, the extracted component is **added to it in the same turn** — that route is the one place all components are seen side by side, and a shared component missing from it is a finding.
 
