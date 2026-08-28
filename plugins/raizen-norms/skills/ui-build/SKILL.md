@@ -1,13 +1,13 @@
 ---
 name: ui-build
-description: Rules for building or changing any UI — component reuse, loading and error states, the craft material loaded before any component is written, and the gate that blocks UI work while the design system is still undecided. Use before creating a new component, editing an existing one, or touching styling values.
+description: Rules for building or changing any UI — component reuse, loading and error states, the interface copy every component ships with, the craft material loaded before any component is written, and the gate that blocks UI work while the design system is still undecided. Use before creating a new component, editing an existing one, touching styling values, or writing any user-facing text.
 ---
 
 # ui-build — touching the UI
 
 ## The material — loaded before the first component
 
-**Two skills carry the craft rules this file no longer states, and both are read before any component is written**: `impeccable` (its `reference/craft-floor.md`, and `reference/operate.md` for an operational app) and `frontend-design`. **Where PRD Section 1's Surface is iOS or Android, `reference/ios.md` or `reference/android.md` is read with them** — both on an adaptive surface — because the platform's navigation, type scale, insets, and touch-target floor live only there. Icons, tokens and raw values, library defaults, supporting text, wording, and accessibility all live there now.
+**Two skills carry the craft rules this file no longer states, and both are read before any component is written**: `impeccable` (its `reference/craft-floor.md`, and `reference/operate.md` for an operational app) and `frontend-design`. **Where PRD Section 1's Surface is iOS or Android, `reference/ios.md` or `reference/android.md` is read with them** — both on an adaptive surface — because the platform's navigation, type scale, insets, and touch-target floor live only there. Icons, tokens and raw values, library defaults, and accessibility all live there now.
 
 Both are **Required** installs for a repo under these skills, and the load is not optional for a session that touches UI — a component written before they are read is written out of the defaults they exist to close.
 
@@ -72,7 +72,7 @@ Fixed norms. Not asked per app, not restated in the PRD.
 
 Spinners are only for things with no shape: a button mid-submit, and work running in the background.
 
-**Empty → explain why it is empty and what comes next.** "No data yet" is not enough. Empty because of a filter is a different thing from empty because nothing has ever existed, and the two need different sentences.
+**Empty → explain why it is empty and what comes next.** "No data yet" is not enough. Empty because of a filter is a different thing from empty because nothing has ever existed, and the two need different sentences, and each ends on one action that fills it. A filtered empty state names the query and offers the exit — `No results for "quarterly". Clear filters`. Never park persistent information in an empty state: it disappears the moment content exists.
 
 **Failed → put the message next to its cause.** Form errors appear under their field, not stacked at the top of the page. Errors with no field of their own (failed to load, failed to save) appear where the content should have been, together with a way to retry.
 
@@ -84,3 +84,52 @@ Each of these states is written **together with its component**, not as follow-u
 
 Those two are the ones usually skipped and the ones that catch the most. A component that has only ever met three tidy rows has not met the data it will live with. The cases and the rules around them are in `references/contract.md` of `build-flow`.
 
+
+## Writing
+
+Fixed norms. Not asked per app, not restated in the PRD, because none of them varies between internal apps. Copy is written **together with its component**, the same way the three states above are.
+
+Clear and brief beats clever; consistent beats varied. The best error message is the interaction redesigned so the error cannot happen.
+
+**Read the copy already on screen before writing more.** The product has one voice and its existing copy establishes it; a local edit does not get to invent a new one. One term per concept — `Archive` in the menu is not `Move to storage` in the toast.
+
+**Voice is fixed, tone moves with the stakes:**
+
+| Context | Tone |
+|---|---|
+| Success, onboarding, empty states | Warm, may be light |
+| Routine actions, settings | Neutral, minimal |
+| Errors, destructive confirmations | Calm, plain, zero playfulness |
+| Data loss, security | Serious, explicit |
+
+**Address the reader directly.** Instructional copy says "you", never "the user". In an error, drop the actor rather than reaching for "we" — `Unable to load content`, not `We're having trouble loading this content`, which reads as deflection. Possessives sparingly: `Favorites` beats `Your favorites`. Hold one perspective for a whole flow.
+
+**Plain words, and no word that does no work.** No idioms, no colloquialisms, no humour that does not survive translation. Skip unnecessary gender. Match the input device: `tap` on touch, `click` with a pointer, `select` where both are possible.
+
+**Never assemble a sentence from fragments around a variable.** `"You have " + n + " new messages"` breaks the moment word order changes. Use a full templated string with proper pluralization.
+
+**A button label starts with a verb naming the action** — `Send`, `Save draft`, `Delete project`. Never `OK`, `Let's go`, or a bare `Yes` / `No` on a consequential action. **A confirmation button repeats the consequence**, so the dialog is answerable without reading the body: `Delete this project?` offers `Delete project` and `Cancel`.
+
+**One vocabulary for a whole flow.** `Get started` to enter, `Continue` or `Next` — pick one — to advance, `Done` to finish. Alternating synonyms makes the user wonder whether the buttons do different things.
+
+**Link text names its destination.** Screen-reader users navigate by a list of the page's links, so it has to make sense out of context: `Read the billing docs`, never `Click here`. A bare `Learn more` breaks as soon as two appear on one page — suffix each one: `Learn more about exports`.
+
+**Sentence case, one policy per element type.** Sentence case is the default: calmer, no per-word rules to remember, and it localizes cleanly. `Save Changes` beside `Discard changes` reads as sloppiness.
+
+**A toggle is labelled for its ON state.** `Send read receipts` lets the user infer the off state; the negative turns the toggle into a double negative. Link straight to a referenced setting rather than describing the path to it.
+
+**An error is an instruction, and it belongs beside the field that failed.** No blame, no `Oops`, no exclamation marks. Phrase the hint positively, and show it before the mistake rather than after:
+
+| Refused | Written |
+|---|---|
+| `That password is too short` | `Choose a password with at least 8 characters` |
+| `Invalid name` | `Use only letters for your name` |
+| `Oops! Something went wrong.` | `Unable to save. Check your connection and try again.` |
+
+The same error firing over and over is a finding about the interaction, not a rewording job.
+
+**A placeholder is an example, not a label.** It shows the expected format — `name@example.com`, `DD/MM/YYYY` — and vanishes on input, so every field keeps a visible label of its own.
+
+These bind new code. Copy already in the repo that breaks one of them is a **finding** reported to the user, the same standing as a raw hex value — never rewritten in place inside another session's work. **Source is enough to check every rule here**; none of them needs a rendered page.
+
+Adapted from the `better-writing` skill of [jakubkrehel/skills](https://github.com/jakubkrehel/skills) (MIT).

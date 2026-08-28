@@ -98,4 +98,4 @@ The slots are product-shaped, so off the web the vocabulary substitutes before a
 
 Loading, empty state, and error placement are **not decisions here**. All three are fixed norms in the `ui-build` skill of `raizen-norms`, identical across every internal app.
 
-Wording rules are fixed there too — sentence case, active voice, no exclamation marks, rationale kept off the screen. They do not vary per app, so asking them spends context on an answer that is already known.
+Wording is fixed there too, in that skill’s `Writing` section — voice and tone, button and link text, capitalization, toggle labels, error phrasing. None of it varies per app, so asking spends context on an answer that is already known. **How long a label or a supporting sentence may run is capped nowhere**: it stays the designer’s, judged on the canvas, and `build-flow` prints each page’s longest and median so drift is visible without a ceiling to write up to.

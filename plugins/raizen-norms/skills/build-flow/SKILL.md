@@ -237,11 +237,27 @@ UI batch
   contract → fixtures, six cases → page + loading, empty, failed states
     → walk all six cases in a browser
     → screenshot the bulk case at both Section 4 widths, judged beside the densest page
+    → count the page copy and print the three lines
 
 Backend batch
   PRD rules → migration + RLS → role test → regenerate types
     → query returning the contract type → wire the page → walk the flow in a browser
 ```
+
+**The page copy is counted, never capped.** Group every string the page renders into three classes and print one line each, longest and median, in words. A UI batch only; a backend batch renders no copy.
+
+- `Action` — buttons, links, menu and tab items. Text naming what happens.
+- `Name` — field labels, column headers, badges, headings. Text naming a thing.
+- `Explanation` — helper text, empty and error states, tooltips, dialog bodies, toasts.
+
+```
+/visits
+Action       longest 2 · median 2
+Name         longest 4 · median 2
+Explanation  longest 8 · median 6
+```
+
+**No limit is set here and no count is a finding.** A stated ceiling is written up to rather than down from, which is why there is none. The three classes are printed apart because they go long in three different ways — an `Action` grows a qualifier, a `Name` grows a modifier, an `Explanation` grows a paragraph — and one combined average hides all three. A median far below its longest is one string that ran away; a median close to it is the whole page drifting. The fix comes from `ui-build`’s `Writing` rules; this step only puts the drift where the user can see it before the page is accepted. **The strings are in the source, so the count needs no browser** and survives a session with no capture tooling.
 
 **The walk ends with proof, not recall.** Screenshot the `bulk` case at the two widths Section 4 fixes, with the browser tooling available to the session, and put the desktop shot beside the app's densest page at the same width — the density questions in Section 4 are answered from those screenshots, never from memory of how the page looked while building it. Dead space taller than one table row at the desktop width → fix the page in this session; it is not a finding to record and move past. No browser tooling in the session → say so and walk the widths live at the dev server instead — the one thing forbidden is claiming the widths were judged when neither happened.
 
