@@ -27,14 +27,9 @@ Section 5 still `[needs verification]`, empty, or absent → **STOP.** Do not wr
 
 **And the canvas folder belongs to the design session that is building it.** A session doing any other work does not edit, move, or delete anything under that canvas folder — a problem found there is a finding reported to the user, never fixed in place. The canvas is a ratified reference; an edit from outside the design flow silently changes what the user approved.
 
-Which skill to point at is decided by **whether this repo already has UI components**, not by the state of Section 5 alone:
+**Point the user at `design-settle`**, whatever state the repo is in. It is one skill with one entry point, and its own audit decides the path: no UI at all → it interviews the direction from nothing, then proves it as every page of the app on a staged canvas; components already there → it measures what those components actually use and puts each value to the user to ratify or overrule. Do not name a path, and do not decide one here — a session that announces which path it will take has pre-empted an audit it has not run.
 
-| UI components in the repo | Point the user to |
-|---|---|
-| None | `design-settle` — it interviews the visual direction from nothing, then proves it as every page of the app on a staged canvas |
-| Some already exist | `design-settle` — it measures what those components actually use and puts each value to the user to ratify or overrule |
-
-Getting that wrong sends the user in a circle: `design-settle` refuses a repo that already has components, so naming it there produces a second STOP and no way forward. A repo in that state usually arrived through `app-settle`'s document mode, which writes the PRD for an existing app and deliberately leaves Section 5 unwritten.
+A repo with components but no Section 5 usually arrived through `app-settle`'s document mode, which writes the PRD for an existing app and deliberately leaves Section 5 unwritten. That is the ratify path's normal input, not an error.
 
 Why stop rather than choose for them: every rule below — tokens, components, contrast — measures the code against Section 5. Without Section 5 there is nothing to measure against, and a session that decides for itself is setting the app's norms through the back door.
 
@@ -44,7 +39,7 @@ Section 5 filled → this gate is done. Later pages need no further visual appro
 
 Before building any UI element, **check the components already in the repo**. A required step, not a suggestion. Name which existing component covers each element in scope.
 
-**Read the ratified set first, do not search for it.** List the components folder, then read the file holding the shared set the last design pass promoted — one listing, one read, never a grep. A session hunting for `Pagination` does not find a `Pager`, and writes it a second time under a second name; a year of that leaves three components doing one job and no way to tell which one a page should have used.
+**Read the ratified set first, do not search for it.** List the components folder, then read the file holding the app's shared set — one listing, one read, never a grep. A repo whose Section 5 was ratified rather than redrawn has never promoted a canvas, so there may be no single file yet; the listing is still the first move, and the placement rule below is what the first extraction follows. A session hunting for `Pagination` does not find a `Pager`, and writes it a second time under a second name; a year of that leaves three components doing one job and no way to tell which one a page should have used.
 
 The order of sources is fixed:
 

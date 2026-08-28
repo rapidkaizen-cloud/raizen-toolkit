@@ -5,12 +5,12 @@
     {
       "name": "raizen-hub",
       "source": "./plugins/raizen-hub",
-      "description": "Bootstrap a new internal app, decide its logic layer, set its visual direction — and rework any of the three on an app already running: app-init, app-rework, logic-init, logic-rework, design-init, design-rework."
+      "description": "Settle an internal app one layer at a time, whether the layer is empty or already running: app-settle for the domain, stack and PRD.md; logic-settle for the layer between database and UI; design-settle for the visual direction and PRD Section 5; app-conform to bring code that predates these rules back onto them."
     },
     {
       "name": "raizen-norms",
       "source": "./plugins/raizen-norms",
-      "description": "Session norms for app repos: git and destructive-operation guards, plus PRD, UI, database, and build-order rules."
+      "description": "Session norms for internal app repos: git and destructive-operation guards, plus PRD, UI, database, application-logic, and build-order rules."
     }
   ]
 }

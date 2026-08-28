@@ -61,7 +61,7 @@ The design flow loads two taste materials, and both are Required: `impeccable` (
 
 | Skill | Used for |
 |---|---|
-| `raizen-hub` | The three skills themselves — `app-settle`, `logic-settle`, `design-settle` |
+| `raizen-hub` | The four skills themselves — `app-settle`, `logic-settle`, `design-settle`, `app-conform` |
 | `impeccable` | The craft rules `taste.md` and `ui-build` no longer state, plus the detector `design-settle` reports at Step 1 and Step 8. Loaded before the taste batch and before any component is written |
 | `frontend-design` | Divergence guidance against templated defaults, loaded alongside `impeccable` — never a house style |
 
@@ -122,11 +122,20 @@ For an app that is **already running**, the entry point is `app-settle`, which r
 
 To rework only the look or the logic layer of an app that already has a PRD, the last two are run on their own.
 
+A repo that predates these plugins, or drifted from them, has a fourth entry point:
+
+```
+/raizen-hub:app-conform
+```
+
+It is the only skill here that changes code already written. Every other one reports and refuses to touch — `app-settle` document mode and `app-eval` both say so outright — which left the second job with no home. It audits the repo against the installed plugin text, ranks findings by what each costs to leave, stops for the user to pick, then executes one finding per commit. It never changes the stack and never adds a feature.
+
 | Skill | Precondition | Produces |
 |---|---|---|
 | `app-settle` | Any directory — the mode is read from what it holds | Empty → `PRD.md` with an empty Section 5, scaffold, `git init`. Code without a PRD → document mode. Code with a PRD → rework mode |
 | `logic-settle` | `PRD.md` present | Audits what the repo runs today — empty on a new repo — then Section 1 records cache, validator, dates, errors, jobs, attribution: keep, adopt, or replace per need, often installing nothing. One skill for both cases; the audit is what tells them apart |
 | `design-settle` | `PRD.md` present | Audits the styling the code uses today — empty on a repo with no UI — then Section 5 filled or changed line by line, styling tokens written, and every page promoted from the ratified canvas. One skill for all three cases; the audit is what tells them apart |
+| `app-conform` | `PRD.md` present, working tree clean | Existing code brought onto the conventions the plugins state today — platform residue, a `CLAUDE.md` duplicating the plugin, identifiers in the UI language, a norm that silently cannot apply, documents that should not exist. One finding per commit; never opened on its own initiative |
 | `build-flow` | Section 5 filled | `QUEUE.md` on first run, then usable pages — a UI batch built against contracts first, wired in a backend batch after |
 
 An app with components but no Section 5 — which is exactly what `app-settle`'s document mode hands over — takes `design-settle`'s **ratify** path: its values are measured and put to the user for ratification rather than adopted silently. The routing table at the top of that skill is what picks the path, and the audit is what feeds it.
