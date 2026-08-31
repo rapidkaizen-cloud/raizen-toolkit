@@ -130,6 +130,8 @@ The same error firing over and over is a finding about the interaction, not a re
 
 **A placeholder is an example, not a label.** It shows the expected format — `name@example.com`, `DD/MM/YYYY` — and vanishes on input, so every field keeps a visible label of its own.
 
+**A state already visible is not written out again.** A selected card carrying the selection in its border, a check mark, an `ACTIVE` badge, and a heading repeating that item's name has drawn one fact four times — and each copy makes the reader trust the others less, because a screen that says a thing four ways is a screen where saying it once was not believed. Keep the strongest signal and delete the rest; where the strongest one is not reachable for everyone, the copy that survives is the accessible one, never the decorative one. The same holds for a subtitle repeating a word already in the title above it, and for a count printed beside a list whose length is on screen. **The test is subtraction:** remove the label and ask what became unanswerable. Nothing did → it was never carrying the answer.
+
 These bind new code. Copy already in the repo that breaks one of them is a **finding** reported to the user, the same standing as a raw hex value — never rewritten in place inside another session's work. **Source is enough to check every rule here**; none of them needs a rendered page.
 
 Adapted from the `better-writing` skill of [jakubkrehel/skills](https://github.com/jakubkrehel/skills) (MIT).

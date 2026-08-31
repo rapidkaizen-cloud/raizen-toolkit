@@ -4,7 +4,7 @@ Read before the taste batch, together with `impeccable` and `frontend-design` �
 
 **The two skills are Required installs, and they carry most of what this file used to state.** `impeccable`'s `reference/craft-floor.md` holds the bans — nested cards, gradient text, kickers, coloured `border-left` above 1px, glass as decoration, unicode glyphs standing in for icons — and its `reference/new-work.md` holds the two calibrations that matter here: the sixteen training-data display faces that mean you stopped looking (Fraunces, Playfair, Cormorant, Syne, Space Grotesk, IBM Plex, Inter-as-display and the rest), and the three clusters AI interfaces converge on regardless of subject. `reference/operate.md` is the register for an operational app. Read them; this file no longer repeats them.
 
-Either absent → say so and say the options are being written from the model's own taste alone. Do not stop.
+**Either absent → put it to the user, at the step that prints the `Design material` row.** Printing the row is not enough, and it has already failed in practice: one line inside a nine-line block is read past, and reading past it spends most of the taste material without anyone having decided to spend it. Ask through AskUserQuestion instead, and name what is lost in the question itself — the ban list, the display-face and convergence calibrations, the Operate register, and every detector count from this point on. Offer continuing without it against stopping so it can be installed (`npx impeccable install`). **Continuing is a real answer**, and the recommended one wherever installing is not available in this session; what is refused is the session spending the material silently. The answer rides the ratification report as its own line, so a direction settled on half the material says so where anyone reading Section 5 later can see it.
 
 It never names the look this app should have. It narrows the space the look is chosen from, and it names the method for choosing — which is why it is loaded for every app without making every app look the same. A file that named the look would do the opposite.
 
@@ -23,7 +23,8 @@ These three ride the design plan the design plan step narrates. The tone chosen 
 ## Colour
 
 - **Accents: none, one, or two.** This counts **hues, not values** — each hue still gets its full ramp, and how deep that ramp runs is `F6`'s rule, not a taste decision. The colour strategy and the ramp derivation are `impeccable`'s (`reference/colorize.md`, and the strategy list in `reference/new-work.md`).
-- **Colour is derived, not invented.** Where a brand palette exists, everything else is derived from it in `oklch`. Where none exists, the accent is chosen first and the neutrals are pulled toward it. A hex picked from nothing is the one that will not sit with the rest.
+- **Where there are two accents, they differ in hue alone** — the same chroma and the same lightness, so the pair reads as one decision at two temperatures. A second accent that is also heavier or darker than the first is a second direction, and every element carrying both has to choose between them.
+- **Colour is derived, not invented.** Where a brand palette exists, everything else is derived from it in `oklch`. Where none exists, the accent is chosen first and the neutrals are pulled toward it. A hex picked from nothing is the one that will not sit with the rest. **The neutral tint has a ceiling** — chroma at or below `0.02`: past that the ground stops sitting under the accent and starts competing with it. A pure white is a decision a direction can defend; an accidentally blue-grey one is not.
 - **A dominant colour with a sharp accent beats an even, timid palette.** A palette where every role carries equal weight has made no decision.
 
 ## Type

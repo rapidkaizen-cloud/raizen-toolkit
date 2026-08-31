@@ -1,6 +1,6 @@
 ---
 name: design-settle
-description: Settle the visual direction and component library of an app, whether it has UI already or none at all. Audits what the code uses today — empty on a fresh repo — then routes — nothing built goes straight to the interview, a filled Section 5 asks repair or overhaul, and components without a Section 5 go to ratify. One single-turn taste interview of eight slots whose options are invented for this app, then the stack questions that gate the install. A temporary in-repo canvas renders the answers as every page of the app in production-grade code, judged in the real browser, approved at one gate, then relocated into the app — the only difference between canvas and production is the data. Use before the first UI component of a repo is written, and whenever the user wants to redesign, restyle, or overhaul the look of an app that already has one.
+description: Settle the visual direction and component library of an app, whether it has UI already or none at all. Audits what the code uses today — empty on a fresh repo — then routes — nothing built goes straight to the interview, a filled Section 5 asks repair or overhaul, and components without a Section 5 go to ratify. One reference question, then 2-4 full-fidelity direction frames the user picks from on screen, then the rest of the taste slots in one turn and the stack questions that gate the install — all options invented for this app. A temporary in-repo canvas renders the answers as every page of the app in production-grade code, judged in the real browser, approved at one gate, then relocated into the app — the only difference between canvas and production is the data. Use before the first UI component of a repo is written, and whenever the user wants to redesign, restyle, or overhaul the look of an app that already has one.
 ---
 
 # design-settle — the visual direction, from nothing or from what exists
@@ -57,11 +57,11 @@ Kind of app : [from Section 1]
 Platform    : [from Section 1 Surface — web, or the platform named there]
 Primary role: [from Section 2]
 Reading     : [one sentence — see F1]
-Flow        : load taste.md + impeccable + frontend-design → reading → taste batch →
-              stack questions → design plan (narrated; only its axes
-              where direction frames will run) → install → direction frames + pick,
-              where the direction is still open → canvas rounds → ratify + Section 5
-              → promotion (all pages) → verify → close
+Flow        : load taste.md + impeccable + frontend-design → reading →
+              reference slot, alone → direction frames + pick, unless a reference
+              or brand palette pinned the direction → rest of the taste batch →
+              stack questions → design plan → install → canvas rounds →
+              ratify + Section 5 → promotion (all pages) → verify → close
 ```
 
 `PRD.md` missing → **STOP**, point to `app-settle`.
@@ -74,7 +74,7 @@ Product without UI → **STOP**, this skill does not apply.
 
 ## F1 — The reading
 
-**Load the three materials first, before the reading sentence is written**: `references/taste.md` beside this skill, and the two Required installs, `impeccable` and `frontend-design`. `taste.md` names which of `impeccable`'s reference files carry the material and `canvas.md` draws the boundary; one absent is reported and does not stop the session. F0 has already routed, so nothing is read for a session that stops.
+**Load the three materials first, before the reading sentence is written**: `references/taste.md` beside this skill, and the two Required installs, `impeccable` and `frontend-design`. `taste.md` names which of `impeccable`'s reference files carry the material and `canvas.md` draws the boundary; one absent is **asked** rather than merely reported, under `taste.md`'s rule — continuing without it is an answer the user is allowed to give, and one the session is not allowed to give on their behalf. F0 has already routed, so nothing is read for a session that stops.
 
 They come first because **the reading sentence is itself the first taste output** — its *leaning* clause is a judgement about how this app should feel, and the paragraph below says every slot's options are invented from the corrected reading. A leaning written before the material is read seeds every option that follows out of the same defaults the material exists to close, and the batch then offers the user a menu of them: a Typography slot offering Inter, a Direction slot offering a cream ground with a serif and a terracotta accent, a reference slot proposing whichever product came to mind first. **A choice never offered is not recovered by any later round** — the judgement can reject what was drawn, but it cannot reach an option that was never written.
 
@@ -92,7 +92,7 @@ The slots' options and the canvas's values come from the model's own design know
 
 ## F2 — The taste batch
 
-Read `references/interview.md` and run its taste batch: **eight slots, two AskUserQuestion calls, one turn.** The options are invented for this app from the model's own design knowledge — no fixed list anywhere, and no research pass for taste — each option named in plain words with its consequence in parentheses, one real option marked "(Recommended)". Every slot carries **"Decide for me"**.
+Read `references/interview.md` and run it in its order: **the reference slot alone, the direction frames it routes to, then six or seven slots across two AskUserQuestion calls in one turn.** The options are invented for this app from the model's own design knowledge — no fixed list anywhere, and no research pass for taste — each option named in plain words with its consequence in parentheses, one real option marked "(Recommended)". Every slot carries **"Decide for me"**.
 
 **The first slot is the reference** — the app or site this one should feel like — and its options are **real products named by you**, two or three that are arguable for this app, plus `No reference — explore freely` and `Decide for me`. It is asked first because a named anchor reshapes every option that follows, and the second call's options are written after the first is answered. A product the options missed, a screenshot, or a URL arrives through Other, and that is the best outcome rather than a deviation. `interview.md` holds the slot's own rules — what a named reference costs, and the line between setting a direction and reproducing an interface.
 
@@ -102,7 +102,7 @@ The answered slots are the user's preferences and the canvas's baseline; a slot 
 
 **Nothing the user did not choose is silent.** A "Decide for me" slot and every derived value surface as one line each with their basis — in the canvas assumptions block before drawing or the ratification report after approval — and the user may cancel any line; cancelling opens that value as a normal dialog. `interview.md` holds the list of what is derived and the floors that bind it.
 
-**A canvas that misses twice escalates by re-opening this batch:** `taste.md`, `impeccable`, and `frontend-design` are re-read first (`canvas.md`), then every slot is re-asked with sharpened options built from what the two rejections taught — the reference slot with products chosen against what was rejected — and the canvas is regenerated fresh from the new answers, never patched.
+**A canvas that misses twice escalates by re-opening this batch:** `taste.md`, `impeccable`, and `frontend-design` are re-read first (`canvas.md`), then the whole interview runs again in its own order — the reference slot first with products chosen against what was rejected, **a fresh set of direction frames** unless that answer pins the direction, then every remaining slot with sharpened options built from what the two rejections taught — and the canvas is regenerated fresh from the new answers, never patched.
 
 ## F3 — The stack questions, then compile into values
 
@@ -132,7 +132,7 @@ Five parts, short:
 | Layout | The shell and the composition in one or two sentences — where the density sits, what breaks the grid |
 | Signature | The single element this app is remembered by (`canvas.md`, the taste licence) |
 
-**Where the direction frames will run (`canvas.md`), this step states only their axes — and the plan itself waits for the pick.** One line per candidate axis, no palette values, no type pairing, no signature. A plan that names a palette before the candidates are drawn has already decided the vote it is about to hold, and candidates drawn around a published direction are the rigged set `canvas.md` forbids. The five-part plan is then written in the turn after the user picks, to the candidate they picked, and critiqued as below. Everywhere else — a Direction slot the user answered, a reference named, a brand palette to follow — the frames do not run and the full plan is written here.
+**The frames have already run by the time this step is reached, so the full plan is always written here** — to the candidate the user picked, or to the Direction slot they answered where a reference or brand palette stood the frames down. Nothing announces the plan earlier: the frames carry their own axes, one line of motivation and trade-off each, and that is all a user needs before voting. A plan that named a palette before the candidates were drawn would have decided the vote it was about to hold, which is the rigged set `canvas.md` forbids.
 
 **Then critique it against the brief before drawing, in the same turn.** Work through what a session with a similar brief would produce; any part of the plan that arrives at the same place is a default rather than a decision. **Revise that part and say what changed and why** — one line. A plan reported without that pass has skipped the only step in it that does any work.
 
@@ -161,7 +161,7 @@ Install nothing outside that block. Something extra turns out to be needed → a
 
 ## F5 — The canvas: rounds until final
 
-Drawn and judged under `canvas.md` entire: the direction frames first where the direction is still open, then files written production-grade — every state drawn, fixtures in one contract-shaped file that closes arithmetically, imports only from the declared stack — the three-scan self-check before every round (imports · the render · the arithmetic), the signature drawn and tagged, tagged departures and proposals, the judgement through AskUserQuestion, two rounds then escalation.
+Drawn and judged under `canvas.md` entire: the direction frames are already picked, so this step opens on files written production-grade — every state drawn, fixtures in one contract-shaped file that closes arithmetically, imports only from the declared stack — the three-scan self-check before every round (imports · the render · the arithmetic), the signature drawn, tagged, and settled in a question of its own, tagged departures and proposals, the judgement through AskUserQuestion, two rounds then escalation.
 
 The PRD is not touched during rounds. The foundations board is the living draft of every value.
 
@@ -287,14 +287,16 @@ Branch        : [name · clean or has uncommitted changes]
 UI components : [file count]
 Leftover      : [none / canvas alive / pass applied — from src/design-canvas/ and git state]
 Path          : [rework / ratify / re-entry — from the routing below]
-Flow          : audit → [repair · overhaul · ratify] → interview → design plan
-                (narrated) → install → direction frames + pick, where the direction
-                is still open → canvas rounds → gate → pass (isolated) → verify → close
+Flow          : audit → [repair · overhaul · ratify] → reference slot, alone →
+                direction frames + pick, unless a reference or brand palette pinned
+                the direction → rest of the taste batch → stack questions →
+                design plan → install → canvas rounds → gate → pass (isolated)
+                → verify → close
 ```
 
 **The block is printed on every invocation** — fresh, re-entry, or ratify — before any work beyond the reads that fill it. A session that starts editing, or even auditing, without having shown this block has routed itself in the dark, and everything it concludes about where the flow stands is a private guess the user never saw.
 
-The `Design material` line exists for the same reason the `Skill build` line does: both skills are Required installs, they carry the craft rules `taste.md` and `ui-build` no longer state, and a session missing one writes its options out of the very defaults that material exists to close. It is reported, never blocking — a redesign that refuses to start until an npm install lands costs more than one unenforced rule, and the row is what keeps the gap visible instead of silent.
+The `Design material` line exists for the same reason the `Skill build` line does: both skills are Required installs, they carry the craft rules `taste.md` and `ui-build` no longer state, and a session missing one writes its options out of the very defaults that material exists to close. **An absence is asked, not merely printed** — `taste.md` holds the rule and the question's contents, and this row is the step that fires it. The session still does not block: continuing without the material is one of the two answers, and a redesign that refuses to start until an npm install lands costs more than the gap does. What changed is who spends the material — the user, in a dialog naming what is lost, instead of a row nobody read.
 
 The `Skill build` line exists so a stale install is visible before the pass, not after: rules fixed in the toolkit reach an app repo only through `/plugin update`, and a session on an old build re-makes exactly the mistakes the fix closed. The user sees the version and decides; the skill does not block on it.
 
@@ -437,7 +439,7 @@ Nothing else in this skill behaves differently for this path.
 
 **Load `design-settle`'s `references/taste.md` and the two Required installs, `impeccable` and `frontend-design`, first, before a single option is written** — same reason as there: the batch's options are the first place taste is exercised, and options written out of the defaults are a menu the user can only pick from. On this path the pull toward the defaults is stronger, not weaker: the audit has just filled the session with the app's current values, and every one of them is a default asking to be offered back.
 
-Read `interview.md` in the `references/` folder of `design-settle`. The rules are identical: the taste batch's eight slots in one turn — reference first, its options real products named by you — options invented for this app from the model's own design knowledge, every slot carrying "Decide for me", one marked recommendation per slot — then the stack questions, their candidates verified per `library-rubric.md` and `engine-rubric.md`. The canvas is drawn from the answers as the baseline and may still improvise anywhere, every departure from an answer tagged and confirmed at the judgement; its ratified values enter R6 as the *new* column of the diff.
+Read `interview.md` in the `references/` folder of `design-settle`. The rules are identical: the reference slot alone in its own turn — its options real products named by you — then the direction frames wherever no reference and no brand palette pinned the direction, then six or seven slots in one turn — options invented for this app from the model's own design knowledge, every slot carrying "Decide for me", one marked recommendation per slot — then the stack questions, their candidates verified per `library-rubric.md` and `engine-rubric.md`. The canvas is drawn from the answers as the baseline and may still improvise anywhere, every departure from an answer tagged and confirmed at the judgement; its ratified values enter R6 as the *new* column of the diff.
 
 **Escalation:** a canvas that misses twice re-opens the taste batch with sharpened options (`canvas.md`).
 
@@ -474,7 +476,7 @@ Nothing to install → say so in one line and continue; a complete stack never s
 
 ## R5 — The canvas: rounds until final — Overhaul only
 
-Drawn and judged under `canvas.md` entire: the direction frames first where the direction is still open, then files written production-grade — every state drawn, fixtures in one contract-shaped file that closes arithmetically, imports only from the declared stack — the three-scan self-check before every round (imports · the render · the arithmetic), the signature drawn and tagged, tagged departures and proposals, the judgement through AskUserQuestion, two rounds then escalation. The design plan is narrated before drawing here too, under `design-settle` R3 — after the pick where frames ran; `references/taste.md` and `frontend-design` have been in hand since R3's interview. **Frames rarely run on this path**: every slot here carries `Keep — <today's value>` and the look-bearing slots carry a real departure as the recommendation, so a Direction left at "Decide for me" is the exception rather than the norm.
+Drawn and judged under `canvas.md` entire: the direction frames are already picked, so this step opens on files written production-grade — every state drawn, fixtures in one contract-shaped file that closes arithmetically, imports only from the declared stack — the three-scan self-check before every round (imports · the render · the arithmetic), the signature drawn, tagged, and settled in a question of its own, tagged departures and proposals, the judgement through AskUserQuestion, two rounds then escalation. The design plan is narrated before drawing here too, under `design-settle` R3 — after the pick where frames ran; `references/taste.md` and `frontend-design` have been in hand since R3's interview. **Frames rarely run on this path**: every slot here carries `Keep — <today's value>` and the look-bearing slots carry a real departure as the recommendation, so a Direction left at "Decide for me" is the exception rather than the norm.
 
 **Detector findings are not an input to a round.** `impeccable`'s hook fires on every canvas file written and asks, in its own words, to be told what was fixed. Do not answer it here. The three self-check scans are the only gate before a round is shown, and the canvas is pre-ratification — a `nested-cards` or `monotonous-spacing` hit may be the very direction the user is about to choose, and acting on it changes what is being judged without the user ever seeing it happen. Carry the hits to R8.
 
