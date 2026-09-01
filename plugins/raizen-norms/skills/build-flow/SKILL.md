@@ -188,6 +188,8 @@ PRD Section 5's Page Composition holds the screen archetype table. **The page be
 
 Business rules carry screen content inside them, and it is routinely never harvested. An invariant demanding a reconciliation is demanding a figure on screen. A rule saying an unregistered code still appears, marked, is describing a row and its marker. *Every figure can be traced back to the transactions behind it* is a drill-down. None of that reads as content until somebody reads it as content, which is what this step is.
 
+**What is harvested is the element, never a sentence about it.** A rule lands as a figure, a column, a marker, a branch of a form, a control present or absent — something the user reads by looking rather than by being told. Where the rule describes what the system does after the user acts — *an edit is written as a new row, the old one untouched* — the element is the new row appearing, not a paragraph announcing that it will. **A rule yielding no element yields nothing on this page.** It stays in `PRD.md`, which is where a reader who needs the mechanism goes looking. Restating it on screen is the cheapest way to satisfy this step and the one way that satisfies nothing: documentation parked where every user pays for it on every visit and none of them asked for it.
+
 Unchecking one of these means changing the PRD. That is a separate decision and it is the user's.
 
 **Optional** — everything else that fits. Presented as a multi-select with **every item already selected**; the user removes what is not wanted.

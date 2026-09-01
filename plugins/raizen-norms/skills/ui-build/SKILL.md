@@ -72,7 +72,7 @@ Fixed norms. Not asked per app, not restated in the PRD.
 
 Spinners are only for things with no shape: a button mid-submit, and work running in the background.
 
-**Empty → explain why it is empty and what comes next.** "No data yet" is not enough. Empty because of a filter is a different thing from empty because nothing has ever existed, and the two need different sentences, and each ends on one action that fills it. A filtered empty state names the query and offers the exit — `No results for "quarterly". Clear filters`. Never park persistent information in an empty state: it disappears the moment content exists.
+**Empty → explain why it is empty and what comes next.** "No data yet" is not enough. Empty because of a filter is a different thing from empty because nothing has ever existed, and the two need different sentences, and each ends on one action that fills it. A filtered empty state names the query and offers the exit — `No results for "quarterly". Clear filters`. Never park persistent information in an empty state: it disappears the moment content exists. **The fix is deleting it, not relocating it.** Moved to the page header it becomes permanent, and an unasked-for paragraph costs more there than in a state that at least went away. Information worth keeping is an element on the page; a mechanism the user does not act on belongs in `PRD.md`.
 
 **Failed → put the message next to its cause.** Form errors appear under their field, not stacked at the top of the page. Errors with no field of their own (failed to load, failed to save) appear where the content should have been, together with a way to retry.
 
