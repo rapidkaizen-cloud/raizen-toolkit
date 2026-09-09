@@ -97,7 +97,7 @@ What it covers, with the floors that are rules rather than preferences:
 
 ## The archetype table
 
-Derived once the shell slot is answered, never asked page by page. Group every page of PRD Sections 2 and 3 into **screen archetypes** — usually 4–7 (auth, dashboard, data table, form, wizard, detail/approval recur). Per archetype one row: shell layout in one sentence, the components it is built from, its density, its empty/loading wording, and the routes it owns. Every route lands in exactly one archetype; a page fitting none is put to the user as its own question, never silently given a bespoke layout. The table is shown once for correction — as a report, not a dialog per row. The ratified table is written into Section 5 under Page Composition, and `build-flow` Section 4 opens every later page proposal by naming its archetype.
+Derived once the shell slot is answered, never asked page by page. Group every page of PRD Sections 2 and 3 into **screen archetypes** — usually 4–7 (auth, dashboard, data table, form, wizard, detail/approval recur on an app; hero, benefit section, pricing, social proof, and CTA/footer recur on a landing page, where the unit an archetype groups is the section rather than the route). Per archetype one row: shell layout in one sentence, the components it is built from, its density, its empty/loading wording, and the routes it owns. Every route lands in exactly one archetype; a page fitting none is put to the user as its own question, never silently given a bespoke layout. The table is shown once for correction — as a report, not a dialog per row. The ratified table is written into Section 5 under Page Composition, and `build-flow` Section 4 opens every later page proposal by naming its archetype.
 
 ## Non-web platforms
 
@@ -107,6 +107,6 @@ The slots are product-shaped, so off the web the vocabulary substitutes before a
 
 # What is not asked
 
-Loading, empty state, and error placement are **not decisions here**. All three are fixed norms in the `ui-build` skill of `raizen-norms`, identical across every internal app.
+Loading, empty state, and error placement are **not decisions here**. All three are fixed norms in the `ui-build` skill of `raizen-norms`, identical across every app under these skills.
 
 Wording is fixed there too, in that skill’s `Writing` section — voice and tone, button and link text, capitalization, toggle labels, error phrasing. None of it varies per app, so asking spends context on an answer that is already known. **How long a label or a supporting sentence may run is capped nowhere**: it stays the designer’s, judged on the canvas, and `build-flow` prints each page’s longest and median so drift is visible without a ceiling to write up to.

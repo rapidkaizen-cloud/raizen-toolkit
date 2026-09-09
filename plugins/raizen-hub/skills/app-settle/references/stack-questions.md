@@ -22,9 +22,10 @@ The **Status** column decides how a row is offered. **Ready** appears as a norma
 |---|---|---|
 | Web app | The work happens at a desk or in a browser, and nothing below pulls harder | **Ready** |
 | CLI or service without UI | Nobody looks at a screen — automation, integration, a pipeline | **Ready** |
-| Flutter multiplatform | One codebase must serve phone and desktop, or field use without a browser | **Pioneer** |
+| Flutter multiplatform | One codebase must serve more than one OS — phone and desktop together — or field use without a browser | **Pioneer** |
 | Android native | Phone-only field use, or deep device integration — camera, GPS, offline-first | **Pioneer** |
-| Desktop native (Tauri, Electron, WPF, …) | Kiosk, heavy offline, local hardware, OS integration | **Pioneer** |
+| Desktop shell — Tauri (recommended), Electron (alternative) | Desktop use with a window, a menu bar, a tray, or local files. The app stays web technology, so the design canvas and its browser proof carry over unchanged; what is new is the Proof profile, distribution in place of hosting, and the desktop design language. Electron over Tauri only where rendering must be identical on every OS — `stack-consequences.md` holds the difference | **Pioneer** |
+| Desktop native (WPF, WinUI, SwiftUI) | Local hardware or OS integration a webview cannot reach | **Pioneer** |
 
 Mobile and desktop frameworks are platforms, not framework rows — they are decided at question 2, and the Framework table below applies only when the platform is web.
 
@@ -86,13 +87,22 @@ Without item two, do not raise the status. A repo that looks protected while it 
 
 ## 1. Kind of app
 
-Multi-role internal dashboard · single-role internal tool · public site · CLI or service without UI
+**No fixed list.** Read the user's story and offer 3–4 kinds that fit *this* story — named in plain words, one marked recommendation, a one-sentence consequence each — the way every taste slot in `design-settle` invents its options. An internal tool, a public product with accounts, a landing page, a game, a kiosk, a portfolio, a docs site are all answers this question can produce; none is assumed before the story is read, and an answer typed under Other is accepted as it is. The chosen kind is a label: it rides the Step 1 reading sentence and Section 1's problem statement, and nothing downstream branches on the word itself.
 
-**Recommendation:** multi-role internal dashboard, if the story mentions more than one kind of user.
+**What downstream reads is four switches, derived from the story and reported as derived lines** — each with its value and where it came from, cancellable like every derived decision:
 
-**Consequence:** multi-role means RLS and an access matrix from day one — slower in week one, but adding it later means touching every query again.
+| Switch | Derived from | Decides |
+|---|---|---|
+| A screen exists | The story | Section 5 exists, `design-settle` applies, questions 2–4 are asked. No screen → Section 5 is deleted entirely, questions 2, 3, and 4 are skipped |
+| Who reaches it — named roles · strangers with accounts · anonymous visitors | Section 2 | Named roles or strangers with accounts → RLS and an access matrix from day one; strangers also make `logic-build`'s trust-boundary validation non-optional. Anonymous visitors only → no RLS, Section 2 collapses to what a visitor must be able to do |
+| Register — judged on the first visit, or on the tenth use | Section 2: how often a role comes back | The `frontend-design` branch in `canvas.md`, whether `operate.md` loads, posture allowed or the signature alone. A product with both a public front and a logged-in inside carries both, per page group |
+| Data behind the pages | Section 1's Data row | Fixture cases and contracts in `build-flow`; without data, a page is proven at the two widths with its real copy |
 
-This answer filters every question after it. No UI → Section 5 is deleted entirely, questions 2, 3, and 4 are skipped, `design-settle` does not apply.
+The switches are not written into the PRD as fields — Section 1 keeps its three rows. They are re-derived from Section 2 and the Data row whenever a skill needs them, and `design-settle`'s F0 and R0 blocks print them so a wrong derivation is seen before it costs anything.
+
+**Recommendation:** follows the story, never a default kind.
+
+**Consequence:** stated per option, invented for that story.
 
 ## 2. Platform
 
@@ -177,7 +187,7 @@ Styling is named in this block only to say where it is decided. Writing a stylin
 
 **Options:** assembled under the rubric like every other package question — verified live, never named from memory — with the runner that suits the chosen framework as the recommendation. The two answers differ in what they cost now: a runner installed at bootstrap is configuration to carry through every early change, and one added later is a small setup on a codebase that has stopped moving.
 
-**Recommendation:** leave it until later for a first internal app; install now where the app carries money, permissions, or a rule that is expensive to get wrong.
+**Recommendation:** leave it until later for a first app; install now where the app carries money, permissions, or a rule that is expensive to get wrong.
 
 ---
 

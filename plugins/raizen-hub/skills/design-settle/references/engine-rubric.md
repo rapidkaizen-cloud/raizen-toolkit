@@ -41,7 +41,7 @@ Candidates for a tripped category come from two layers, and both are mandatory:
 
 The categories are trigger knowledge — what kind of job fires a dialog — never candidate lists.
 
-**Core categories** — most internal apps trip at least one: **chart** · **table engine** · **date picker** · **drag-and-drop**. The table-engine and date-picker dialogs fire only past criterion 2 — the pack's own component must have measurably failed a named need first.
+**Core categories** — most operational apps trip at least one: **chart** · **table engine** · **date picker** · **drag-and-drop**. The table-engine and date-picker dialogs fire only past criterion 2 — the pack's own component must have measurably failed a named need first.
 
 **Conditional categories** — the dialog exists only when the brief carries the job:
 

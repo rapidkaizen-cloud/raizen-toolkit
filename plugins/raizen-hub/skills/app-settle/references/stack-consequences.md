@@ -35,3 +35,9 @@ The consequence that changes other rules: **schema gets git, data does not.** A 
 ## Static SPA on any host
 
 Needs every path rewritten to `index.html`, otherwise refreshing on a nested route returns a 404. Nothing here scaffolds it — the session writes it for the host chosen at question 4: a `rewrites` entry in `vercel.json`, a `redirects` line in `netlify.toml`, or one `try_files $uri /index.html;` on an own server.
+
+## Tauri or Electron as the desktop shell
+
+Tauri renders through the webview the OS already ships — WebView2 (Chromium) on Windows, WKWebView on macOS, WebKitGTK on Linux — so a canvas proven in Chrome is proven for Windows alone; fonts, form controls, and newer CSS can land differently on macOS and Linux, and each needs its own capture in the Proof profile before the app is called proven there. Electron bundles its own Chromium: identical rendering on every OS, at the cost of a far larger binary.
+
+**Say this when the shell is chosen.** It decides which OS the design proof covers, not the design itself. Neither is Ready: the first repo that ships on one is what writes its distribution path into the rubric.

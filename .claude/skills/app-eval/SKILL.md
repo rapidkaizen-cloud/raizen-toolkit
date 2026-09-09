@@ -101,7 +101,7 @@ The third is the one most often mistaken for the first. A rule refusing correctl
 
 The report carries a section naming **where the rule under attack did its job**: drift it prevented, inconsistency it caught, a decision it kept from being retaken per session.
 
-Without it a report only ever shows failures, and the reflex is to loosen everything. Most of the tightness here is correct — internal apps trade expressiveness for consistency on purpose. A patch made without seeing what the rule was protecting buys one page's freedom with every later page's drift.
+Without it a report only ever shows failures, and the reflex is to loosen everything. Most of the tightness here is correct — operational apps trade expressiveness for consistency on purpose. A patch made without seeing what the rule was protecting buys one page's freedom with every later page's drift.
 
 ## 6 — The report
 

@@ -1,6 +1,6 @@
 ---
 name: app-settle
-description: Settle the app-level decisions of an internal app — the problem domain, the stack, and PRD.md. Three modes, decided by what the directory already holds. Empty — bootstrap mode, interview the domain and the stack, write PRD.md, scaffold the repo, git init. Code but no PRD.md — document mode, write the PRD from the code and an interview, changing nothing about the app. Code and a PRD — rework mode, re-open the app-level decisions with keep always option one and every change carrying its cost and a recommendation. Use to start a new app, to document a running app that has no PRD, or to re-plan one that does. Section 5 is never written here.
+description: Settle the app-level decisions of an app of any kind — the problem domain, the stack, and PRD.md. Three modes, decided by what the directory already holds. Empty — bootstrap mode, interview the domain and the stack, write PRD.md, scaffold the repo, git init. Code but no PRD.md — document mode, write the PRD from the code and an interview, changing nothing about the app. Code and a PRD — rework mode, re-open the app-level decisions with keep always option one and every change carrying its cost and a recommendation. Use to start a new app, to document a running app that has no PRD, or to re-plan one that does. Section 5 is never written here.
 ---
 
 # app-settle — the app-level decisions, from nothing or from what exists

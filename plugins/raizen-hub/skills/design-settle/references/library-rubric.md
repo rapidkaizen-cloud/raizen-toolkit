@@ -30,7 +30,7 @@ Candidates come from two layers, and both are mandatory:
 
 ## Rules for assembling the options
 
-**Three to four options**, all satisfying every need scored yes. A library that fails on one need does not make the list — unless nothing satisfies all of them, in which case say plainly what will not be met. "Own components" — no library at all — is offered when the needs are few enough that it is honest, with its consequence stated: everything is hand-written and hand-maintained.
+**Three to four options**, all satisfying every need scored yes. A library that fails on one need does not make the list — unless nothing satisfies all of them, in which case say plainly what will not be met. "Own components" — no library at all — is offered on the web when the needs are few enough that it is honest, and **always off the web**, whatever the needs score, so the choice is the user's rather than the rubric's. Either way its consequence is stated: everything is hand-written and hand-maintained, and `ui-build`'s reuse rules bind that set from its first component.
 
 **Recommendation on the web:** the one that satisfies everything with the **fewest extra dependencies**. Not the most complete, not the most popular.
 

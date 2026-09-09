@@ -51,7 +51,7 @@ The order of sources is fixed:
 3. **A new component** — allowed when the library ships nothing for the case, or ships something that genuinely does not fit. Three conditions:
 
    - **Say what fails.** Which component was examined, and what it cannot do here. "Not quite the right look" is not it.
-   - **Follow the library's idiom.** Same compound shape (`Root` / `Trigger` / `Item`), same prop names (`isDisabled`, `isActive`, `size`), same source of styling. A hand-written component with its own conventions forces every later reader to hold two systems in their head at once.
+   - **Follow the library's idiom.** Same compound shape (`Root` / `Trigger` / `Item`), same prop names (`isDisabled`, `isActive`, `size`), same source of styling. A hand-written component with its own conventions forces every later reader to hold two systems in their head at once. **No library → the first shared component sets the idiom, and every later one follows it** — compound shape, prop names, and styling source are decided once, at the first extraction, and read from that file afterwards.
    - **Say which rule it holds.** A shared component exists for one of two reasons, and its header names which: it freezes a PRD Section 5 line so no call site can break it — a status marker deriving its icon from its tone cannot pair a warning colour with a success icon — or it is the second appearance of a pattern. Neither → it is page code, not a shared component. Leave it in the page.
 
 Creating a new component → say why the existing one is not enough. **Looking slightly different is NOT a reason** — that is what props are for.
@@ -87,7 +87,7 @@ Those two are the ones usually skipped and the ones that catch the most. A compo
 
 ## Writing
 
-Fixed norms. Not asked per app, not restated in the PRD, because none of them varies between internal apps. Copy is written **together with its component**, the same way the three states above are.
+Fixed norms. Not asked per app, not restated in the PRD, because none of them varies between apps under these skills. Copy is written **together with its component**, the same way the three states above are.
 
 Clear and brief beats clever; consistent beats varied. The best error message is the interaction redesigned so the error cannot happen.
 
