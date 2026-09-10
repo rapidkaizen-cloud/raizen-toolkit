@@ -20,17 +20,19 @@ Maximalism and refined minimalism both work. **What is judged is intentionality,
 
 These three ride the design plan the design plan step narrates. The tone chosen is what the assumption lines and the judgement are read against afterwards.
 
+**Every rule below states an outcome, never a mechanism.** The mechanism belongs to the Surface named in PRD Section 1, and it is resolved per app rather than listed here — a list of platforms goes stale, and the Surface this app runs on may not be on it. Per rule: name what the rule protects, take the mechanism that Surface actually offers, and record the resolved value in PRD Section 5 with its source, so a later session reads a number rather than deciding one a second time. **This opens no research pass** — `interview.md` forbids one for taste, and a mechanism is model knowledge like every other option in this flow. What is compiled or installed is the exception, and it is already covered: `library-rubric.md` requires the platform's own implementation idioms to be researched from the platform's documentation, labelled with their source.
+
 ## Colour
 
 - **Accents: none, one, or two.** This counts **hues, not values** — each hue still gets its full ramp, and how deep that ramp runs is `F6`'s rule, not a taste decision. The colour strategy and the ramp derivation are `impeccable`'s (`reference/colorize.md`, and the strategy list in `reference/new-work.md`).
 - **Where there are two accents, they differ in hue alone** — the same chroma and the same lightness, so the pair reads as one decision at two temperatures. A second accent that is also heavier or darker than the first is a second direction, and every element carrying both has to choose between them.
-- **Colour is derived, not invented.** Where a brand palette exists, everything else is derived from it in `oklch`. Where none exists, the accent is chosen first and the neutrals are pulled toward it. A hex picked from nothing is the one that will not sit with the rest. **The neutral tint has a ceiling** — chroma at or below `0.02`: past that the ground stops sitting under the accent and starts competing with it. A pure white is a decision a direction can defend; an accidentally blue-grey one is not.
+- **Colour is derived, not invented.** Where a brand palette exists, everything else is derived from it. Where none exists, the accent is chosen first and the neutrals are pulled toward it. A hex picked from nothing is the one that will not sit with the rest. **Derive in a perceptually uniform space** — one where an equal numeric step reads as an equal visual step, because a ramp built without that property is corrected by eye at every step and no later session can extend it. **Emit in whatever colour type the Surface's runtime parses**: the space is where a value is decided, not how it has to be written down. **The neutral tint has a ceiling** — it carries a trace of the accent's hue and never enough to compete with it; in `oklch` that bound is chroma at or below `0.02`. Past it the ground stops sitting under the accent and starts competing with it. A pure white is a decision a direction can defend; an accidentally blue-grey one is not.
 - **A dominant colour with a sharp accent beats an even, timid palette.** A palette where every role carries equal weight has made no decision.
 
 ## Type
 
 - **A display face with character, paired with a body face that stays quiet.** A third family is allowed only for a real job — numerals, code, captions. Three is the ceiling.
-- **Every family carries a fallback stack with close metrics**, and the loading is verified in the browser at the promotion pass rather than assumed.
+- **The face the direction chose is the face that renders, and its substitute shifts no metrics** — through the Surface's own font loading, verified at the promotion pass against PRD Section 1's Proof profile rather than assumed. Where the Surface owns a system type scale, the direction sits inside it rather than against it.
 - The type treatment is part of the design, not a neutral vehicle for the words.
 
 ## Composition and depth

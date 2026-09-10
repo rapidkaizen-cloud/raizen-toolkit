@@ -246,7 +246,7 @@ Before reporting done:
 
 - **The build passes.**
 - **The structural diff per promoted page.** Put each canvas file beside its live page: with fixtures kept, the only legitimate differences are the removed canvas wrapper and the contract-shaped fixture import. Any other difference is a failed promotion to fix now.
-- **Fonts load for real.** The computed font-family in the browser resolves to the loaded webfont, not a fallback stack — the canvas CSS carried the loading, and the production entry must carry it now.
+- **Fonts load for real.** The computed font-family in the browser resolves to the loaded webfont, not a fallback stack — the canvas CSS carried the loading, and the production entry must carry it now. (The web profile's check — a platform whose Proof profile names no browser verifies the equivalent through its Visual line, and says what could not be verified.)
 - **Zero raw values** across every promoted page and component.
 - **The styleguide passes its done-check** (the table in F6), its foundations rendered as specimens rather than as a table of names and values.
 - **Every contrast ratio on the page was computed**, not recalled, and every semantic dark shade clears 4.5 against its own light shade.
