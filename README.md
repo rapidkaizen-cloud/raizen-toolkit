@@ -62,7 +62,7 @@ The design flow loads two taste materials, and both are Required: `impeccable` (
 | Skill | Used for |
 |---|---|
 | `raizen-hub` | The four skills themselves — `app-settle`, `logic-settle`, `design-settle`, `app-conform` |
-| `impeccable` | The craft rules `taste.md` and `ui-build` no longer state, plus the detector `design-settle` reports at Step 1 and Step 8. Loaded before the taste batch and before any component is written |
+| `impeccable` | The craft rules `taste.md` and `ui-build` no longer state, plus the detector `design-settle` reports at Step 1 and Step 8. Loaded before the interview and before any component is written |
 | `frontend-design` | Divergence guidance against templated defaults, loaded alongside `impeccable` — never a house style |
 
 **Recommended** — nothing errors without them:
@@ -95,7 +95,7 @@ In a fresh session, run `/plugin` and confirm `raizen-hub` is active.
 
 Skills added with `npx skills add` never appear there. Check `~/.claude/skills/` for them, or run `/reload-skills` and look for `supabase-postgres-best-practices` by name.
 
-`design-settle`'s taste interview runs on the model's own design knowledge and needs no WebSearch. The stack questions (component library, engines) still verify their candidates live — a session without WebSearch says what could not be verified instead of recalling it from memory as fact.
+`design-settle`'s reference question and direction frames run on the model's own design knowledge and need no WebSearch. The stack lines (component library, engines) still verify their candidates live — a session without WebSearch says what could not be verified instead of recalling it from memory as fact.
 
 ## Use
 
@@ -134,7 +134,7 @@ It is the only skill here that changes code already written. Every other one rep
 |---|---|---|
 | `app-settle` | Any directory — the mode is read from what it holds | Empty → `PRD.md` with an empty Section 5, scaffold, `git init`. Code without a PRD → document mode. Code with a PRD → rework mode |
 | `logic-settle` | `PRD.md` present | Audits what the repo runs today — empty on a new repo — then Section 1 records cache, validator, dates, errors, jobs, attribution: keep, adopt, or replace per need, often installing nothing. One skill for both cases; the audit is what tells them apart |
-| `design-settle` | `PRD.md` present | Audits the styling the code uses today — empty on a repo with no UI — then one reference question, 2–4 full-fidelity direction frames the user picks from on screen, the rest of the taste slots, and Section 5 filled or changed line by line, styling tokens written, and every page promoted from the ratified canvas. One skill for all three cases; the audit is what tells them apart |
+| `design-settle` | `PRD.md` present | Audits the styling the code uses today — empty on a repo with no UI — then one reference question, the stack recommended in one install block, 2–4 full-fidelity direction frames drawn with the real packages that the user picks from on screen, and Section 5 filled or changed line by line, styling tokens written, and every page promoted from the ratified canvas. One skill for all three cases; the audit is what tells them apart |
 | `app-conform` | `PRD.md` present, working tree clean | Existing code brought onto the conventions the plugins state today — platform residue, a `CLAUDE.md` duplicating the plugin, identifiers in the UI language, a norm that silently cannot apply, documents that should not exist. One finding per commit; never opened on its own initiative |
 | `build-flow` | Section 5 filled | `QUEUE.md` on first run, then usable pages — a UI batch built against contracts first, wired in a backend batch after |
 

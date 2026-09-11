@@ -1,6 +1,6 @@
 # Component library rubric
 
-Used by the component-library question. Score the needs from PRD Sections 1–3, then assemble 3–4 libraries that satisfy **all** of them.
+Used by the component-library line of the install block: the recommendation, its reason, and the alternatives named beside it come from here. Score the needs from PRD Sections 1–3, then assemble 3–4 libraries that satisfy **all** of them.
 
 **This file names no libraries**: it holds the scoring, the assembly rules, and the verification duty; the candidates are assembled live. A needs-to-library map written here goes stale the moment the ecosystem moves, and then anchors every interview to a list nobody re-checked. Once the library is chosen on a non-web platform, research its platform's implementation idioms from the platform's own documentation before building with it — findings labelled with their source, never recalled from memory alone.
 
@@ -30,9 +30,9 @@ Candidates come from two layers, and both are mandatory:
 
 ## Rules for assembling the options
 
-**Three to four options**, all satisfying every need scored yes. A library that fails on one need does not make the list — unless nothing satisfies all of them, in which case say plainly what will not be met. "Own components" — no library at all — is offered on the web when the needs are few enough that it is honest, and **always off the web**, whatever the needs score, so the choice is the user's rather than the rubric's. Either way its consequence is stated: everything is hand-written and hand-maintained, and `ui-build`'s reuse rules bind that set from its first component.
+**Three to four options in all, and *own components* is always one of them** — on every platform, whatever the needs score. Whether this app's components are drawn by hand or taken from a package is the user's choice, never the rubric's; the rubric only prices it. The libraries offered beside it all satisfy every need scored yes — a library that fails on one need does not make the list, unless nothing satisfies all of them, in which case say plainly what will not be met. Own components states its consequence like any other option: everything is hand-written and hand-maintained, each need scored yes is named as something that will be hand-written, and `ui-build`'s reuse rules bind that set from its first component.
 
-**Recommendation on the web:** the one that satisfies everything with the **fewest extra dependencies**. Not the most complete, not the most popular.
+**Recommendation on the web:** the one that satisfies everything with the **fewest extra dependencies**. Not the most complete, not the most popular. Own components is the recommendation only where the needs scored are few enough that hand-writing them is honestly the cheaper path — zero dependencies is not by itself fewest.
 
 **Recommendation on every other platform: the design language outranks the dependency count.** A library that ships the target OS's visual language beats one that does not, and the dependency count only separates libraries that carry it. The Platform row above is a **pass mark** — it asks whether the library runs there, never whether it belongs there. Recommending a library because it saves one icon package, on a platform whose users know instantly what its applications look like, spends the app's whole appearance to save an install line. What the option must then say is which OS language it carries, or that it carries none. Where no candidate carries the target OS's language at all — common on macOS, and wherever the ecosystem is web-hosted — say so plainly, fall back to the dependency count, and name what the app will not inherit. A heavier dependency bought for a language none of them actually carries is the same mistake pointing the other way.
 
@@ -40,7 +40,7 @@ Candidates come from two layers, and both are mandatory:
 
 **And it must name the styling system the library brings** — a utility-CSS layer, its own theme object, CSS-in-JS, or nothing at all. `app-settle` no longer sets a styling default at bootstrap, and a library that carries a different one does not quietly win: **the collision is a decision line the user answers here**, keeping the default and adapting the library, or replacing the default and saying so. Left unstated, the app ends up with a default nobody uses or two token systems holding the same hex — which is the failure `design-settle` Step 6's *One palette, two consumers* rule can only clean up after, never prevent.
 
-**Each option names the icon pack it bundles, or names itself headless** — `interview.md`'s icon dialog reads this.
+**Each option names the icon pack it bundles, or names itself headless** — `interview.md`'s icon line reads this.
 
 **Copy-in versus package.** A packaged library installs faster but bends less when you need something it does not provide. A library that copies code into the repo carries three consequences that must be stated:
 

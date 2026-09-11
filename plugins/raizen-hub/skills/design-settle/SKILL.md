@@ -1,6 +1,6 @@
 ---
 name: design-settle
-description: Settle the visual direction and component library of an app, whether it has UI already or none at all. Audits what the code uses today — empty on a fresh repo — then routes — nothing built goes straight to the interview, a filled Section 5 asks repair or overhaul, and components without a Section 5 go to ratify. One reference question, then 2-4 full-fidelity direction frames the user picks from on screen, then the rest of the taste slots in one turn and the stack questions that gate the install — all options invented for this app. A temporary in-repo canvas renders the answers as every page of the app in production-grade code, judged in the real browser, approved at one gate, then relocated into the app — the only difference between canvas and production is the data. Use before the first UI component of a repo is written, and whenever the user wants to redesign, restyle, or overhaul the look of an app that already has one.
+description: Settle the visual direction and component library of an app, whether it has UI already or none at all. Audits what the code uses today — empty on a fresh repo — then routes — nothing built goes straight to the interview, a filled Section 5 asks repair or overhaul, and components without a Section 5 go to ratify. One reference question, the stack recommended in a single install block rather than asked, then 2-4 full-fidelity direction frames drawn with the real packages that the user picks from on screen — nothing about the look is asked after the pick, and every option is invented for this app. A temporary in-repo canvas renders the answers as every page of the app in production-grade code, judged in the real browser, approved at one gate, then relocated into the app — the only difference between canvas and production is the data. Use before the first UI component of a repo is written, and whenever the user wants to redesign, restyle, or overhaul the look of an app that already has one.
 ---
 
 # design-settle — the visual direction, from nothing or from what exists
@@ -27,7 +27,7 @@ A `PRD.md` is an **absolute precondition**. Missing → STOP, point to `app-sett
 
 **On the fresh path, Section 5 is written once the canvas is ratified.** On the rework and ratify paths it is written exactly once, and only after the Step 6 gate approves it — as the first act of the pass, on the pass's own branch. Until then nothing touches it, and no draft document stands in for it: the canvas is the draft, its variables and foundations board carry every value the user can inspect. Approval writes Section 5 in full; rejection leaves the PRD exactly as it was.
 
-Two places in the documents may be written, and no third: **PRD Section 5**, and the **Component library row of `CLAUDE.md`** when the library question is answered with something other than *keep*. Do not create `MASTER.md`, `DESIGN.md`, `design-system/`, a staging PRD, or an audit report as a file. If another skill in this session produces a document, it is not committed and not referenced.
+Two places in the documents may be written, and no third: **PRD Section 5**, and the **Component library row of `CLAUDE.md`** when the library line is settled as something other than *keep*. Do not create `MASTER.md`, `DESIGN.md`, `design-system/`, a staging PRD, or an audit report as a file. If another skill in this session produces a document, it is not committed and not referenced.
 
 **The canvas is the final front-end, staged** (`references/canvas.md`). Its files are the future pages, written production-grade — the user approves code, not pictures, and promotion relocates that code instead of imitating it. The one legitimate difference between a canvas file and its live page is the data flowing through it; everything else is a failure to fix or a deviation the user has named.
 
@@ -59,9 +59,9 @@ Platform    : [from Section 1 Surface — web, or the platform named there]
 Primary role: [from Section 2]
 Reading     : [one sentence — see F1]
 Flow        : load taste.md + impeccable + frontend-design → reading →
-              reference slot, alone → direction frames + pick, unless a reference
-              or brand palette pinned the direction → rest of the taste batch →
-              stack questions → design plan → install → canvas rounds →
+              reference slot, alone → stack recommended (library · icons · engines)
+              → install → direction frames + pick, unless a reference or brand
+              palette pinned the direction → design plan → canvas rounds →
               ratify + Section 5 → promotion (all pages) → verify → close
 ```
 
@@ -77,51 +77,70 @@ Product without UI → **STOP**, this skill does not apply.
 
 **Load the three materials first, before the reading sentence is written**: `references/taste.md` beside this skill, and the two Required installs, `impeccable` and `frontend-design`. `taste.md` names which of `impeccable`'s reference files carry the material and `canvas.md` draws the boundary; one absent is **asked** rather than merely reported, under `taste.md`'s rule — continuing without it is an answer the user is allowed to give, and one the session is not allowed to give on their behalf. F0 has already routed, so nothing is read for a session that stops.
 
-They come first because **the reading sentence is itself the first taste output** — its *leaning* clause is a judgement about how this app should feel, and the paragraph below says every slot's options are invented from the corrected reading. A leaning written before the material is read seeds every option that follows out of the same defaults the material exists to close, and the batch then offers the user a menu of them: a Typography slot offering Inter, a Direction slot offering a cream ground with a serif and a terracotta accent, a reference slot proposing whichever product came to mind first. **A choice never offered is not recovered by any later round** — the judgement can reject what was drawn, but it cannot reach an option that was never written.
+They come first because **the reading sentence is itself the first taste output** — its *leaning* clause is a judgement about how this app should feel, and the paragraph below says every option and every frame is invented from the corrected reading. A leaning written before the material is read seeds everything that follows out of the same defaults the material exists to close, and the session then offers the user a menu of them: a reference slot proposing whichever product came to mind first, a frame set in Inter, a frame on a cream ground with a serif and a terracotta accent. **A choice never offered is not recovered by any later round** — the judgement can reject what was drawn, but it cannot reach an option that was never written.
 
-Both are divergence guidance: they name the defaults that read as generated and the method for choosing a direction, never the direction itself; `canvas.md` holds the rule and where the line falls. No skill that prescribes a fixed look — a fixed palette, a fixed pairing, a card recipe — is read. They stay in hand for the rest of the flow: the design plan at F3, the canvas, the judgement.
+Both are divergence guidance: they name the defaults that read as generated and the method for choosing a direction, never the direction itself; `canvas.md` holds the rule and where the line falls. No skill that prescribes a fixed look — a fixed palette, a fixed pairing, a card recipe — is read. They stay in hand for the rest of the flow: the design plan at F5, the canvas, the judgement.
 
 There is no audit — nothing exists to audit; this step is its sibling. **Reading** is your own conclusion before asking anything, one sentence, shaped as: *"I read this as [kind of app] on [platform] for [who uses it], leaning [the feel that fits], because [reason from the PRD]."*
 
-**The platform slot is not decoration.** `app-settle` already asked the platform and PRD Section 1 already holds the answer — it is never asked again. It rides in this sentence because the corrected reading is what every slot's options are invented from, so one word here is what puts the platform into all of them at once. Left out, the options arrive in the web's vocabulary and no later decision can tell that anything was lost.
+**The platform slot is not decoration.** `app-settle` already asked the platform and PRD Section 1 already holds the answer — it is never asked again. It rides in this sentence because the corrected reading is what every option and every frame is invented from, so one word here is what puts the platform into all of them at once. Left out, the options and the frames arrive in the web's vocabulary and no later decision can tell that anything was lost.
 
 Concluding first beats asking from nothing: the user only corrects what missed, and the correction carries more than an empty question would. A wrong reading is not a failure — it draws out detail that no question would surface.
 
 State the reading, ask for correction, then continue. When the correction is asked through AskUserQuestion, **the full reading sentence goes inside the question field itself** — the dialog may render without the prose around it, so a question that points at text "above" can arrive pointing at nothing.
 
-The slots' options and the canvas's values come from the model's own design knowledge of this app and its platform, sharpened by the three materials above, and the user's judgement on screen is what checks the result.
+The reference options, the frames, and the canvas's values come from the model's own design knowledge of this app and its platform, sharpened by the three materials above, and the user's judgement on screen is what checks the result.
 
-## F2 — The taste batch
+## F2 — The reference slot
 
-Read `references/interview.md` and run it in its order: **the reference slot alone, the direction frames it routes to, then six or seven slots across two AskUserQuestion calls in one turn.** The options are invented for this app from the model's own design knowledge — no fixed list anywhere, and no research pass for taste — each option named in plain words with its consequence in parentheses, one real option marked "(Recommended)". Every slot carries **"Decide for me"**.
+Read `references/interview.md` and run it in its order: **the reference slot alone, in its own turn; then the stack, recommended in the install block (F3, F4); then the direction frames the user picks from on screen (F5). Nothing about the look is asked after the pick.** Every option is invented for this app from the model's own design knowledge — no fixed list anywhere, and no research pass for taste — named in plain words with its consequence in parentheses, one real option marked "(Recommended)".
 
-**The first slot is the reference** — the app or site this one should feel like — and its options are **real products named by you**, two or three that are arguable for this app, plus `No reference — explore freely` and `Decide for me`. It is asked first because a named anchor reshapes every option that follows, and the second call's options are written after the first is answered. A product the options missed, a screenshot, or a URL arrives through Other, and that is the best outcome rather than a deviation. `interview.md` holds the slot's own rules — what a named reference costs, and the line between setting a direction and reproducing an interface.
+**The one question is the reference** — the app or site this one should feel like — and its options are **real products named by you**, two or three that are arguable for this app, plus `No reference — draw me the directions, I'll pick on screen` and `Decide for me`. It is asked first because its answer decides whether the frames are drawn at all: a named product or a brand palette is a direction and stands them down; the other two answers draw them. A product the options missed, a screenshot, or a URL arrives through Other, and that is the best outcome rather than a deviation. `interview.md` holds the slot's own rules — what a named reference costs, and the line between setting a direction and reproducing an interface.
 
-The answered slots are the user's preferences and the canvas's baseline; a slot answered "Decide for me" belongs wholly to the canvas's taste license. Either way the canvas may depart from any answered slot with a drawn, tagged, reasoned departure the user settles at the judgement (`canvas.md`), and the archetype table, the `/styleguide` route (F6), and real running pages are produced whatever was answered — what an answer changes is only where a value starts.
+The picked frame is the user's preference and the canvas's baseline; everything the frame did not settle belongs wholly to the canvas's taste license. Either way the canvas may depart from what was picked with a drawn, tagged, reasoned departure the user settles at the judgement (`canvas.md`), and the archetype table, the `/styleguide` route (F6), and real running pages are produced whatever was picked — what the pick changes is only where a value starts.
 
 **Every question goes through the AskUserQuestion tool, never prose text** — the recommendation first and marked "(Recommended)", the consequence in each option's description, everything the user needs inside the dialog itself. This holds in auto mode too: a prose question simply ends the turn unanswered.
 
-**Nothing the user did not choose is silent.** A "Decide for me" slot and every derived value surface as one line each with their basis — in the canvas assumptions block before drawing or the ratification report after approval — and the user may cancel any line; cancelling opens that value as a normal dialog. `interview.md` holds the list of what is derived and the floors that bind it.
+**Nothing the user did not choose is silent.** Every value the canvas decides beyond the picked frame, and every derived value, surfaces as one line each with its basis — in the design plan and the canvas assumptions block before drawing, or the ratification report after approval — and the user may cancel any line; cancelling opens that value as a normal dialog. `interview.md` holds the list of what is derived and the floors that bind it.
 
-**A canvas that misses twice escalates by re-opening this batch:** `taste.md`, `impeccable`, and `frontend-design` are re-read first (`canvas.md`), then the whole interview runs again in its own order — the reference slot first with products chosen against what was rejected, **a fresh set of direction frames** unless that answer pins the direction, then every remaining slot with sharpened options built from what the two rejections taught — and the canvas is regenerated fresh from the new answers, never patched.
+**A canvas that misses twice escalates by re-opening this step:** `taste.md`, `impeccable`, and `frontend-design` are re-read first (`canvas.md`), then the reference slot is asked again with products chosen against what was rejected, **a fresh set of direction frames** is drawn unless that answer pins the direction, and the canvas is regenerated fresh from the new pick, never patched. The stack is not re-opened — it is installed, and nothing the two rejections said was about a package.
 
-## F3 — The stack questions, then compile into values
+## F3 — The stack, recommended
 
-Read `references/library-rubric.md` and `references/engine-rubric.md`, then ask the second batch: the **component library**, its **icon dialog** when the library bundles none, and the **engine dialogs** whose triggers in `engine-rubric.md` have fired — nothing speculative; an app that trips no trigger hears no engine dialog. These are asked rather than improvised because they install code, and their candidates are **verified live** per the rubrics' duty — the one place research survives in this interview. The family rule in `interview.md` shifts recommendations toward already-installed ecosystems.
+Read `references/library-rubric.md` and `references/engine-rubric.md`. The stack is settled before the frames, because the frames are drawn with the real packages — and it is **recommended, not asked**: the install block of F4 carries one line per decision with its recommendation, its reason, and its alternatives, and the block's approval is the answer. The **component library** line names the recommended library with what it bundles and leaves out, and *own components* is always among its alternatives; the **icon pack** line exists only when that library bundles none; the **engine dialogs** whose triggers in `engine-rubric.md` have fired still run as dialogs here, before the block — nothing speculative; an app that trips no trigger hears no engine dialog. Candidates are **verified live** per the rubrics' duty — the one place research survives in this interview — because they install code. The family rule in `interview.md` shifts recommendations toward already-installed ecosystems.
 
-**Draft the full product before these dialogs close** — `canvas.md`'s expansion duty, run here rather than at drawing time, because the draft is what trips draft-implied engine triggers: it existing now is what lets every engine ride this batch and the install block close complete the first time.
+**Draft the full product before the install block is shown** — `canvas.md`'s expansion duty, run here rather than at drawing time, because the draft is what trips draft-implied engine triggers: it existing now is what lets every engine ride this batch and the install block close complete the first time.
 
-Answers outside the options are always accepted. The user names something not listed → verify it the same way, use it, state its consequence if you know it, or say you don't.
+Replies outside the lines are always accepted. The user names something not on a line → verify it the same way, use it, state its consequence if you know it, or say you don't.
 
-### Compile into values
+## F4 — Install, before anything is drawn
 
-Compile the answered slots into the canvas's baseline: concrete hex values, font names, and icon entries. A slot answered "Decide for me" compiles to nothing — the canvas owns it.
+**The install block is its own chat gate, right after F3** — its contents are the F3 recommendations and the engine answers, and everything is installed before a frame is drawn (`canvas.md`): the frames are the canvas's first round, and a frame drawn without its packages promises a component fidelity it cannot show. **The block is also where the stack is decided** — each line carries its recommendation, its reason in a clause, and its alternatives; approving the block settles them, and a reply naming an alternative rewrites that line and shows the block again. Do not ask twice, and **never put this block inside an AskUserQuestion** — a dialog covers the very block the user must read. Present the block, end the turn, and wait for the reply in chat.
 
-The output is the canvas's **baseline, not a gate**. The user corrects values where they are visible: on the canvas, at the judgement. Waiting here for an approval would judge the same values twice.
+One block, one approval:
+
+```
+Will install:
+  npm install
+  <component library>          [recommended under library-rubric.md — its reason and its
+                                alternatives on the line, own components always one]
+  <what the library omits>     [researched per candidate under library-rubric.md]
+  <icon pack>                  [bundled by the library, or its own line when it bundles none]
+  <engines>                    [chart · table · date · drag-and-drop — only what an
+                                engine-rubric.md trigger decided, nothing speculative]
+```
+
+Wait for approval. Refused → hand over the commands for the user to run, then wait.
+
+Install nothing outside that block. Something extra turns out to be needed → ask again, do not slip it in. The font is the one planned exception: the frames choose it after this block, and F6 installs it on its own approved line.
+
+## F5 — The canvas: rounds until final
+
+Drawn and judged under `canvas.md` entire. **It opens with the direction frames** — 2–4 full-fidelity screens of the densest page, drawn with the installed stack in `src/design-canvas/`, picked on screen (`canvas.md`, Directions first) — unless a reference or brand palette stood them down; then the design plan below, narrated in the turn after the pick; then the assumptions block and files written production-grade — every state drawn, fixtures in one contract-shaped file that closes arithmetically, imports only from the declared stack — the three-scan self-check before every round (imports · the render · the arithmetic), the signature drawn, tagged, and settled in a question of its own, tagged departures and proposals, the judgement through AskUserQuestion, two rounds then escalation.
 
 ### Then state the design plan — narrated, not gated
 
-Both materials were loaded at F1 and are already in hand. **Write the plan out in this same turn, before the install block.** This is the step that separates a designed app from a competent average, and it is skipped by exactly the sessions that most needed it.
+Both materials were loaded at F1 and are already in hand. **Write the plan out in the turn after the pick, before the first full canvas file.** This is the step that separates a designed app from a competent average, and it is skipped by exactly the sessions that most needed it.
 
 Five parts, short:
 
@@ -133,40 +152,17 @@ Five parts, short:
 | Layout | The shell and the composition in one or two sentences — where the density sits, what breaks the grid |
 | Signature | The single element this app is remembered by (`canvas.md`, the taste licence) |
 
-**The frames have already run by the time this step is reached, so the full plan is always written here** — to the candidate the user picked, or to the Direction slot they answered where a reference or brand palette stood the frames down. Nothing announces the plan earlier: the frames carry their own axes, one line of motivation and trade-off each, and that is all a user needs before voting. A plan that named a palette before the candidates were drawn would have decided the vote it was about to hold, which is the rigged set `canvas.md` forbids.
+**The frames have already run by the time this step is reached, so the full plan is always written here** — to the candidate the user picked, or to the reference or brand palette that stood the frames down. Nothing announces the plan earlier: the frames carry their own axes, one line of motivation and trade-off each, and that is all a user needs before voting. A plan that named a palette before the candidates were drawn would have decided the vote it was about to hold, which is the rigged set `canvas.md` forbids.
 
 **Then critique it against the brief before drawing, in the same turn.** Work through what a session with a similar brief would produce; any part of the plan that arrives at the same place is a default rather than a decision. **Revise that part and say what changed and why** — one line. A plan reported without that pass has skipped the only step in it that does any work.
 
 **It is a narration, not a gate: state it and keep going in the same turn.** Do not end the turn, do not open an AskUserQuestion, do not wait. What it buys is a decision the user can object to before the canvas exists, and a direction this session cannot quietly drift off later — the judgement still settles every value on screen.
 
-## F4 — Install, before anything is drawn
-
-**The install block is its own chat gate, right after the stack questions close** — its contents are known once the typography slot and the library and engine dialogs are answered (a typography answered "Decide for me" is decided by the designer here: the block's font line is where the user first sees that call, and refusing the block reopens it as a dialog), and everything is installed before the canvas is drawn (`canvas.md`). Do not ask twice, and **never put this block inside an AskUserQuestion** — a dialog covers the very block the user must read. Present the block, end the turn, and wait for the reply in chat.
-
-One block, one approval:
-
-```
-Will install:
-  npm install
-  <component library>          [from the library answer]
-  <what the library omits>     [researched per candidate under library-rubric.md]
-  <icon pack>                  [from the library answer — bundled, or its icon dialog]
-  <engines>                    [chart · table · date · drag-and-drop — only what an
-                                engine-rubric.md trigger decided, nothing speculative]
-  <font>                       [self-hosted or a package — say which, and where it loads]
-```
-
-Wait for approval. Refused → hand over the commands for the user to run, then wait.
-
-Install nothing outside that block. Something extra turns out to be needed → ask again, do not slip it in.
-
-## F5 — The canvas: rounds until final
-
-Drawn and judged under `canvas.md` entire: the direction frames are already picked, so this step opens on files written production-grade — every state drawn, fixtures in one contract-shaped file that closes arithmetically, imports only from the declared stack — the three-scan self-check before every round (imports · the render · the arithmetic), the signature drawn, tagged, and settled in a question of its own, tagged departures and proposals, the judgement through AskUserQuestion, two rounds then escalation.
-
 The PRD is not touched during rounds. The foundations board is the living draft of every value.
 
 ## F6 — Ratification: Section 5, the styling files, and `/styleguide`
+
+**The font is installed here, not at F4.** The face was chosen on the picked frame and loaded by link until now; where it needs a package, that is one install line approved in chat before the styling files are written — the only install outside F4's block, and it is named as such.
 
 **The styling files are scanned once they are written.** The values land from the canvas, so `impeccable`'s `design-system-*` rules have a theme to compare against for the first time here — run the detector over the styling files and the styleguide route before this step is reported done, and report the count. A hit against a value the user just ratified is a finding, not a correction: name it and leave it standing.
 
@@ -238,7 +234,7 @@ No isolated branch is needed — a fresh repo has no parallel work to disturb; t
 
 Page running → **prove it at two widths with screenshots**: the desktop breakpoint from Section 5 and the ratified lowest supported width. Capture follows PRD Section 1's Proof profile — the browser is the web profile's answer; a platform whose profile names an emulator or a window capture proves the same two bounds through it. No capture tooling → say so and report the profile's run target with both widths named — never claim the widths were judged without either.
 
-**Rework rounds.** A page collapsing under its fixtures, or the user asking for a rework, is a rework round of that page. **Two rework rounds of the same page at most — a third does not run, and Section 5 reopens**: the taste batch is re-asked with sharpened options, and the canvas is regenerated fresh from the new answers, never patched. Section 5 changed → the styling values are updated with it, and the pages are rebuilt from the new tokens rather than patched.
+**Rework rounds.** A page collapsing under its fixtures, or the user asking for a rework, is a rework round of that page. **Two rework rounds of the same page at most — a third does not run, and Section 5 reopens**: the reference slot is re-asked with sharpened options and the frames redrawn, and the canvas is regenerated fresh from the new pick, never patched. Section 5 changed → the styling values are updated with it, and the pages are rebuilt from the new tokens rather than patched.
 
 ## F8 — Verification: evidence, not eyes
 
@@ -290,10 +286,9 @@ UI components : [file count]
 Leftover      : [none / canvas alive / pass applied — from src/design-canvas/ and git state]
 Path          : [rework / ratify / re-entry — from the routing below]
 Flow          : audit → [repair · overhaul · ratify] → reference slot, alone →
-                direction frames + pick, unless a reference or brand palette pinned
-                the direction → rest of the taste batch → stack questions →
-                design plan → install → canvas rounds → gate → pass (isolated)
-                → verify → close
+                stack recommended, keep first → install → direction frames + pick,
+                unless a reference or brand palette pinned the direction →
+                design plan → canvas rounds → gate → pass (isolated) → verify → close
 ```
 
 **The block is printed on every invocation** — fresh, re-entry, or ratify — before any work beyond the reads that fill it. A session that starts editing, or even auditing, without having shown this block has routed itself in the dark, and everything it concludes about where the flow stands is a private guess the user never saw.
@@ -366,7 +361,7 @@ That last number matters most — it decides the size of the final pass, and the
 
 **The app could not be run, or there are no credentials → say so, here and at R6.** The inventory is then routes only, and the gate carries one line — `frame coverage unverified — the running app could not be walked`. A layer skipped in silence reads as a layer that passed.
 
-The **Component library** row exists because the library question builds its options from measured numbers; **Repeated labels** and **Supporting text** are measured so the canvas's copy decisions are judged against real counts rather than guesses (`interview.md`, the designer-settles list). Measuring them here means the interview never stops to go looking.
+The **Component library** row exists because the library line builds its recommendation from measured numbers; **Repeated labels** and **Supporting text** are measured so the canvas's copy decisions are judged against real counts rather than guesses (`interview.md`, the designer-settles list). Measuring them here means the interview never stops to go looking.
 
 **The `Slop detectors` row is deterministic and is the only row here that is** — and it runs only where the Surface is web technology, per `canvas.md`'s rule; a native Surface reports `n/a — native surface` here and at every later detector step. Run `impeccable`'s detector over the source tree and report both numbers. It is a **source-tier** scan: the rules that need a rendered page — measure, touch target, occlusion, nested containers — do not fire here, and R8 runs the full set against the running app. Its hits are **findings**, never repairs made on the way past: a finding becomes a Section 5 line only once the user ratifies it, like every other line in this block. `impeccable` absent → report the row as `n/a — not installed` and say so in the same breath.
 
@@ -395,13 +390,13 @@ One question, two options, with a recommendation:
 | Choice | What changes | Questions asked | Components touched |
 |---|---|---|---|
 | **Repair** | Zero new norms — only bringing code back in line with the existing Section 5 | None | Only the deviating ones |
-| **Overhaul** | **Section 5 is rebuilt from zero, as `design-settle` would write it** — every line re-decided, archetype shells and visual-direction prose included; today's values survive only as *keep* answers. The app looks redesigned afterwards, not retuned | The taste batch with a keep option per slot (one turn), the stack questions, then the canvas from its answers (see `canvas.md`) | Every page, replaced by its canvas file |
+| **Overhaul** | **Section 5 is rebuilt from zero, as `design-settle` would write it** — every line re-decided, archetype shells and visual-direction prose included; today's values survive only as *keep* answers. The app looks redesigned afterwards, not retuned | The reference question, the library recommended *keep* in the install block, then 2–4 direction frames picked on screen and the canvas from the pick (see `canvas.md`); every value it reads names the value it replaces | Every page, replaced by its canvas file |
 
-There is no third option that narrows the scope, because **every question carries a *keep* option** (see R3). Answering *keep* to the parts you do not want touched is what narrowing looks like here — scope is narrowed by answers, not by a mode chosen before the user has seen a single question.
+There is no third option that narrows the scope, because **every decision carries a *keep* option** (see R3) — the reference slot, the library line, and every value line the overhaul derives, each cancellable back to today's value. Answering *keep* to the parts you do not want touched is what narrowing looks like here — scope is narrowed by answers, not by a mode chosen before the user has seen a single question.
 
 **Recommendation:** repair, when the audit shows Section 5 is actually still right and the code is what strayed. Reworking a norm that was never followed solves nothing — it just produces a second norm that is also not followed.
 
-**Consequence:** quote the affected-component count from the audit, and state that overhaul includes the component-library question. Answering that one with anything but *keep* rewrites every component whatever the tokens say, and revokes the stack lock recorded in `CLAUDE.md`.
+**Consequence:** quote the affected-component count from the audit, and state that overhaul includes the component-library line. Answering that one with anything but *keep* rewrites every component whatever the tokens say, and revokes the stack lock recorded in `CLAUDE.md`.
 
 **State also what overhaul promises: the app looks different afterwards.** Name the pages the audit handed to `build-flow` — their shells will be rebuilt like every other page, but how much they *read* differently is capped until their content proposal lands, and the user hears that before choosing, not after the pass.
 
@@ -409,7 +404,7 @@ Repair → jump to R6; the gate there shows the findings instead of a canvas. Se
 
 ## R2b — Ratify — ratify path only
 
-Section 5 is empty, so the code has been making these decisions on its own. Walk every entry in `interview.md` once — the taste slots, the stack questions, and the derived values its designer-settles list names. The audit decides **how** each entry is put to the user, and that is the whole design of this step:
+Section 5 is empty, so the code has been making these decisions on its own. Walk every value `interview.md` names once — the reference, the library and engines, the values the frames would decide (direction, palette, surface, density, typography, motion, shell), and the derived values its designer-settles list names. The audit decides **how** each entry is put to the user, and that is the whole design of this step:
 
 | What R1 measured | How the entry is put |
 |---|---|
@@ -418,7 +413,7 @@ Section 5 is empty, so the code has been making these decisions on its own. Walk
 
 The split is what keeps this honest in both directions. Re-interviewing everything produces answers that contradict the running app, and a PRD that does not describe its own app is worse than no PRD. Ratifying everything writes the stylesheet's accidents into the PRD as norms. Where the code has a real answer the user checks it; where the code has none, nobody may pretend otherwise — offering a "measured value" assembled from noise is inventing a norm and labelling it a finding.
 
-**Batch the confirmations and batch the questions.** A confirmation carries a measured number and the user is checking it rather than deciding it, so several fit in one call. An entry with no measured basis is an ordinary interview question — grouped with its peers in one call (taste entries with the taste batch, stack entries with the stack batch), sequential only across a real dependency.
+**Batch the confirmations and batch the questions.** A confirmation carries a measured number and the user is checking it rather than deciding it, so several fit in one call. An entry with no measured basis is an ordinary interview question — grouped with its peers in one call (look entries together, stack entries together), sequential only across a real dependency.
 
 Every entry goes through the **AskUserQuestion tool** either way, never prose — a prose question at the end of a turn is skipped in auto mode and answered by no one.
 
@@ -439,46 +434,46 @@ Nothing else in this skill behaves differently for this path.
 
 ## R3 — The interview — Overhaul only
 
-**Load `design-settle`'s `references/taste.md` and the two Required installs, `impeccable` and `frontend-design`, first, before a single option is written** — same reason as there: the batch's options are the first place taste is exercised, and options written out of the defaults are a menu the user can only pick from. On this path the pull toward the defaults is stronger, not weaker: the audit has just filled the session with the app's current values, and every one of them is a default asking to be offered back.
+**Load `design-settle`'s `references/taste.md` and the two Required installs, `impeccable` and `frontend-design`, first, before a single option is written** — same reason as there: the reference options and the frames are the first place taste is exercised, and a set drawn out of the defaults is a menu the user can only pick from. On this path the pull toward the defaults is stronger, not weaker: the audit has just filled the session with the app's current values, and every one of them is a default asking to be offered back.
 
-Read `interview.md` in the `references/` folder of `design-settle`. The rules are identical: the reference slot alone in its own turn — its options real products named by you — then the direction frames wherever no reference and no brand palette pinned the direction, then six or seven slots in one turn — options invented for this app from the model's own design knowledge, every slot carrying "Decide for me", one marked recommendation per slot — then the stack questions, their candidates verified per `library-rubric.md` and `engine-rubric.md`. The canvas is drawn from the answers as the baseline and may still improvise anywhere, every departure from an answer tagged and confirmed at the judgement; its ratified values enter R6 as the *new* column of the diff.
+Read `interview.md` in the `references/` folder of `design-settle`. The rules are identical: the reference slot alone in its own turn — its options real products named by you — then the stack recommended in the R4 install block, its candidates verified per `library-rubric.md` and `engine-rubric.md`, then the direction frames wherever no reference and no brand palette pinned the direction, drawn with the installed stack and picked on screen. Nothing about the look is asked after the pick. The canvas is drawn from the pick as the baseline and may still improvise anywhere, every departure tagged and confirmed at the judgement; its ratified values enter R6 as the *new* column of the diff.
 
-**Escalation:** a canvas that misses twice re-opens the taste batch with sharpened options (`canvas.md`).
+**Escalation:** a canvas that misses twice re-opens the reference slot with sharpened options and redraws the frames (`canvas.md`).
 
-**Engine dialogs fire on triggers, never on a schedule** (`engine-rubric.md` of `design-settle`): a need the user or the PRD names, a job the product draft implies, or an engine the audit indicts. An installed engine is already decided — it is the declared stack, and no dialog re-opens it without an indictment. Swapping one rewrites every page that uses it, so it is priced and recommended the way the library question is — *keep* first, and keep stays the recommendation unless the indictment stands. A need that only emerges mid-canvas is drawn tagged with the no-engine rendering and settled at the judgement, per the rubric.
+**Engine dialogs fire on triggers, never on a schedule** (`engine-rubric.md` of `design-settle`): a need the user or the PRD names, a job the product draft implies, or an engine the audit indicts. An installed engine is already decided — it is the declared stack, and no dialog re-opens it without an indictment. Swapping one rewrites every page that uses it, so it is priced and recommended the way the library line is — *keep* first, and keep stays the recommendation unless the indictment stands. A need that only emerges mid-canvas is drawn tagged with the no-engine rendering and settled at the judgement, per the rubric.
 
-Six differences from `design-settle`:
+Five differences from `design-settle`:
 
-**Every slot and stack dialog carries a *keep* option, written first.** Labelled `Keep — <the value in Section 5 today>`, and it does not replace the invented options the slot must still offer. A value that is only a recommendation is a suggestion; a value written as an option is a choice. Answering *keep* throughout ends the session with the PRD unchanged. A derived value defaults to the value Section 5 holds today, reported on its line — cancelling it opens a dialog with the same keep option first.
+**Every decision carries a *keep* option, written first.** The reference slot offers `Keep — <the reference Section 5 records>`, the library line recommends keeping the installed library, and every value the canvas reads from the picked frame is reported on a line naming the value Section 5 holds today — cancelling it opens a dialog with `Keep — <today's value>` first. A value that is only a recommendation is a suggestion; a value written as an option is a choice. Answering *keep* throughout ends the session with the PRD unchanged.
 
-**Keep stays an option, but it stops being the recommendation.** The user chose overhaul, and that choice already says the current sum is wrong — recommending every current value back re-litigates it, and an overhaul answered by its recommendations then changes nothing. For the look-bearing slots — direction, palette, surface, density, typography, shell — the recommendation is a real departure, anchored in the reference the user named or the chosen direction, and it names what it departs from. **And the canvas that follows draws blind to the current look** — `canvas.md`'s full-overhaul rule: today's design is not an input, **Section 5's own prose included** — its signature, ornament rules, and shell column bind the canvas no more than the CSS does; only the brief and the answers are inputs. The audit's numbers price the pass and power the before/after, never anchor the new direction. The library question is the one exception: its recommendation stays *keep* unless the audit indicts the library itself, because answering it otherwise rewrites every component for reasons of cost, not of look. Derived decisions derive from the new answers, not from the old Section 5 — `interview.md` states the same split, and an overhaul that reads old values into its derivations has re-imported the design it was told to leave outside.
+**Keep stays an option, but it stops being the recommendation.** The user chose overhaul, and that choice already says the current sum is wrong — recommending every current value back re-litigates it, and an overhaul answered by its recommendations then changes nothing. The frames are drawn blind to today's look, so what they offer is departure by construction, and the recommended frame names what it departs from; where a reference stood them down, the plan's values are real departures anchored in it, each naming what it departs from. **And the canvas that follows draws blind to the current look** — `canvas.md`'s full-overhaul rule: today's design is not an input, **Section 5's own prose included** — its signature, ornament rules, and shell column bind the canvas no more than the CSS does; only the brief and the answers are inputs. The audit's numbers price the pass and power the before/after, never anchor the new direction. The library line is the one exception: its recommendation stays *keep* unless the audit indicts the library itself, because answering it otherwise rewrites every component for reasons of cost, not of look. Derived decisions derive from the pick, not from the old Section 5 — `interview.md` states the same split, and an overhaul that reads old values into its derivations has re-imported the design it was told to leave outside.
 
 **The new Section 5 is rebuilt from zero, not patched.** Every line of it traces to the same three sources `design-settle` names: a new answer, a derived decision reported to the user, or a canvas value the user ratified. A line of the old Section 5 that none of the three re-created — a signature paragraph, an ornament rule, a reference-app list — does not carry over by default: it survives only through a *keep* answer or a canvas re-ratification, and otherwise it appears in the R6 diff as a removal. Silent carry-over is the mechanism by which an overhaul stays caged by its predecessor, and one ratified sentence is enough bars.
 
 **The archetype table is reopened with everything else.** Under the new direction, run the archetype derivation again and present each archetype old shell beside new for ratification, the way R6 diffs a token. This is where an overhaul stops being a repaint: the rooms move, not only the walls. A user who ratifies every shell as it was is told plainly that the pages will read similar afterwards.
 
-**A reference is drawn out, not waited for — and here it has its own slot.** A redesign always has a reference in the user's head, so the taste batch's first question asks for it directly, with real products as options rather than an invitation buried in the lead text (`interview.md`, the reference slot). Where Section 5 already records one, it takes the first place as `Keep — <it>`; where it does not, the audit's own reading of what this app was reaching for is what the proposed products are argued from. A named answer becomes the anchor the canvas designs toward and the list the canvas is measured against at the judgement — drawing it out here is what cuts rounds later.
+**A reference is drawn out, not waited for — and here it has its own slot.** A redesign always has a reference in the user's head, so the interview's first question asks for it directly, with real products as options rather than an invitation buried in the lead text (`interview.md`, the reference slot). Where Section 5 already records one, it takes the first place as `Keep — <it>`; where it does not, the audit's own reading of what this app was reaching for is what the proposed products are argued from. A named answer becomes the anchor the canvas designs toward and the list the canvas is measured against at the judgement — drawing it out here is what cuts rounds later.
 
 ## R4 — Install, before anything is drawn — Overhaul only
 
-The canvas is built from real packages, so everything it will draw with exists **before** the first file is written (`canvas.md`). One block, one approval — answered in chat at a hard stop, never an AskUserQuestion (a dialog covers the block being read):
+The canvas is built from real packages, so everything it will draw with exists **before** the first frame is written (`canvas.md`) — and the block is also where the stack is decided: each line carries its recommendation with *keep* first, its reason, and its alternatives, and a reply naming one rewrites that line. One block, one approval — answered in chat at a hard stop, never an AskUserQuestion (a dialog covers the block being read):
 
 ```
 Will install:
-  <component library>   [the library answer — only if it changed]
-  <icon pack>           [its icon dialog — only if it changed]
+  <component library>   [the library line — keep unless the audit indicts it; alternatives
+                         named on the line, own components always one — only if it changed]
+  <icon pack>           [its own line when the library bundles none — only if it changed]
   <engines>             [chart · table · date · drag-and-drop — newly chosen, or
                          needed by the brief and missing from the UI stack row]
-  <fonts>               [only if the type answer changed them — say how they load]
 Will remove:
   <old library · old engines>   [at the end of the pass, not now — the pass needs both]
 ```
 
-Nothing to install → say so in one line and continue; a complete stack never stops this step. Refused → hand over the commands for the user to run, then wait. Install nothing outside that block — something extra turns out to be needed → ask again, do not slip it in.
+Nothing to install → say so in one line and continue; a complete stack never stops this step. Refused → hand over the commands for the user to run, then wait. Install nothing outside that block — something extra turns out to be needed → ask again, do not slip it in. The font is the one planned exception: the frames choose it after this block, and R7 installs it on its own approved line.
 
 ## R5 — The canvas: rounds until final — Overhaul only
 
-Drawn and judged under `canvas.md` entire: the direction frames are already picked, so this step opens on files written production-grade — every state drawn, fixtures in one contract-shaped file that closes arithmetically, imports only from the declared stack — the three-scan self-check before every round (imports · the render · the arithmetic), the signature drawn, tagged, and settled in a question of its own, tagged departures and proposals, the judgement through AskUserQuestion, two rounds then escalation. The design plan is narrated before drawing here too, under `design-settle` R3 — after the pick where frames ran; `references/taste.md` and `frontend-design` have been in hand since R3's interview. **Frames run here like anywhere else** — they are gated on the reference slot, never on Direction, so a `Keep — <today's value>` answer in the look-bearing slots does not stand them down. Only a reference the user names — the old one kept included — or a brand palette does, and on an overhaul that Keep option says so in its own text (`interview.md`).
+Drawn and judged under `canvas.md` entire. **It opens with the direction frames**, drawn with the installed stack and picked on screen (`canvas.md`, Directions first), unless a reference or brand palette stood them down; then the design plan narrated under `design-settle` F5, in the turn after the pick; then files written production-grade — every state drawn, fixtures in one contract-shaped file that closes arithmetically, imports only from the declared stack — the three-scan self-check before every round (imports · the render · the arithmetic), the signature drawn, tagged, and settled in a question of its own, tagged departures and proposals, the judgement through AskUserQuestion, two rounds then escalation. `references/taste.md` and `frontend-design` have been in hand since R3. **Frames run here like anywhere else** — they are gated on the reference slot alone. Only a reference the user names — the old one kept included — or a brand palette stands them down, and on an overhaul that Keep option says so in its own text (`interview.md`).
 
 **Detector findings are not an input to a round.** `impeccable`'s hook fires on every canvas file written and asks, in its own words, to be told what was fixed. Do not answer it here. The three self-check scans are the only gate before a round is shown, and the canvas is pre-ratification — a `nested-cards` or `monotonous-spacing` hit may be the very direction the user is about to choose, and acting on it changes what is being judged without the user ever seeing it happen. Carry the hits to R8.
 
@@ -547,7 +542,7 @@ STOP and wait for approval per item. A rejected item is not silently dropped —
 
 Then one session, every approved file, in an order that cannot be reversed:
 
-1. **Foundations.** The theme files take the new token values — old tokens **deleted**, not deprecated — and everything the canvas CSS carries beyond values lands with them: **the font loading itself** (link or package — then verify in the browser that the computed font-family resolves to the loaded webfont, not a fallback; a token grep cannot see a font that never loads), element-level rules, shadows, motion durations. The five styling-file rules in `design-settle` R6 bind here too: the two-layer palette the canvas ratified, every semantic slot mapped, no unread tokens, duplicate roles collapsed, both theme files in the same edit.
+1. **Foundations.** The theme files take the new token values — old tokens **deleted**, not deprecated — and everything the canvas CSS carries beyond values lands with them: **the font loading itself** (link or package — a face the frames chose that needs a package is installed here, one line approved in chat, the only install outside R4's block — then verify in the browser that the computed font-family resolves to the loaded webfont, not a fallback; a token grep cannot see a font that never loads), element-level rules, shadows, motion durations. The five styling-file rules in `design-settle` R6 bind here too: the two-layer palette the canvas ratified, every semantic slot mapped, no unread tokens, duplicate roles collapsed, both theme files in the same edit.
 2. **Chrome and shared components, from the canvas chrome.** Each shared component a canvas page imports lives in the production chrome before any page importing it counts as moved — the canvas markup is the component; the production logic (auth, navigation state, data) is wired into it, never the reverse. **Where they land follows `ui-build`'s placement rule**: the components that hold Section 5 rules in one file, a component carrying a flow of its own in its own file. Promotion is the moment that file comes into existence, and every later session is told to read it — scattering the set across fifteen files leaves that instruction pointing at nothing.
 3. **Pages — the most data-dense page of the primary role first.** Each canvas file **copied to its real path**, the canvas wrapper removed, the fixture import swapped for the real data layer. The markup body does not change — that is what R8 will diff. Checked at both widths for survival of real data: holding → report and continue; the first collapse → stop, a rework round of that page, two at most, then Section 5 reopens through `canvas.md`'s escalation.
 4. **Components not on the canvas** — **repair path only**: retoken until zero raw values remain, and a component prop or theme value departing from what the library ships goes back to the library default in this same pass, unless a Section 5 line requires the departure. **On the overhaul path this step is empty by construction** — R6 gave every such file a `deleted` verdict. A file still standing here is a failed inventory to report, never a file to quietly retoken.

@@ -204,7 +204,8 @@ Two sessions remain before pages can be built, in this order:
   /logic-settle — the logic layer: cache, validation, dates, logging,
                  scheduling, audit trail. Scored from the PRD; often
                  installs nothing.
-  /design-settle — the visual direction: a short taste interview, then every
+  /design-settle — the visual direction: one reference question, the stack
+                 installed, 2–4 direction frames picked on screen, then every
                  page drawn on a canvas, judged, and promoted.
 Until design-settle is done, any session will refuse to write UI components.
 ```
