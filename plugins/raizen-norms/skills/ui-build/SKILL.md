@@ -7,7 +7,7 @@ description: Rules for building or changing any UI — component reuse, loading 
 
 ## The material — loaded before the first component
 
-**Two skills carry the craft rules this file no longer states, and both are read before any component is written**: `impeccable` (its `reference/craft-floor.md`, and `reference/operate.md` for an operational app) and `frontend-design`. **Where PRD Section 1's Surface is iOS or Android, `reference/ios.md` or `reference/android.md` is read with them** — both on an adaptive surface — because the platform's navigation, type scale, insets, and touch-target floor live only there. Icons, tokens and raw values, library defaults, and accessibility all live there now.
+**Two skills carry the craft rules this file no longer states, and both are read before any component is written**: `impeccable` (its craft floor, and its operational register for an operational app — each located through `impeccable`'s own `SKILL.md`, never by a file name remembered from here) and `frontend-design`. **Where PRD Section 1's Surface is iOS or Android, its reference for that platform is read with them** — both on an adaptive surface — because the platform's navigation, type scale, insets, and touch-target floor live only there. Icons, tokens and raw values, library defaults, and accessibility all live there now.
 
 Both are **Required** installs for a repo under these skills, and the load is not optional for a session that touches UI — a component written before they are read is written out of the defaults they exist to close.
 
@@ -15,7 +15,7 @@ Neither absent stops the work. Say which one is missing and what could not be ch
 
 **Material, never an authority.** Where either collides with a ratified PRD Section 5 line, Section 5 wins. Their findings are findings — reported to the user, never fixed in place inside another session's work.
 
-**Read its reference files; never run its commands.** Three of `impeccable`'s commands write documents — `init` and `extract` write `PRODUCT.md`, `document` writes `DESIGN.md` — and `PRD.md` and `QUEUE.md` remain the only documents an app repo maintains. Its menu leads with `init` whenever it finds no `PRODUCT.md`; that offer is answered by pointing at PRD Section 5, not by taking it.
+**Read its reference files; never run its commands.** Any `impeccable` command that writes `PRODUCT.md` or `DESIGN.md` from the built world — `init`, `extract`, `document` at the time of writing — is never run; `PRD.md` and `QUEUE.md` remain the only documents an app repo maintains, and the one `DESIGN.md` present is the frontmatter `design-settle` generates from Section 5 for the detector — read by the hook, edited by no session. Its menu leads with `init` whenever it finds no `PRODUCT.md`; that offer is answered by pointing at PRD Section 5, not by taking it.
 
 ## Gate — the visual direction must already be set
 
