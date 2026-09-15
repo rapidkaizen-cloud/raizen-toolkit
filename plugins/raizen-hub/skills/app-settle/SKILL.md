@@ -25,7 +25,7 @@ The user is a junior developer. A reasoned default is more useful than an open c
 
 `QUEUE.md` is the one other file an app repo may carry, and it is not born here — the `build-flow` skill writes it in the first building session, from a queue the user approves.
 
-**Section 5 is never written here.** Bootstrap and document mode leave it absent; rework mode leaves it untouched even when the whole point of the rework is a new look. `design-settle` owns it, on its own audit-then-ratify path. Copying today's CSS into Section 5 reverses `user → PRD → CSS` and makes every accident an official norm.
+**Section 5 is never written here.** Bootstrap and document mode leave it absent; rework mode leaves it untouched even when the whole point of the rework is a new look. `design-settle` owns it: its audit measures today's values, today's look stands among its candidates, and nothing enters Section 5 unratified. Copying today's CSS into Section 5 reverses `user → PRD → CSS` and makes every accident an official norm.
 
 Do not commit and do not push. `git init` and staging are fine; the commit waits for the user.
 

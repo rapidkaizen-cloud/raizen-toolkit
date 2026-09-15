@@ -202,7 +202,7 @@ Where the PRD runs out, optional candidates come first from the components of th
 
 ### How full is full enough
 
-The app's most data-dense page is the bar — born on the design canvas and verified to match it. It was deliberately designed rich — summary cards, filters, badges — because a bare table proves nothing about density. Every later page is judged against it, and a page far emptier than it is a page to go back to, not a new norm.
+The app's proving page is the bar — the page `design-settle` named as the one the direction must survive, born on the design canvas and verified to match it; on a data tool that is its most data-dense page, deliberately designed rich — summary cards, filters, badges — because a bare table proves nothing about density. Every later page is judged against it, and a page far emptier than it is a page to go back to, not a new norm.
 
 **The tested widths are fixed by Section 5, not chosen per session:** the desktop breakpoint it names — 1440px when it names none — and the supported lower bound. A width picked ad hoc lets a narrow window pass a page that dies on the screens people actually use.
 
@@ -238,7 +238,7 @@ Two chains, one per batch. The backend one extends the chain already fixed by `d
 UI batch
   contract → fixtures, six cases → page + loading, empty, failed states
     → walk all six cases in a browser
-    → screenshot the bulk case at both Section 4 widths, judged beside the densest page
+    → screenshot the bulk case at both Section 4 widths, judged beside the proving page
     → count the page copy and print the three lines
 
 Backend batch
@@ -261,7 +261,7 @@ Explanation  longest 8 · median 6
 
 **No limit is set here and no count is a finding.** A stated ceiling is written up to rather than down from, which is why there is none. The three classes are printed apart because they go long in three different ways — an `Action` grows a qualifier, a `Name` grows a modifier, an `Explanation` grows a paragraph — and one combined average hides all three. A median far below its longest is one string that ran away; a median close to it is the whole page drifting. The fix comes from `ui-build`’s `Writing` rules; this step only puts the drift where the user can see it before the page is accepted. **The strings are in the source, so the count needs no browser** and survives a session with no capture tooling.
 
-**The walk ends with proof, not recall.** Screenshot the `bulk` case at the two widths Section 4 fixes, with the browser tooling available to the session, and put the desktop shot beside the app's densest page at the same width — the density questions in Section 4 are answered from those screenshots, never from memory of how the page looked while building it. Dead space taller than one table row at the desktop width → fix the page in this session; it is not a finding to record and move past. No browser tooling in the session → say so and walk the widths live at the dev server instead — the one thing forbidden is claiming the widths were judged when neither happened.
+**The walk ends with proof, not recall.** Screenshot the `bulk` case at the two widths Section 4 fixes, with the browser tooling available to the session, and put the desktop shot beside the app's proving page at the same width — the density questions in Section 4 are answered from those screenshots, never from memory of how the page looked while building it. Dead space taller than one table row at the desktop width → fix the page in this session; it is not a finding to record and move past. No browser tooling in the session → say so and walk the widths live at the dev server instead — the one thing forbidden is claiming the widths were judged when neither happened.
 
 Backend first **inside one page**, never backend first across the whole app. Splitting the batches does not contradict that: a UI batch has no backend to put anywhere, and a backend batch still builds each page's backend before its wiring.
 
@@ -288,7 +288,7 @@ Accepted, it runs over this session's diff only:
 | Pass | What it looks for |
 |---|---|
 | Accessibility | contrast, visible focus, keyboard reachability, every control paired with a label, images given alternatives — the ratios and the state list are `impeccable`'s `reference/craft-floor.md` Verify section, loaded per `ui-build`. the touch-target floor is `impeccable`'s too — 44×44px on the web (`reference/audit.md`, `reference/adapt.md`), 44×44pt on iOS and 48×48dp on Android (`reference/ios.md`, `reference/android.md`). A surface needing tighter than its platform floor is a Section 5 line the user ratifies |
-| Interaction polish | hover, active, focus, disabled and empty states present; hit area no smaller than the control it belongs to; spacing and radius matching the densest page |
+| Interaction polish | hover, active, focus, disabled and empty states present; hit area no smaller than the control it belongs to; spacing and radius matching the proving page |
 | Click path | per handler — does the final state match what the control's label promises, and does any later call undo what an earlier one just did |
 | Platform conventions | the shell affordances this Surface's users expect and no design decision produces — window chrome and menus, context menu and the gesture that opens it, system back, safe areas and insets, file and permission dialogs. Empty where the Surface is the web |
 | Screenshot | re-shoot the `bulk` case at the two Section 4 widths **after** the fixes, and judge the result rather than the intention |

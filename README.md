@@ -51,7 +51,7 @@ Restart the session once you are done installing.
 
 The design flow loads two taste materials, and both are Required: `impeccable` (`npx impeccable install`, or the marketplace) and `frontend-design` (Anthropic's, via `/plugin`). Both are divergence guidance — they name templated defaults to avoid without prescribing a style. Skills that prescribe a fixed look (exact fonts, shadows, card recipes) are deliberately not read by any flow: a house style read for every app makes every app look like the house.
 
-`impeccable` carries what `taste.md` and `ui-build` used to state themselves — the ban list, the display faces that mean the model stopped looking, the calibration against the three clusters AI interfaces converge on, the Operate register, and 59 deterministic detector rules. Only `reference/craft-floor.md`, `reference/operate.md`, and `new-work.md`'s two calibrations are read; `shape.md` and the rest of `new-work.md` are a competing pipeline and are not. `canvas.md` draws that boundary.
+`impeccable` carries what `design-settle` and `ui-build` used to state themselves — the ban list, the display faces that mean the model stopped looking, the calibration against the three clusters AI interfaces converge on, the Operate register, and 59 deterministic detector rules. Only `reference/craft-floor.md`, `reference/operate.md`, and `new-work.md`'s two calibrations are read; `shape.md` and the rest of `new-work.md` are a competing pipeline and are not. `canvas.md` draws that boundary.
 
 **Required means the flow is designed around them, not that it stops without them.** Absent, a session **asks** rather than merely reporting: it names what is lost — the ban list, the display-face and convergence calibrations, the Operate register, every detector count — and offers continuing without it against stopping to install. Continuing is a real answer; what is refused is the session spending most of the taste material on the user's behalf while a report line nobody read says it happened. Two notes on the install: its hook fires on every UI edit in every repo and asks to be told what was fixed — `design-settle` Steps 5 and 7 deliberately defer that to Step 8; and its skill description overlaps `design-settle`'s, so invoke the flow as `/design-settle` rather than typing "redesign my app".
 
@@ -62,7 +62,7 @@ The design flow loads two taste materials, and both are Required: `impeccable` (
 | Skill | Used for |
 |---|---|
 | `raizen-hub` | The four skills themselves — `app-settle`, `logic-settle`, `design-settle`, `app-conform` |
-| `impeccable` | The craft rules `taste.md` and `ui-build` no longer state, plus the detector `design-settle` reports at Step 1 and Step 8. Loaded before the interview and before any component is written |
+| `impeccable` | The craft rules `design-settle` and `ui-build` no longer state, plus the detector `design-settle` reports at Step 1 and Step 8. Loaded before the interview and before any component is written |
 | `frontend-design` | Divergence guidance against templated defaults, loaded alongside `impeccable` — never a house style |
 
 **Recommended** — nothing errors without them:
@@ -134,11 +134,11 @@ It is the only skill here that changes code already written. Every other one rep
 |---|---|---|
 | `app-settle` | Any directory — the mode is read from what it holds | Empty → `PRD.md` with an empty Section 5, scaffold, `git init`. Code without a PRD → document mode. Code with a PRD → rework mode |
 | `logic-settle` | `PRD.md` present | Audits what the repo runs today — empty on a new repo — then Section 1 records cache, validator, dates, errors, jobs, attribution: keep, adopt, or replace per need, often installing nothing. One skill for both cases; the audit is what tells them apart |
-| `design-settle` | `PRD.md` present | Audits the styling the code uses today — empty on a repo with no UI — then one reference question, the stack recommended in one install block, 2–4 full-fidelity direction frames drawn with the real packages that the user picks from on screen, and Section 5 filled or changed line by line, styling tokens written, and every page promoted from the ratified canvas. One skill for all three cases; the audit is what tells them apart |
+| `design-settle` | Any repo with a UI to settle — a missing or off-shape `PRD.md` is read around, and the user's confirmed reading is the gate | Audits the styling the code uses today — empty on a repo with no UI — then one reference question whose ticks anchor the frames, the stack recommended in one install block, 2–4 full-fidelity direction frames drawn in every session with the real packages that the user picks from on screen, and Section 5 filled or changed line by line, styling tokens written, and every page promoted from the ratified canvas. One path for every repo; two facts read at Step 0 switch its steps |
 | `app-conform` | `PRD.md` present, working tree clean | Existing code brought onto the conventions the plugins state today — platform residue, a `CLAUDE.md` duplicating the plugin, identifiers in the UI language, a norm that silently cannot apply, documents that should not exist. One finding per commit; never opened on its own initiative |
 | `build-flow` | Section 5 filled | `QUEUE.md` on first run, then usable pages — a UI batch built against contracts first, wired in a backend batch after |
 
-An app with components but no Section 5 — which is exactly what `app-settle`'s document mode hands over — takes `design-settle`'s **ratify** path: its values are measured and put to the user for ratification rather than adopted silently. The routing table at the top of that skill is what picks the path, and the audit is what feeds it.
+An app with components but no Section 5 — which is exactly what `app-settle`'s document mode hands over — runs the same `design-settle` path with its audit switched on: today's look stands among the direction frames, and picking it puts every measured value to the user for ratification rather than adopting it silently. Two facts read at Step 0 — UI present, Section 5 filled — switch the steps; there is no mode to pick.
 
 `build-flow` is the only one with no command to type — it lives in `raizen-norms` and loads in every working session, which is the point: the build order has to be known before anyone thinks to ask for it.
 

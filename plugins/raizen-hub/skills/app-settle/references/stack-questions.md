@@ -98,7 +98,7 @@ Without item two, do not raise the status. A repo that looks protected while it 
 | Register — judged on the first visit, or on the tenth use | Section 2: how often a role comes back | The `frontend-design` branch in `canvas.md`, whether `operate.md` loads, posture allowed or the signature alone. A product with both a public front and a logged-in inside carries both, per page group |
 | Data behind the pages | Section 1's Data row | Fixture cases and contracts in `build-flow`; without data, a page is proven at the two widths with its real copy |
 
-The switches are not written into the PRD as fields — Section 1 keeps its three rows. They are re-derived from Section 2 and the Data row whenever a skill needs them, and `design-settle`'s F0 and R0 blocks print them so a wrong derivation is seen before it costs anything.
+The switches are not written into the PRD as fields — Section 1 keeps its three rows. They are re-derived from Section 2 and the Data row whenever a skill needs them, and `design-settle`'s Step 0 block prints them so a wrong derivation is seen before it costs anything.
 
 **Recommendation:** follows the story, never a default kind.
 

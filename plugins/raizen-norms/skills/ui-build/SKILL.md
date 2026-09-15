@@ -29,7 +29,7 @@ Section 5 still `[needs verification]`, empty, or absent → **STOP.** Do not wr
 
 **Point the user at `design-settle`**, whatever state the repo is in. It is one skill with one entry point, and its own audit decides the path: no UI at all → it interviews the direction from nothing, then proves it as every page of the app on a staged canvas; components already there → it measures what those components actually use and puts each value to the user to ratify or overrule. Do not name a path, and do not decide one here — a session that announces which path it will take has pre-empted an audit it has not run.
 
-A repo with components but no Section 5 usually arrived through `app-settle`'s document mode, which writes the PRD for an existing app and deliberately leaves Section 5 unwritten. That is the ratify path's normal input, not an error.
+A repo with components but no Section 5 usually arrived through `app-settle`'s document mode, which writes the PRD for an existing app and deliberately leaves Section 5 unwritten. That is `design-settle`'s normal input, not an error: its audit measures the values and puts each one to the user.
 
 Why stop rather than choose for them: every rule below — tokens, components, contrast — measures the code against Section 5. Without Section 5 there is nothing to measure against, and a session that decides for itself is setting the app's norms through the back door.
 
@@ -87,7 +87,9 @@ Those two are the ones usually skipped and the ones that catch the most. A compo
 
 ## Writing
 
-Fixed norms. Not asked per app, not restated in the PRD, because none of them varies between apps under these skills. Copy is written **together with its component**, the same way the three states above are.
+Fixed norms for the tenth-use register — the pages somebody comes back to — not asked per app and not restated in the PRD, because none of them varies between such apps. Copy is written **together with its component**, the same way the three states above are.
+
+**A first-visit page group speaks in its own voice.** A landing page, a marketing site, the public front of a product — the register `app-settle` derives from PRD Section 2 — takes the copy voice Section 5's Visual Direction states for that group: the tone table below yields to it there, and humour, an exclamation, a posture in the copy are the direction's to spend, per page group and never behind the login. Section 5 states no voice for the group → the rules below apply as written. What holds on every register are the structural rules — a verb-first button, a confirmation that repeats its consequence, link text naming its destination, a placeholder that is not a label, an error beside its field written as an instruction, no sentence assembled from fragments, one term per concept — because they are accessibility and localization, not tone.
 
 Clear and brief beats clever; consistent beats varied. The best error message is the interaction redesigned so the error cannot happen.
 
