@@ -202,7 +202,7 @@ Where the PRD runs out, optional candidates come first from the components of th
 
 ### How full is full enough
 
-The app's proving page is the bar — the page `design-settle` named as the one the direction must survive, born on the design canvas and verified to match it; on a data tool that is its most data-dense page, deliberately designed rich — summary cards, filters, badges — because a bare table proves nothing about density. Every later page is judged against it, and a page far emptier than it is a page to go back to, not a new norm.
+The app's proving page is the bar — the page `design-settle` named as the one the direction must survive, born on the design canvas and verified to match it. Every later page is judged against it, and a page far emptier than it is a page to go back to, not a new norm.
 
 **The tested widths are fixed by Section 5, not chosen per session:** the desktop breakpoint it names — 1440px when it names none — and the supported lower bound. A width picked ad hoc lets a narrow window pass a page that dies on the screens people actually use.
 

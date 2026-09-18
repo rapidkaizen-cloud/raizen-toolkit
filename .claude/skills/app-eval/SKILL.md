@@ -5,7 +5,7 @@ description: Evaluate an app that was built under these skills in order to find 
 
 # app-eval — the app is the evidence, the toolkit is the defendant
 
-Every gate in this toolkit measures an app against itself. `build-flow` judges a page against the densest page *of the same app*; the session audit checks accessibility, states, and click paths — none of which fail in an app that is merely bland. So an app can pass every gate, session after session, and still come out worse than it should be.
+Every gate in this toolkit measures an app against itself. `build-flow` judges a page against the proving page *of the same app*; the session audit checks accessibility, states, and click paths — none of which fail in an app that is merely bland. So an app can pass every gate, session after session, and still come out worse than it should be.
 
 This skill is the only thing that looks at the finished result and asks whether the rules produced it. It changes no code. Its output is findings.
 
