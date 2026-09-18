@@ -12,8 +12,18 @@ and the two gates that must survive the plugin being absent.
 `PRD.md` is injected rather than pointed at. A pointer is obeyed by judgement, and
 the sessions that skip it are exactly the narrow ones where its prohibitions still
 apply.
+
+The two inventories — components, and the data layer's functions — are printed for
+the same reason. `ui-build` orders a listing
+of the components folder before any element is written, and a skill is loaded by
+judgement — a session that never loads it hunts for `Pagination`, misses `Pager`, and
+writes it a second time. It is printed here rather than from a PreToolUse hook on
+Write because that hook's additionalContext lands beside the tool result: after the
+file is already written.
 """
 import json
+import os
+import re
 import sys
 from pathlib import Path
 
@@ -49,8 +59,10 @@ POINTERS - read before touching
   Schema, RLS, migrations                         : skill `db-ops`
   Queries, actions, handlers, keys, env vars      : skill `logic-build`
 Skills load by judgement rather than by rule, and a new component triggers no file
-read at all. Do not write new UI without reading `ui-build` first, and do not write a
-key or an environment variable without reading `logic-build` Section 1 first.
+read at all - so the components and the data-layer functions this repo already has
+are listed at the end of this block, wherever it has any. Do not write new UI without
+reading `ui-build` first, do not write a query without reading `logic-build` first,
+and do not write a key or an environment variable without its Section 1.
 
 SCOPE
 Only what was asked. No refactor, no rename, no "while I'm here" outside scope.
@@ -150,6 +162,153 @@ def inject(path: Path, what: str) -> None:
             )
 
 
+# Where components live, by the folder name every stack in the rubric converges on.
+# ponytail: a name heuristic, not a declared path. A repo keeping its shared set under
+# another name is listed as nothing; read the path from the app's own files when one does.
+UI_DIRS = {"components", "widgets"}
+PRUNE = {"node_modules", "dist", "build", "out", "target", "vendor", "coverage", "design-canvas"}
+SKIP_FILES = (".test.", ".spec.", ".stories.")
+INVENTORY_MAX = 60  # files listed; the rest are counted, so the cost per session is bounded
+INVENTORY_DEPTH = 5  # how deep a components folder is looked for, not how deep one is read
+
+# Capitalised names only: a variants helper or a hook is not a component, and listing
+# it buries the ones that are.
+JS_DECLARED = re.compile(r"export\s+(?:default\s+)?(?:async\s+)?(?:function|const|class)\s+([A-Z]\w*)")
+JS_BRACED = re.compile(r"export\s*\{([^}]*)\}")
+NAMES = {
+    ".tsx": None,
+    ".jsx": None,
+    ".vue": "stem",
+    ".svelte": "stem",
+    ".astro": "stem",
+    ".dart": re.compile(r"class\s+([A-Z]\w*)\s+extends\s+\w*Widget\b"),
+    ".kt": re.compile(r"@Composable(?:\s+@?\w+(?:\([^)]*\))?)*?\s+fun\s+([A-Z]\w*)"),
+    ".swift": re.compile(r"struct\s+([A-Z]\w*)\s*:[^{]*\bView\b"),
+}
+
+
+def component_names(path: Path) -> list:
+    rule = NAMES[path.suffix]
+    if rule == "stem":
+        return [path.stem]
+    text = read(path)
+    if rule is not None:
+        return rule.findall(text)
+    names = JS_DECLARED.findall(text)
+    for group in JS_BRACED.findall(text):
+        for item in group.split(","):
+            # `Dialog as Trigger` exports Trigger; `type Props` exports no component
+            name = item.split(" as ")[-1].strip()
+            if name[:1].isupper() and " " not in name:
+                names.append(name)
+    # `IMPORT_STEPS` is capitalised and is a constant
+    return [n for n in dict.fromkeys(names) if not n.isupper()]
+
+
+def component_files(root: Path) -> list:
+    found = []
+    for cur, dirs, files in os.walk(root):
+        rel = Path(cur).relative_to(root)
+        inside = any(part.lower() in UI_DIRS for part in rel.parts)
+        dirs[:] = [
+            d for d in dirs
+            if not d.startswith(".") and d not in PRUNE
+            and (inside or d.lower() in UI_DIRS or len(rel.parts) < INVENTORY_DEPTH)
+        ]
+        if inside:
+            found += [
+                rel / f for f in files
+                if Path(f).suffix in NAMES and not any(s in f for s in SKIP_FILES)
+            ]
+    return sorted(found, key=lambda p: (len(p.parts), p.as_posix()))
+
+
+def inventory(root: Path) -> None:
+    try:
+        files = component_files(root)
+    except OSError:
+        return
+    if not files:
+        return
+    sys.stdout.write(
+        "\n--- Components already in this repo - reuse before writing a new one ---\n\n"
+        "A listing, not the rule: `ui-build` is still read before any UI is written, and\n"
+        "the file holding the shared set is still read whole.\n\n"
+    )
+    for rel in files[:INVENTORY_MAX]:
+        names = component_names(root / rel)
+        sys.stdout.write(rel.as_posix() + (": " + ", ".join(names) if names else "") + "\n")
+    if len(files) > INVENTORY_MAX:
+        sys.stdout.write(f"... {len(files) - INVENTORY_MAX} more files - list the folder.\n")
+
+
+# The data layer is read from the row `logic-settle` writes into the app's Stack table,
+# never guessed from a folder name: `lib`, `services`, `data`, and `api` all occur, and a
+# wrong guess lists utilities as if they were queries. No row → nothing is printed.
+DATA_ROW = re.compile(r"^\|\s*Data layer\s*\|\s*([^|]+)\|", re.I | re.M)
+DATA_SUFFIXES = {".ts", ".tsx", ".js", ".jsx", ".mjs"}
+DATA_MAX_FILES = 40
+DATA_MAX_NAMES = 12
+FN_DECLARED = re.compile(r"export\s+(?:async\s+)?(?:function\s+|const\s+)([A-Za-z_]\w*)")
+
+
+def function_names(path: Path) -> list:
+    # ponytail: JS and TS only. Another language lists its files by name; add its
+    # declaration pattern here when an app on that stack has a data layer to list.
+    if path.suffix not in DATA_SUFFIXES:
+        return []
+    text = read(path)
+    names = FN_DECLARED.findall(text)
+    for group in JS_BRACED.findall(text):
+        for item in group.split(","):
+            name = item.split(" as ")[-1].strip()
+            if name and " " not in name:
+                names.append(name)
+    return [n for n in dict.fromkeys(names) if not n.isupper()]
+
+
+def data_layer(root: Path) -> None:
+    row = DATA_ROW.search(read(root / "CLAUDE.md"))
+    if not row:
+        return
+    cell = row.group(1).strip()
+    ticked = re.search(r"`([^`]+)`", cell)
+    rel = (ticked.group(1) if ticked else cell.split()[0]).strip("/\\")
+    folder = (root / rel).resolve()
+    if root.resolve() not in folder.parents:
+        return
+    if not folder.is_dir():
+        sys.stdout.write(
+            f"\nNOTE: the Data layer row of CLAUDE.md names `{rel}`, and no such folder "
+            "exists. The lint floor scoped to it guards nothing. Tell the user.\n"
+        )
+        return
+    files = sorted(
+        (
+            p.relative_to(root) for p in folder.rglob("*")
+            if p.is_file() and not p.name.endswith(".d.ts")
+            and not any(s in p.name for s in SKIP_FILES)
+            and not any(part in PRUNE or part.startswith(".") for part in p.relative_to(root).parts)
+        ),
+        key=lambda p: (len(p.parts), p.as_posix()),
+    )
+    if not files:
+        return
+    sys.stdout.write(
+        f"\n--- Data layer of this repo ({rel}) - call what exists before writing a query ---\n\n"
+        "A listing, not the rule: `logic-build` is still read before a query, an action,\n"
+        "or a handler is written, and no database call is written outside this folder.\n\n"
+    )
+    for path in files[:DATA_MAX_FILES]:
+        names = function_names(root / path)
+        shown = names[:DATA_MAX_NAMES]
+        if len(names) > DATA_MAX_NAMES:
+            shown.append(f"+{len(names) - DATA_MAX_NAMES}")
+        sys.stdout.write(path.as_posix() + (": " + ", ".join(shown) if shown else "") + "\n")
+    if len(files) > DATA_MAX_FILES:
+        sys.stdout.write(f"... {len(files) - DATA_MAX_FILES} more files - list the folder.\n")
+
+
 def stale_note(root: Path) -> None:
     text = read(root / "CLAUDE.md")
     if not text:
@@ -177,6 +336,8 @@ def main() -> None:
     inject(root / "PRD.md", "intent and prohibitions")
     inject(root / "QUEUE.md", "what is not built yet")
     stale_note(root)
+    inventory(root)
+    data_layer(root)
     sys.exit(0)
 
 

@@ -240,11 +240,19 @@ UI batch
     → walk all six cases in a browser
     → screenshot the bulk case at both Section 4 widths, judged beside the proving page
     → count the page copy and print the three lines
+    → run the lint command — the floor in `ui-build`
 
 Backend batch
   PRD rules → migration + RLS → role test → regenerate types
-    → query returning the contract type → wire the page → walk the flow in a browser
+    → query returning the contract type, in the data layer folder
+    → one rule test per PRD Section 3 line this page implements — `logic-build` Section 10
+    → wire the page → walk the flow in a browser
+    → run the lint command — the floors in `ui-build` and `logic-build`
 ```
+
+**The lint step closes both chains because the todo list below is what makes it happen.** A rule to run the linter is skipped by the session that most needed it; an unticked todo entry is not. Its refusals are fixed before the commit, under `ui-build`'s rules for living with the floor. A repo with no floor yet skips the step and says so.
+
+**The rule test sits before the wiring on purpose.** A rule proven after the page works is proven by a session that already believes it, and a test written to agree with running code agrees with its bugs. It is written from the PRD line, against the enforcement point, while the page cannot yet vouch for it. A page implementing no Section 3 line has no such step; a repo with no test runner raises it once under `logic-build` and records what stays unproven as `Prove: <topic>` lines here in the queue.
 
 **The page copy is counted, never capped.** Group every string the page renders into three classes and print one line each, longest and median, in words. A UI batch only; a backend batch renders no copy.
 

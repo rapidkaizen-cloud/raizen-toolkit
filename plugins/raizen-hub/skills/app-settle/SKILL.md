@@ -45,6 +45,7 @@ Check the working directory, the files it holds, and the available skills, then 
 Directory  : [path] — [empty / N files]
 PRD.md     : [absent / present]
 CLAUDE.md  : [absent / present]
+AGENTS.md  : [absent / present]
 Git        : [branch · N commits]  or  [not a repo]
 Mode       : [bootstrap — empty directory]
              [document  — application code, no PRD.md]
@@ -144,6 +145,7 @@ Section 5 is filled with `[needs verification]` throughout. Bootstrap is not the
 | File | Contents |
 |---|---|
 | `CLAUDE.md` | **Thin**, written to the shape below |
+| `AGENTS.md` | **Thinner**, written to its own shape below — for the agents that never see the plugin |
 | `.claude/settings.json` | `{"enabledPlugins": {"raizen-norms@raizen": true}}` — that key and nothing else; a repo that already has the file keeps the rest of it |
 | Host rewrite rule | Only when the framework is a **static SPA**, and written for the host chosen at Question 4 — `vercel.json` on Vercel, `netlify.toml` on Netlify, a `try_files` line on an own server. Next.js, Nuxt, SvelteKit, and Astro carry their own server layer — do not write one |
 | CI workflow | Only when the user asks for migrations through CI at N6. Written for the host and migration tool actually chosen — there is no stock workflow to copy, and one written for the wrong runner is worse than none |
@@ -167,6 +169,24 @@ Six parts, nothing else. A rule that would hold in another app belongs in the pl
 **The last two parts stay in the file on purpose** — they must still bite in a session where the plugin is absent, disabled, or failed to start. Everything else there is a value, not a rule.
 
 **Name the skills that exist today, never from memory of an older flow.** The retired template this replaced still pointed at `/app-init` and `/design-rework` long after both were folded into `app-settle` and `design-settle`: a file nobody re-reads is a file that goes stale in silence, and that is the whole reason this is a shape rather than a template.
+
+### The shape of `AGENTS.md`
+
+**Written for the agents that never see the plugin.** Claude Code reads `CLAUDE.md`, is handed the norms and `PRD.md` by `raizen-norms` at every session start, and never loads this file. Codex, Cursor, Copilot, and whatever comes next read `AGENTS.md` and nothing else here — no norms, no injected PRD, no guard behind any command. Left with nothing, such an agent builds from its own defaults, and the design system goes first: it cannot know a shared set exists, so it writes a second one.
+
+That separation is also what lets this file restate a norm, which `CLAUDE.md` must never do. A restatement here cannot contradict the plugin inside one context, because no agent holds both. It can still go stale, so the file stays short and points at the repo — the PRD, the shared set, the lint command — rather than paraphrasing a skill.
+
+English prose, five parts, nothing else:
+
+| Part | Holds |
+|---|---|
+| Opening line | That Claude Code does not read this file, that every other agent starts here, and that nothing enforces what follows except the repo's own linter — the rest is on the agent's honour |
+| `## Read first` | `CLAUDE.md` whole — locale, stack, ground truth, the gate. Then `PRD.md` whole: Section 5 is the design system and it is normative; Section 6 is what a well-meaning session must not "fix" |
+| `## UI` | At bootstrap, the gate alone: no UI component is written while PRD Section 5 is empty or `[needs verification]`. `design-settle` replaces it at ratification with this app's own values — the file and folder holding the shared set, read before any element is written · the order of sources: a component in this repo, then the named library, then a new one that says what the existing ones cannot do, because looking slightly different is a prop · styling values read by role from the named styling file, never typed · the `/styleguide` route a new shared component is added to · the lint command, run before finishing, its refusals fixed and never disabled |
+| `## Logic` | At bootstrap, one line: every rule the app enforces is in `PRD.md` Section 3, and a rule not written there is asked for, never invented. `logic-settle` replaces it at its Step 7 with this app's own values — the data layer folder, and that no database call is written outside it · that access rules live in the database and are never re-implemented in application code · the settled libraries by pointer to `CLAUDE.md`'s Stack table · the lint command and the test command · that a failing rule test is never fixed by editing the test |
+| `## Never` | What the plugin refuses by hook and this file can only ask: no commit on `main`, no push, no staging of everything at once — paths are named · no destructive SQL statement and no unscoped update without the user's word in chat · no secret value in any file — name the variable |
+
+A product without UI gets no `## UI` part; an app with no database and no remote API gets no `## Logic` part. **It is not `CLAUDE.md` imported or symlinked**: the two files have different readers and hold different things, and a symlink does not survive a Windows checkout without Developer Mode anyway.
 
 **No `.mcp.json` is written — ever.** Database MCP servers are connected **user scope**, once per machine, never per repo; for Supabase the exact `claude mcp add -s user` one-liner is printed at Step 6. A repo-level server config would only duplicate what the machine already has. Project pinning does not come from server config: `supabase/config.toml` declares the repo's project, and the `guard_project_ref` hook in `raizen-norms` blocks any Supabase MCP call aimed at a different one. A database whose official MCP server exists follows the same pattern; a database with no server → say so rather than leaving the gap silent.
 
@@ -300,6 +320,7 @@ Follow `references/prd-structure.md` beside this skill. The same six sections, w
 Then:
 
 - **`CLAUDE.md`** written to the shape in N5, filled from D1. English prose whatever the app's UI language — a translated file is invisible to the stale-section detector in `session_norms.py`. Already present → **do not overwrite.** Add only the missing rows and report what was left alone.
+- **`AGENTS.md`** written to its shape in N5. The `## UI` and `## Logic` parts hold their bootstrap lines — Section 5 is absent here and no data layer folder has been named; `design-settle` and `logic-settle` each fill their own part. Already present → **do not overwrite**; add the parts it lacks under their own headings and report what was left alone.
 - **`.claude/settings.json`** enabling `raizen-norms`. Already present with other plugins → add the key, keep the rest.
 - **`supabase/config.toml`** only when the database is Supabase **and** the file is missing. One line, `project_id = "<ref>"` — an identifier, not a secret — which the `guard_project_ref` hook pins every Supabase MCP call to. Present already → leave it alone.
 
@@ -330,7 +351,7 @@ The trial the user actually wants is opened by asking for it: that is rework mod
 One block:
 
 ```
-Written    : PRD.md · CLAUDE.md [new / N rows added] · .claude/settings.json
+Written    : PRD.md · CLAUDE.md [new / N rows added] · AGENTS.md [new / N parts added] · .claude/settings.json
 Not read   : [rows still unreadable]
 Unverified : [what carries [needs verification]]
 Findings   : [concrete stack findings only — or "none"]

@@ -39,7 +39,7 @@ Section 5 filled → this gate is done. Later pages need no further visual appro
 
 Before building any UI element, **check the components already in the repo**. A required step, not a suggestion. Name which existing component covers each element in scope.
 
-**Read the ratified set first, do not search for it.** List the components folder, then read the file holding the app's shared set — one listing, one read, never a grep. A repo whose Section 5 was ratified rather than redrawn has never promoted a canvas, so there may be no single file yet; the listing is still the first move, and the placement rule below is what the first extraction follows. A session hunting for `Pagination` does not find a `Pager`, and writes it a second time under a second name; a year of that leaves three components doing one job and no way to tell which one a page should have used.
+**Read the ratified set first, do not search for it.** List the components folder, then read the file holding the app's shared set — one listing, one read, never a grep. The session-start block already carries that listing wherever the repo has a components folder: it stands in for the listing, never for the read. A repo whose Section 5 was ratified rather than redrawn has never promoted a canvas, so there may be no single file yet; the listing is still the first move, and the placement rule below is what the first extraction follows. A session hunting for `Pagination` does not find a `Pager`, and writes it a second time under a second name; a year of that leaves three components doing one job and no way to tell which one a page should have used.
 
 The order of sources is fixed:
 
@@ -63,6 +63,26 @@ A visual pattern appearing a second time → **extract it into a component, do n
 Where the app has a `/styleguide` route, the extracted component is **added to it in the same turn** — that route is the one place all components are seen side by side, and a shared component missing from it is a finding.
 
 Components that came from a copy-in library (shadcn and the like) are **existing code** as far as this rule is concerned, not a dependency to be ignored.
+
+## The lint floor — what the repo itself refuses
+
+Everything above is obeyed by judgement, and an agent that never loads this file obeys none of it. So the four failures that cost the most are refused by the repo's own linter, where they reach every session and every agent, whatever it read:
+
+1. **A raw element the shared set or the library already ships**, written outside the components folder — a bare `<button>`, `<input>`, `<select>`, `<dialog>`, `<table>` on the web, and only the ones this app has a component for.
+2. **A raw value in product code** — a colour literal, or an inline style or arbitrary-value utility carrying a colour, a radius, a font size, or a step of the spacing scale. The styling files are the one place a value is typed.
+3. **A numbered ramp step in product code**, where the alias layer exists. Product code reads a role.
+4. **A primitive the shared set is built on, imported outside the components folder** — the package a dialog wraps, pulled into a page to hand-roll a second dialog.
+
+`design-settle` writes the floor at ratification, derived from this app's shared set and styling files; a repo whose Section 5 is filled and that has no floor gets it from `app-conform`. This file binds how a session lives with it:
+
+- **Run the repo's lint command before committing any UI scope item.** A refusal is fixed in the code that caused it.
+- **An inline disable of a floor rule is a finding**, the same standing as a raw hex value. So is a floor rule lowered to a warning — no agent reads a warning.
+- **The floor grows with the set.** Extracting a shared component that replaces a raw element adds that element to the first refusal in the same turn, the way the component is added to `/styleguide`.
+- **A refusal that is wrong is reported, never worked around.** A layout expression caught as a raw value is a pattern too wide; it is narrowed in the config on the user's word, not silenced at the call site — a floor each session may loosen is a floor that lasts one session.
+
+No floor in the repo → say so in one line and carry on; its absence is a finding for `app-conform`, not a stop.
+
+The floor cannot see the fifth failure: a second component doing an existing one's job under another name. No linter can. The listing and the read above are what hold that one.
 
 ## Loading, empty, and failed
 

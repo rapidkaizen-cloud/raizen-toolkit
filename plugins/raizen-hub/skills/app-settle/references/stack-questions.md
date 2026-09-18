@@ -14,7 +14,7 @@ Component library is **not asked here** — it is the library line of `design-se
 
 The **Status** column decides how a row is offered. **Ready** appears as a normal option. **Pioneer** appears as an option whose description opens with its cost — no rubric row to read from, a research-driven bootstrap — governed by the Pioneer path below. **Not ready** is not offered at all.
 
-**Status does not measure templates.** This toolkit scaffolds no hosting, CI, or database config for any stack — only `CLAUDE.md` and `.claude/settings.json`, which every repo gets whatever it runs on. What a row's status measures is whether its **guard coverage is stated** and its **migration or deploy path is named**. A row that cannot say what protects a destructive statement is not Ready however many repos already run on it.
+**Status does not measure templates.** This toolkit scaffolds no hosting, CI, or database config for any stack — only `CLAUDE.md`, `AGENTS.md`, and `.claude/settings.json`, which every repo gets whatever it runs on. What a row's status measures is whether its **guard coverage is stated** and its **migration or deploy path is named**. A row that cannot say what protects a destructive statement is not Ready however many repos already run on it.
 
 ## Platform
 
@@ -75,7 +75,7 @@ Without item two, do not raise the status. A repo that looks protected while it 
 1. **Name what does not exist, first.** Three lines before anything continues: no rubric row to read the options from, no repo that has run this platform under these plugins, and the guard line below. One confirmation; declining routes back to a Ready platform. The absence of templates is **not** one of the lines — no platform has any, so naming it here would price a cost every choice carries.
 2. **Storage decides the guard line.** The destructive guard matches SQL syntax, so any SQL store — Supabase, SQLite, Room, Drift — stays covered wherever the app runs. A non-SQL store is not covered, and the existing non-SQL rule applies unchanged: say so before question 6 is answered.
 3. **The stack questions the tables cannot serve are assembled by live research.** Framework or language where the platform leaves a choice, distribution instead of hosting, project layout — real current options, more than two, one marked recommendation, a one-sentence consequence each. Never from memory alone.
-4. **The scaffold is minimal and honest.** The platform's own init command, `.claude/settings.json`, and `CLAUDE.md` — the same two files a Ready platform receives, since nothing else is scaffolded for anyone. What is still owed is the platform's own config and deploy path, listed in the close block.
+4. **The scaffold is minimal and honest.** The platform's own init command, `.claude/settings.json`, `CLAUDE.md`, and `AGENTS.md` — the same three files a Ready platform receives, since nothing else is scaffolded for anyone. What is still owed is the platform's own config and deploy path, listed in the close block.
 5. **`PRD.md` Section 1 records `Platform: <name> (pioneer)`** — the marker later skills read to know this repo runs ahead of the toolkit's templates.
 6. **The Proof profile is proven, not asserted.** Its shape lives in `prd-structure.md`. Before a line is written into Section 1, execute it once — run the run command, take one capture. A line that was not executed is written `[needs verification]`, and the skills that read it report instead of claim.
 
