@@ -6,7 +6,7 @@ Questions travel in batches — up to four per AskUserQuestion call, several cal
 
 **The stack is not locked.** Options are assembled from the rubric below, filtered by the needs readable from the user's story. Two things are locked. **Options marked Not ready are not offered** — a bootstrap that produces a repo without config and without migrations is a failed bootstrap, and a junior developer will not know what is missing. And **a Pioneer option never hides its cost**: it is offered, but its description opens with what does not exist for it yet, and choosing it routes the bootstrap through the Pioneer path below.
 
-Component library is **not asked here** — it is the library line of `design-settle`'s install block, once the app's real needs are readable from the PRD, and `design-settle` also installs it.
+Component library is **not asked here** — it is the library dialog of `design-settle`'s interview, once the app's real needs are readable from the PRD, and `design-settle` also installs it.
 
 ---
 

@@ -37,7 +37,7 @@ Where the skill says *verify live* or *research*, the result is not invented: th
 | Print a block — preconditions, audit, frame inventory, close | Skip it. State only the switches it sets, in one line: `UI exists: yes → audit runs, Keep candidate offered, gate at Step 6` |
 | Stop in chat on a block the user must read — the install block, the gate | Show the block **reduced to its decision lines** — each line's recommendation and alternatives, the gate's diff and removals — and ask the same approval in chat |
 | Report cancellable lines — assumptions, ratified values, derived decisions | List the lines, then one multi-select: *which of these do you want to change?* — a cancelled line opens the dialog the skill defines for it |
-| Draw frames, build a canvas, promote pages | Describe, do not draw: each candidate's name, anchor, the axis it explores, the proving page and why, the signature — then ask the pick as the live skill asks it |
+| Draw frames, build a canvas, promote pages | Describe, do not draw: each candidate's name, the source it takes after, the axis it explores, the proving page and why, the signature — then ask the pick as the live skill asks it |
 | Install, run, verify | State `would run:` in one line and move on |
 | Ask a question | **Ask it, for real**, through AskUserQuestion, with the options the skill's own rule produces for this target, labels in the user's words, one marked as the skill marks it |
 
@@ -50,14 +50,14 @@ One block, short, before the next question:
 - **Next** — where the flow goes, and why
 - **Not fired** — conditionals of this step the target did not trip, with the fact that kept each off, in one line
 
-**Options are invented per target under the skill's own rules** — reference products for this app, engine dialogs only where a trigger fired, frame candidates with anchors from the ticks. A simulation that reuses an earlier run's options has tested nothing.
+**Options are invented per target under the skill's own rules** — reference products for this app, engine dialogs only where a trigger fired, frame candidates composed from the direction answer, each naming its source. A simulation that reuses an earlier run's options has tested nothing.
 
 ## 5 — The close: did the answers land
 
 At the end, one table: **question · your answer · decision recorded · where it lands**. Then the check the whole run exists for:
 
 - **Matches** — the decision says what the answer meant.
-- **Mismatch** — the answer meant one thing and the rule recorded another; the rule is quoted and the gap named. *You ticked a reference but the frames were still drawn — that is the rule, not an error.* *You answered "no charts" and an engine line still appeared — that is a finding.*
+- **Mismatch** — the answer meant one thing and the rule recorded another; the rule is quoted and the gap named. *You ticked a direction but did not stress it, and the canvas was not measured against it — that is the rule, not an error.* *You answered "no charts" and an engine line still appeared — that is a finding.*
 - **Undecided** — answers the flow never read, and facts the flow needed that no answer or source supplied.
 
 Findings about the skill itself — a step reference that resolves nowhere, a condition with no behavior, a question with no recommendation, two rules that contradict on this target — are listed apart, each quoting the rule. **No patching**: a change here reaches every app repo on the next version bump, and it is the user's call after reading.

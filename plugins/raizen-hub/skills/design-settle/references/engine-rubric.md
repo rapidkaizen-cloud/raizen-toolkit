@@ -1,49 +1,45 @@
 # engine-rubric — rendering engines beyond the component pack
 
-An **engine** is a library that owns a rendering job the component pack does not: charts, heavy tables, drag-and-drop, virtualized lists. The library question picks the component pack (`library-rubric.md`); this file governs everything the pack leaves uncovered.
-
-**This file names no candidates.** It holds the trigger model, the criteria, and the category list; the candidates for every category are assembled live, per the verification duty below. A pool written here would only go stale and then anchor the dialogs to its staleness.
+An **engine** is a library owning a rendering job the component pack (`library-rubric.md`) does not: charts, heavy tables, drag-and-drop, virtualized lists. **Name no candidates in this file** — assemble them live.
 
 ## No standing questions — only triggers
 
-Engine dialogs have no slot in the interview. They fire only when triggered, and an app that never trips a trigger never hears about engines:
+Ask engine dialogs only when triggered; an app that trips none never hears about engines.
 
 | Trigger | When the dialog is asked |
 |---|---|
-| **The user or the PRD names the need** — "a trend chart", an import feature implying a dropzone, a schedule board | Through the overview multiselect below, before the install block that carries the library line — stack decisions read side by side; the chosen engine is installed before the first frame is drawn |
-| **The product draft needs it** — the canvas's full-product draft (`canvas.md`, assumptions block) implies a job no installed engine covers | Alongside the install approval, before drawing |
-| **It emerges mid-drawing** | The frame is drawn with the no-engine rendering and tagged as a proposal; the judgement settles it — an approved adoption installs the engine and redraws that frame in the next round |
-| **The audit indicts an installed engine** (`design-settle` only) | Before the install block, priced like the library line — *keep* first, and keep stays the recommendation unless the indictment stands |
+| **The user or the PRD names the need** — "a trend chart", an import implying a dropzone | Through the overview multiselect, among the stack dialogs — locked, installed at the install gate |
+| **The product draft needs it** — the canvas's full-product draft (`canvas.md`, The brief — the expansion duty) implies a job no installed engine covers | Among the stack dialogs — locked, installed at the install gate |
+| **It emerges mid-drawing** | Draw the frame with the no-engine rendering, tagged as a proposal; the judgement settles it, and an approved adoption installs the engine and redraws that frame next round |
+| **The audit indicts an installed engine** (`design-settle` only) | Among the stack dialogs, priced like the library dialog — *keep* first and recommended unless the indictment stands |
 
-An engine **already installed is already decided**: it is part of the declared stack, the canvas draws with it, and no dialog re-opens it without an audit indictment. Swapping or dropping one is always an explicit dialog, never a side effect of approving pixels.
+An **installed engine is already decided**; no dialog reopens it without an audit indictment. Swapping or dropping one is always an explicit dialog, never a side effect of approving pixels.
 
 ## The overview multiselect — one gate before the dialogs
 
-When at least one trigger has fired before drawing, the detected jobs are put to the user as **one multiSelect AskUserQuestion first**, before any per-engine dialog: every option is a detected category with its trigger named in the description (`Chart — the home page draws a revenue trend`), all pre-selected, keeping all as the recommendation. **The options are the detected triggers only, never the full category list below** — offering categories nothing tripped is a speculative install menu, the exact noise the trigger model exists to prevent. What the user unchecks is settled without a dialog — the current state stays, recorded as a decision line; what the user adds through "Other" becomes a named-need trigger like any other. Only the checked categories open their per-engine dialogs, in the next call — a real dependency, so the two ride sequential calls in the same turn. The mid-drawing trigger is unaffected: it still goes through the tag and the judgement.
+When a trigger fired before drawing, first ask **one multiSelect AskUserQuestion**: each option a detected category with its trigger in the description (`Chart — the home page draws a revenue trend`), all pre-selected, keeping all recommended. **Offer detected triggers only, never the full category list.** An unchecked category keeps the current state, recorded as a decision line; one added through "Other" becomes a named-need trigger. Checked categories open per-engine dialogs in the next call of the same turn. The mid-drawing trigger skips the overview.
 
 ## The verification duty — candidates assembled live
 
-Candidates for a tripped category come from two layers, and both are mandatory:
+1. **The model's own knowledge proposes** the engines a working frontend developer would name for this category today.
+2. **A verification pass checks every candidate before it is offered**: maintained, broadly adopted, no fresh supply-chain event, bundle weight, **and how it renders — DOM/SVG or canvas**. What it brings and leaves out is the option's one-sentence consequence. One pass covers all candidates.
 
-1. **The model's own knowledge proposes** — the engines a working frontend developer would name for this category today.
-2. **A verification pass checks every candidate before it may be offered.** Per candidate: maintained, broadly adopted, no fresh supply-chain event, bundle weight, **and how it renders — DOM/SVG or canvas** — because criterion 1 below turns on it. What a candidate brings and what it leaves out becomes the option's one-sentence consequence. One pass covers all candidates together; what is mandatory is coverage per option, never one search per option.
-
-**An option without verified backing is not shown**, and every option states what its verification found. Zero candidates surviving verification → say so plainly and offer the no-engine rendering; never pad the list.
+**Never show an option without verified backing**; every option states what verification found. Zero survive → say so and offer the no-engine rendering; never pad the list.
 
 ## Criteria, in order
 
-1. **Styleable by production tokens — hard criterion.** The engine takes its colors, type and spacing from the app's declared token source instead of its own hardcoded defaults, and a session can verify at runtime that one applied: DOM or SVG that CSS variables and classes reach is the web's answer, PRD Section 1's Proof profile **Theme** line is the answer elsewhere. An engine that paints its own opaque surface — `<canvas>` on the web — takes tokens only as JS values, and the runtime verification of the promotion pass (computed style on the web) cannot see inside it — offer it only where its capability is the point (very large datasets, maps), as a named exception the user approves knowing that cost.
-2. **The component pack goes first.** Where the pack ships the component (its table, its date picker), the pack is the default and the engine dialog fires only when the pack's component measurably cannot do the job — nested headers, virtualization, thousands of rows. Name the failing capability in the dialog; "the engine is more powerful" is not a trigger.
-3. **No engine is a real option, always offered.** A simple bar rendered as styled divs is a legitimate answer for decorative-scale charts — with its consequence named (no axes, no interactivity, no legend for free). Choosing it is an explicit decision like any other; hand-rolling *silently* where an installed engine owns the job stays a departure to tag (`canvas.md`).
-4. **Weight and upkeep.** Bundle cost and maintenance status, verified live by the verification pass — never from memory alone.
+1. **Styleable by production tokens — hard criterion.** The engine takes colours, type and spacing from the declared token source, verifiably at runtime: on the web, DOM or SVG that CSS variables and classes reach; elsewhere, PRD Section 1's Proof profile **Theme** line. An engine painting an opaque surface (`<canvas>` on the web) escapes the promotion pass's runtime check — offer it only where its capability is the point (very large datasets, maps), as a named exception the user approves knowing that cost.
+2. **The component pack goes first.** Where the pack ships the component (table, date picker), it is the default; fire the engine dialog only when the pack's component measurably cannot do the job (nested headers, virtualization, thousands of rows), naming the failing capability. "More powerful" is not a trigger.
+3. **No engine is always offered** — styled divs for a decorative-scale chart, consequence named (no axes, interactivity, or legend for free). Choosing it is explicit; hand-rolling *silently* where an installed engine owns the job is a departure to tag (`canvas.md`).
+4. **Weight and upkeep** — bundle cost and maintenance status, verified live.
 
 ## Categories and trip conditions
 
-The categories are trigger knowledge — what kind of job fires a dialog — never candidate lists.
+Categories say what job fires a dialog — never candidate lists.
 
-**Core categories** — most operational apps trip at least one: **chart** · **table engine** · **date picker** · **drag-and-drop**. The table-engine and date-picker dialogs fire only past criterion 2 — the pack's own component must have measurably failed a named need first.
+**Core categories:** **chart** · **table engine** · **date picker** · **drag-and-drop**. Table-engine and date-picker dialogs fire only past criterion 2.
 
-**Conditional categories** — the dialog exists only when the brief carries the job:
+**Conditional categories** — only when the brief carries the job:
 
 | Category | Trips when |
 |---|---|
@@ -58,4 +54,4 @@ The categories are trigger knowledge — what kind of job fires a dialog — nev
 | Gantt / timeline | Production or project scheduling |
 | Code editor | Internal dev tooling |
 
-**Catch-all.** A UI job the brief carries that no category above names gets the same treatment: verified candidates, the four criteria, no-engine offered where it is honest, one dialog. The category list changes how fast a trigger is recognized, never the rules — a job's absence from it is not a reason to skip the dialog.
+**Catch-all.** A UI job no category names gets the same treatment: verified candidates, the four criteria, no-engine where honest, one dialog. Absence from this list is never a reason to skip the dialog.

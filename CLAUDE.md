@@ -12,6 +12,8 @@ Reply language is not fixed. Follow whichever language the user writes in.
 
 Skills and norms here are read by other agents, not by humans. Write them as direct instructions, not as observations.
 
+Keep every rule short. One rule is one imperative sentence. Give its reason in one clause, only when an agent would otherwise break the rule. Cut any paragraph that argues, defends, or restates. State each rule in one file only; other files point to it by name.
+
 Do not add a skill to `raizen-norms` without naming what would be lost if it did not exist. Every skill pays a context cost in every session through its description, including the sessions that never use it.
 
 Hooks block without being able to ask. A new hook must first be tested against the cases that **should pass**, not only the ones that must be refused. A hook that is too strict costs more than no hook.

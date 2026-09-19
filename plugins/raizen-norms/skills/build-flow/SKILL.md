@@ -254,7 +254,7 @@ Backend batch
 
 **The rule test sits before the wiring on purpose.** A rule proven after the page works is proven by a session that already believes it, and a test written to agree with running code agrees with its bugs. It is written from the PRD line, against the enforcement point, while the page cannot yet vouch for it. A page implementing no Section 3 line has no such step; a repo with no test runner raises it once under `logic-build` and records what stays unproven as `Prove: <topic>` lines here in the queue.
 
-**The page copy is counted, never capped.** Group every string the page renders into three classes and print one line each, longest and median, in words. A UI batch only; a backend batch renders no copy.
+**The page copy is counted, and capped on tenth-use pages** (`ui-build`, Writing — copy caps). Group every string the page renders into three classes and print one line each, longest and median, in words. Cut every string over its cap before the commit; a first-visit page group is counted only. A UI batch only; a backend batch renders no copy.
 
 - `Action` — buttons, links, menu and tab items. Text naming what happens.
 - `Name` — field labels, column headers, badges, headings. Text naming a thing.

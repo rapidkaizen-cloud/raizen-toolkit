@@ -107,15 +107,25 @@ Those two are the ones usually skipped and the ones that catch the most. A compo
 
 ## Writing
 
-Fixed norms for the tenth-use register — the pages somebody comes back to — not asked per app and not restated in the PRD, because none of them varies between such apps. Copy is written **together with its component**, the same way the three states above are.
+Fixed norms for the tenth-use register — the pages somebody comes back to — not asked per app and not restated in the PRD, because none of them varies between such apps. **The one exception is the voice**: formal, neutral, or casual, and the form of address where the language has more than one — asked by `design-settle` and recorded as Section 5's copy-voice line. Write in that voice; Section 5 states none → neutral. Copy is written **together with its component**, the same way the three states above are.
 
 **A first-visit page group speaks in its own voice.** A landing page, a marketing site, the public front of a product — the register `app-settle` derives from PRD Section 2 — takes the copy voice Section 5's Visual Direction states for that group: the tone table below yields to it there, and humour, an exclamation, a posture in the copy are the direction's to spend, per page group and never behind the login. Section 5 states no voice for the group → the rules below apply as written. What holds on every register are the structural rules — a verb-first button, a confirmation that repeats its consequence, link text naming its destination, a placeholder that is not a label, an error beside its field written as an instruction, no sentence assembled from fragments, one term per concept — because they are accessibility and localization, not tone.
 
 Clear and brief beats clever; consistent beats varied. The best error message is the interaction redesigned so the error cannot happen.
 
+**Copy caps, on every tenth-use page** — counted in words, in the app's on-screen language:
+
+| Class | Cap |
+|---|---|
+| `Action` — button, link, menu and tab item | 2 words |
+| `Name` — field label, column header, badge, heading | 3 words |
+| `Explanation` — helper text, empty and error state, tooltip, toast, subtitle | 1 sentence, 8 words |
+
+Put a subtitle under a heading only when it says something the heading does not. Put helper text only under a field whose input is ambiguous. A destructive confirmation's body may run two sentences, because it must name the consequence. A string over its cap is a defect: cut it before the page is shown or committed. First-visit page groups are exempt, and their copy is still counted.
+
 **Read the copy already on screen before writing more.** The product has one voice and its existing copy establishes it; a local edit does not get to invent a new one. One term per concept — `Archive` in the menu is not `Move to storage` in the toast.
 
-**Voice is fixed, tone moves with the stakes:**
+**Voice is Section 5's, tone moves with the stakes:**
 
 | Context | Tone |
 |---|---|
