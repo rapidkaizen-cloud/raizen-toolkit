@@ -48,7 +48,7 @@ Derive each recommendation from the reading and PRD Section 2 — who uses the a
 
 **Run it once with WebSearch, between the non-visual dialogs and the direction question.** Find **real products** in this app's domain and platform — product sites, app-store pages, docs showing the product's own screens, galleries of shipped screens. **Concept shots (Dribbble, Behance and kin) are not references.** The platform scopes the search: a Windows tool is not answered with web SaaS.
 
-Show **in chat, before the dialog**: 3–6 products, each **name · link · one line on what this app could take from it**, grouped into **2–4 directions**, each named on an axis sayable in a sentence. Print only links the search returned. Where UI exists, the search runs in the drawing session, briefed only by `handover.md` — search the app's job, never its current look.
+Show **in chat, before the dialog**: 3–6 products, each **name · link · one line on what this app could take from it**, grouped into **2–4 directions**, each named on an axis sayable in a sentence. Print only links the search returned, and **say in one line how many products the search returned** — a set of fewer than three, or one without links, is the unavailable path below and is named as such, never passed off as the search's result. Where UI exists, the search runs in the drawing session, briefed only by `handover.md` — search the app's job, never its current look.
 
 **WebSearch unavailable → say so in one line**, name products from model knowledge without links, mark the set unverified, and still ask the direction question.
 

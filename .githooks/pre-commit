@@ -1,0 +1,13 @@
+#!/bin/sh
+# Refuse a commit that changes a plugin without changing its version:
+# /plugin update compares version numbers only, so an unbumped change never reaches the cache.
+status=0
+for p in $(git diff --cached --name-only | sed -n 's#^plugins/\([^/]*\)/.*#\1#p' | sort -u); do
+  m="plugins/$p/.claude-plugin/plugin.json"
+  git cat-file -e ":$m" 2>/dev/null || continue
+  if ! git diff --cached -U0 -- "$m" | grep -q '^+[[:space:]]*"version"'; then
+    echo "pre-commit: plugins/$p changed but the version in $m did not." >&2
+    status=1
+  fi
+done
+exit $status

@@ -18,25 +18,23 @@ Split because their context cost differs: bootstrap norms have no business being
 | Claude Code | — | `claude --version` |
 | Python 3, reachable as `python3` | All four `raizen-norms` hooks are invoked as `python3`. A machine where only `python` resolves loses every guard **without an error** — they simply never run, and with the account-wide Supabase MCP that includes the project pin | `python3 --version` |
 | Node.js | For the `npx skills add` route — the Supabase and taste skills both arrive that way | `node --version` |
-| git | A private marketplace is pulled over git | `git --version` |
+| git, `gh` | The private marketplace is pulled over git with your `gh` login | `gh auth status` |
 
 ### Copy-paste into a Claude Code session
+
+This repo is private on GitHub (`rapidkaizen-cloud/raizen-toolkit`). A machine signed in to another GitHub account needs that account added as a collaborator with **Read** access, then `gh auth login` on that machine.
 
 **Required.** Run these in order:
 
 ```
-/plugin marketplace add <source-of-this-repo>
+/plugin marketplace add rapidkaizen-cloud/raizen-toolkit
 /plugin install raizen-hub@raizen
+/plugin install raizen-norms@raizen
 ```
 
-`<source-of-this-repo>` is one of:
+Install both at **user scope** (the default) and never at project scope: a project-scope entry is updated separately and stays behind. An app repo turns `raizen-norms` on through its own `.claude/settings.json` (`enabledPlugins`), which needs no install of its own.
 
-| Route | What goes there | When |
-|---|---|---|
-| **ZIP** | The extracted folder path, e.g. `C:\Users\name\raizen-toolkit` | No git remote yet — the current route |
-| **Private GitHub** | `<org>/raizen-toolkit` | Once this repo is pushed |
-
-A ZIP source registers as type `directory`. It works fully, hooks included — the only difference is that `/plugin update` pulls nothing, so updating means replacing the folder's contents and running `/reload-plugins`.
+Then set `"autoUpdate": false` on `raizen` under `extraKnownMarketplaces` in `~/.claude/settings.json`. Background auto-update cannot authenticate to a private repository over HTTPS, so updating is manual (Maintaining).
 
 **Recommended.** Nothing here errors without them, so they are separated on purpose — marking as required something that breaks nothing teaches people to ignore the word:
 
@@ -144,7 +142,15 @@ An app with components but no Section 5 — which is exactly what `app-settle`'s
 
 ## Maintaining
 
-Change files in this repo, commit, then on the user's machine run `/plugin update raizen-norms@raizen`. Installed from a ZIP → replace the folder's contents and run `/reload-plugins`; `/plugin update` pulls nothing from a `directory` source.
+Change files in this repo and bump the changed plugin's version in the same commit (`.githooks/pre-commit` enforces it). Once the user has pushed, on every machine run:
+
+```
+claude plugin marketplace update raizen
+claude plugin update raizen-hub@raizen
+claude plugin update raizen-norms@raizen
+```
+
+then restart Claude Code. design-settle's Step 0 prints the build a session runs as `Skill build`.
 
 An app bootstrapped by the current `app-settle` needs no touching. Its `CLAUDE.md` holds only that app's locale, stack, and the two gates that must survive the plugin being absent — norms are never copied there. **Nothing is scaffolded from a template**: every file a new repo gets is written for that repo's own answers, so there is no stock file to go stale between releases.
 

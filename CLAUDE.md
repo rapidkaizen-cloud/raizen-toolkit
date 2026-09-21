@@ -23,3 +23,7 @@ This plugin ships no templates. What a new app repo gets is written by `app-sett
 ## Git
 
 Commit only when the user says so. Do not push, do not open a PR on your own initiative.
+
+A commit that changes a plugin bumps that plugin's `version` in the same commit, because `/plugin update` compares version numbers only; `.githooks/pre-commit` refuses it otherwise, so run `git config core.hooksPath .githooks` once per clone.
+
+A commit reaches app sessions only after it is pushed to `origin`, and the user decides every push.

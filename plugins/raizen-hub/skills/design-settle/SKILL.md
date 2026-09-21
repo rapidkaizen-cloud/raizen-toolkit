@@ -36,7 +36,7 @@ Four places may be written, and no fifth: **PRD Section 5**; the **Component lib
 
 Do not commit (staging is fine; a branch pass's commit is **proposed at the close, on that branch**). Never push, merge, or open a PR.
 
-**What the session does not know with confidence is researched with WebSearch, never recalled and never written into this toolkit** — platform guidelines, a package's current API or version, a product's current screens, a standard's wording — at the step that needs it, source named. WebSearch unavailable → say so and mark the finding unverified.
+**What the session does not know with confidence is researched with WebSearch, never recalled and never written into this toolkit** — platform guidelines, a package's current API or version, a product's current screens, a standard's wording — at the step that needs it, source named. **A search tool the harness defers is loaded before use** — unavailable means the load itself failed, never that the name was absent from the tool list. WebSearch unavailable → say so and mark the finding unverified.
 
 Not decided by the user → `[needs verification]`.
 
