@@ -35,8 +35,7 @@ GATE_OFF_MARKER = os.path.join(".claude", "destructive-gate.off")
 DESTRUCTIVE = [
     (r"\bDROP\s+(TABLE|COLUMN|SCHEMA|TYPE|FUNCTION|POLICY|INDEX|VIEW)\b", "DROP"),
     # `TRUNCATE` followed by an identifier (optionally TABLE/ONLY) is SQL; coreutils
-    # `truncate -s 0 file` is followed by a flag and must pass. Residual ceiling:
-    # `truncate file -s 0` still matches — rare enough to accept.
+    # `truncate -s 0 file` is followed by a flag and must pass.
     (r"\bTRUNCATE\s+(TABLE\s+|ONLY\s+)?[\"A-Za-z_]", "TRUNCATE"),
     (r"\bDELETE\s+FROM\b", "DELETE"),
     (r"\bALTER\s+TABLE\b.*\bDROP\s+COLUMN\b", "ALTER ... DROP COLUMN"),
@@ -47,6 +46,12 @@ DESTRUCTIVE = [
 # "query" = the real field of Supabase MCP execute_sql/apply_migration (not a guess,
 # see test_guard_destructive.py); "command" = the Bash field. "sql"/"statement" as a net.
 SQL_KEYS = ("query", "sql", "command", "statement")
+
+# Shell text is prose as often as SQL — a commit message saying "delete from the queue",
+# Tailwind's `truncate` class in a file edit. So in a shell command the SQL words match
+# in capitals only, unless psql or supabase runs it. Residual ceiling: lowercase SQL
+# reaching the database another way (a .sql file written by heredoc, `node -e`) passes.
+SQL_CLIENT = re.compile(r"(?<![\w./@-])(psql|supabase)(\.exe)?(?![\w./-])")
 
 # The hooks.json matcher is deliberately mcp__.* (not mcp__supabase__.*): the server
 # name in the user's MCP config is chosen by whoever connects it, outside this repo's control.
@@ -59,14 +64,15 @@ DOLLAR_TAG = re.compile(r"\$([A-Za-z_][A-Za-z0-9_]*)?\$")
 CLAUDE_SCOPED = re.compile(r"(?:\bLIKE\b|=)\s*'\[CLAUDE\][^']*'", re.I)
 
 
-def read_sql() -> str:
+def read_sql() -> tuple[str, bool]:
+    """The SQL-bearing text, and whether it arrived as a shell command."""
     try:
         payload = json.load(sys.stdin)
     except Exception:
-        return ""
+        return "", False
     ti = payload.get("tool_input") or {}
     parts = [str(ti[k]) for k in SQL_KEYS if k in ti and ti[k]]
-    return "\n".join(parts)
+    return "\n".join(parts), "command" in ti
 
 
 def strip_comments(sql: str) -> str:
@@ -148,20 +154,20 @@ def claude_test_delete(stmt: str) -> bool:
     return CLAUDE_SCOPED.search(body) is not None
 
 
-def bare_update(stmt: str) -> bool:
+def bare_update(stmt: str, flags: int) -> bool:
     """UPDATE without a WHERE, or with a WHERE that is always true.
 
     Only a real SQL UPDATE counts, and SQL requires SET: without it the word is
     shell vocabulary (`claude plugin update`, `apt update`) and must pass. Nothing
     is lost by requiring SET — an UPDATE without SET is invalid SQL and destroys
     nothing."""
-    for m in re.finditer(r"\bUPDATE\b(.*?)(;|$)", stmt, flags=re.S | re.I):
+    for m in re.finditer(r"\bUPDATE\b(.*?)(;|$)", stmt, flags=flags):
         body = strip_parens(m.group(1))
-        if not re.search(r"\bSET\b", body, flags=re.I):
+        if not re.search(r"\bSET\b", body, flags=flags):
             continue
-        if not re.search(r"\bWHERE\b", body, flags=re.I):
+        if not re.search(r"\bWHERE\b", body, flags=flags):
             return True
-        if re.search(r"\bWHERE\s+(true|1\s*=\s*1)\b", body, flags=re.I):
+        if re.search(r"\bWHERE\s+((?i:true)|1\s*=\s*1)\b", body, flags=flags):
             return True
     return False
 
@@ -186,9 +192,11 @@ def main() -> None:
     if os.path.exists(GATE_OFF_MARKER):
         sys.exit(0)
 
-    sql = strip_comments(read_sql())
+    text, shell = read_sql()
+    sql = strip_comments(text)
     if not sql.strip():
         sys.exit(0)
+    flags = re.S if shell and not SQL_CLIENT.search(sql) else re.I | re.S
 
     for stmt in split_statements(sql):
         if not stmt.strip() or has_guard(stmt):
@@ -201,10 +209,10 @@ def main() -> None:
         for pattern, label in DESTRUCTIVE:
             if label == "DELETE" and exempt_delete:
                 continue
-            if re.search(pattern, stmt, flags=re.I | re.S):
+            if re.search(pattern, stmt, flags=flags):
                 block(label)
 
-        if bare_update(stmt):
+        if bare_update(stmt, flags):
             block("UPDATE without a narrow WHERE")
 
     sys.exit(0)

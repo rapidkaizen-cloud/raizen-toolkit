@@ -17,6 +17,13 @@ Neither absent stops the work. Say which one is missing and what could not be ch
 
 **Read its reference files; never run its commands.** Any `impeccable` command that writes `PRODUCT.md` or `DESIGN.md` from the built world — `init`, `extract`, `document` at the time of writing — is never run; `PRD.md` and `QUEUE.md` remain the only documents an app repo maintains, and the one `DESIGN.md` present is the frontmatter `design-settle` generates from Section 5 for the detector — read by the hook, edited by no session. Its menu leads with `init` whenever it finds no `PRODUCT.md`; that offer is answered by pointing at PRD Section 5, not by taking it.
 
+**Two optional skills join the material where installed; an absent one goes unmentioned.**
+
+- **`review-animations` is the motion floor on a web-technology Surface.** It is hidden from the skill list and cannot be invoked, so it counts as installed when `review-animations/SKILL.md` exists under `~/.claude/skills/` or the repo's `.claude/skills/`. Before writing any animation or transition, read its standards reference, located through that `SKILL.md`. Hold what it forbids; its curves and durations are defaults Section 5 overrides. A library's own motion counts; motion the library cannot retune without replacing the component stands as a finding. Skip its opening-message and review-verdict instructions — they address a person invoking it, not this read.
+- **`ui-ux-pro-max` carries stack notes for a native Surface** — SwiftUI, Compose, a XAML stack, Flutter, React Native and kin. Before writing a component there, search its stack guidelines for that framework where it carries one, reading its `SKILL.md` for the search command only.
+
+**`ui-ux-pro-max` writes nothing, in any session.** Never pass its `--persist` flag, and never invoke its sub-skills — `ui-styling`, `design-system`, `brand`, `design`, `banner-design`, `slides` — unless the user names one, because each writes files of its own design outside Section 5. Outside `design-settle`'s interview, never run its design-system generator.
+
 ## Gate — the visual direction must already be set
 
 **Before writing any UI component, read PRD Section 5.**
@@ -25,7 +32,7 @@ Section 5 still `[needs verification]`, empty, or absent → **STOP.** Do not wr
 
 **One exemption: the design canvas and the `/styleguide` scaffold.** `src/design-canvas/` and the styleguide route — on a non-web Surface, whatever `canvas.md` defines for that platform — are the instruments that *produce* Section 5 — a design skill building them while Section 5 is still empty is the gate working, not a breach. The exemption is theirs alone: no real page, component, or token is written until Section 5 lands.
 
-**And the canvas folder belongs to the design session that is building it.** A session doing any other work does not edit, move, or delete anything under that canvas folder — a problem found there is a finding reported to the user, never fixed in place. The canvas is a ratified reference; an edit from outside the design flow silently changes what the user approved.
+**And the canvas folder belongs to the design session that is building it.** A session doing any other work does not edit, move, or delete anything under that canvas folder or `.design-audit/` — a problem found there is a finding reported to the user, never fixed in place. The canvas is a ratified reference; an edit from outside the design flow silently changes what the user approved.
 
 **Point the user at `design-settle`**, whatever state the repo is in. It is one skill with one entry point, and its own audit decides the path: no UI at all → it interviews the direction from nothing, then proves it as every page of the app on a staged canvas; components already there → it measures what those components actually use and puts each value to the user to ratify or overrule. Do not name a path, and do not decide one here — a session that announces which path it will take has pre-empted an audit it has not run.
 
@@ -78,7 +85,7 @@ Everything above is obeyed by judgement, and an agent that never loads this file
 - **Run the repo's lint command before committing any UI scope item.** A refusal is fixed in the code that caused it.
 - **An inline disable of a floor rule is a finding**, the same standing as a raw hex value. So is a floor rule lowered to a warning — no agent reads a warning.
 - **The floor grows with the set.** Extracting a shared component that replaces a raw element adds that element to the first refusal in the same turn, the way the component is added to `/styleguide`.
-- **A refusal that is wrong is reported, never worked around.** A layout expression caught as a raw value is a pattern too wide; it is narrowed in the config on the user's word, not silenced at the call site — a floor each session may loosen is a floor that lasts one session.
+- **A refusal that is wrong is reported, never worked around.** A layout expression caught as a raw value is a pattern too wide; once the floor is written, it is narrowed in the config only on the user's word, never silenced at the call site — a floor each session may loosen is a floor that lasts one session.
 
 No floor in the repo → say so in one line and carry on; its absence is a finding for `app-conform`, not a stop.
 

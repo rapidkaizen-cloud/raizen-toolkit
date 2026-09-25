@@ -1,4 +1,4 @@
 # QUEUE — toolkit work not done yet
 
-- design-settle Step 7: rewrite "every page, in one session" as a pass that spans sessions by design — seam points as the stop between sessions, the next session resuming from the committed state on the pass branch
-- design-settle: prove the full flow end to end on one small app — frames, canvas, gate, promotion, Step 8 verification
+- design-settle: finish proving the flow on a real database — rerun on a throwaway copy of `the proof app` against its production database, signed in with the agent account and touching only `[CLAUDE]` rows, so the seeded walk, the URL detector on signed-in pages, and the gate-ordered queries run for real; a gate-ordered migration is written, never applied, and stays named as unproven; then run `plugin87/ux-ui-agent-skills` in full on a second copy of the same app, without these plugins, and compare the two results
+- design-settle Step 8, decided by the comparison above: fork the keyboard, focus-trap, target-size, reduced-motion and overflow gates from `plugin87/ux-ui-agent-skills` (MIT) only if they caught what Step 8 missed — they open only local HTML files, toggle dark only through `data-theme`, and break on Windows paths; patch all three before wiring them in

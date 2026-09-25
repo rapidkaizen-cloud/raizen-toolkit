@@ -21,7 +21,7 @@ grep -rE "lib/supabase|database\.types" src/pages
 
 ## The six cases
 
-A page is not accepted until all six render without the layout breaking. They are a closed list, so this is a checklist rather than a judgement:
+A page is not accepted until all six render without the layout breaking. They are a closed floor, so this is a checklist rather than a judgement; a page adds a named case only for a form branch or a busy state it shows:
 
 | Case | What it proves |
 |---|---|

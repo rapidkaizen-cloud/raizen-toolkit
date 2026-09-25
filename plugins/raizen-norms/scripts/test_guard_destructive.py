@@ -57,6 +57,29 @@ def demo() -> None:
     # but SQL arriving through a shell still blocks
     assert run("Bash", {"command": 'psql -c "UPDATE users SET active = false;"'}) == 2
 
+    # --- shell text is prose as often as SQL: capitals only, unless psql/supabase runs it ---
+
+    # must pass: Tailwind's `truncate` class in a file edit, SQL words in a commit message
+    assert run("Bash", {"command": "sed -i 's/flex/truncate text-sm/' src/Row.tsx"}) == 0
+    assert run("Bash", {"command": "sed -i 's/flex/truncate block/' src/Row.tsx"}) == 0
+    assert run("Bash", {"command": "cat > src/Row.tsx <<'EOF'\n<p className=\"truncate max-w-xs\">x</p>\nEOF"}) == 0
+    assert run("PowerShell", {"command": "(Get-Content Row.tsx) -replace 'flex', 'truncate font-medium' | Set-Content Row.tsx"}) == 0
+    assert run("Bash", {"command": 'git commit -m "fix: delete from queue when done"'}) == 0
+    assert run("Bash", {"command": 'git commit -m "docs: when to drop table rows"'}) == 0
+    assert run("Bash", {"command": 'git commit -m "update set of fixtures"'}) == 0
+    assert run("Bash", {"command": "truncate logs/app.log -s 0"}) == 0
+    # a path merely named after a client does not run it
+    assert run("Bash", {"command": "sed -i 's/flex/truncate block/' src/lib/supabase-client.tsx"}) == 0
+
+    # must still block: capitals anywhere in a shell, any case once psql or supabase runs
+    assert run("Bash", {"command": "cat > wipe.sql <<'EOF'\nTRUNCATE leads;\nEOF"}) == 2
+    assert run("Bash", {"command": 'psql -c "truncate leads;"'}) == 2
+    assert run("Bash", {"command": 'psql -c "delete from leads;"'}) == 2
+    assert run("Bash", {"command": 'psql -c "update leads set status = 1;"'}) == 2
+    assert run("PowerShell", {"command": '& "C:\\Program Files\\PostgreSQL\\16\\bin\\psql.exe" -c "truncate leads;"'}) == 2
+    assert run("Bash", {"command": "npx supabase migration new wipe && echo 'truncate leads;' >> supabase/migrations/wipe.sql"}) == 2
+    assert run("mcp__supabase__execute_sql", {"query": "truncate leads;"}) == 2
+
     # false positives: UPDATE with a narrow WHERE, SELECT, CREATE TABLE -> pass
     assert run("mcp__supabase__execute_sql", {"query": "UPDATE users SET active = true WHERE id = 3;"}) == 0
     assert run("mcp__supabase__execute_sql", {"query": "SELECT count(*) FROM orders;"}) == 0

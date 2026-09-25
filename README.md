@@ -23,6 +23,11 @@ Needs Claude Code, `python3` (every `raizen-norms` hook calls it; with only `pyt
 
 Required alongside: `impeccable` (`npx impeccable install`) and `frontend-design` (`/plugin`). A session missing either asks before continuing. Invoke `/design-settle` by name, since `impeccable`'s description overlaps it.
 
+Optional, never asked for when absent:
+- `review-animations`, the motion floor on web Surfaces — installed alone: `npx skills add emilkowalski/skills --skill review-animations -g -a claude-code`.
+- `ui-ux-pro-max` (`/plugin marketplace add nextlevelbuilder/ui-ux-pro-max-skill`, then `/plugin install ui-ux-pro-max@ui-ux-pro-max-skill`), for one generated direction `design-settle` offers to draw, and stack notes on native Surfaces; `ui-build` forbids `--persist` and its sub-skills.
+- `apple-design`, Apple's guideline pages `design-settle` reads for a macOS Surface: `npx skills add dickwu/apple-design-skill --skill apple-design -g -a claude-code --copy`, then add `disable-model-invocation: true` to the frontmatter of `~/.claude/skills/apple-design/SKILL.md` — its description matches any design review, and it must never load as a reviewer. `npx skills update` drops the line; add it again.
+
 Recommended: `npx skills add supabase/agent-skills` (Postgres guidance for `db-ops`) and `ponytail`. Do not install the `supabase` plugin — it adds a second Supabase MCP server. Connect the Supabase MCP once at user scope, with no query parameters in its URL.
 
 Check: `/plugin` lists both plugins; design-settle's Step 0 prints the running build as `Skill build`.

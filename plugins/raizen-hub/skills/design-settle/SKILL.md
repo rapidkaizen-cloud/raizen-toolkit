@@ -26,7 +26,9 @@ Steps are marked *UI exists* or *Section 5 filled*; an unmarked step runs identi
 
 **Section 5 is written once, and never before its stop** — at Step 6 where no UI exists; where UI exists, only after the Step 6 gate approves, as the pass's first act on its own branch. No draft document stands in for it. Rejection leaves the PRD exactly as it was.
 
-Four places may be written, and no fifth: **PRD Section 5**; the **Component library row of `CLAUDE.md`** when the library answer is not *keep*; the **generated `DESIGN.md`** of Step 6 — tokens derived from ratified Section 5, never a decision of its own, never hand-edited; and the **`## UI` part of `AGENTS.md`** — paths and a command, never a value. Do not create `MASTER.md`, `design-system/`, a staging PRD, an audit report as a file, or a `DESIGN.md` written from code. A document another skill produces in this session is not committed and not referenced.
+**Decisions are written in four places, and no fifth**: **PRD Section 5**; the **Component library row of `CLAUDE.md`** when the library answer is not *keep*; the **generated `DESIGN.md`** of Step 6, with any sidecar `impeccable`'s schema puts beside it — tokens from ratified Section 5 and the styling files, never a decision of its own, never hand-edited; and the **`## UI` part of `AGENTS.md`** — paths and a command, never a value.
+
+**Every other write in the repo is on this closed list and records no decision**: the styling files and the library's theme file · the `/styleguide` route · the linter config and its suppression baseline · a whole `AGENTS.md` where none exists · `QUEUE.md` lines · the dependency and lock files, through an approved install · everything under `src/design-canvas/` and `.design-audit/` · the files the pass writes — the approved file plan where UI exists, the promoted pages, contracts and routes where none does. Anything else is a finding, never written. Do not create `MASTER.md`, `design-system/`, a staging PRD, or a `DESIGN.md` written from code. A document another skill produces in this session is not committed and not referenced.
 
 **The canvas is the final front-end, staged** (`references/canvas.md`): production-grade files that promotion relocates, differing from the live page only in data. The canvas phase only adds files under `src/design-canvas/`, and no other session touches that folder; where UI exists the pass runs **isolated on its own branch or worktree**, otherwise in place.
 
@@ -53,16 +55,21 @@ Platform        : [from Section 1 Surface, else from the manifest and platform f
                    platform found; a non-web value routes every browser-named check below to that
                    Surface's Proof profile line, or to the platform's own tooling where none is written]
 Primary role    : [from Section 2, else from the roles the code enforces, else asked at Step 1]
-Design material : [impeccable present/absent · frontend-design present/absent — both Required]
+Design material : [impeccable present/absent · frontend-design present/absent — both Required ·
+                   review-animations present/absent, found per ui-build · ui-ux-pro-max
+                   present/absent — both Optional]
 Branch          : [name · clean or has uncommitted changes]
-Leftover        : [none / canvas alive / pass applied — from src/design-canvas/ and git state]
+Leftover        : [none / canvas alive / pass partly applied / pass applied — from
+                   src/design-canvas/, .design-audit/gate.md and git state]
 Switches        : [UI exists: yes/no · Section 5 filled: yes/no]
 Reading         : [one sentence — see Step 1]
-Flow            : load impeccable + frontend-design → reading (+ audit, in a subagent, where UI exists)
+Flow            : load impeccable + frontend-design (+ review-animations, where installed)
+                  → reading (+ audit, in a subagent, where UI exists)
                   → fix or redesign (where Section 5 filled)
                   → non-visual dialogs, answers locked, nothing installed (library · styling ·
                   icons · engines · widths · theme mode · frame screens · copy voice)
-                  → reference search (real products, links) → direction question, multi-select
+                  → reference search (real products, links) + ui-ux-pro-max's proposal, where
+                  installed → direction question, multi-select
                   → install gate → direction frames composed by Claude, always 2–4, today's
                   look among them where Keep is ticked → pick → refine (only if the pick
                   carries a change)
@@ -70,11 +77,11 @@ Flow            : load impeccable + frontend-design → reading (+ audit, in a s
                   → pass (in place, or on its own branch where UI exists) → verify → close
 ```
 
-**Print the block on every invocation** before any work beyond the reads that fill it. A `Design material` absence is asked right after the block, under Step 1's rule; a stale `Skill build` is shown, not blocked on.
+**Print the block on every invocation** before any work beyond the reads that fill it. A Required `Design material` absence is asked right after the block, under Step 1's rule; a stale `Skill build` is shown, not blocked on.
 
 **Re-entry is a gate, never an inference.** When `Leftover` is not `none`, one mandatory AskUserQuestion follows the block, before any other work, however obvious the state looks:
 
-- **Continue** — resume at the step the state shows: pass applied but unverified → Step 8; canvas ratified but not promoted → Step 7; canvas mid-rounds → Step 5; frames drawn but not picked → the pick. Announce the resumed step and what remains before touching anything.
+- **Continue** — resume at the step the state shows: pass applied but unverified → Step 8; pass partly applied → Step 7 at the next seam point, `.design-audit/gate.md` read first where UI exists; canvas ratified but not promoted → Step 7; canvas mid-rounds → Step 5; frames drawn but not picked → the pick. Announce the resumed step and what remains before touching anything.
 - **Start over** — the full path from Step 1. The leftover canvas is an audit finding; its deletion is proposed at Step 8's chat-stop confirmation, never assumed.
 - **Stop** — report the detected state in one block and close.
 
@@ -82,9 +89,9 @@ Flow            : load impeccable + frontend-design → reading (+ audit, in a s
 
 ## Step 1 — The reading, and the audit where UI exists
 
-**Load `impeccable` and `frontend-design` before writing the reading** — its *leaning* clause is already a taste judgement. `canvas.md` owns which files carry the material and its boundary. Read no skill that prescribes a fixed look.
+**Load `impeccable` and `frontend-design`, and `review-animations` where installed, before writing the reading** — its *leaning* clause is already a taste judgement. `canvas.md` owns which files carry the material and its boundary. Read no skill that prescribes a fixed look as material (`canvas.md`).
 
-**One absent is asked through AskUserQuestion, never merely reported**, naming what is lost — `impeccable`'s ban list, display-face and convergence calibrations, the Operate register, every later detector count; `frontend-design`'s direction method and restraint — with continue-without or stop-to-install (`npx impeccable install`); continuing is recommended where installing is unavailable here. The other material still loads. The answer rides every canvas round and the ratification report as its own line, naming what was missing.
+**An Optional skill absent is only shown in the row. One Required skill absent is asked through AskUserQuestion, never merely reported**, naming what is lost — `impeccable`'s ban list, display-face and convergence calibrations, the Operate register, every later detector count; `frontend-design`'s direction method and restraint — with continue-without or stop-to-install (`npx impeccable install`); continuing is recommended where installing is unavailable here. The other material still loads. The answer rides every canvas round and the ratification report as its own line, naming what was missing.
 
 **Sources, in rank: the user, then the code, then the PRD.** An explicit user statement outranks everything. Where the user was silent, read what exists from the code — router for pages, manifest and platform files for the platform, auth and guard code for roles, rendered strings for the locale, dependency file for the stack. Then PRD Sections 1–2 where readable. A gap all three leave is named inside the reading and settled at its correction, never as its own question. **A conflict is a finding named in the reading, never a silent pick**: a user statement against the code is followed and reported; between code and PRD, the code wins on what exists, the PRD on what ought to be, and the loser is reported.
 
@@ -98,22 +105,25 @@ Ask for correction — **nothing after this runs before it is answered**: no dia
 
 Run it **before the reading is put for correction**; read what the code uses, not what the PRD says.
 
-**The audit runs in one subagent, this section as its brief; the session that draws never opens the old UI** (`canvas.md`, blindness). It writes two files under `src/design-canvas/.audit/`, deleted with the canvas:
+**The audit runs in one subagent, this section as its brief; the session that draws never opens the old UI** (`canvas.md`, blindness). It writes two files under `.design-audit/` at the repo root, deleted with the canvas:
 
 - **`audit.md`** — the block below, the frame inventory, the Section 5 deviations, the screenshot paths. The user reads it now; this session opens it only at Step 6.
-- **`handover.md`** — the only thing the drawing session reads, holding in this order and nothing else: the app in three sentences from PRD Sections 1–2 · the roles · the function inventory · the route list, each route with a few words on what it is for and nothing on what it holds · the data vocabulary a fixture must respect, with a handful of real rows from the data layer where it holds any · the UI stack row · the counts that price the pass (components affected, stray values, detector hits) as numbers. **No colour, hex, font name, radius, spacing value, shell description, part or section name per page, Section 5 prose, screenshot, or code excerpt** — nothing on how anything looks or where it sits.
+- **`handover.md`** — the only thing the drawing session reads, holding in this order and nothing else: the app in three sentences from PRD Sections 1–2 · the roles · the function inventory · the route list, each route with a few words on what it is for and nothing on what it holds · the data vocabulary a fixture must respect, with a handful of real rows from the data layer where it holds any · the data-layer files a fixture may take types from, by path, none carrying a look or importing from the components folder · the UI stack row, font packages left out · the counts that price the pass (components affected, stray values, detector hits, and the Section 5 deviations where it is filled) as numbers · and, appended at Step 3, the product draft. **No colour, hex, font name, radius, spacing value, shell description, part or section name per page, Section 5 prose, screenshot, or code excerpt** — nothing on how anything looks or where it sits.
+
+**Its report back carries only those pricing counts, the pages holding too little by name, any logic-layer bleeding, and the path of `audit.md`** — never the block below, which the user reads in the file. **What the subagent cannot do runs here, after its report**: the archetype grouping's ratify-or-correct, the `QUEUE.md` lines, the `build-flow` hand-off, and the `logic-settle` offer.
 
 No subagent available → say so, run the walk here, and report the redesign as drawn with the old UI in context.
 
-Report one block:
+`audit.md` opens with this block:
 
 ```
 AUDIT
 Tokens defined      : [how many colors · text steps · spacing values · radii]
 Token health        : [how many never read · duplicate roles · library slots unmapped]
 Stray raw values    : [how many hex · font sizes · spacings, across how many files]
-Slop detectors      : [how many hits · how many rules, from `npx impeccable detect` on the
-                       source tree — the source tier only; the full set needs the running app.
+Slop detectors      : [how many hits · how many rules, from `npx --no-install impeccable detect`
+                       on the source tree, which reports an absent detector as absent — the
+                       source tier only; the full set needs the running app.
                        `n/a — native surface` where Section 1's Surface is not web technology]
 Icons               : [families, named · how many sizes · how many weights]
 Fonts loaded        : [from the styling files AND the HTML entry — a family named in CSS
@@ -128,11 +138,13 @@ Deviates from S5    : [list, per rule broken — Section 5 filled only]
 Components affected : [file count that will be touched if tokens change]
 ```
 
+Counts are occurrences in source; label lengths are in words, as `ui-build`'s copy caps count them.
+
 `Components affected` sizes the pass; show it before the user decides anything. **The `UI stack` row is the canvas's import whitelist** (`canvas.md`); a needed job no installed engine covers becomes an engine dialog at Step 3, an installed engine unused is a finding.
 
 **Logic-layer bleeding** (handwritten fetching in UI files, hand-parsed dates, unvalidated inputs) gets the `logic-settle` offer under that skill's rule; continue either way.
 
-**Screenshot one page per archetype at desktop width**, per Section 1's Proof profile, for Step 8's comparison; the drawing session never opens them before the judgement's before/after.
+**Screenshot one page per archetype at desktop width**, per Section 1's Proof profile — 1440px where it names none (`canvas.md`) — for Step 8's comparison; the drawing session never opens them before the judgement's before/after.
 
 **The function inventory** — every function the app carries, one line each: what can be done, never where or how it looks. It is the canvas's brief-floor (`canvas.md`).
 
@@ -147,7 +159,7 @@ Components affected : [file count that will be touched if tokens change]
 **Where Section 5 is filled, three more things hold.**
 - A deviation is a **finding**, not a reason to change Section 5.
 - Two Section 5 roles at the same value are a finding against the PRD, merged as repair work.
-- **No archetype table is a finding.** Derive one from the routes (`interview.md`, The archetype table) and put it for ratify-or-correct, never adopted silently; ratified, it enters Section 5 at repair scale, and each page far short of its archetype gets one `QUEUE.md` line for `build-flow` Section 4. No `/styleguide` route → the pass generates it (Step 7).
+- **No archetype table is a finding.** Group the routes into archetypes after the audit (`interview.md`, The archetype table) and put the grouping for ratify-or-correct, never adopted silently; the shells follow the pick — in fix-the-drift, from `audit.md` at Step 6. Ratified, the table enters Section 5 at repair scale, and each page the audit named as holding too little gets one `QUEUE.md` line for `build-flow` Section 4. No `/styleguide` route → the pass generates it (Step 7).
 
 **A page holding too little is not a finding.** Do not fill it; hand it to `build-flow` Section 4 and name it. A redesign still rebuilds its shell to its archetype with the content it has.
 
@@ -160,7 +172,7 @@ One question, two options, with a recommendation:
 | Choice | What changes | Questions asked | Components touched |
 |---|---|---|---|
 | **Fix the drift** | Zero new norms — only bringing code back in line with the existing Section 5 | None | Only the deviating ones |
-| **Redesign** | **Section 5 is rebuilt from zero** — every line re-decided, archetype shells and visual-direction prose included; today's values survive only as *keep* answers. The app looks redesigned afterwards, not retuned | The full interview, *keep* first on the stack and `Keep — today's look` among the directions; every value names the value it replaces | Every page, replaced by its canvas file |
+| **Redesign** | **Section 5 is rebuilt from zero** — every line re-decided, archetype shells and visual-direction prose included; today's values survive only as *keep* answers. The app looks redesigned afterwards, not retuned | The full interview, *keep* first on the stack and `Keep — today's look` among the directions; the gate names the value each replaces (Step 6) | Every page, replaced by its canvas file |
 
 Offer no third, narrower option: scope is narrowed by *keep* answers, which every decision carries.
 
@@ -172,7 +184,7 @@ Fix the drift → Step 6, whose gate shows the findings. Section 5 is untouched,
 
 ## Step 3 — The interview: everything non-visual, then the look
 
-Read `references/interview.md` and run it in its order: **the non-visual dialogs first — the stack (library · styling · icon pack · triggered engines) and four product calls (supported widths · theme mode · the two screens the frames are drawn on · copy voice) — each only locking its answer; then the reference search; then the direction question, multi-select; then the install gate (Step 4); then the direction frames, picked on screen (Step 5). Nothing is installed while the interview runs, and nothing about the look is asked after the pick.** Every option is invented for this app.
+Read `references/interview.md` and run it in its order: **the non-visual dialogs first — the stack (library · styling · icon pack · triggered engines) and four product calls (supported widths · theme mode · the two screens the frames are drawn on · copy voice) — each only locking its answer; then the reference search; then the direction question, multi-select; then the install gate (Step 4); then the direction frames, picked on screen (Step 5). Nothing is installed while the interview runs, and nothing about the look is asked after the pick.** Every option is invented for this app, `ui-ux-pro-max`'s proposal excepted (`interview.md`).
 
 **A tick is inspiration, not an anchor**; nothing stands the frames down (`interview.md`, Part 2).
 
@@ -182,9 +194,9 @@ The archetype table, the `/styleguide` route and real running pages are produced
 
 **Every question goes through AskUserQuestion, never prose**, in auto mode too — recommendation first and marked "(Recommended)", each option's consequence in its description, everything needed inside the dialog, up to four per call. The chat stops this skill names — the install gate, the one-line package approvals (font, linter), the Step 6 gate and its REPAIR list, the Step 8 deletion — are the exceptions: each ends the turn and waits for a reply.
 
-**Nothing the user did not choose is silent**: every value decided beyond the picked frame surfaces as one cancellable line with its basis (`interview.md`, What the designer settles). Where UI exists each line names today's value, and cancelling opens a dialog with `Keep — <today's value>` first.
+**Nothing the user did not choose is silent**: every value decided beyond the picked frame surfaces as one cancellable line with its basis (`interview.md`, What the designer settles).
 
-**A canvas that misses twice re-opens the look, not the interview:** re-read both materials, **re-run the search steered away from what was rejected**, re-ask the direction question, draw **fresh frames**, regenerate the canvas, never patch. The stack and product calls stay closed; a rejection naming a product call re-asks that dialog alone.
+**A canvas that misses twice re-opens the look, not the interview:** re-read `impeccable` and `frontend-design`, **re-run the search steered away from what was rejected**, re-ask the direction question, draw **fresh frames**, regenerate the canvas, never patch. The stack and product calls stay closed; a rejection naming a product call re-asks that dialog alone.
 
 ### The stack, asked
 
@@ -196,7 +208,7 @@ Read `references/library-rubric.md` and `references/engine-rubric.md`. The stack
 
 Candidates are **verified live** per the rubrics. **Where UI exists every stack dialog carries *keep* first and recommends it**, unless the audit indicts the library or engine itself.
 
-**Draft the full product before the engine dialogs** (`canvas.md`'s expansion duty), so draft-implied triggers fire now. **Answers outside the options are always accepted**, on every dialog. A package named outside them is verified the same way and used; state its consequence if known, or say it is not.
+**Draft the full product before the engine dialogs** (`canvas.md`'s expansion duty), so draft-implied triggers fire now. Where UI exists, append it to `handover.md`, so any later session or subagent that draws reads it. **Answers outside the options are always accepted**, on every dialog. A package named outside them is verified the same way and used; state its consequence if known, or say it is not.
 
 ## Step 4 — The install gate, after every answer and before anything is drawn
 
@@ -223,9 +235,9 @@ Install nothing outside it; something extra → ask again. The font is the one e
 
 Run under `canvas.md` entire, in order: the 2–4 direction frames on the two Step 3 screens, drawn with the installed stack, picked on screen, refined once where the pick carries a change (`canvas.md`, Directions first; composition in `interview.md`); the design plan below; then the canvas rounds (`canvas.md`) — two rounds, then Step 3's escalation.
 
-**Where UI exists and Keep was ticked, today's look is one candidate; the canvas is always drawn blind to it** — today's look is the running app at its real routes, captured at both widths in the compare page, never redrawn.
+**Where UI exists and Keep was ticked, today's look is one candidate; the canvas is always drawn blind to it** — today's look is the running app at its real routes, captured at both widths by a subagent (`canvas.md`, the pick dialog), never redrawn.
 
-**Picking `Keep — today's look`** ends the drawing: nothing is redrawn, the unchosen frames are deleted, and the flow continues at Step 6 — as fix-the-drift where Section 5 is filled, as the ratification of measured values where it is empty. **A Keep pick carrying a change** (*keep it, but with the brand green*) is not Keep: the refine round redraws the proving page to today's values with the change applied, and the flow is a redesign from there.
+**Picking `Keep — today's look`** ends the drawing: nothing is redrawn, the unchosen frames are deleted, and the flow continues at Step 6 — as fix-the-drift where Section 5 is filled, as the ratification of measured values where it is empty. **A Keep pick carrying a change** (*keep it, but with the brand green*) is not Keep: the refine round redraws the proving page to today's values, read from the styling files (`canvas.md`, blindness), with the change applied, and the flow is a redesign from there.
 
 ### Then state the design plan — narrated, not gated
 
@@ -234,22 +246,24 @@ Run under `canvas.md` entire, in order: the 2–4 direction frames on the two St
 | Part | What is stated |
 |---|---|
 | Direction | Purpose · the one tone held · what makes this app memorable rather than adequate (`frontend-design`) · the copy voice answered at Step 3, per page group where it was asked per group (`ui-build`, Writing) |
-| Colour | The named values with their roles — as many as the direction needs, no count fixed here — and where they came from — a brand palette, a reference, or an accent chosen first and the neutrals pulled toward it |
+| Colour | The named values with their roles — as many as the direction needs, no count fixed here — and where they came from — a brand palette, a reference, the generator's palette (`interview.md`), or an accent chosen first and the neutrals pulled toward it |
 | Type | The pairing and each face's job. A face on `impeccable`'s calibration list is named with the reason it was still chosen |
 | Layout | The shell and the composition in one or two sentences — where the density sits, what breaks the grid |
-| Signature | The single element this app is remembered by (`canvas.md`, the taste licence) |
+| Signature | The picked frame's candidate signature, kept or replaced as a departure (`canvas.md`, the taste licence) |
 
-Where UI exists, the recommended frame names what it departs from, and each value names today's value beside it.
+Old values appear only at the gate (Step 6), never in the plan.
 
-**Then critique it against the brief in the same turn:** any part a session with a similar brief would also arrive at is a default — **revise it and say in one line what changed and why.**
+**Then critique it against the brief in the same turn:** any part a session with a similar brief would also arrive at is a default — **revise it and say in one line what changed and why.** Revise only what the picked frame did not settle; revising a picked value is a departure line at the judgement (`canvas.md`).
 
 **Narration, not a gate**: do not end the turn, ask, or wait. The PRD is not touched during rounds.
 
 ## Step 6 — Ratification: Section 5, the styling files, `/styleguide` — and the gate where UI exists
 
+**Where UI exists, the font install, `DESIGN.md` and its detector run below wait for Step 7's Foundations**, on the pass's branch after Section 5 is written.
+
 **The font is installed here** — a face needing a package is one install line approved in chat, named as the only install outside Step 4.
 
-**Generate `DESIGN.md` first, then scan.** Write it at the project root from the ratified values (colours, typography, radius, spacing, Section 5's component tokens) **to the frontmatter schema `impeccable`'s document reference gives, read at write time**, body: `Generated from PRD Section 5 by design-settle — do not edit; Section 5 is the source.` Only this step regenerates it, and it does so whenever Section 5 changes; a hand edit or an `impeccable` refresh from the built world is a finding. Before reporting this step done, run the detector over the styling files and the styleguide route and report the count; a hit on a just-ratified value is named and left standing.
+**Generate `DESIGN.md` first, then scan.** Write it at the project root from ratified Section 5 and the styling files' values (colours, typography, radius, spacing, Section 5's component tokens) **to the frontmatter schema `impeccable`'s document reference gives, read at write time**, with any sidecar that schema puts beside it, body: `Generated from PRD Section 5 and the styling files by design-settle — do not edit; Section 5 is the source.` Only this step regenerates it — in Step 7's Foundations where UI exists — and it does so whenever Section 5 changes; a hand edit or an `impeccable` refresh from the built world is a finding. Before reporting this step done, run the detector over the styling files and the styleguide route and report the count; a hit on a just-ratified value is named and left standing.
 
 **Approving the canvas is the approval.** Report its values as cancellable derived lines, then write them (`canvas.md`, Ratification). **Where no UI exists there is no second gate** — Section 5 and the styling files are written here. **Where UI exists** the values are the gate's *new* column.
 
@@ -273,26 +287,28 @@ Section 5 also holds colour and spacing roles, values and usage rules, and **the
 
 **No `PRD.md` → create it** with Section 5 alone and one header line naming Sections 1–4 `[needs verification]`, owed by `app-settle`. **Off-shape `PRD.md`** → append Section 5 under its own heading, touch nothing else. Follow `prd-structure.md`'s sub-sections. Anti-patterns holds only user-ratified prohibitions, possibly none.
 
-**Page Composition holds the ratified archetype table** — per archetype: shell layout, components, density profile, empty/loading wording, routes. Two density profiles from a role split go under Breakpoints & Density.
+**Page Composition holds the ratified archetype table** — per archetype: shell layout, components, density profile, empty wording, routes. Two density profiles from a role split go under Breakpoints & Density.
 
 **Every Section 5 line traces to an interview answer, a reported derived decision, or a ratified canvas value**; nothing else is written. **A filled Section 5 is rebuilt from zero, never patched**: an old line survives only through *keep* or re-ratification, otherwise it is a removal in the gate's diff.
 
-### Five rules bind the styling files
+### Five rules bind the canvas variables, so the styling files are a copy
+
+**They bind from the refactor after the pick** (`canvas.md`), so the approved canvas already holds them; ratification copies its values and never re-derives one.
 
 **The palette is two layers, and the second one is the system.**
 
-- **A ramp per functional hue** (about ten steps) so hover, active, subtle fill, border and text-on-fill each land on **an existing step**. **Derived, never typed**: from the picked accent and its pulled neutral, in OKLCH per `impeccable`. **Follow the stack's convention** (Tailwind's `50 … 950`), never a parallel scale.
-- **Three shades per semantic family** — light, base, dark; the dark chosen by measuring it on its light fill to clear 4.5 (`canvas.md`, Ratification).
+- **A ramp per functional hue**, holding only the steps something reads, so hover, active, subtle fill, border and text-on-fill each land on **an existing step** — a state the library computes from its base (a colour-mix hover) stays the library's. **Derived, never typed**: from the picked accent and its pulled neutral, in OKLCH per `impeccable`. **Named on the stack's convention** (Tailwind's `50 … 950`), never a parallel scale.
+- **At least three shades per semantic family** — light, base, dark, and more where the canvas draws more; the dark chosen by measuring it on its light fill to clear 4.5 (`canvas.md`, Ratification).
 - **A semantic alias layer, and product code reads only that** — surfaces, text, borders, focus ring by role, each pointing at a step.
 - **The chart palette belongs to the token set**, chosen once; `dataviz`, where loaded, assigns series colours from it.
 
 State the step count and the alias list in Section 5's colour table.
 
-**Every semantic slot the component library exposes is mapped**, the neutral `default` included — list the slots first.
+**Every semantic slot the component library exposes is mapped**, the neutral `default` included — list the slots first; library slots are exempt from the next rule.
 
 **A token nothing reads is not written**, nor a layout constant components duplicate as a utility class.
 
-**Two roles with the same value collapse into one** before Section 5 is written.
+**Two roles with the same value collapse into one** before a round is shown.
 
 **One palette, two consumers.** A utility-CSS theme and a library theme are both written from Section 5's colour table in the same edit.
 
@@ -300,7 +316,7 @@ State the step count and the alias list in Section 5's colour table.
 
 Generated before the canvas (`canvas.md`); verify it here against the done-check. An existing app without one gets it inside the pass (Step 7).
 
-**One route file** (e.g. `src/pages/styleguide.tsx`) at `/styleguide` in dev, out of navigation and the production build. **It imports the production components and tokens** — never copies, a separate HTML file, or a second source of values. Offer deleting it later; never require it.
+**One route file** (e.g. `src/pages/styleguide.tsx`) at `/styleguide` in dev, out of navigation, outside the auth guard, and out of the production build. **It imports the production components and tokens** — never copies, a separate HTML file, or a second source of values. Offer deleting it later; never require it.
 
 Sections, in order, rendered from what was decided:
 
@@ -310,7 +326,7 @@ Sections, in order, rendered from what was decided:
 | Components | Every component the app uses or an archetype names — variants, sizes, and states per component, including loading, empty, and failed where they apply, with a short real-usage snippet |
 | Archetypes | The Section 5 archetype table, one card per archetype: shell sketch, components, routes |
 
-**Done is measured against the table, not the page looking full**: every semantic token appears; a component checklist written first, never recalled — every component an archetype names with its variants and states (inputs: default, focus, disabled, error; buttons: hover, focus, disabled, loading; stepper, dialog, dropzone in a static frame); every archetype card has all three parts. Report **archetype → components it names → where each renders**. The only allowed absence is a component no archetype or flow uses, stated with that reason.
+**Done is measured against the table, not the page looking full**: every semantic token appears; a component checklist written first, never recalled — every component an archetype names with its variants and states (inputs: default, focus, disabled, error; buttons: hover, focus, disabled, loading; stepper, dialog, dropzone rendered open through their own props; a hover or focus state the component's props cannot set is listed `live only`); every archetype card has all three parts. Report **archetype → components it names → where each renders**. The only allowed absence is a component no archetype or flow uses, stated with that reason.
 
 ### The lint floor
 
@@ -319,11 +335,11 @@ Write **the four refusals `ui-build` names under its lint floor into the stack's
 | Refusal | Derived from |
 |---|---|
 | Raw element | The shared set the pass promoted, plus what the library ships — only elements this app has a component for |
-| Raw value | The utilities and style properties that carry a Section 5 value — colour, radius, font size, the spacing scale |
+| Raw value | The utilities and style properties that carry a Section 5 value — colour, radius, font size, the spacing scale — and the engine props that take one (a chart's `fill`) |
 | Numbered ramp step | The ramp names in the styling files. Not written where a legacy stock Section 5 left no alias layer to read instead |
 | Primitive import | The packages the shared set wraps. None → not written |
 
-**Scoped by path**: the components folder is exempt from the first and fourth, the styling files from the second and third, `src/design-canvas/` from all four. JS/TS web: ESLint's `no-restricted-syntax` and `no-restricted-imports`; other stacks: the analyzer's equivalent **verified live at write time**, an inexpressible refusal reported as `not enforceable on <stack>`. No linter → Step 4 installed one; in fix-the-drift, one install line approved in chat.
+**Scoped by path**: the components folder is exempt from the first and fourth, the styling files from the second and third, the `/styleguide` route file from the third, `src/design-canvas/` from all four. JS/TS web: ESLint's `no-restricted-syntax` and `no-restricted-imports`; other stacks: the analyzer's equivalent **verified live at write time**, an inexpressible refusal reported as `not enforceable on <stack>`. No linter → Step 4 installed one; in fix-the-drift, one install line approved in chat.
 
 **Proven on what must pass before what must fail.** Lint the promoted app first; a hit on a freshly written page is a raw value to fix or a pattern too wide (`grid-cols-[1fr_auto]`, a `calc()` is not a raw value). Then plant one violation per refusal in a scratch page, see each refused, delete it.
 
@@ -348,7 +364,7 @@ Signature    : ledger seam, sole vertical rule  →  removed
 
 An old line nothing re-created leaves as `→ removed`, never by omission. Where Section 5 was empty, the *old* column is the **measured** value, marked as such — `Radius : 8px (measured) → 0`.
 
-2. **The file plan.** Each page line reads `replaced by its canvas file` or `retoken only — no canvas frame`, never a third label. **In a redesign `retoken only` is unavailable**: an undrawn component is `deleted` (anything still needing it is drawn), a thin passthrough whose child was redrawn is deleted, its callers reaching the redrawn child directly. An unaccounted file is an inventory failure. **Shared canvas files get their own line under their header's production path.** A page with a canvas file listed `retoken only` is its own question. List chrome, shared components, styling files, linter config, `AGENTS.md`, and `UNTOUCHED` files. Close with the **seam points** from Step 7's order, never a time estimate.
+2. **The file plan.** Each page line reads `replaced by its canvas file` or `retoken only — no canvas frame`, never a third label. **In a redesign `retoken only` is unavailable**: an undrawn component is `deleted` (anything still needing it is drawn), a thin passthrough whose child was redrawn is deleted, its callers reaching the redrawn child directly. An unaccounted file is an inventory failure. **Shared canvas files get their own line under their header's production path**, checked against the components folder now; a path already taken is its own decision line. A page with a canvas file listed `retoken only` is its own question. Every file that is not a page — chrome, shared components, styling files, linter config, `AGENTS.md`, a file changed only at the data seam — takes a line naming what changes; `UNTOUCHED` files are listed. Close with the **seam points** from Step 7's order, never a time estimate.
 
 ```
 PASS — [n] files
@@ -362,7 +378,7 @@ UNTOUCHED        PhoneContact.tsx
 
 3. **The detector's audit count** and how many hits the canvas removes; the rest listed by rule, returning at Step 8.
 
-4. **What approval orders, contradicts, and removes.** Ratified elements lacking data, one line each — element, page, the work ordered (column · RPC · migration). Then deviations: canvas elements the real flow contradicts and real controls the canvas never drew (`canvas.md`), one decision line each. **Then removals, confirmed item by item** — every function or control leaving, plus every part in `audit.md`'s frame inventory (opened now) that no canvas page carries. *Approve everything* never covers this group.
+4. **What approval orders, contradicts, and removes.** Ratified elements lacking data, one line each — element, page, the work ordered (column · RPC · migration · a query, where the data exists and nothing reads it). Then deviations: canvas elements the real flow contradicts and real controls the canvas never drew (`canvas.md`), one decision line each. **Then removals, confirmed item by item** — every function or control leaving, plus every part in `audit.md`'s frame inventory (opened now) that no canvas page carries; with a routes-only inventory, every route no canvas page carries, under `frame coverage unverified`. *Approve everything* never covers this group; a reply naming its items — each ID, or a range such as X1–X12 — does.
 
 End the turn and wait for the chat reply; lines may be approved or rejected by name. Rejected values return to Step 5, nothing written; all approved → the pass. Nothing changed → close at Step 9.
 
@@ -378,30 +394,32 @@ REPAIR — [n] findings
 
 STOP for approval per item; a rejected item stays a finding, reported at Step 9.
 
-## Step 7 — The pass: every page, in one session
+## Step 7 — The pass: every page, across sessions where it must
 
-**Where UI exists, branch first** — own branch or worktree from a committed base (`design/rework-<date>` or the user's naming), an untracked canvas folder brought along. Dropping the branch reverts everything, at the user's word, closing at Step 9.
-- **First act: write Section 5** in full, then `CLAUDE.md`'s Component library row if the library changed — the only moment the PRD is written. **The gate block travels with the branch** in the first commit's message body: Section 5 diff, file plan, ordered work, answered deviations.
+**Where UI exists, branch first** — own branch or worktree from a committed base (`design/rework-<date>` or the user's naming), the untracked canvas folder and `.design-audit/` brought along. Dropping the branch reverts everything, at the user's word, closing at Step 9.
+- **First act: write Section 5** in full, then `CLAUDE.md`'s Component library row if the library changed — the only moment the PRD is written. **The gate block is saved as `.design-audit/gate.md`** — Section 5 diff, file plan, ordered work, answered deviations — read on every resume, and the body of the commit proposed at the close.
 - **Second act: the freshness check.** Re-walk the function inventory against current code; a flow changed since ratification is a new deviation line put to the user **before** its page moves.
 
 **Where no UI exists, no branch**; the pass runs in place.
 
+**The pass may span sessions, stopping only at a seam point** — after Foundations, after chrome and shared components, after any page. **Nothing is committed on the way**: a session stopping at a seam first writes Step 9's `QUEUE.md` lines for what is left, and the next session resumes from the working tree through Step 0's re-entry gate.
+
 **All canvas pages are promoted in one pass**, per `canvas.md`, element for element, in this fixed order:
 
-1. **Foundations.** Theme files take the new values, old tokens **deleted**, plus everything the canvas CSS carries beyond values: **the font loading itself** (a package not installed at Step 6 is one line approved in chat), element rules, shadows, motion durations. Verify in the browser that the computed font-family is the loaded webfont. Step 6's five styling-file rules bind.
+1. **Foundations.** Where UI exists, first the font install, `DESIGN.md` and its detector run (Step 6). Theme files take the new values, old tokens **deleted**, plus everything the canvas CSS carries beyond values: **the font loading itself** (a package not installed at Step 6 is one line approved in chat), element rules, shadows, motion durations, and the setup files the canvas relies on (`canvas.md`, Promotion). Verify in the browser that every declared face and weight loads (`document.fonts`), not only those a page renders. Step 6's five rules bind.
 2. **Chrome and shared components, from the canvas chrome** — in production before any page importing them counts as moved; production logic (auth, navigation, data) is wired into the canvas markup, never the reverse. **Placement follows `ui-build`'s placement rule.**
-3. **Pages — the proving page first**, each canvas file **copied to its real path**, wrapper removed. **With a data layer**, swap the fixture import for it without touching the markup body, and check each page at both widths: holding → report and continue; first collapse → stop, a rework round of that page. **With no backend yet**, pages keep fixtures reshaped to `build-flow`'s contract form (`src/contracts/<page>.ts`, `src/contracts/<page>.fixtures.ts`, per its `references/contract.md`), and **each gets a `QUEUE.md` line** `wire <page> to real data`. Where `logic-settle` chose the data layer, loading, empty and failed states come from its cache, never a handwritten effect.
+3. **Pages — the proving page first**, each canvas file **copied to its real path**, wrapper and canvas-only instruments removed (`canvas.md`, Promotion). **With a data layer**, swap the fixture import for it, changing only what Step 8's structural diff allows at the data seam, and check each page at both widths: holding → report and continue; first collapse → stop, a rework round of that page. **With no backend yet**, pages keep fixtures reshaped to `build-flow`'s contract form (`src/contracts/<page>.ts`, `src/contracts/<page>.fixtures.ts`, per its `references/contract.md`), and **each gets a `QUEUE.md` line** `wire <page> to real data`. Where `logic-settle` chose the data layer, loading, empty and failed states come from its cache, never a handwritten effect.
 4. **Components not on the canvas** — **fix-the-drift only**: retoken to zero raw values; a prop or theme value departing from the library default returns to it unless Section 5 requires it. **In a redesign this step is empty**; a file here is a failed inventory to report, never to retoken.
 5. **`/styleguide`** — archetype cards on the ratified shells, every new component rendered, Step 6's done-check.
 6. **Assets** locked to the old colors — where UI exists: inline SVG, favicon, brand-coloured images.
-7. **The old library and engines are removed**, if their decisions changed.
+7. **The old library, engines and font packages are removed**, if their decisions changed.
 8. **The lint floor, then `AGENTS.md`'s `## UI` part**, per Step 6 — fix-the-drift writes them too.
 
 **The proving page is the bar** for every later page; with data, its fixtures include `bulk` and `messy` cases. `ui-build` binds every promoted page.
 
 Page running → **prove it at two widths with screenshots** (Section 5's desktop breakpoint, the ratified lowest width) per Section 1's Proof profile. No capture tooling → say so, name the run target and both widths; never claim they were judged.
 
-**The UI code is the pass's to rewrite — the behavior is not**: queries and mutations, guards, route paths, and every action's outcome stay unchanged. No unrelated fixes.
+**The UI code is the pass's to rewrite — the behavior is not**: queries and mutations, guards, route paths, and every action's outcome stay unchanged, except the work the gate ordered. No unrelated fixes.
 
 **Detector findings are deferred** to Step 8, overriding `impeccable`'s act-on-findings instruction.
 
@@ -417,18 +435,22 @@ Page running → **prove it at two widths with screenshots** (Section 5's deskto
 
 ## Step 8 — Verification: evidence, not eyes
 
-Every check leaves something the user can inspect. All of them before reporting done:
+Every check leaves something the user can inspect. **A check here or in Step 7 that cannot run** — no data, no sign-in, no tooling — **is reported `not verified — <reason>`, never passed**, and becomes a `QUEUE.md` line (Step 9); one run against a verification double, standing in for data or sign-in, is reported as run on it, and its real-data line stays.
+
+All of them before reporting done:
 
 - **The build passes.** It does not → stop, fix it, do not report done.
-- **The structural diff per canvas file — the primary evidence**, shared files included under their header's production path. Differences are confined to the data seam (fixture import → data layer plus loading and error wiring; with fixtures kept, the removed wrapper and the contract-shaped import) and to lines answered at the gate; anything else is failed. Verdict per file; an unshowable diff is not verified.
+- **The structural diff per canvas file — the primary evidence**, shared files included under their header's production path. Differences are confined to the data seam (fixture import → data layer plus loading and error wiring; with fixtures kept, the contract-shaped import), the removed wrapper and canvas-only instruments, and lines answered at the gate; anything else is failed. Verdict per file; an unshowable diff is not verified.
 - **Computed styles probed in the browser**: fonts are the loaded webfonts; token slots spot-checked against the theme files. (No browser in the Proof profile → its Visual line, naming what could not be verified.)
-- **The rendered structure matches, counted.** Canvas and live page in the same dev server; compare each body's element tree (names and classes, **text and numbers discarded**), one line per page: `canvas n · live n · differs n`. Above zero names the elements and is failed. Unshared chrome is excluded and said; an uncountable page is not verified.
+- **The rendered structure matches, counted.** Canvas and live page in the same dev server; compare each body's element tree (names, classes, and the attributes the canvas source writes — `aria-*`, `role`, `href` — **text and numbers discarded**), one line per page: `canvas n · live n · differs n`. Above zero, outside lines answered at the gate, names the elements and is failed. Unshared chrome is excluded and said; an uncountable page is not verified.
+- **Every accessible name on the promoted pages reads in the app's locale**, a library's own included.
 - **Zero raw values** across every promoted page and component — search again for hex, font sizes, raw spacing.
 - **The lint floor passes, and bites.** Zero hits outside the baseline; each refusal seen refusing its planted violation, reported per refusal, `not enforceable on <stack>` named. Every path in `AGENTS.md`'s `## UI` part resolves.
 - **The styleguide passes its done-check** (Step 6), foundations rendered as specimens.
-- **Every contrast ratio on the page was computed**, not recalled, in every ratified theme mode; every semantic dark shade clears 4.5 against its own light shade.
-- **The fixtures close** on every page still running on them — totals, percentages, bar widths, pagination (`canvas.md`, Coverage).
+- **Every contrast ratio on the page was computed**, not recalled, for every pair `canvas.md` Ratification defines, in every ratified theme mode; every semantic dark shade clears 4.5 against its own light shade.
+- **The numbers close** on every page — on its fixtures where it still runs on them, on its real rows where it is wired — totals, percentages, bar widths, pagination (`canvas.md`, Coverage).
 - **The detector ran against the running app** (the dev server): hit count beside the audit's where UI existed, every hit fixed or left standing with one line why. `impeccable` absent → the check could not run, never reported passed.
+- **Motion holds `review-animations`' floor** on a web-technology Surface: every animation on the promoted pages read against it, each refusal fixed or left standing with one line why. Not installed → `n/a — not installed`, said aloud.
 - **The signature survived promotion** on the pages that carry it.
 - **The proving page holds at both widths**, screenshots taken.
 - **Pages running on fixtures are listed by name**, matching the `QUEUE.md` wire lines one for one.
@@ -438,18 +460,18 @@ Every check leaves something the user can inspect. All of them before reporting 
 
 Any fails → fix it in the same session.
 
-**The canvas files stay after promotion** (`canvas.md`, Ratification — the canvas lifecycle). **Passing checks earn a proposal to delete — never a deletion.** Where UI existed and real data was wired in-session: report the per-page diff verdict, invite a side-by-side walk at `/design-canvas`, end the turn and ask whether the canvas and seed rows may go — a chat stop, never an AskUserQuestion. Only a granted confirmation deletes page files, entry route, foundations board, canvas CSS and `.audit/` together. A refusal or a named page makes that page a failed item now; the canvas stays. A page left on fixtures keeps its canvas file until it is wired, survives both widths, and the user confirms the side-by-side (carried by `build-flow`). Never delete unasked.
+**The canvas files stay after promotion** (`canvas.md`, Ratification — the canvas lifecycle). **Passing checks earn a proposal to delete — never a deletion.** Where UI existed and real data was wired in-session: report the per-page diff verdict, invite a side-by-side walk at `/design-canvas`, end the turn and ask whether the canvas and seed rows may go — a chat stop, never an AskUserQuestion. Only a granted confirmation deletes page files, entry route, foundations board, canvas CSS and `.design-audit/` together, `gate.md` excepted until the pass's commit is made. A refusal or a named page makes that page a failed item now; the canvas stays. A page left on fixtures, or wired but never seen on real data, keeps its canvas file until it is seen on real data at both widths and the user confirms the side-by-side (carried by `build-flow`). Never delete unasked.
 
 ## Step 9 — Close
 
 **Nothing stays a draft.** Every canvas page ends promoted into a real route.
 
-One block: the detector's numbers — Step 8's count, beside the audit's where UI existed — and every hit left standing with its one-line justification · the Section 5 lines that changed, where there was an old one · files changed, with their count, and files `UNTOUCHED` · each page's fate — promoted and wired, or promoted on fixtures with its `QUEUE.md` wire line · items the user rejected, still standing as findings · the canvas outcome and how many rounds it took · the verification results, per-page diff verdicts included · the canvas files still standing and the queue line that will retire each · the `/styleguide` route named as staying dev-only, deletable at the user's word · the lint floor — refusals written, the baseline's size, anything `not enforceable` · what is still `[needs verification]` · **the PRD sections `app-settle` still owes**, where the PRD was missing or off-shape — `build-flow` will not open a page until Sections 2–3 exist.
+One block: the detector's numbers — Step 8's count, beside the audit's where UI existed — and every hit left standing with its one-line justification · every `review-animations` refusal left standing, with its line · the Section 5 lines that changed, where there was an old one · files changed, with their count, and files `UNTOUCHED` · every `CLAUDE.md` line naming a file the pass deleted, left for the user to edit · each page's fate — promoted and wired, or promoted on fixtures with its `QUEUE.md` wire line · items the user rejected, still standing as findings · the canvas outcome and how many rounds it took · the verification results, per-page diff verdicts included · the canvas files still standing and the queue line that will retire each · the `/styleguide` route named as staying dev-only, deletable at the user's word · the lint floor — refusals written, the baseline's size, anything `not enforceable` · what is still `[needs verification]` · **the PRD sections `app-settle` still owes**, where the PRD was missing or off-shape — `build-flow` will not open a page until Sections 2–3 exist.
 
-**A pass this session could not finish is written down, not implied.** Every page not yet promoted and every verification item not yet passing becomes one `QUEUE.md` line; the canvas stays alive until those lines clear.
+**A pass this session could not finish is written down, not implied.** Every page not yet promoted and every verification item not yet passing becomes a `QUEUE.md` line in `build-flow`'s page shape — a failing item rides its page's line; the canvas stays alive until those lines clear.
 
 State that this gate **no longer applies** to later pages — from here on Section 5 and `ui-build`'s component rules bind.
 
-**The commit waits for the user's word** — proposed on the pass's branch with nothing else in it; merging is the user's move.
+**The commit waits for the user's word** — proposed on the pass's branch with nothing else in it, its message body the gate block from `.design-audit/gate.md`, which goes once that commit is made; merging is the user's move.
 
 Nothing changed — every answer *keep*, today's look picked, or the canvas reverted → say so in one line and list the audit findings that remain.
