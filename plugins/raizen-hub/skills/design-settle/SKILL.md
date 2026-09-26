@@ -451,6 +451,9 @@ All of them before reporting done:
 - **The numbers close** on every page — on its fixtures where it still runs on them, on its real rows where it is wired — totals, percentages, bar widths, pagination (`canvas.md`, Coverage).
 - **The detector ran against the running app** (the dev server): hit count beside the audit's where UI existed, every hit fixed or left standing with one line why. `impeccable` absent → the check could not run, never reported passed.
 - **Motion holds `review-animations`' floor** on a web-technology Surface: every animation on the promoted pages read against it, each refusal fixed or left standing with one line why. Not installed → `n/a — not installed`, said aloud.
+- **Every promoted page's primary flow completes by keyboard alone** on the running app — Tab, the arrow keys a composite widget expects, Enter, Escape — with nothing lost or re-run when focus leaves a field, and every dialog and popover named and closable.
+- **axe-core reports no serious or critical violation** on each promoted page, injected into the session's browser for the check only, never added to the app's dependencies.
+- **Under emulated `prefers-reduced-motion: reduce`, nothing on the promoted pages moves**, library transitions included; one the library cannot turn off stands as a finding.
 - **The signature survived promotion** on the pages that carry it.
 - **The proving page holds at both widths**, screenshots taken.
 - **Pages running on fixtures are listed by name**, matching the `QUEUE.md` wire lines one for one.
