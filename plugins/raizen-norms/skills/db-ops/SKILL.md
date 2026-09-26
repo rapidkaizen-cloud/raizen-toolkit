@@ -130,7 +130,7 @@ ROLLBACK;
 
 **Also test the role that should see zero rows.** The negative test is what catches leaks; the positive one only proves the data arrives.
 
-A real user UUID is needed per role. None exists yet → seed one first. This is friction that appears on **every** RLS change, not once.
+A real user UUID is needed per role. None exists yet → seed one first (`references/agent-account.md`). This is friction that appears on **every** RLS change, not once.
 
 Report per role: role · UUID · rows visible · rows expected · match or not. Mismatch → stop, do not move on to the frontend.
 

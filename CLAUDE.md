@@ -20,6 +20,10 @@ Hooks block without being able to ask. A new hook must first be tested against t
 
 This plugin ships no templates. What a new app repo gets is written by `app-settle` for that repo's answers — never a stock file, which is a decision taken before its question was asked and goes stale without anyone re-reading it. Whatever a skill here tells a session to write lands in app repos that may not be private, so a rule that produces a file must never produce a secret in it: name the variable, never its value.
 
+## Proof runs
+
+A proof run tests these skills on a throwaway copy of an app in the scratchpad. Write only the public client values into the copy's `.env` — the URL and the publishable key; never copy the real `.env`. A server key reaches the copy only by the user's own hand: a key created for the run and revoked after it. Without one, report every server route `not verified — no server key in the proof copy`.
+
 ## Git
 
 Commit only when the user says so. Do not push, do not open a PR on your own initiative.

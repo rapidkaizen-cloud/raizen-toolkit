@@ -17,7 +17,7 @@ An **installed engine is already decided**; no dialog reopens it without an audi
 
 ## The overview multiselect — one gate before the dialogs
 
-When a trigger fired before drawing, first ask **one multiSelect AskUserQuestion**: each option a detected category with its trigger in the description (`Chart — the home page draws a revenue trend`), all pre-selected, keeping all recommended. **Offer detected triggers only, never the full category list.** An unchecked category keeps the current state, recorded as a decision line; one added through "Other" becomes a named-need trigger. Checked categories open per-engine dialogs in the next call of the same turn. The mid-drawing trigger skips the overview.
+When a trigger fired before drawing, first ask **one multiSelect AskUserQuestion**: each option a detected category with its trigger in the description (`Chart — the home page draws a revenue trend`), all pre-selected, keeping all recommended. **Offer detected triggers only, never the full category list.** An unchecked category keeps the current state, recorded as a decision line; one added through "Other" becomes a named-need trigger. Checked categories open per-engine dialogs in the next call of the same turn. The mid-drawing trigger skips the overview, and so does a single detected category — AskUserQuestion refuses a one-option question; open its engine dialog directly.
 
 ## The verification duty — candidates assembled live
 

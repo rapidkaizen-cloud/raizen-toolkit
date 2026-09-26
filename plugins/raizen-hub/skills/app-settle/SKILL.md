@@ -149,7 +149,7 @@ Section 5 is filled with `[needs verification]` throughout. Bootstrap is not the
 | `.claude/settings.json` | `{"enabledPlugins": {"raizen-norms@raizen": true}}` — that key and nothing else; a repo that already has the file keeps the rest of it |
 | Host rewrite rule | Only when the framework is a **static SPA**, and written for the host chosen at Question 4 — `vercel.json` on Vercel, `netlify.toml` on Netlify, a `try_files` line on an own server. Next.js, Nuxt, SvelteKit, and Astro carry their own server layer — do not write one |
 | CI workflow | Only when the user asks for migrations through CI at N6. Written for the host and migration tool actually chosen — there is no stock workflow to copy, and one written for the wrong runner is worse than none |
-| `supabase/config.toml` | Only when the database is Supabase. **Written here, not copied** — one line, `project_id = "<ref>"`, an identifier and not a secret. This value is what the `guard_project_ref` hook pins every Supabase MCP call to, so a repo that skips it is a repo the guard stays silent in. **Which ref goes in** follows Question 7 — staging exists → the staging project, never production |
+| `supabase/config.toml` | Only when the database is Supabase Cloud — a self-hosted instance has no project ref (N6). **Written here, not copied** — one line, `project_id = "<ref>"`, an identifier and not a secret. This value is what the `guard_project_ref` hook pins every Supabase MCP call to, so a repo that skips it is a repo the guard stays silent in. **Which ref goes in** follows Question 7 — staging exists → the staging project, never production |
 
 ### The shape of `CLAUDE.md`
 
@@ -212,6 +212,8 @@ claude mcp add -s user --transport http supabase "https://mcp.supabase.com/mcp"
 ```
 
 The URL must stay **bare** — Supabase's OAuth rejects any query string, so adding `?features=` or `?project_ref=` breaks the login itself.
+
+**Self-hosted Supabase gets neither the ref nor that line.** Write its route on `CLAUDE.md`'s Database row — `psql` inside the database container over `ssh <host alias>`, the alias and never a credential — and hand the user the permission rule that `ssh` command needs. `guard_destructive` covers that route; `guard_project_ref` stays silent, having no ref to pin. Studio's own MCP endpoint is the alternative, reached only through an `ssh` tunnel because it carries no authentication.
 
 Both are once per machine and account, never per repo, so a machine already set up needs nothing beyond the ref. For another database, whatever its own equivalent is. Pointed at production because there is no staging → say that plainly, since from then on every guarded destructive statement lands on live data. **No token is written into any file**; asking for one would be wrong. Name the variables, never their values. Without a live database there is no migration and no role test, so not a single page can be built.
 
@@ -322,7 +324,7 @@ Then:
 - **`CLAUDE.md`** written to the shape in N5, filled from D1. English prose whatever the app's UI language — a translated file is invisible to the stale-section detector in `session_norms.py`. Already present → **do not overwrite.** Add only the missing rows and report what was left alone.
 - **`AGENTS.md`** written to its shape in N5. The `## UI` and `## Logic` parts hold their bootstrap lines — Section 5 is absent here and no data layer folder has been named; `design-settle` and `logic-settle` each fill their own part. Already present → **do not overwrite**; add the parts it lacks under their own headings and report what was left alone.
 - **`.claude/settings.json`** enabling `raizen-norms`. Already present with other plugins → add the key, keep the rest.
-- **`supabase/config.toml`** only when the database is Supabase **and** the file is missing. One line, `project_id = "<ref>"` — an identifier, not a secret — which the `guard_project_ref` hook pins every Supabase MCP call to. Present already → leave it alone.
+- **`supabase/config.toml`** only when the database is Supabase Cloud **and** the file is missing — self-hosted follows N6. One line, `project_id = "<ref>"` — an identifier, not a secret — which the `guard_project_ref` hook pins every Supabase MCP call to. Present already → leave it alone.
 
 **No scaffold, no `git init` on an existing repo, no host config, no CI workflow.** Here they either already exist or the user decided against them, and either way it is not this session's business.
 

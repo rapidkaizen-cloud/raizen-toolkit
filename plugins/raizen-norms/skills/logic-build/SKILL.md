@@ -161,7 +161,7 @@ Everything above is obeyed by judgement, and an agent that never loads this file
 4. **A cast that erases a database type** — `as any`, `as unknown as`, on anything this layer returns.
 5. **A swallowed error** — an empty `catch`, or a `catch` whose whole body returns a default.
 
-`logic-settle` writes the floor, derived from this app's folder and its settled libraries; a repo that has none gets it from `app-conform`. It is lived with the way `ui-build` lives with its own: **run the repo's lint command before committing any scope item in this layer**; an inline disable of a floor rule, or a floor rule lowered to a warning, is a finding; a refusal that is wrong is narrowed in the config on the user's word, never silenced at the call site. No floor in the repo → say so in one line and carry on.
+`logic-settle` writes the floor, derived from this app's folder and its settled libraries; a repo that has none gets it from `app-conform`. It is lived with the way `ui-build` lives with its own: **run the repo's lint command before committing any scope item in this layer**; an inline disable of a floor rule, or a floor rule lowered to a warning, is a finding; a refusal that is wrong is narrowed in the config on the user's word, never silenced at the call site. No floor in the repo → say so in one line and carry on. **A hook refusing a write to the linter config** (another plugin guarding config files) → hand the user the change as a patch in chat and wait; never write it through a shell or another tool.
 
 What the floor cannot see is where a rule lives, a rule the PRD never stated, and a query written twice under two names. The first two are Section 2's; the third is what the listing in Section 8 is for.
 

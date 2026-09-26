@@ -112,6 +112,8 @@ Confirm the score with the **AskUserQuestion tool**, never as a prose question: 
 | Calls scattered, no folder holding most | The folder already holding the most, named with its count — the rest are the migration Step 5 prices |
 | No database calls yet | The framework's own convention where it names one; else a folder named `data` under the stack's source root, the name the platform architecture guides converge on |
 
+A page or component folder is never the data layer, however many calls it holds — its calls are the migration.
+
 ```
 Data layer : src/lib — 20 of 20 files already there
 ```
@@ -158,7 +160,7 @@ Answers outside the options are accepted. The user names a library the research 
 
 **Where the audit found nothing for this need**, the "none" option is always among the options — *handwritten*, *platform built-in*, or *not yet*, whichever the rubric names — and is never dropped from the list. It becomes the recommendation whenever the platform already covers the need or the app is too small for the library to pay for itself, and only then does it sit first; when a library is the recommendation, the library sits first and "none" stays below it. The candidates are the fallback; the platform is the default.
 
-**Where the audit found something**, that is always an option, **written first** — `Keep — <what is installed>`, or `Keep — handwritten, N sites`. It does not count toward the "more than two options" requirement. A value that is only a recommendation is a suggestion; a value written as an option is a choice. And **keep is the recommendation, unless the audit produced a concrete finding against it** — without that clause *keep* always wins and nothing ever improves; without the first clause every session becomes a migration. A concrete finding is one of three, and the list is closed:
+**Where the audit found something**, that is always an option, **written first** — `Keep — <what is installed>`, or `Keep — handwritten, N sites`. It does not count toward the "more than two options" requirement. A value that is only a recommendation is a suggestion; a value written as an option is a choice. And **keeping an installed library is the recommendation, unless the audit produced a concrete finding against it** — without that clause *keep* always wins and nothing ever improves; without the first clause every session becomes a migration. **Against handwritten code, the rubric's recommendation rule decides**, *keep* still written first — the closed list names library failures, so it never indicts handwritten code. A concrete finding is one of three, and the list is closed:
 
 | Concrete finding | Not a finding |
 |---|---|
@@ -208,7 +210,7 @@ Present the block, end the turn, wait. Refused → hand over the commands, then 
 
 A trigger chosen at L6 installs nothing — it is a migration. It goes in the same block, named as a migration rather than a package, and it is applied the way every other schema change in this repo is applied.
 
-A trigger has its own smoke check, because it never passes through the compiler: as an authenticated user, not `service_role`, write and then delete one throwaway row in a tracked table, and confirm three audit rows exist with the actor filled in. A null actor here means the fallback is wired wrong, and that is the whole point of the feature. Then delete the throwaway rows from the audit table too — this is the only moment deleting from it is correct.
+A trigger has its own smoke check, because it never passes through the compiler: as an authenticated user, not `service_role`, write and then delete one throwaway row in a tracked table, and confirm three audit rows exist with the actor filled in. Where the app writes under `service_role`, repeat it through that client carrying the actor header (`logic-rubric.md`, L6). A null actor here means the fallback is wired wrong, and that is the whole point of the feature. Then delete the throwaway rows from the audit table too — this is the only moment deleting from it is correct.
 
 After installing, one smoke check: a single throwaway usage that exercises each library, `tsc --noEmit` (or the stack's equivalent) passing, then the throwaway is deleted. A library that does not compile against this repo's config is cheaper to discover now than mid-page.
 

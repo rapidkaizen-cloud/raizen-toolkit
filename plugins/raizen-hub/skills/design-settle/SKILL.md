@@ -47,7 +47,8 @@ Not decided by the user → `[needs verification]`.
 ```
 Skill build     : [raizen-hub x.y.z — read from this plugin's own .claude-plugin/plugin.json]
 PRD.md          : [present / missing / present, outside prd-structure's shape]
-Section 5       : [filled / empty / absent / product without UI]
+Section 5       : [filled / empty / absent / product without UI — from its heading and
+                   `[needs verification]` markers alone; its prose is the old look (`canvas.md`, blindness)]
 UI components   : [file count — 0 on a repo with no UI]
 Kind of app     : [from Section 1, else read from the code, else asked at Step 1 — a label, never a branch]
 Register        : [first visit / tenth use / both, per page group — from Section 2, else from the routes]
@@ -68,8 +69,8 @@ Flow            : load impeccable + frontend-design (+ review-animations, where 
                   → fix or redesign (where Section 5 filled)
                   → non-visual dialogs, answers locked, nothing installed (library · styling ·
                   icons · engines · widths · theme mode · frame screens · copy voice)
-                  → reference search (real products, links) + ui-ux-pro-max's proposal, where
-                  installed → direction question, multi-select
+                  → reference search (real products, links) + ui-ux-pro-max's proposal and
+                  searches, where installed → direction question, multi-select
                   → install gate → direction frames composed by Claude, always 2–4, today's
                   look among them where Keep is ticked → pick → refine (only if the pick
                   carries a change)
@@ -142,9 +143,9 @@ Counts are occurrences in source; label lengths are in words, as `ui-build`'s co
 
 `Components affected` sizes the pass; show it before the user decides anything. **The `UI stack` row is the canvas's import whitelist** (`canvas.md`); a needed job no installed engine covers becomes an engine dialog at Step 3, an installed engine unused is a finding.
 
-**Logic-layer bleeding** (handwritten fetching in UI files, hand-parsed dates, unvalidated inputs) gets the `logic-settle` offer under that skill's rule; continue either way.
+**Logic-layer bleeding** (handwritten fetching in UI files, hand-parsed dates, unvalidated inputs) gets the `logic-settle` offer under that skill's rule. Declined → continue. Accepted → close here, run `logic-settle` in its own session, then `design-settle` from Step 0 — its pass reads every page, which would end this session's blindness.
 
-**Screenshot one page per archetype at desktop width**, per Section 1's Proof profile — 1440px where it names none (`canvas.md`) — for Step 8's comparison; the drawing session never opens them before the judgement's before/after.
+**Screenshot one page per archetype at desktop width**, per Section 1's Proof profile — 1440px where it names none (`canvas.md`) — for Step 8's comparison; the drawing session opens them only at Step 8, and until then hands the user their paths (`canvas.md`, Judging).
 
 **The function inventory** — every function the app carries, one line each: what can be done, never where or how it looks. It is the canvas's brief-floor (`canvas.md`).
 
@@ -184,7 +185,7 @@ Fix the drift → Step 6, whose gate shows the findings. Section 5 is untouched,
 
 ## Step 3 — The interview: everything non-visual, then the look
 
-Read `references/interview.md` and run it in its order: **the non-visual dialogs first — the stack (library · styling · icon pack · triggered engines) and four product calls (supported widths · theme mode · the two screens the frames are drawn on · copy voice) — each only locking its answer; then the reference search; then the direction question, multi-select; then the install gate (Step 4); then the direction frames, picked on screen (Step 5). Nothing is installed while the interview runs, and nothing about the look is asked after the pick.** Every option is invented for this app, `ui-ux-pro-max`'s proposal excepted (`interview.md`).
+Read `references/interview.md` and run it in its order: **the non-visual dialogs first — the stack (library · styling · icon pack · triggered engines) and four product calls (supported widths · theme mode · the two screens the frames are drawn on · copy voice) — each only locking its answer; then the reference search; then the direction question, multi-select; then the install gate (Step 4); then the direction frames, picked on screen (Step 5). Nothing is installed while the interview runs, and nothing about the look is asked after the pick.** Every option is invented for this app; `ui-ux-pro-max`'s data enters labelled as its own (`interview.md`).
 
 **A tick is inspiration, not an anchor**; nothing stands the frames down (`interview.md`, Part 2).
 
@@ -227,7 +228,7 @@ Will install:
                                 written into it]
 ```
 
-Wait for approval. Refused → hand over the commands for the user to run, then wait. Nothing to install → say so in one line and continue.
+Wait for approval. Refused → hand over the commands for the user to run, then wait. Nothing to install → say so in one line and continue. Where UI exists, append every approved package to `handover.md`'s UI stack line before the first frame — the frames are drawn against that line.
 
 Install nothing outside it; something extra → ask again. The font is the one exception (Step 6). **Where UI exists, the block also says what leaves** — removed in the pass (Step 7), never here.
 
@@ -246,7 +247,7 @@ Run under `canvas.md` entire, in order: the 2–4 direction frames on the two St
 | Part | What is stated |
 |---|---|
 | Direction | Purpose · the one tone held · what makes this app memorable rather than adequate (`frontend-design`) · the copy voice answered at Step 3, per page group where it was asked per group (`ui-build`, Writing) |
-| Colour | The named values with their roles — as many as the direction needs, no count fixed here — and where they came from — a brand palette, a reference, the generator's palette (`interview.md`), or an accent chosen first and the neutrals pulled toward it |
+| Colour | The named values with their roles — as many as the direction needs, no count fixed here — and where they came from — a brand palette, a reference, a `ui-ux-pro-max` palette with its adjustment (`interview.md`), or an accent chosen first and the neutrals pulled toward it |
 | Type | The pairing and each face's job. A face on `impeccable`'s calibration list is named with the reason it was still chosen |
 | Layout | The shell and the composition in one or two sentences — where the density sits, what breaks the grid |
 | Signature | The picked frame's candidate signature, kept or replaced as a departure (`canvas.md`, the taste licence) |
@@ -316,7 +317,7 @@ State the step count and the alias list in Section 5's colour table.
 
 Generated before the canvas (`canvas.md`); verify it here against the done-check. An existing app without one gets it inside the pass (Step 7).
 
-**One route file** (e.g. `src/pages/styleguide.tsx`) at `/styleguide` in dev, out of navigation, outside the auth guard, and out of the production build. **It imports the production components and tokens** — never copies, a separate HTML file, or a second source of values. Offer deleting it later; never require it.
+**One route file** (e.g. `src/pages/styleguide.tsx`) at `/styleguide` in dev, out of navigation, outside the auth guard, and out of the production build. **It imports the production components and tokens** — never copies, a separate HTML file, or a second source of values. **Render every specimen's actions inert** — a sign-out, write, or send is stubbed through the component's props; a component that cannot take a stub is listed `live only`. Offer deleting it later; never require it.
 
 Sections, in order, rendered from what was decided:
 
@@ -378,7 +379,7 @@ UNTOUCHED        PhoneContact.tsx
 
 3. **The detector's audit count** and how many hits the canvas removes; the rest listed by rule, returning at Step 8.
 
-4. **What approval orders, contradicts, and removes.** Ratified elements lacking data, one line each — element, page, the work ordered (column · RPC · migration · a query, where the data exists and nothing reads it). Then deviations: canvas elements the real flow contradicts and real controls the canvas never drew (`canvas.md`), one decision line each. **Then removals, confirmed item by item** — every function or control leaving, plus every part in `audit.md`'s frame inventory (opened now) that no canvas page carries; with a routes-only inventory, every route no canvas page carries, under `frame coverage unverified`. *Approve everything* never covers this group; a reply naming its items — each ID, or a range such as X1–X12 — does.
+4. **What approval orders, contradicts, and removes.** Ratified elements lacking data, one line each — element, page, the work ordered (column · RPC · migration · a query, where the data exists and nothing reads it), and that the element renders waiting until that work runs (Step 7). Then deviations: canvas elements the real flow contradicts and real controls the canvas never drew (`canvas.md`), one decision line each. **Then removals, confirmed item by item** — every function or control leaving, plus every part in `audit.md`'s frame inventory (opened now) that no canvas page carries; with a routes-only inventory, every route no canvas page carries, under `frame coverage unverified`. *Approve everything* never covers this group; a reply naming its items — each ID, or a range such as X1–X12 — does.
 
 End the turn and wait for the chat reply; lines may be approved or rejected by name. Rejected values return to Step 5, nothing written; all approved → the pass. Nothing changed → close at Step 9.
 
@@ -425,7 +426,7 @@ Page running → **prove it at two widths with screenshots** (Section 5's deskto
 
 **The approved canvas is the specification.** Drawn elements land as drawn; undrawn ones, and prose it left out, do not. A difference the session would prefer is refused, not asked.
 
-**One exception: a ratified element whose data does not exist yet** — no query written; promoted **rendered empty and labelled as waiting**, with one `QUEUE.md` line naming the data. Never dropped or hidden behind a flag.
+**One exception: a ratified element whose data does not exist yet** — a gate-ordered migration not yet applied included, since `db-ops` puts the frontend after the run — no query written; promoted **rendered empty and labelled as waiting**, with one `QUEUE.md` line naming the data. Never dropped or hidden behind a flag.
 
 **The pass also stops** for a drawn element that would make the app claim what it cannot do — a `build-flow` stop.
 
@@ -449,7 +450,7 @@ All of them before reporting done:
 - **The styleguide passes its done-check** (Step 6), foundations rendered as specimens.
 - **Every contrast ratio on the page was computed**, not recalled, for every pair `canvas.md` Ratification defines, in every ratified theme mode; every semantic dark shade clears 4.5 against its own light shade.
 - **The numbers close** on every page — on its fixtures where it still runs on them, on its real rows where it is wired — totals, percentages, bar widths, pagination (`canvas.md`, Coverage).
-- **The detector ran against the running app** (the dev server): hit count beside the audit's where UI existed, every hit fixed or left standing with one line why. `impeccable` absent → the check could not run, never reported passed.
+- **The detector ran against the running app** (the dev server): hit count beside the audit's where UI existed, every hit fixed or left standing with one line why. A signed-in page is scanned as its rendered HTML saved from the session's browser, stylesheets inlined — never through a session token on a command line; a check only the URL tier runs is `not verified` on that page. `impeccable` absent → the check could not run, never reported passed.
 - **Motion holds `review-animations`' floor** on a web-technology Surface: every animation on the promoted pages read against it, each refusal fixed or left standing with one line why. Not installed → `n/a — not installed`, said aloud.
 - **Every promoted page's primary flow completes by keyboard alone** on the running app — Tab, the arrow keys a composite widget expects, Enter, Escape — with nothing lost or re-run when focus leaves a field, and every dialog and popover named and closable.
 - **axe-core reports no serious or critical violation** on each promoted page, injected into the session's browser for the check only, never added to the app's dependencies.
@@ -469,7 +470,7 @@ Any fails → fix it in the same session.
 
 **Nothing stays a draft.** Every canvas page ends promoted into a real route.
 
-One block: the detector's numbers — Step 8's count, beside the audit's where UI existed — and every hit left standing with its one-line justification · every `review-animations` refusal left standing, with its line · the Section 5 lines that changed, where there was an old one · files changed, with their count, and files `UNTOUCHED` · every `CLAUDE.md` line naming a file the pass deleted, left for the user to edit · each page's fate — promoted and wired, or promoted on fixtures with its `QUEUE.md` wire line · items the user rejected, still standing as findings · the canvas outcome and how many rounds it took · the verification results, per-page diff verdicts included · the canvas files still standing and the queue line that will retire each · the `/styleguide` route named as staying dev-only, deletable at the user's word · the lint floor — refusals written, the baseline's size, anything `not enforceable` · what is still `[needs verification]` · **the PRD sections `app-settle` still owes**, where the PRD was missing or off-shape — `build-flow` will not open a page until Sections 2–3 exist.
+One block: the detector's numbers — Step 8's count, beside the audit's where UI existed — and every hit left standing with its one-line justification · every `review-animations` refusal left standing, with its line · the Section 5 lines that changed, where there was an old one · files changed, with their count, and files `UNTOUCHED` · every `CLAUDE.md` line naming a file the pass deleted, left for the user to edit · each page's fate — promoted and wired, or promoted on fixtures with its `QUEUE.md` wire line · items the user rejected, still standing as findings · every decision the pass took at the data seam — an error slot, a control disabled during a paid call, retry wording — one cancellable line each · the canvas outcome and how many rounds it took · the verification results, per-page diff verdicts included · the canvas files still standing and the queue line that will retire each · the `/styleguide` route named as staying dev-only, deletable at the user's word · the lint floor — refusals written, the baseline's size, anything `not enforceable` · what is still `[needs verification]` · **the PRD sections `app-settle` still owes**, where the PRD was missing or off-shape — `build-flow` will not open a page until Sections 2–3 exist.
 
 **A pass this session could not finish is written down, not implied.** Every page not yet promoted and every verification item not yet passing becomes a `QUEUE.md` line in `build-flow`'s page shape — a failing item rides its page's line; the canvas stays alive until those lines clear.
 

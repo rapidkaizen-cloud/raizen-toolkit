@@ -109,18 +109,27 @@ This question does not pick a package, and **it is deliberately exempt from the 
 
 **The admission rule of this file does not apply to this question.** No maintained library is being chosen; the mechanism is a trigger against a Postgres API that has been stable for a decade, so "actively maintained" has nothing to attach to. Supabase's own [supa_audit](https://github.com/supabase/supa_audit) is archived and is still the right design to copy: one `audit.record_version` table, a `record_id` derived from the primary key so one record's history is an indexed lookup rather than a scan, and an index on `table_oid`. Copy the SQL into a migration and own it — do not install it. Do not offer pgaudit as an alternative here: it logs statements rather than values, and answers a different question.
 
-The reason recorded in the PRD must name **who reads the audit and to settle what** — the same discipline as L4. An audit nobody opens is write throughput spent on storage.
+The reason recorded in Section 1 names **what the audit settles**; who reads it is the Section 2 line `logic-settle` Step 8 hands over, never repeated in Section 1. An audit nobody opens is write throughput spent on storage.
+
+**The audit is read through one function, never by exposing its schema.** The `audit` schema stays out of the API; the reader Section 2 names gets one `SECURITY DEFINER` function in an exposed schema that checks that role inside and returns one record's history by `record_id`. Filtering on read (below) lives in that function.
 
 Three consequences are stated when this question is asked, because all three are expensive to discover later.
 
 **The snapshot outranks RLS.** An audit row holds the whole record as jsonb, and neither the base table's RLS nor its column privileges reach inside it. The moment a role that cannot see a column is allowed to read that record's history, the audit table becomes the way around the restriction. Before this question is closed, check the tables about to be tracked for columns not every role may read, and if any exist, say so and hand the user the fork: filter on read (the audit stays complete, the view is narrowed) or filter on write (simpler, and the evidence is permanently incomplete). Recommend filtering on read — an audit with holes is not an audit.
 
-**The `service_role` gap.** Under `service_role` — Edge Functions, cron, admin scripts — `auth.uid()` is null, and those are the paths that make the largest changes. The trigger reads a session setting as fallback, and the server sets it before writing:
+**The `service_role` gap.** Under `service_role` — Edge Functions, cron, admin scripts — `auth.uid()` is null, and those are the paths that make the largest changes. The trigger falls back twice: a request header for writes through the API, where supabase-js runs each call in its own transaction so a session setting is gone before the write; and a transaction-local setting for SQL paths — a cron job, a migration, the SQL editor. The header counts only under `service_role`, or any client could name its own actor:
 
 ```sql
+-- server, supabase-js: createClient(url, secretKey, { global: { headers: { 'x-actor-id': actorId } } })
+-- SQL paths, in the write's own transaction:
 select set_config('app.actor_id', '<uuid>', true);
--- in the trigger
-coalesce(auth.uid(), nullif(current_setting('app.actor_id', true), '')::uuid)
+-- in the trigger (nullif: a reset setting reads '' in a pooled session, and ''::jsonb raises)
+coalesce(
+  auth.uid(),
+  case when nullif(current_setting('request.jwt.claims', true), '')::jsonb->>'role' = 'service_role'
+       then nullif(nullif(current_setting('request.headers', true), '')::jsonb->>'x-actor-id', '')::uuid end,
+  nullif(current_setting('app.actor_id', true), '')::uuid
+)
 ```
 
 **Tracking is per table, never global.** Track only the tables whose changes people argue about. Tracking everything is the fastest route to a storage bill whose output nobody reads.

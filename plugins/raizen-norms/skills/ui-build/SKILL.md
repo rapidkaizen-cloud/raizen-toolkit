@@ -20,9 +20,10 @@ Neither absent stops the work. Say which one is missing and what could not be ch
 **Two optional skills join the material where installed; an absent one goes unmentioned.**
 
 - **`review-animations` is the motion floor on a web-technology Surface.** It is hidden from the skill list and cannot be invoked, so it counts as installed when `review-animations/SKILL.md` exists under `~/.claude/skills/` or the repo's `.claude/skills/`. Before writing any animation or transition, read its standards reference, located through that `SKILL.md`. Hold what it forbids; its curves and durations are defaults Section 5 overrides. A library's own motion counts; motion the library cannot retune without replacing the component stands as a finding. Skip its opening-message and review-verdict instructions — they address a person invoking it, not this read.
-- **`ui-ux-pro-max` carries stack notes for a native Surface** — SwiftUI, Compose, a XAML stack, Flutter, React Native and kin. Before writing a component there, search its stack guidelines for that framework where it carries one, reading its `SKILL.md` for the search command only.
+- **`ui-ux-pro-max` is the UX floor beneath `impeccable`.** Before writing a component that carries an interaction — a form, table, dialog, navigation, feedback — search its UX guidelines for that interaction, and on a native Surface (SwiftUI, Compose, a XAML stack, Flutter, React Native and kin) its stack guidelines for that framework, reading its `SKILL.md` for the search commands only. Keep only results that fit this interaction and Surface, and hold what they mark as a don't. **Where it and `impeccable` disagree, `impeccable` wins; Section 5 wins over both.** A value it names — a hex, a font, an icon library, a chart colour — is never applied; Section 5's is.
+- **Where the library is shadcn or the styling is Tailwind, read `ui-ux-pro-max`'s `ui-styling` references** on theming, accessibility, and responsive layout, located through that sub-skill's `SKILL.md`, before writing a component. They describe one version; where they disagree with the installed package, the package wins.
 
-**`ui-ux-pro-max` writes nothing, in any session.** Never pass its `--persist` flag, and never invoke its sub-skills — `ui-styling`, `design-system`, `brand`, `design`, `banner-design`, `slides` — unless the user names one, because each writes files of its own design outside Section 5. Outside `design-settle`'s interview, never run its design-system generator.
+**`ui-ux-pro-max` writes nothing, in any session.** Never pass its `--persist` flag, never run a script or command of its sub-skills — `ui-styling`, `design-system`, `brand`, `design`, `banner-design`, `slides` — and invoke one only when the user names it, because each writes files of its own design outside Section 5. Outside `design-settle`'s interview, never run its design-system generator or its look searches — style, colour, typography, fonts, motion presets, landing, product.
 
 ## Gate — the visual direction must already be set
 
@@ -71,6 +72,13 @@ Where the app has a `/styleguide` route, the extracted component is **added to i
 
 Components that came from a copy-in library (shadcn and the like) are **existing code** as far as this rule is concerned, not a dependency to be ignored.
 
+**A library shipping no strings for the app's locale** (`CLAUDE.md` Locale row) gets them from one dictionary file beside the shared set, passed through the library's own locale provider at the app root — its API read live, never strings patched per call site.
+
+## Inputs that write
+
+- **A date field writes only a complete, valid date** — a year typed keystroke by keystroke (2, 20, 202) never reaches storage.
+- **A change that triggers a paid or slow call fires on an explicit action** — a button, Enter, a picked option — never on focus leaving the field or on each keystroke.
+
 ## The lint floor — what the repo itself refuses
 
 Everything above is obeyed by judgement, and an agent that never loads this file obeys none of it. So the four failures that cost the most are refused by the repo's own linter, where they reach every session and every agent, whatever it read:
@@ -87,7 +95,7 @@ Everything above is obeyed by judgement, and an agent that never loads this file
 - **The floor grows with the set.** Extracting a shared component that replaces a raw element adds that element to the first refusal in the same turn, the way the component is added to `/styleguide`.
 - **A refusal that is wrong is reported, never worked around.** A layout expression caught as a raw value is a pattern too wide; once the floor is written, it is narrowed in the config only on the user's word, never silenced at the call site — a floor each session may loosen is a floor that lasts one session.
 
-No floor in the repo → say so in one line and carry on; its absence is a finding for `app-conform`, not a stop.
+No floor in the repo → say so in one line and carry on; its absence is a finding for `app-conform`, not a stop. A hook refusing the config write follows `logic-build` Section 9.
 
 The floor cannot see the fifth failure: a second component doing an existing one's job under another name. No linter can. The listing and the read above are what hold that one.
 
