@@ -31,13 +31,13 @@ Before any candidate is offered, answer in order — stop at the first rung that
 
 This ladder is why the "none" option appears in every question, and why it is the recommendation — and therefore listed first — whenever the ladder stops before the library rung. A library must beat the platform, not merely equal it; when one does, that library is the recommendation and takes the first slot, with "none" still in the list.
 
-A candidate that belongs to a library family names that family in its consequence — the family is part of what is being chosen, because an installed member shifts later recommendations (`design-settle` reads PRD Section 1). The ecosystem question is never asked on its own; it is decided inside the need's question, in the open.
+A candidate that belongs to a library family names that family in its consequence — the family is part of what is being chosen, because an installed member shifts later recommendations (`design-settle` reads the decision records). The ecosystem question is never asked on its own; it is decided inside the need's question, in the open.
 
 ---
 
 ## L1 — Server-state cache
 
-*Asked when Section 2 has a role that reads, searches, or filters records.*
+*Asked when the Roles have a role that reads, searches, or filters records.*
 
 **Candidates are measured on:** cross-screen invalidation, optimistic-update support, the discipline the cache imposes (a root provider, a cache-key convention every screen follows), and whether a library family rides along — a family is a consequence to name, in both directions.
 
@@ -53,15 +53,15 @@ A candidate that belongs to a library family names that family in its consequenc
 
 ## L3 — Dates and timezones
 
-*Asked when Section 3 Timing & Deadlines is non-empty.*
+*Asked when `docs/rules.md` holds timing or deadline rules.*
 
 **Candidates are measured on:** what they cover beyond `Intl` and Temporal, tree-shakeability and footprint, and how visibly the platform is in the process of absorbing them — a date library is a dependency the web is actively replacing, and that is a consequence to state.
 
-**Recommendation rule:** platform first, always — `Intl` for formatting and day boundaries, Temporal where shipped (it still needs feature detection, and its polyfill is heavy). A library enters only when a concrete rule in Section 3 exceeds what the platform covers — name that rule when recommending. Whatever is chosen, the date helpers live in one extracted module (`logic-build` §7: the second occurrence extracts), so a later move to Temporal touches one file.
+**Recommendation rule:** platform first, always — `Intl` for formatting and day boundaries, Temporal where shipped (it still needs feature detection, and its polyfill is heavy). A library enters only when a concrete rule exceeds what the platform covers — name that rule when recommending. Whatever is chosen, the date helpers live in one extracted module (`logic-build` §7: the second occurrence extracts), so a later move to Temporal touches one file.
 
 ## L4 — Error reporting destination
 
-*Asked when a server surface exists **and** Section 1 reads operational rather than experiment. `logic-build` §5 already mandates that the log gets the detail — this question decides where the log goes.*
+*Asked when a server surface exists **and** `docs/product.md` reads operational rather than experiment. `logic-build` §5 already mandates that the log gets the detail — this question decides where the log goes.*
 
 **The options are destination categories, researched into named services at decision time:**
 
@@ -71,11 +71,11 @@ A candidate that belongs to a library family names that family in its consequenc
 | An error-triage service | Someone must be told when production breaks, with stack traces grouped | One more service and one more credential to manage — research which service currently owns this category |
 | A structured log drain | The need is searchable history rather than alerting | Queryable logs; alerting still has to be built on top |
 
-**Recommendation rule:** host logs until the app is operational and someone is on the hook for its failures; then the researched triage service. The reason recorded in the PRD must name **who reads the errors** — a destination nobody reads is the host log with extra cost.
+**Recommendation rule:** host logs until the app is operational and someone is on the hook for its failures; then the researched triage service. The reason in the decision record must name **who reads the errors** — a destination nobody reads is the host log with extra cost.
 
 ## L5 — Where scheduled work runs
 
-*Asked when Section 3 names a recurring run. The question is placement, not package — every option is a platform rung, and nothing here is researched as a product.*
+*Asked when a rule names a recurring run. The question is placement, not package — every option is a platform rung, and nothing here is researched as a product.*
 
 | Option | Fits when | Consequence |
 |---|---|---|
@@ -83,11 +83,11 @@ A candidate that belongs to a library family names that family in its consequenc
 | pg_cron (in the database) | The work is a query — cleanup, aggregation, expiry | No new surface; Supabase ships it; the job is invisible outside the database |
 | Host cron (scheduled function) | The work calls external APIs or app code | Runs app code; one more deploy artifact, and the host's scheduler is the dependency |
 
-**Recommendation rule:** not yet, until a rule in Section 3 actually fires on a clock nobody wants to watch. Then: pure SQL → pg_cron; anything touching an external API → host cron.
+**Recommendation rule:** not yet, until a rule actually fires on a clock nobody wants to watch. Then: pure SQL → pg_cron; anything touching an external API → host cron.
 
 ## L6 — Change attribution
 
-*Asked when Section 2 gives a role the power to change or delete records another role created, or Section 3 Approval is non-empty.*
+*Asked when the Roles give a role the power to change or delete records another role created, or `docs/rules.md` holds approval rules.*
 
 This question does not pick a package, and **it is deliberately exempt from the research duty**: its mechanism is a Postgres API stable for a decade, and the two product names below are trap warnings that a fresh research pass would get wrong — research surfaces pgaudit as if it answered this question, and rejects supa_audit for being archived, which is exactly backwards.
 
@@ -109,9 +109,9 @@ This question does not pick a package, and **it is deliberately exempt from the 
 
 **The admission rule of this file does not apply to this question.** No maintained library is being chosen; the mechanism is a trigger against a Postgres API that has been stable for a decade, so "actively maintained" has nothing to attach to. Supabase's own [supa_audit](https://github.com/supabase/supa_audit) is archived and is still the right design to copy: one `audit.record_version` table, a `record_id` derived from the primary key so one record's history is an indexed lookup rather than a scan, and an index on `table_oid`. Copy the SQL into a migration and own it — do not install it. Do not offer pgaudit as an alternative here: it logs statements rather than values, and answers a different question.
 
-The reason recorded in Section 1 names **what the audit settles**; who reads it is the Section 2 line `logic-settle` Step 8 hands over, never repeated in Section 1. An audit nobody opens is write throughput spent on storage.
+The reason in the decision record names **what the audit settles**; who reads it is the Roles line `logic-settle` Step 8 hands over, never repeated in the record. An audit nobody opens is write throughput spent on storage.
 
-**The audit is read through one function, never by exposing its schema.** The `audit` schema stays out of the API; the reader Section 2 names gets one `SECURITY DEFINER` function in an exposed schema that checks that role inside and returns one record's history by `record_id`. Filtering on read (below) lives in that function.
+**The audit is read through one function, never by exposing its schema.** The `audit` schema stays out of the API; the reader the Roles name gets one `SECURITY DEFINER` function in an exposed schema that checks that role inside and returns one record's history by `record_id`. Filtering on read (below) lives in that function.
 
 Three consequences are stated when this question is asked, because all three are expensive to discover later.
 
@@ -138,4 +138,4 @@ coalesce(
 
 ## Maintaining this file
 
-What this file maintains is the stable part: the L-numbers and their questions, the admission rule, the ladder, and the per-question criteria. **Candidate names are never written back into it** — a session that learns a name records the choice and its reason in the app's PRD, and the next session researches fresh. A criterion is added or dropped only with a stated reason — the same discipline as the stack rubric in `app-settle`.
+What this file maintains is the stable part: the L-numbers and their questions, the admission rule, the ladder, and the per-question criteria. **Candidate names are never written back into it** — a session that learns a name records the choice and its reason in the app's decision records, and the next session researches fresh. A criterion is added or dropped only with a stated reason — the same discipline as the stack rubric in `app-settle`.

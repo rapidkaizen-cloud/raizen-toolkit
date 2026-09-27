@@ -5,6 +5,8 @@ description: Rules for touching the database — schema introspection, DDL, migr
 
 # db-ops — rules for touching the database
 
+Documents are named by their path in the `docs/` form; a repo with a root `PRD.md` reads each through `docs-format`'s legacy map.
+
 ## The axis
 
 Schema has git through migration files; **data does not**. A `DROP COLUMN` can be undone with a new migration — a deleted row cannot.
@@ -25,7 +27,7 @@ Schema changes are written as **migration files in the repo**, not run directly 
 
 ## A new table in a repo that audits
 
-Applies only when `PRD.md` Section 1 records an audit trigger. Where it does not, this section does not exist.
+Applies only when `docs/decisions/` records an audit trigger. Where it does not, this section does not exist.
 
 **A new table is created with its audit trigger in the same migration.** Not in a follow-up, not on the next feature. A table that goes live untracked has no history for the period it ran untracked, and no later migration brings that back — this is the one schema mistake a migration cannot undo, which is why it sits beside the destructive gate rather than in a style guide.
 

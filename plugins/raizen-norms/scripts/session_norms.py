@@ -9,9 +9,12 @@ update instead of an edit in N repositories. An app's CLAUDE.md keeps only what 
 plugin cannot know: its stack, its locale, the rules that belong to that app alone,
 and the two gates that must survive the plugin being absent.
 
-`PRD.md` is injected rather than pointed at. A pointer is obeyed by judgement, and
-the sessions that skip it are exactly the narrow ones where its prohibitions still
-apply.
+The documents are injected rather than pointed at. A pointer is obeyed by judgement,
+and the sessions that skip it are exactly the narrow ones where its prohibitions still
+apply. A repo with a root `PRD.md` is on the legacy form and gets `PRD.md` and
+`QUEUE.md`, exactly as before the `docs/` form existed; any other repo gets the `docs/`
+form's block, and with `docs/PRD.md` the three living documents `docs-format` names —
+never the frozen ones.
 
 The two inventories — components, and the data layer's functions — are printed for
 the same reason. `ui-build` orders a listing
@@ -54,7 +57,7 @@ licence to match it.
 
 POINTERS - read before touching
   Starting a page, or deciding what to build next : skill `build-flow`
-  `PRD.md`                                        : skill `prd-format`
+  `PRD.md`                                        : skill `docs-format`
   UI, components, styling tokens                  : skill `ui-build`
   Schema, RLS, migrations                         : skill `db-ops`
   Queries, actions, handlers, keys, env vars      : skill `logic-build`
@@ -113,6 +116,75 @@ is flagged. Then this block, always, even where the answer is "none":
 A missing block is ambiguous between "none" and "forgot".
 """
 
+# The block above is the legacy form's, printed byte for byte where a root `PRD.md`
+# exists. The `docs/` form differs only where the block names a document.
+DOCS_FORM = [
+    (
+        "`PRD.md` is\ninjected below in the user's language, and it is the longest thing you will read\n"
+        "this session - do not let it decide the language of what you write.\n",
+        "The `docs/`\nfiles are injected below in the user's language - do not let them decide the\n"
+        "language of what you write.\n",
+    ),
+    (
+        "  The user's language : chat, `PRD.md`, `QUEUE.md`, commit messages, pull\n"
+        "                        requests, and the strings the app puts on screen\n",
+        "  The user's language : chat, `docs/`, the prose of `DESIGN.md` and `README.md`,\n"
+        "                        commit messages, pull requests, and the strings the\n"
+        "                        app puts on screen\n",
+    ),
+    ("A PRD term that names", "A term that names"),
+    ("a PRD that says", "a glossary that says"),
+    (
+        "  `PRD.md`                                        : skill `docs-format`\n",
+        "  `docs/`, `DESIGN.md`, `README.md`               : skill `docs-format`\n",
+    ),
+    (
+        "Do not emit documentation that was not explicitly requested. `PRD.md` and `QUEUE.md`\n"
+        "are the only documents maintained in an app repo: `PRD.md` holds intent, `QUEUE.md`\n"
+        "holds what is not built yet.\n",
+        "Write no document outside the closed list in `docs-format`, and keep every listed\n"
+        "one true in the commit that changes what it says. `docs/queue.md` holds what is\n"
+        "not built yet.\n",
+    ),
+    (
+        "absent from the PRD. Leave the working tree dirty and report the stop instead. So at\n"
+        "the end of a session: a clean tree means finished, a dirty tree means something is\n"
+        "waiting on the user.\n",
+        "absent from `docs/rules.md`. Leave the working tree dirty and report the stop\n"
+        "instead. So at the end of a session: a clean tree means finished, a dirty tree\n"
+        "means something is waiting on the user.\n",
+    ),
+    ("written as `QUEUE.md` lines", "written as `docs/queue.md` lines"),
+    (
+        "  - PRD: written this session, and what needs the user's decision\n",
+        "  - Docs: which files of `docs-format`'s list this session changed, and what\n"
+        "    needs the user's decision\n",
+    ),
+]
+
+# The living documents a `docs/` repo gets at every session start. The frozen ones —
+# `docs/PRD.md`, `docs/changes/`, the decision records — are history and never printed.
+LIVING = [
+    ("docs/README.md", "the index"),
+    ("docs/product.md", "context, roles, prohibitions"),
+    ("docs/queue.md", "what is not built yet"),
+]
+# Living documents whose named paths are checked. Frozen records may name paths that are
+# gone on purpose, `whats-new.md` is dated history, and the queue names files not built yet.
+PATH_CHECKED = ["README.md", "product.md", "rules.md", "glossary.md"]
+LINK = re.compile(r"\]\(([^)\s]+)\)")
+TICKED = re.compile(r"`([^`\s]+)`")
+FILE_EXT = re.compile(r"\.(md|mdx|[cm]?[jt]sx?|json|toml|ya?ml|s?css|sql|py|dart|kt|swift|vue|svelte|astro|html|sh)$")
+STALE_MAX = 20
+
+
+def docs_norms() -> str:
+    text = NORMS
+    for old, new in DOCS_FORM:
+        text = text.replace(old, new)
+    return text
+
+
 # Sections that used to be rendered into an app's CLAUDE.md and are now owned by this
 # plugin. A repo bootstrapped before a move still carries the old copy, and the two
 # then contradict each other silently. Detection is by a phrase distinctive to the old
@@ -126,7 +198,7 @@ STALE = [
     ("Report per scope item", "the closing report"),
 ]
 
-# A PRD past this length means `prd-format` has leaked and the file is accumulating
+# A PRD past this length means `docs-format` has leaked and the file is accumulating
 # status. It is still injected whole — a prohibition cut off at line 400 is worse than
 # a long file — but the size is said out loud.
 PRD_LINES_WARN = 400
@@ -147,17 +219,17 @@ def read(path: Path) -> str:
         return ""
 
 
-def inject(path: Path, what: str) -> None:
-    text = read(path)
+def inject(root: Path, rel: str, what: str) -> None:
+    text = read(root / rel)
     if not text:
         return
-    sys.stdout.write(f"\n--- {path.name} — {what} ---\n\n{text}\n")
-    if path.name == "PRD.md":
+    sys.stdout.write(f"\n--- {rel} — {what} ---\n\n{text}\n")
+    if rel == "PRD.md":
         lines = text.count("\n") + 1
         if lines > PRD_LINES_WARN:
             sys.stdout.write(
                 f"\nWARNING: PRD.md is {lines} lines. Past ~{PRD_LINES_WARN} it is "
-                "carrying status rather than intent — read `prd-format` and say so to "
+                "carrying status rather than intent — read `docs-format` and say so to "
                 "the user.\n"
             )
 
@@ -309,6 +381,50 @@ def data_layer(root: Path) -> None:
         sys.stdout.write(f"... {len(files) - DATA_MAX_FILES} more files - list the folder.\n")
 
 
+def named_paths(doc: Path, root: Path) -> list:
+    """Paths a living document names that do not exist: link targets resolved from the
+    document's folder, backticked paths from the repo root."""
+    # ponytail: a shape heuristic — a backticked token with a slash or a known file
+    # extension. A backticked `and/or` reads as a path; widen the skip list when one shows up.
+    text = read(doc)
+    missing = []
+    for target in LINK.findall(text):
+        target = target.split("#")[0]
+        if not target or "://" in target or target.startswith(("mailto:", "/")):
+            continue
+        if not (doc.parent / target).exists():
+            missing.append(target)
+    for token in TICKED.findall(text):
+        if token.startswith(("/", "~", "$", "-", "http", "@")) or any(c in token for c in "<>*{}()=:"):
+            continue
+        first = token.split("/")[0]
+        if "/" not in token and not FILE_EXT.search(token):
+            continue
+        if "." in first.lstrip(".") and "/" in token:
+            continue  # a host name, not a folder
+        if not (root / token).exists():
+            missing.append(token)
+    return list(dict.fromkeys(missing))
+
+
+def stale_paths(root: Path) -> None:
+    docs = root / "docs"
+    files = [docs / name for name in PATH_CHECKED] + sorted((docs / "guide").glob("**/*.md"))
+    found = []
+    for doc in files:
+        if doc.is_file():
+            found += [f"{doc.relative_to(root).as_posix()}: `{p}`" for p in named_paths(doc, root)]
+    if not found:
+        return
+    sys.stdout.write(
+        "\nNOTE: these living documents name paths that do not exist:\n"
+        + "".join(f"  - {line}\n" for line in found[:STALE_MAX])
+        + (f"  ... {len(found) - STALE_MAX} more\n" if len(found) > STALE_MAX else "")
+        + "A commit that moved them should have corrected the document (`docs-format`,\n"
+        "same commit). Tell the user, and correct them in this session's scope.\n"
+    )
+
+
 def stale_note(root: Path) -> None:
     text = read(root / "CLAUDE.md")
     if not text:
@@ -332,9 +448,26 @@ def main() -> None:
         pass
 
     root = repo_root()
-    sys.stdout.write(NORMS)
-    inject(root / "PRD.md", "intent and prohibitions")
-    inject(root / "QUEUE.md", "what is not built yet")
+    if (root / "PRD.md").is_file():
+        sys.stdout.write(NORMS)
+        inject(root, "PRD.md", "intent and prohibitions")
+        inject(root, "QUEUE.md", "what is not built yet")
+    elif (root / "docs" / "PRD.md").is_file():
+        sys.stdout.write(docs_norms())
+        for rel, what in LIVING:
+            inject(root, rel, what)
+        for rel in ("docs/README.md", "docs/product.md"):
+            if not (root / rel).is_file():
+                sys.stdout.write(
+                    f"\nNOTE: {rel} is missing. `app-settle` seeds it from docs/PRD.md - tell the user.\n"
+                )
+        stale_paths(root)
+    else:
+        # No PRD in either form: an empty directory, an app not documented yet, or a repo
+        # that is not an app. The docs block is the form app-settle will write; a root
+        # QUEUE.md is still the only queue such a repo has.
+        sys.stdout.write(docs_norms())
+        inject(root, "QUEUE.md", "what is not built yet")
     stale_note(root)
     inventory(root)
     data_layer(root)

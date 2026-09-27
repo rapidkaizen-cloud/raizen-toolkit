@@ -40,20 +40,20 @@ Question 2 may be answered *I don't know, it just feels off*. Then propose candi
 
 The input may be a complaint or a direction — *"I want this app to feel more like X"* is as usable as *"this looks dead"*.
 
-**The input sets the scope, never the verdict.** A run that can only ever confirm the user's complaint is a yes-machine. Concluding *the complaint is real, and the cause is a decision you took yourself in the Section 5 interview* is a legitimate outcome, and so is *the complaint does not reproduce*.
+**The input sets the scope, never the verdict.** A run that can only ever confirm the user's complaint is a yes-machine. Concluding *the complaint is real, and the cause is a decision you took yourself in the `design-settle` interview* is a legitimate outcome, and so is *the complaint does not reproduce*.
 
 ## 2 — What is read
 
 | Source | Where |
 |---|---|
 | The rules under review | This repo. The source, never the installed plugin |
-| The app: routes, components, styling files, `/styleguide` | The app repo working directory |
-| What the app was supposed to be | Its `PRD.md`, Section 5 above all |
-| What was built when, and what is still owed | `git log`, `git log QUEUE.md` |
+| The app: routes, components, styling files, the design-system route | The app repo working directory |
+| What the app was supposed to be | Its documents, `DESIGN.md` above all — through `docs-format`'s legacy map where the app has a root `PRD.md` |
+| What was built when, and what is still owed | `git log`, and `git log` of its queue file |
 | What happened while it was built | The app's session transcripts under `~/.claude/projects/<app-slug>/` |
 | The external bar | The reference the user pointed at, plus product-type research run live |
 
-The app is **run**, not only read. Screenshot the pages named in the input at the two widths PRD Section 5 fixes. A judgement about how a screen feels, made from source alone, is a guess.
+The app is **run**, not only read. Screenshot the pages named in the input at the two widths `DESIGN.md` fixes. A judgement about how a screen feels, made from source alone, is a guess.
 
 Transcripts are the one source that shows a rule failing without leaving a trace in the code: a session that worked around a rule, or took a default because no route existed. Read them for the pages in scope.
 
@@ -73,7 +73,7 @@ And it carries a **Not checked** section, always, even where the answer is *noth
 
 *"This dashboard is boring"* names nothing. What follows is a finding:
 
-> Every card carries the library's default padding and radius, in 12 of 14 pages, because `ui-build`'s Library defaults test can only be satisfied by a line in PRD Section 5, and Section 5 holds no line about visual emphasis. The rule has no route to an intentional departure.
+> Every card carries the library's default padding and radius, in 12 of 14 pages, because `ui-build`'s Library defaults test can only be satisfied by a line in `DESIGN.md`, and `DESIGN.md` holds no line about visual emphasis. The rule has no route to an intentional departure.
 
 Each finding carries five things, and none is optional:
 
@@ -91,7 +91,7 @@ Then one of three verdicts, and every finding gets exactly one:
 |---|---|---|
 | **The rule caused it** | Following the rule produces this result | A toolkit patch |
 | **The rule allowed it; the session did not take the route** | A route existed and went unused | An app fix, not a toolkit one — *unless* the route is buried deep enough that no session finds it, which is a weaker toolkit finding, marked as such |
-| **The rule is right; Section 5 is too thin** | The rule correctly refused, because nothing ever authorised the departure | Upstream: the `design-settle` interview never asked the question |
+| **The rule is right; `DESIGN.md` is too thin** | The rule correctly refused, because nothing ever authorised the departure | Upstream: the `design-settle` interview never asked the question |
 
 The third is the one most often mistaken for the first. A rule refusing correctly is not a defective rule — the defect is that nothing upstream could ever have granted permission. Patching the refusing rule there loosens a constraint that was doing its job.
 
@@ -118,7 +118,7 @@ Shape: findings first, decidable in one read; raw evidence in an appendix behind
 Delivered twice, one job each:
 
 - **Inline, in full** — this is what gets read and decided here
-- **`~/.claude/raizen-evals/<app>-<YYYY-MM-DD>/`** — `report.md` plus the screenshots, which have to be files. Outside both repos: the app repo maintains only `PRD.md` and `QUEUE.md`, and this repo does not need a second copy of a decision its commit messages already record
+- **`~/.claude/raizen-evals/<app>-<YYYY-MM-DD>/`** — `report.md` plus the screenshots, which have to be files. Outside both repos: the app repo keeps only `docs-format`'s closed list, and this repo does not need a second copy of a decision its commit messages already record
 
 ## 7 — This skill does not patch the toolkit
 

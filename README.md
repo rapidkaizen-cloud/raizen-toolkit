@@ -5,7 +5,7 @@ Private repo (`rapidkaizen-cloud/raizen-toolkit`) holding two Claude Code plugin
 | Plugin | Holds | Loaded |
 |---|---|---|
 | `raizen-hub` | `app-settle`, `logic-settle`, `design-settle`, `app-conform` | When invoked |
-| `raizen-norms` | `build-flow`, `prd-format`, `ui-build`, `db-ops`, `logic-build`, guard hooks | Every session in an app repo whose `.claude/settings.json` enables it — `app-settle` writes that line |
+| `raizen-norms` | `build-flow`, `docs-format`, `ui-build`, `db-ops`, `logic-build`, guard hooks | Every session in an app repo whose `.claude/settings.json` enables it — `app-settle` writes that line |
 
 ## Install
 
@@ -49,13 +49,15 @@ Then restart. Nothing reaches a session before this.
 | Situation | Run |
 |---|---|
 | New app, empty directory | `/raizen-hub:app-settle`, then in the new repo `/raizen-hub:logic-settle` and `/raizen-hub:design-settle` |
-| Running app | `/raizen-hub:app-settle` (writes the missing PRD, or reworks it), then the other two |
+| Running app | `/raizen-hub:app-settle` (writes the missing documents, or reworks them), then the other two |
 | Only the look or the logic layer | `design-settle` or `logic-settle` alone |
 | Repo that predates or drifted from these rules | `/raizen-hub:app-conform` — the only skill that changes existing code, one finding per commit |
 
 `build-flow` needs no command; it loads in every app session.
 
 ## Maintaining app repos
+
+An app started before the `docs/` form keeps its root `PRD.md` and `QUEUE.md`; it is never migrated, and every skill reads it through `docs-format`'s legacy map.
 
 An older app's `CLAUDE.md` may still carry a norm that has since moved into the plugin. The `SessionStart` hook names these sections; delete them:
 
@@ -73,6 +75,7 @@ An app with a project-scoped `.mcp.json` shadows the user-scope Supabase server:
 ## Not yet verified
 
 - Hooks firing in a real session (`${CLAUDE_PLUGIN_ROOT}` expansion, `PreToolUse` matching): try `git add -A` once in a fresh app repo and confirm the refusal.
-- The UI and logic lint floors and the Section 3 rule tests have never been written in a real app.
+- The UI and logic lint floors and the rule tests have never been written in a real app.
+- The `docs/` form has never been bootstrapped in a real app.
 - Whether a cloud session can read this private marketplace; until then, cloud sessions do frontend work only.
 - The account-wide Supabase MCP endpoint end to end: its first-use login, and `project_id` as `guard_project_ref.py` expects.

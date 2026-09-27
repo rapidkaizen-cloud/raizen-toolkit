@@ -1,19 +1,21 @@
 ---
 name: app-settle
-description: Settle the app-level decisions of an app of any kind — the problem domain, the stack, and PRD.md. Three modes, decided by what the directory already holds. Empty — bootstrap mode, interview the domain and the stack, write PRD.md, scaffold the repo, git init. Code but no PRD.md — document mode, write the PRD from the code and an interview, changing nothing about the app. Code and a PRD — rework mode, re-open the app-level decisions with keep always option one and every change carrying its cost and a recommendation. Use to start a new app, to document a running app that has no PRD, or to re-plan one that does. Section 5 is never written here.
+description: Settle the app-level decisions of an app of any kind — the problem domain, the stack, and the documents that record them. Three modes, decided by what the directory already holds. Empty — bootstrap mode, interview the domain and the stack, write the frozen docs/PRD.md and seed the living docs from it, scaffold the repo, git init. Code but no PRD — document mode, the same documents from the code and an interview, changing nothing about the app. Code and a PRD, at the root or under docs/ — rework mode, re-open the app-level decisions with keep always option one and every change carrying its cost and a recommendation. Use to start a new app, to document a running app that has no PRD, or to re-plan one that does. DESIGN.md is never written here.
 ---
 
 # app-settle — the app-level decisions, from nothing or from what exists
 
-`logic-settle` decides the layer between the database and the UI. `design-settle` decides how the app looks. This decides everything above both: what the app is for, who uses it, the rules it enforces, the stack it runs on — and `PRD.md`, which is where all of that lives.
+`logic-settle` decides the layer between the database and the UI. `design-settle` decides how the app looks. This decides everything above both: what the app is for, who uses it, the rules it enforces, the stack it runs on — and the documents where all of that lives, `docs-format`'s closed list, written in the `docs/` form into every repo this skill starts or documents.
+
+Documents are named by their path in the `docs/` form; a repo with a root `PRD.md` reads each through `docs-format`'s legacy map.
 
 **One skill, three modes, and the directory decides which.** There is no mode to pick and no second skill to route to: Step 0 reads what is already there, and what it finds settles the rest.
 
 | What the directory holds | Mode | What the session does |
 |---|---|---|
-| Nothing | **Bootstrap** | Interview the domain and the stack from zero, write `PRD.md`, scaffold, `git init` |
-| Application code, no `PRD.md` | **Document** | The one thing missing is the one thing code can never supply — **why any of it is the way it is.** Write the PRD. Change nothing |
-| Application code and `PRD.md` | **Rework** | The user wants the app itself to change. The same interview discipline, with one inversion: every decision starts from what the app already does |
+| Nothing | **Bootstrap** | Interview the domain and the stack from zero, write `docs/PRD.md`, seed the living documents, scaffold, `git init` |
+| Application code, neither `PRD.md` nor `docs/PRD.md` | **Document** | The one thing missing is the one thing code can never supply — **why any of it is the way it is.** Write the documents. Change nothing |
+| Application code and a root `PRD.md` (legacy form) or `docs/PRD.md` | **Rework** | The user wants the app itself to change. The same interview discipline, with one inversion: every decision starts from what the app already does |
 
 **One session runs one mode.** A repo with no PRD is documented first and reworked in a later session — re-deciding rules that were never written down is exactly how behaviour gets lost.
 
@@ -21,21 +23,21 @@ The user is a junior developer. A reasoned default is more useful than an open c
 
 ## Hard limits — all three modes
 
-`PRD.md` is the only document created or edited. Do not write `ARCHITECTURE.md`, `DECISIONS.md`, `SCHEMA.md`, `CHANGELOG.md`, or an interview summary or audit report as a file. If another skill in this session produces a document, it is **not committed**.
+Write only `docs-format`'s closed list. No `ARCHITECTURE.md`, `SCHEMA.md`, `CHANGELOG.md`, interview summary, or audit report as a file. If another skill in this session produces a document, it is **not committed**.
 
-`QUEUE.md` is the one other file an app repo may carry, and it is not born here — the `build-flow` skill writes it in the first building session, from a queue the user approves.
+`docs/queue.md`, `docs/guide/`, `docs/whats-new.md`, and `docs/changes/` are not born here — `build-flow` writes them in the building sessions.
 
-**Section 5 is never written here.** Bootstrap and document mode leave it absent; rework mode leaves it untouched even when the whole point of the rework is a new look. `design-settle` owns it: its audit measures today's values, today's look stands among its candidates, and nothing enters Section 5 unratified. Copying today's CSS into Section 5 reverses `user → PRD → CSS` and makes every accident an official norm.
+**`DESIGN.md` is never written here, nor a legacy PRD's Section 5.** Bootstrap and document mode leave it absent; rework mode leaves it untouched even when the whole point of the rework is a new look. `design-settle` owns it: its audit measures today's values, today's look stands among its candidates, and nothing enters it unratified. Copying today's CSS into it reverses `user → DESIGN.md → CSS` and makes every accident an official norm.
 
 Do not commit and do not push. `git init` and staging are fine; the commit waits for the user.
 
-Do not invent. Not settled yet → write `[needs verification]` in the PRD.
+Do not invent. Not settled yet → write `[needs verification]` in the document.
 
-The domain interview is run by this skill alone, without third-party skills. If another interview skill offers itself during this session (via keyword trigger, for instance), ignore it — its output would collide with `PRD.md`, which is normative and changes only by the user's decision.
+The domain interview is run by this skill alone, without third-party skills. If another interview skill offers itself during this session (via keyword trigger, for instance), ignore it — its output would collide with the documents, which are normative and change only by the user's decision.
 
 **Bootstrap mode only:** do not `npm install` or add dependencies beyond what the templates carry without the user's approval.
 
-**Document and rework modes only — nothing about the app itself changes.** No dependency added, none removed, no file refactored, no migration run, no bug fixed on the way past. Decisions land in `PRD.md`; code catches up in build sessions under `build-flow`, never here.
+**Document and rework modes only — nothing about the app itself changes.** No dependency added, none removed, no file refactored, no migration run, no bug fixed on the way past. Decisions land in the documents; code catches up in build sessions under `build-flow`, never here.
 
 ## Step 0 — Declare
 
@@ -43,16 +45,19 @@ Check the working directory, the files it holds, and the available skills, then 
 
 ```
 Directory  : [path] — [empty / N files]
-PRD.md     : [absent / present]
+PRD        : [absent / root PRD.md — legacy form / docs/PRD.md]
 CLAUDE.md  : [absent / present]
 AGENTS.md  : [absent / present]
 Git        : [branch · N commits]  or  [not a repo]
 Mode       : [bootstrap — empty directory]
-             [document  — application code, no PRD.md]
-             [rework    — application code and PRD.md]
-Flow       : [bootstrap: story → reading → 6 domain themes → 8 stack questions → PRD → scaffold]
-             [document:  read stack → story → reading → 6 themes → summary → PRD + CLAUDE.md]
-             [rework:    read PRD + stack → drift → story → keep-first decisions → summary → PRD edits]
+             [document  — application code, no PRD]
+             [rework    — application code and a PRD, naming its form]
+Flow       : [bootstrap: story → reading → 6 domain themes → 8 stack questions → summary
+                         → docs/PRD.md → living docs → scaffold]
+             [document:  read stack → story → reading → 6 themes → summary → docs/PRD.md
+                         → living docs + CLAUDE.md]
+             [rework:    read documents + stack → drift → story → keep-first decisions
+                         → summary → document edits]
 ```
 
 **The directory decides the mode, and nothing else does.** A user asking to "start fresh" in a directory full of code is asking for rework, whatever the words were; a user asking to "fix up" an empty directory is asking for bootstrap. Report the mode with the fact that produced it, and let the user overrule it in one line if the reading is wrong.
@@ -61,7 +66,9 @@ Flow       : [bootstrap: story → reading → 6 domain themes → 8 stack quest
 
 Branch `main` → **STOP.** The git guard will refuse it, and that refusal is correct.
 
-Not a git repo, with code already present → say so, offer `git init`, and continue either way. A PRD is worth writing for a repo with no history.
+Not a git repo, with code already present → say so, offer `git init`, and continue either way. The documents are worth writing for a repo with no history.
+
+**`docs/PRD.md` present but a living document it seeds missing** → seed only the missing ones, as N4 does, report them, and close; rework waits for a later session.
 
 Then run the mode's own steps below. Do not mix them.
 
@@ -82,7 +89,7 @@ From that story, map to the six points below. These must come out, and you may n
 - Domain terms that are easy to misread
 - **Non-goals**: what is deliberately not built, and why that is a decision rather than a gap
 
-What you do **not** need to dig for: table names, screen names, folder structure. All of that is born from the code later and does not belong in the PRD.
+What you do **not** need to dig for: table names, screen names, folder structure. All of that is born from the code later and belongs in no document.
 
 ### State your reading, then STOP
 
@@ -110,7 +117,7 @@ Questions travel in batches — up to four per AskUserQuestion call, several cal
 
 **The stack is not locked.** Platform, framework, hosting, and database options are assembled from the rubric in `stack-questions.md`, filtered by the needs readable from the user's story. One hard limit: **options marked Not ready are not offered** — there are no templates for them, and a half-built repo is worse than a shorter list. The user names one anyway → accept it, and say plainly what they will have to set up themselves.
 
-**Options marked Pioneer are offered, with their cost written into the option itself.** A Pioneer answer — chosen from the list or typed in — puts the bootstrap under the Pioneer path in `stack-questions.md`: name what does not exist, research-assembled stack questions, a minimal scaffold, `Platform: <name> (pioneer)` in Section 1, and a Proof profile proven before it is written.
+**Options marked Pioneer are offered, with their cost written into the option itself.** A Pioneer answer — chosen from the list or typed in — puts the bootstrap under the Pioneer path in `stack-questions.md`: name what does not exist, research-assembled stack questions, a minimal scaffold, `Platform: <name> (pioneer)` in the Surface row, and a Proof profile proven before it is written.
 
 After the eight questions, show the **derived lines** — each with its value and the answer it came from — then the **list of defaults that were not asked** and invite the user to name anything they want changed. Do not walk through them one by one.
 
@@ -126,17 +133,17 @@ One message: app name · Surface/Data/Deploy · roles · key business rules · d
 
 Then **STOP** and wait for explicit approval. Write no file before this is answered.
 
-## N4 — Write `PRD.md`
+## N4 — Write `docs/PRD.md`, then seed the living documents
 
-Follow `references/prd-structure.md`. Six sections. Section 5 is deleted entirely for a product without UI.
+Write `docs/PRD.md` to `references/prd-structure.md`. It is frozen from the moment it is written — the approval at N3 is its approval.
 
-Section 1 carries the **Proof profile** per `prd-structure.md` — on a web platform the web default is written as-is; on a Pioneer platform, only lines that were actually executed are written as fact, the rest `[needs verification]`.
+Then, in the same session, seed the living documents from it — the Seeds column of `prd-structure.md`, each file to `docs-format`'s shapes — and write `docs/README.md`, the index of what now exists, and `README.md` at the root. Nothing else under `docs/`.
 
-Rejected stack alternatives go into **Section 1 Non-goals**, one line per alternative plus a one-sentence reason. Not a full write-up — if the reason needs three paragraphs, it is not a non-goal.
+The Proof profile — on a web platform the web default as written in `docs-format`'s shapes; on a Pioneer platform, only lines actually executed are written as fact, the rest `[needs verification]`.
 
-Section 5 is filled with `[needs verification]` throughout. Bootstrap is not the moment to decide typography, and Section 5 is never written by an agent on its own initiative.
+**Rejected stack alternatives live in their decision records**, as considered options with their consequences — never among the non-goals, which hold what the app deliberately does not do.
 
-`design-settle` fills it, in a separate session after bootstrap. Until then the `ui-build` skill blocks writing any component — so an empty Section 5 is not a gaping hole, it is a gate that has not been opened.
+**No design system is written.** Bootstrap is not the moment to decide typography. `design-settle` writes `DESIGN.md` in a separate session after bootstrap; until then `ui-build` blocks every component — an absent `DESIGN.md` is not a gaping hole, it is a gate that has not been opened.
 
 ## N5 — Scaffold
 
@@ -161,9 +168,9 @@ Six parts, nothing else. A rule that would hold in another app belongs in the pl
 |---|---|
 | Opening line | That this file holds what is true of this app alone, and that norms are printed by `raizen-norms` every session — a norm living in two places is a norm that will disagree with itself |
 | `## Locale` | On screen · in the code · dates · numbers. The first two rows stay separate: a UI language is never a licence for an identifier, a route, or a database name written in it |
-| `## Stack` | One row per N2 answer — platform, frontend, hosting, database, auth, component library, environments, migrations — and the line stating this app's stack is locked, re-opened only through `app-settle` rework mode |
-| `## Ground truth` | Code and the live database are ground truth for **facts**; `PRD.md` for **intent and prohibitions** |
-| `## Gate` | Section 5 empty or `[needs verification]` → `ui-build` refuses to write components, and `design-settle` is what sets it |
+| `## Stack` | One row per N2 answer — platform, frontend, hosting, database, auth, component library, environments, migrations — and the line stating this app's stack is locked, its reasons in `docs/decisions/`, re-opened only through `app-settle` rework mode |
+| `## Ground truth` | Code and the live database are ground truth for **facts**; the living documents `docs/README.md` lists for **intent and prohibitions**, `DESIGN.md` for the design system; `docs/PRD.md` and `docs/changes/` are history, never current truth |
+| `## Gate` | No `DESIGN.md` → `ui-build` refuses to write components, and `design-settle` is what writes it |
 | `## Rules for this app only` | Empty at bootstrap. Only rules that would be wrong in another app |
 
 **The last two parts stay in the file on purpose** — they must still bite in a session where the plugin is absent, disabled, or failed to start. Everything else there is a value, not a rule.
@@ -172,21 +179,21 @@ Six parts, nothing else. A rule that would hold in another app belongs in the pl
 
 ### The shape of `AGENTS.md`
 
-**Written for the agents that never see the plugin.** Claude Code reads `CLAUDE.md`, is handed the norms and `PRD.md` by `raizen-norms` at every session start, and never loads this file. Codex, Cursor, Copilot, and whatever comes next read `AGENTS.md` and nothing else here — no norms, no injected PRD, no guard behind any command. Left with nothing, such an agent builds from its own defaults, and the design system goes first: it cannot know a shared set exists, so it writes a second one.
+**Written for the agents that never see the plugin.** Claude Code reads `CLAUDE.md`, is handed the norms and the living documents by `raizen-norms` at every session start, and never loads this file. Codex, Cursor, Copilot, and whatever comes next read `AGENTS.md` and nothing else here — no norms, no injected documents, no guard behind any command. Left with nothing, such an agent builds from its own defaults, and the design system goes first: it cannot know a shared set exists, so it writes a second one.
 
-That separation is also what lets this file restate a norm, which `CLAUDE.md` must never do. A restatement here cannot contradict the plugin inside one context, because no agent holds both. It can still go stale, so the file stays short and points at the repo — the PRD, the shared set, the lint command — rather than paraphrasing a skill.
+That separation is also what lets this file restate a norm, which `CLAUDE.md` must never do. A restatement here cannot contradict the plugin inside one context, because no agent holds both. It can still go stale, so the file stays short and points at the repo — the documents, the shared set, the lint command — rather than paraphrasing a skill.
 
 English prose, five parts, nothing else:
 
 | Part | Holds |
 |---|---|
 | Opening line | That Claude Code does not read this file, that every other agent starts here, and that nothing enforces what follows except the repo's own linter — the rest is on the agent's honour |
-| `## Read first` | `CLAUDE.md` whole — locale, stack, ground truth, the gate. Then `PRD.md` whole: Section 5 is the design system and it is normative; Section 6 is what a well-meaning session must not "fix" |
-| `## UI` | At bootstrap, the gate alone: no UI component is written while PRD Section 5 is empty or `[needs verification]`. `design-settle` replaces it at ratification with this app's own values — the file and folder holding the shared set, read before any element is written · the order of sources: a component in this repo, then the named library, then a new one that says what the existing ones cannot do, because looking slightly different is a prop · styling values read by role from the named styling file, never typed · the `/styleguide` route a new shared component is added to · the lint command, run before finishing, its refusals fixed and never disabled |
-| `## Logic` | At bootstrap, one line: every rule the app enforces is in `PRD.md` Section 3, and a rule not written there is asked for, never invented. `logic-settle` replaces it at its Step 7 with this app's own values — the data layer folder, and that no database call is written outside it · that access rules live in the database and are never re-implemented in application code · the settled libraries by pointer to `CLAUDE.md`'s Stack table · the lint command and the test command · that a failing rule test is never fixed by editing the test |
+| `## Read first` | `CLAUDE.md` whole — locale, stack, ground truth, the gate. Then `docs/README.md` and every living document it lists: `DESIGN.md` is the design system and it is normative; the Prohibitions in `docs/product.md` are what a well-meaning session must not "fix"; `docs/PRD.md` and `docs/changes/` are history. A change that makes a living document false corrects it in the same commit |
+| `## UI` | At bootstrap, the gate alone: no UI component is written while `DESIGN.md` is absent. `design-settle` replaces it at ratification with this app's own values — the file and folder holding the shared set, read before any element is written · the order of sources: a component in this repo, then the named library, then a new one that says what the existing ones cannot do, because looking slightly different is a prop · styling values read by role from the named styling file, never typed · the `/design-system` route a new shared component is added to · the lint command, run before finishing, its refusals fixed and never disabled |
+| `## Logic` | At bootstrap, one line: every rule the app enforces is in `docs/rules.md`, and a rule not written there is asked for, never invented. `logic-settle` replaces it at its Step 7 with this app's own values — the data layer folder, and that no database call is written outside it · that access rules live in the database and are never re-implemented in application code · the settled libraries by pointer to `CLAUDE.md`'s Stack table · the lint command and the test command · that a failing rule test is never fixed by editing the test |
 | `## Never` | What the plugin refuses by hook and this file can only ask: no commit on `main`, no push, no staging of everything at once — paths are named · no destructive SQL statement and no unscoped update without the user's word in chat · no secret value in any file — name the variable |
 
-A product without UI gets no `## UI` part; an app with no database and no remote API gets no `## Logic` part. **It is not `CLAUDE.md` imported or symlinked**: the two files have different readers and hold different things, and a symlink does not survive a Windows checkout without Developer Mode anyway.
+A product without UI gets no `## UI` part; an app with no database and no remote API gets no `## Logic` part. **A legacy repo** — `design-settle`, `logic-settle`, or `app-conform` writing this file into one — names what the map names: `## Read first` reads `PRD.md` whole, Section 5 the design system and Section 6 the prohibitions; the `## UI` gate holds while Section 5 is empty or `[needs verification]`; `## Logic` points at Section 3. **It is not `CLAUDE.md` imported or symlinked**: the two files have different readers and hold different things, and a symlink does not survive a Windows checkout without Developer Mode anyway.
 
 **No `.mcp.json` is written — ever.** Database MCP servers are connected **user scope**, once per machine, never per repo; for Supabase the exact `claude mcp add -s user` one-liner is printed at Step 6. A repo-level server config would only duplicate what the machine already has. Project pinning does not come from server config: `supabase/config.toml` declares the repo's project, and the `guard_project_ref` hook in `raizen-norms` blocks any Supabase MCP call aimed at a different one. A database whose official MCP server exists follows the same pattern; a database with no server → say so rather than leaving the gap silent.
 
@@ -224,7 +231,7 @@ Then offer the next steps, unless the product has no UI:
 ```
 Two sessions remain before pages can be built, in this order:
   /logic-settle — the logic layer: cache, validation, dates, logging,
-                 scheduling, audit trail. Scored from the PRD; often
+                 scheduling, audit trail. Scored from the documents; often
                  installs nothing.
   /design-settle — the visual direction: the stack and product questions,
                  a reference search, 2–4 direction frames picked on screen,
@@ -236,11 +243,11 @@ Until design-settle is done, any session will refuse to write UI components.
 
 Do not run it now. Bootstrap ends with zero dependencies installed, and `design-settle` needs to install several.
 
-Once the visual direction is agreed, building runs under the `build-flow` skill, which writes `QUEUE.md` on its first run. A new app builds its screens first — a UI batch, every page against a hand-written contract with no database behind it — then wires them in a backend batch. `build-flow` owns both, and the size of one session is set there.
+Once the visual direction is agreed, building runs under the `build-flow` skill, which writes `docs/queue.md` on its first run. A new app builds its screens first — a UI batch, every page against a hand-written contract with no database behind it — then wires them in a backend batch. `build-flow` owns both, and the size of one session is set there.
 
 Close by reminding the user that the first commit waits for their word, and that `raizen-norms` only becomes active once the next session starts in this repo.
 
-# Document mode — the PRD of an app that never had one
+# Document mode — the documents of an app that never had them
 
 ## D1 — Read the stack, do not ask it
 
@@ -264,7 +271,7 @@ Locale in UI  : [language · date format · separators, from the strings actuall
 
 **Every row names where it was read from.** A row nobody can trace back to a file is a guess wearing a fact's clothing.
 
-Rows that come out `not readable` stay that way. They are asked at D3 only where they change what the PRD must say — a hosting platform nobody can name does not.
+Rows that come out `not readable` stay that way. They are asked at D3 only where they change what the documents must say — a hosting platform nobody can name does not.
 
 The **Locale** row matters more than it looks. bootstrap mode infers it from the user's story; here it can be measured from the strings actually rendered, and measured beats inferred. Confirm it anyway at D3: a half-translated UI measures as whichever half is larger.
 
@@ -311,18 +318,19 @@ Then **STOP** and wait for explicit approval. Write no file before this is answe
 
 ## D5 — Write
 
-Follow `references/prd-structure.md` beside this skill. The same six sections, with three differences:
+Write `docs/PRD.md` and seed the living documents as N4 does, with two differences:
 
-| Section | Difference from bootstrap mode |
+| Where | Difference from bootstrap mode |
 |---|---|
-| 1 | The stack is recorded **as found**, not as chosen. Each line reads as a measurement. No rejected alternatives — nobody rejected anything, because nobody chose from a list. The Surface row and Proof profile are still written, measured rather than chosen |
-| 5 | **Left absent entirely**, with one line saying `design-settle` fills it. Not a template full of `[needs verification]`: an absent section and an unverified one are read differently by `ui-build`, and only one of them is honest here |
-| 6 | Prohibitions the user states now. A prohibition inferred from code is not a prohibition, it is a habit |
+| Stack | Recorded **as found**, each line a measurement naming its file, and no decision record seeded — nobody chose from a list. The Surface row and Proof profile are still written, measured rather than chosen |
+| Prohibitions | Only those the user states now. A prohibition inferred from code is not a prohibition, it is a habit |
 
 Then:
 
 - **`CLAUDE.md`** written to the shape in N5, filled from D1. English prose whatever the app's UI language — a translated file is invisible to the stale-section detector in `session_norms.py`. Already present → **do not overwrite.** Add only the missing rows and report what was left alone.
-- **`AGENTS.md`** written to its shape in N5. The `## UI` and `## Logic` parts hold their bootstrap lines — Section 5 is absent here and no data layer folder has been named; `design-settle` and `logic-settle` each fill their own part. Already present → **do not overwrite**; add the parts it lacks under their own headings and report what was left alone.
+- **`AGENTS.md`** written to its shape in N5. The `## UI` and `## Logic` parts hold their bootstrap lines — no `DESIGN.md` exists here and no data layer folder has been named; `design-settle` and `logic-settle` each fill their own part. Already present → **do not overwrite**; add the parts it lacks under their own headings and report what was left alone.
+- **`README.md` at the root** — already present → **do not overwrite**; report it untouched.
+- **A file already at a path this mode writes under `docs/`** → do not overwrite it; report it and ask where it goes before writing.
 - **`.claude/settings.json`** enabling `raizen-norms`. Already present with other plugins → add the key, keep the rest.
 - **`supabase/config.toml`** only when the database is Supabase Cloud **and** the file is missing — self-hosted follows N6. One line, `project_id = "<ref>"` — an identifier, not a secret — which the `guard_project_ref` hook pins every Supabase MCP call to. Present already → leave it alone.
 
@@ -346,18 +354,20 @@ The right-hand column is the whole reason this section exists. bootstrap mode's 
 
 The third row is the one that must never be softened. It is not a preference — it says plainly that a guarantee this toolkit makes does not hold in this repo, and the user is entitled to know which one and why.
 
-The trial the user actually wants is opened by asking for it: that is rework mode, in a later session, once this PRD exists to judge any change against.
+The trial the user actually wants is opened by asking for it: that is rework mode, in a later session, once these documents exist to judge any change against.
 
 ## D6 — Close
 
 One block:
 
 ```
-Written    : PRD.md · CLAUDE.md [new / N rows added] · AGENTS.md [new / N parts added] · .claude/settings.json
+Written    : docs/PRD.md · docs/README.md · product.md · rules.md · glossary.md
+             README.md [new / untouched] · CLAUDE.md [new / N rows added]
+             AGENTS.md [new / N parts added] · .claude/settings.json
 Not read   : [rows still unreadable]
 Unverified : [what carries [needs verification]]
 Findings   : [concrete stack findings only — or "none"]
-Section 5  : absent — design-settle fills it
+DESIGN.md  : absent — design-settle writes it
 ```
 
 Then the next sessions, in this order:
@@ -368,11 +378,11 @@ Then the next sessions, in this order:
                   valid ending.
 /design-settle  — audits the styling, then puts every visual decision to you:
                   ratify what the code already does, or decide otherwise.
-/app-settle     — again, once this PRD exists: rework mode re-opens business
+/app-settle     — again, once these documents exist: rework mode re-opens business
                   rules, scope, or stack when the app itself must change.
 /app-conform    — only where the Findings row above is not "none": it changes
                   the existing code to match the rules, one commit per finding.
-Until Section 5 exists, any session will refuse to write a UI component.
+Until DESIGN.md exists, any session will refuse to write a UI component.
 ```
 
 `logic-settle` runs first, for the same reason it does on a new repo: the promoted pages carry loading, empty, and failed states, and those belong to the data layer.
@@ -381,19 +391,19 @@ Do not run any of them now. Close by reminding the user that the first commit wa
 
 ---
 
-# Rework mode — re-deciding an app that has a PRD
+# Rework mode — re-deciding an app that has its documents
 
 ## R1 — Read both, then report the drift
 
-Read `PRD.md` for the intent, and the repo for the reality — the same STACK block as D1, every row naming where it was read from. Then put the two side by side and report the drift, one line per mismatch:
+Read the documents for the intent — the living documents in the `docs/` form, `PRD.md` in the legacy form — and the repo for the reality — the same STACK block as D1, every row naming where it was read from. Then put the two side by side and report the drift, one line per mismatch:
 
 ```
-DRIFT — PRD says · code does
-[Section N claim]  : [what the code actually does — file:line]
-[not in PRD]       : [something load-bearing the code does that no section covers]
+DRIFT — documents say · code does
+[document: claim]  : [what the code actually does — file:line]
+[in no document]   : [something load-bearing the code does that no document covers]
 ```
 
-Drift is a finding put to the user at R3, never a thing to silently "fix" in either direction — the PRD may be stale, or the code may have wandered, and only the user knows which.
+Drift is a finding put to the user at R3, never a thing to silently "fix" in either direction — the document may be stale, or the code may have wandered, and only the user knows which.
 
 No drift found → say so in one line and move on.
 
@@ -405,15 +415,15 @@ Then state what you took from it in one paragraph and **stop for correction**:
 
 > *"I read this as [what hurts] driving changes to [which decisions], with [what] staying as it is."*
 
-The reading names which PRD sections the rework touches. A rework that turns out to touch only Section 5 is not this skill — close and point to `design-settle` directly.
+The reading names which documents the rework touches. A rework that turns out to touch only the design system is not this skill — close and point to `design-settle` directly.
 
 ## R3 — Decisions, keep-first
 
-Walk **only the decisions the story touched, plus those their change forces open** — never the whole PRD. The bootstrap-mode rule "only ask what changes the shape of the repo" becomes: only ask what the rework changes.
+Walk **only the decisions the story touched, plus those their change forces open** — never every document. The bootstrap-mode rule "only ask what changes the shape of the repo" becomes: only ask what the rework changes.
 
 Every decision is presented the same way:
 
-- **What the app does today**, with where it was read from — a PRD line, a constraint, `rls/approvals.sql:14`.
+- **What the app does today**, with where it was read from — a document line, a constraint, `rls/approvals.sql:14`.
 - **Option one is always keep**, and it is marked as costing nothing.
 - Then the alternatives — more than two options total, each with a one-sentence consequence, one marked recommendation. Options marked *Not ready* in the stack rubric are still not offered.
 
@@ -423,9 +433,9 @@ The rules carried over from bootstrap mode unchanged:
 
 - **Domain questions carry no options.** A business rule's new value and the reason behind it cannot be enumerated. Show the current value and its recorded reason, then ask openly.
 - **The reason behind every number.** A changed number without a new reason is not recorded; "the old reason still holds" is a valid new reason and is written as such.
-- **A deleted non-goal is scope opening up.** Ask openly what changed, and record the answer next to the deletion — the next session must know why the wall came down.
+- **A deleted non-goal is scope opening up.** Ask openly what changed, and record the answer as a decision record — beside the deletion in a legacy repo — so the next session knows why the wall came down.
 
-**The stack is on trial here — the user opened it.** Keep is still option one, but framework, database, and hosting may be re-decided. The consequence line of a migration option must name the real cost in concrete terms: which layers get rewritten, what runs in parallel meanwhile, and that the migration itself is separate planned work — decided here, recorded in the PRD, executed in its own sessions under `build-flow`. A migration whose cost fits in the word "straightforward" has not been costed.
+**The stack is on trial here — the user opened it.** Keep is still option one, but framework, database, and hosting may be re-decided. The consequence line of a migration option must name the real cost in concrete terms: which layers get rewritten, what runs in parallel meanwhile, and that the migration itself is separate planned work — decided here, recorded in the documents, executed in its own sessions under `build-flow`. A migration whose cost fits in the word "straightforward" has not been costed.
 
 After the walked decisions, show the block of decisions **kept without being asked**, and invite the user to name any they want opened. Do not walk through them one by one.
 
@@ -443,7 +453,12 @@ Then **STOP** and wait for explicit approval. Edit no file before this is answer
 
 ## R5 — Write
 
-Edit `PRD.md` under `prd-format`'s rules — **edits to the sections touched, not a rewrite.** The old value of a changed rule does not survive as a ghost paragraph: the PRD holds current truth, git holds history. Section 5 is not touched, whatever the rework was about.
+Edit the documents under `docs-format` — **the sections touched, not a rewrite.** The old value of a changed rule does not survive as a ghost paragraph: a living document holds current truth, git holds history.
+
+- **`docs/` form** — rules, roles, context, non-goals, and prohibitions in their living documents, timeless; a changed stack decision is a new record superseding the old; `docs/PRD.md` is never touched. Execution crossing `build-flow`'s big-change threshold gets its change record there, in the build session.
+- **Legacy form** — `PRD.md`'s sections through the map, decision lines in Section 1.
+
+`DESIGN.md`, and a legacy Section 5, are not touched, whatever the rework was about.
 
 `CLAUDE.md` rows whose values the rework changed — stack lines, locale — are updated to match. Nothing else in it moves.
 
@@ -459,14 +474,14 @@ Kept       : [N decisions — walked and unasked]
 Drift      : [resolved which way, or "none found"]
 Execution  : [what build sessions must now do — or "none"]
 Unverified : [what carries [needs verification]]
-Section 5  : untouched — design-settle owns it
+DESIGN.md  : untouched — design-settle owns it
 ```
 
 Then the sessions that execute the decisions, in this order:
 
 ```
 /logic-settle   — only when a logic-layer choice changed or the rework opened one
-/design-settle  — when the look changes: audits the styling, rewrites Section 5,
+/design-settle  — when the look changes: audits the styling, rewrites DESIGN.md,
                   proves it on the design canvas
 build sessions  — build-flow queues and executes the rest, page by page;
                   schema and constraint changes go through db-ops on the way

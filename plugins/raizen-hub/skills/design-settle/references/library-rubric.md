@@ -1,27 +1,27 @@
 # Component library rubric
 
-Feeds the interview's component-library dialog. Score the needs from PRD Sections 1–3, then assemble 3–4 options that satisfy **all** of them.
+Feeds the interview's component-library dialog. Score the needs from `docs/product.md` and `docs/rules.md`, then assemble 3–4 options that satisfy **all** of them.
 
 **Name no libraries in this file** — assemble candidates live. Once a library is chosen on a non-web platform, research its idioms from the platform's own documentation before building, findings labelled with their source.
 
 ## Scoring the needs
 
-Answer six yes or no; not mentioned in the PRD means no.
+Answer six yes or no; not mentioned in the documents means no.
 
-| Need | How to read it from the PRD |
+| Need | How to read it from the documents |
 |---|---|
-| Platform | Section 1 Surface — web, mobile, or desktop |
-| Large tables | Section 3 mentions lists that could run to thousands of rows, or needs sorting, filtering, or configurable columns |
-| Charts | Section 3 carries formulas or metrics that need to be seen as a trend |
-| Calendar or scheduling | Section 3 carries time, shift, or deadline rules viewed per date |
-| Drag-and-drop | Section 2 mentions work that reorders items or moves them between columns |
-| Works offline | Section 2 names a role working without reliable connectivity |
+| Platform | The Surface row — web, mobile, or desktop |
+| Large tables | A rule mentions lists that could run to thousands of rows, or needs sorting, filtering, or configurable columns |
+| Charts | The rules carry formulas or metrics that need to be seen as a trend |
+| Calendar or scheduling | The rules carry time, shift, or deadline rules viewed per date |
+| Drag-and-drop | The Roles mention work that reorders items or moves them between columns |
+| Works offline | The Roles name a role working without reliable connectivity |
 
 Charts needed → the verification pass also covers which chart types suit this data and stack.
 
 ## The verification duty — candidates assembled live
 
-1. **The model's own knowledge proposes** the libraries a working developer would name for this platform today, including those the PRD's stack or Section 1's library-family note leans toward.
+1. **The model's own knowledge proposes** the libraries a working developer would name for this platform today, including those the stack or a decision record's library family leans toward.
 2. **A verification pass checks every candidate before it is offered**: maintained, broadly adopted, no fresh supply-chain event, and **what it bundles and leaves out** against the scored needs — table with sorting and paging, charting, date picker, calendar, drag-and-drop, notifications, skeletons, icon pack. One pass covers all candidates; never recall from memory alone.
 
 **Never show an option without verified backing**; every option states what verification found.

@@ -6,7 +6,7 @@ Questions travel in batches — up to four per AskUserQuestion call, several cal
 
 **The stack is not locked.** Options are assembled from the rubric below, filtered by the needs readable from the user's story. Two things are locked. **Options marked Not ready are not offered** — a bootstrap that produces a repo without config and without migrations is a failed bootstrap, and a junior developer will not know what is missing. And **a Pioneer option never hides its cost**: it is offered, but its description opens with what does not exist for it yet, and choosing it routes the bootstrap through the Pioneer path below.
 
-Component library is **not asked here** — it is the library dialog of `design-settle`'s interview, once the app's real needs are readable from the PRD, and `design-settle` also installs it.
+Component library is **not asked here** — it is the library dialog of `design-settle`'s interview, once the app's real needs are readable from the documents, and `design-settle` also installs it.
 
 ---
 
@@ -76,8 +76,8 @@ Without item two, do not raise the status. A repo that looks protected while it 
 2. **Storage decides the guard line.** The destructive guard matches SQL syntax, so any SQL store — Supabase, SQLite, Room, Drift — stays covered wherever the app runs. A non-SQL store is not covered, and the existing non-SQL rule applies unchanged: say so before question 6 is answered.
 3. **The stack questions the tables cannot serve are assembled by live research.** Framework or language where the platform leaves a choice, distribution instead of hosting, project layout — real current options, more than two, one marked recommendation, a one-sentence consequence each. Never from memory alone.
 4. **The scaffold is minimal and honest.** The platform's own init command, `.claude/settings.json`, `CLAUDE.md`, and `AGENTS.md` — the same three files a Ready platform receives, since nothing else is scaffolded for anyone. What is still owed is the platform's own config and deploy path, listed in the close block.
-5. **`PRD.md` Section 1 records `Platform: <name> (pioneer)`** — the marker later skills read to know this repo runs ahead of the toolkit's templates.
-6. **The Proof profile is proven, not asserted.** Its shape lives in `prd-structure.md`. Before a line is written into Section 1, execute it once — run the run command, take one capture. A line that was not executed is written `[needs verification]`, and the skills that read it report instead of claim.
+5. **The Surface row in `docs/product.md` records `Platform: <name> (pioneer)`** — the marker later skills read to know this repo runs ahead of the toolkit's templates.
+6. **The Proof profile is proven, not asserted.** Its shape lives in `docs-format`'s shapes. Before a line is written, execute it once — run the run command, take one capture. A line that was not executed is written `[needs verification]`, and the skills that read it report instead of claim.
 
 **After one real repo ships on a Pioneer platform, offer the promotion**: a row in the rubric above, through the two-item checklist — the migration or deploy path written out, and the guard line stated. That is what turns Pioneer into Ready. No file is copied anywhere to do it — this plugin ships no templates for any stack.
 
@@ -87,18 +87,18 @@ Without item two, do not raise the status. A repo that looks protected while it 
 
 ## 1. Kind of app
 
-**No fixed list.** Read the user's story and offer 3–4 kinds that fit *this* story — named in plain words, one marked recommendation, a one-sentence consequence each — the way every taste slot in `design-settle` invents its options. An internal tool, a public product with accounts, a landing page, a game, a kiosk, a portfolio, a docs site are all answers this question can produce; none is assumed before the story is read, and an answer typed under Other is accepted as it is. The chosen kind is a label: it rides the Step 1 reading sentence and Section 1's problem statement, and nothing downstream branches on the word itself.
+**No fixed list.** Read the user's story and offer 3–4 kinds that fit *this* story — named in plain words, one marked recommendation, a one-sentence consequence each — the way every taste slot in `design-settle` invents its options. An internal tool, a public product with accounts, a landing page, a game, a kiosk, a portfolio, a docs site are all answers this question can produce; none is assumed before the story is read, and an answer typed under Other is accepted as it is. The chosen kind is a label: it rides the Step 1 reading sentence and the Problem in `docs/product.md`, and nothing downstream branches on the word itself.
 
 **What downstream reads is four switches, derived from the story and reported as derived lines** — each with its value and where it came from, cancellable like every derived decision:
 
 | Switch | Derived from | Decides |
 |---|---|---|
-| A screen exists | The story | Section 5 exists, `design-settle` applies, questions 2–4 are asked. No screen → Section 5 is deleted entirely, questions 2, 3, and 4 are skipped |
-| Who reaches it — named roles · strangers with accounts · anonymous visitors | Section 2 | Named roles or strangers with accounts → RLS and an access matrix from day one; strangers also make `logic-build`'s trust-boundary validation non-optional. Anonymous visitors only → no RLS, Section 2 collapses to what a visitor must be able to do |
-| Register — judged on the first visit, or on the tenth use | Section 2: how often a role comes back | The `frontend-design` branch in `canvas.md`, whether `impeccable`'s operational register loads, posture allowed or the signature alone. A product with both a public front and a logged-in inside carries both, per page group |
-| Data behind the pages | Section 1's Data row | Fixture cases and contracts in `build-flow`; without data, a page is proven at the two widths with its real copy |
+| A screen exists | The story | `design-settle` applies and will write `DESIGN.md`, the Proof profile is written, questions 2–4 are asked. No screen → no design system and no Proof profile, questions 2, 3, and 4 are skipped |
+| Who reaches it — named roles · strangers with accounts · anonymous visitors | Roles | Named roles or strangers with accounts → RLS and an access matrix from day one; strangers also make `logic-build`'s trust-boundary validation non-optional. Anonymous visitors only → no RLS, Roles collapse to what a visitor must be able to do |
+| Register — judged on the first visit, or on the tenth use | Roles: how often a role comes back | The `frontend-design` branch in `canvas.md`, whether `impeccable`'s operational register loads, posture allowed or the signature alone. A product with both a public front and a logged-in inside carries both, per page group |
+| Data behind the pages | The Data row | Fixture cases and contracts in `build-flow`; without data, a page is proven at the two widths with its real copy |
 
-The switches are not written into the PRD as fields — Section 1 keeps its three rows. They are re-derived from Section 2 and the Data row whenever a skill needs them, and `design-settle`'s Step 0 block prints them so a wrong derivation is seen before it costs anything.
+The switches are not written into any document as fields — Context keeps its three rows. They are re-derived from Roles and the Data row whenever a skill needs them, and `design-settle`'s Step 0 block prints them so a wrong derivation is seen before it costs anything.
 
 **Recommendation:** follows the story, never a default kind.
 
@@ -200,3 +200,4 @@ Show them all at once after the last question. Invite the user to name anything 
 | Branches | `main` for production, `development` for work | A session never works on `main` |
 | UI language | Inferred from the user's story | What the app writes on screen. Shown as a concrete value, together with date format and thousands and decimal separators, so a later session cannot re-derive it wrongly |
 | Code language | English, in every app | Comments, identifiers, file names, URL routes, API endpoint paths, and every database name. Never inferred from the UI language — written as its own line so "UI in X" is not read as permission for identifiers in X. Enum values are the one judgement call, decided per enum |
+| In-app help page | None | `docs/guide/` is written either way; a page rendering it inside the app — route in English, label in the UI language — with `docs/whats-new.md` beside it, is a queue line the user asks for |

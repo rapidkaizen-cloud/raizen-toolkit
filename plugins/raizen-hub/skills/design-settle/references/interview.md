@@ -7,9 +7,9 @@
 **Invent every option and every frame for this app**, from the corrected Step 1 reading — the kind of app, the platform, who uses it. No fixed option list exists anywhere. **`ui-ux-pro-max`'s data is the one outside source** (Part 2): its pure proposal is drawn as generated, and anything else taken from it is argued for this app like an invented option and labelled as its.
 
 - **Name each option in plain words, its consequence in parentheses**, written fresh for this app. This file holds no sample phrasing, because a written example gets copied.
-- **Replace any option or frame you cannot argue in one line from this PRD or platform** — a stock option is a failed option.
+- **Replace any option or frame you cannot argue in one line from this app's documents or platform** — a stock option is a failed option.
 - **Mark one real option "(Recommended)"**, first, with its reason from this app. `Decide for me` is never the recommendation.
-- **Off the web, one frame is the target platform's design language** (Non-web platforms). On a cross-OS shell (Tauri, Electron, Flutter desktop), read the target OS from where PRD Section 2's users sit; pin it at the Step 1 correction where the PRD does not settle it.
+- **Off the web, one frame is the target platform's design language** (Non-web platforms). On a cross-OS shell (Tauri, Electron, Flutter desktop), read the target OS from where the Roles' users sit; pin it at the Step 1 correction where the documents do not settle it.
 
 **Ask every question through AskUserQuestion** — single-select, except the multi-select direction question. **Batch four dialogs per call, fewest calls possible**; a dialog whose options read an earlier answer rides a later call in the same turn:
 
@@ -31,16 +31,16 @@ A third call carries the per-engine dialogs, only where the overview kept a cate
 
 **Verify every stack candidate** per the rubrics — one pass for all, never a candidate offered on memory alone.
 
-**The family rule.** PRD Section 1 records logic-layer choices with their families (`TanStack Query — TanStack ecosystem`). A candidate from an already-installed family that passes the rubric rises to the recommendation, and the shift is named ("recommended also because Query is already installed"). It moves the recommendation, never removes an option.
+**The family rule.** The decision records name logic-layer choices with their families (`TanStack Query — TanStack ecosystem`). A candidate from an already-installed family that passes the rubric rises to the recommendation, and the shift is named ("recommended also because Query is already installed"). It moves the recommendation, never removes an option.
 
 ### Four product calls — each with Claude's recommendation
 
-Derive each recommendation from the reading and PRD Section 2 — who uses the app, when, where, on what — reason in its description. End each dialog with `Decide for me`: the derived value applies, reported as a cancellable line.
+Derive each recommendation from the reading and the Roles — who uses the app, when, where, on what — reason in its description. End each dialog with `Decide for me`: the derived value applies, reported as a cancellable line.
 
-- **Supported widths** — phone, tablet, or desktop only, as the lowest width to hold. A field or phone role pulls it to phone; an all-desk cast keeps desktop. Off the web, use the platform's unit, consistent with the Proof profile's Bounds line. The desktop judged width becomes Section 5's desktop breakpoint; name both widths in the canvas assumptions block and take round-1 screenshots at them. **State the lower bound in Section 5, so anything below it is *unsupported rather than broken*.**
-- **Theme mode** — light, dark, both, or system (a night shift argues for dark). **The answer binds every frame and the canvas**; only after this dialog's `Decide for me` may one frame be drawn in the other mode (`canvas.md`, Directions first), and picking it settles the mode. With two modes, prove the second on the foundations board and `/styleguide`, compute every contrast pair in both, and record the modes in Section 5.
-- **The two screens the frames are drawn on** — offer 2–4 real pairs, `<proving page> + <second screen>`, from PRD Sections 2–3 or, where UI exists, `handover.md`'s routes. The recommended pair leads with the page carrying the most of this app's own subject — chosen for what the user will see, never for how many controls or fields it holds — plus the screen the direction most likely breaks on. The proving page is held through the flow (`canvas.md`, Directions first).
-- **Copy voice** — formal, neutral, or casual, and where the language has several forms of address, which (Indonesian: *Anda* or *kamu*). Where a first-visit page group earns a looser voice than the pages behind login, ask per page group. The answer is Section 5's copy-voice line, read by `ui-build`'s Writing section. Where `ui-ux-pro-max` is installed, read its `brand` voice reference, located through that sub-skill's `SKILL.md`, before writing the options; never run that sub-skill.
+- **Supported widths** — phone, tablet, or desktop only, as the lowest width to hold. A field or phone role pulls it to phone; an all-desk cast keeps desktop. Off the web, use the platform's unit, consistent with the Proof profile's Bounds line. The desktop judged width becomes `DESIGN.md`'s desktop breakpoint; name both widths in the canvas assumptions block and take round-1 screenshots at them. **State the lower bound in `DESIGN.md`, so anything below it is *unsupported rather than broken*.**
+- **Theme mode** — light, dark, both, or system (a night shift argues for dark). **The answer binds every frame and the canvas**; only after this dialog's `Decide for me` may one frame be drawn in the other mode (`canvas.md`, Directions first), and picking it settles the mode. With two modes, prove the second on the foundations board and `/design-system`, compute every contrast pair in both, and record the modes in `DESIGN.md`.
+- **The two screens the frames are drawn on** — offer 2–4 real pairs, `<proving page> + <second screen>`, from the Roles and `docs/rules.md` or, where UI exists, `handover.md`'s routes. The recommended pair leads with the page carrying the most of this app's own subject — chosen for what the user will see, never for how many controls or fields it holds — plus the screen the direction most likely breaks on. The proving page is held through the flow (`canvas.md`, Directions first).
+- **Copy voice** — formal, neutral, or casual, and where the language has several forms of address, which (Indonesian: *Anda* or *kamu*). Where a first-visit page group earns a looser voice than the pages behind login, ask per page group. The answer is the copy voice in `DESIGN.md`'s Overview, read by `ui-build`'s Writing section. Where `ui-ux-pro-max` is installed, read its `brand` voice reference, located through that sub-skill's `SKILL.md`, before writing the options; never run that sub-skill.
 
 ## Part 2 — the reference search, then the direction question
 
@@ -92,7 +92,7 @@ The question text says, in the user's own words: *tick what appeals — it is in
 - **Only `Decide for me` ticked** → the whole set is Claude's, across the search's directions and the subject's world, beside the generator's pure frame where the user said draw it.
 - **The set is never one frame.**
 
-**Every frame names its source in its motivation line.** The picked frame's source is what Section 5's Visual Direction records as the reference.
+**Every frame names its source in its motivation line.** The picked frame's source is what `DESIGN.md`'s Overview records as the reference.
 
 **Nothing stands the frames down** — not a stressed reference, not a brand palette (a constraint every frame is drawn under), not Keep.
 
@@ -119,7 +119,7 @@ Everything beyond the dialogs is Claude's call on the canvas, one line each in t
 
 ## The archetype table
 
-**Group first, fill after the pick**, never page by page. Before the frame screens are asked — at Step 1 where UI exists, from the routes — group every page of PRD Sections 2–3 into **screen archetypes**, usually 4–7 (auth, dashboard, data table, form, wizard, detail/approval; on a landing page the unit is the section — hero, benefits, pricing, social proof, CTA/footer), and show the grouping once as a report for correction, not a dialog per row. Every route lands in exactly one archetype; a page fitting none goes to the user as its own question, never a silent bespoke layout. Once the frame is picked, fill each row: shell layout in a sentence, components, density, empty wording — the shells settled at the judgement (`canvas.md`). Write the ratified table into Section 5 under Page Composition; `build-flow` Section 4 names the archetype in every later page proposal.
+**Group first, fill after the pick**, never page by page. Before the frame screens are asked — at Step 1 where UI exists, from the routes — group every page the Roles and `docs/rules.md` imply into **screen archetypes**, usually 4–7 (auth, dashboard, data table, form, wizard, detail/approval; on a landing page the unit is the section — hero, benefits, pricing, social proof, CTA/footer), and show the grouping once as a report for correction, not a dialog per row. Every route lands in exactly one archetype; a page fitting none goes to the user as its own question, never a silent bespoke layout. Once the frame is picked, fill each row: shell layout in a sentence, components, density, empty wording — the shells settled at the judgement (`canvas.md`). Write the ratified table into `DESIGN.md`'s Page Composition; `build-flow` Section 4 names the archetype in every later page proposal.
 
 ## Non-web platforms
 

@@ -5,12 +5,12 @@
     {
       "name": "raizen-hub",
       "source": "./plugins/raizen-hub",
-      "description": "Settle an internal app one layer at a time, whether the layer is empty or already running: app-settle for the domain, stack and PRD.md; logic-settle for the layer between database and UI; design-settle for the visual direction and PRD Section 5; app-conform to bring code that predates these rules back onto them."
+      "description": "Settle an internal app one layer at a time, whether the layer is empty or already running: app-settle for the domain, stack and the docs/ documents; logic-settle for the layer between database and UI; design-settle for the visual direction and DESIGN.md; app-conform to bring code that predates these rules back onto them."
     },
     {
       "name": "raizen-norms",
       "source": "./plugins/raizen-norms",
-      "description": "Session norms for internal app repos: git and destructive-operation guards, plus PRD, UI, database, application-logic, and build-order rules."
+      "description": "Session norms for internal app repos: git and destructive-operation guards, plus document, UI, database, application-logic, and build-order rules."
     }
   ]
 }

@@ -1,13 +1,15 @@
 ---
 name: app-conform
-description: Bring an app repo that predates these skills, or drifted away from them, back onto the current conventions — dead-platform residue, a CLAUDE.md that duplicates the plugin, identifiers in the UI language, a norm that silently cannot apply here, documents that should not exist, a design system or a logic layer nothing enforces, business rules no test names. Audits the repo against the installed plugin text, ranks every finding by what it costs to leave, stops for the user to pick, then executes one finding per commit. Never changes the stack and never adds a feature. Use when a repo was migrated from another platform, or when the user asks whether an existing app follows the current rules.
+description: Bring an app repo that predates these skills, or drifted away from them, back onto the current conventions — dead-platform residue, a CLAUDE.md that duplicates the plugin, identifiers in the UI language, a norm that silently cannot apply here, documents that should not exist or have gone stale, a design system or a logic layer nothing enforces, business rules no test names. Audits the repo against the installed plugin text, ranks every finding by what it costs to leave, stops for the user to pick, then executes one finding per commit. Never changes the stack and never adds a feature. Use when a repo was migrated from another platform, or when the user asks whether an existing app follows the current rules.
 ---
 
 # app-conform — the app catches up with the rules
 
-`app-settle` decides what the app is and writes `PRD.md`. `build-flow` builds pages that do not exist yet. This one changes **code that already exists**, and only where it disagrees with the conventions the plugins state today.
+`app-settle` decides what the app is and writes its documents. `build-flow` builds pages that do not exist yet. This one changes **code that already exists**, and only where it disagrees with the conventions the plugins state today.
 
 It exists because every other skill here reports and refuses to touch. `app-settle` document and rework modes say so outright — *no dependency added, none removed, no file refactored*. `app-eval` says the same pointing the other way — *fixing the app and fixing the toolkit are separate jobs*. This is the second of those two jobs, and it had no home.
+
+Documents are named by their path in the `docs/` form; a repo with a root `PRD.md` reads each through `docs-format`'s legacy map.
 
 **Not the same as rework.** Rework re-opens a decision. This one changes nothing that was decided — it makes the repo match a decision already taken. A finding that can only be settled by re-deciding the stack is not conform work, and Step 4 stops on it.
 
@@ -19,7 +21,9 @@ It exists because every other skill here reports and refuses to touch. `app-sett
 
 **No feature work and no drive-by fixes.** A bug found during the audit is a finding, reported and left. Fixing it inside a conform commit hides it from the diff that was approved.
 
-**`PRD.md` Section 5 is never written here**, by any path, for the reason `design-settle` owns it. Sections 1 and 6 are edited only where a finding is the PRD itself claiming something the code has never done, and then only the one line.
+**`DESIGN.md` is never written here**, by any path, for the reason `design-settle` owns it. A living document is edited only where a finding is the document itself claiming something the code has never done, and then only the one line. A frozen record is never edited.
+
+**The form is never changed.** A legacy repo is never migrated to `docs/`, and a `docs/` repo never gets a root `PRD.md`.
 
 **No new documents.** No audit report as a file, no migration plan, no checklist committed. The findings live in the session and in the commits. `AGENTS.md` under C2 is the one file this skill may create: it instructs agents and records nothing.
 
@@ -31,7 +35,7 @@ Runs **in the app repo**, unlike `app-eval`. Report one block:
 
 ```
 Repo         : [name · branch · clean or N uncommitted paths]
-PRD.md       : [present / missing]
+Documents    : [docs/ form / legacy PRD.md / missing]
 CLAUDE.md    : [present — template-derived / present — hand-written / missing]
 AGENTS.md    : [present / missing]
 Plugin text  : [raizen-norms vX · raizen-hub vY — the installed copies, which are what governs this repo]
@@ -40,7 +44,7 @@ Flow         : audit → rank → user picks → execute one finding per commit
 
 Branch `main` → **STOP.** The git guard refuses it, and that refusal is correct.
 
-`PRD.md` missing → **STOP**, point to `app-settle` document mode. Half the audit below reads the PRD, and a conform pass with nothing to conform to is a preference pass.
+No PRD in either form → **STOP**, point to `app-settle` document mode. Half the audit below reads the documents, and a conform pass with nothing to conform to is a preference pass.
 
 **Working tree dirty → say it and stop.** Not advice here, unlike `logic-settle`: this skill commits per finding, and an approved diff that arrives carrying somebody else's uncommitted work is not the diff that was approved. Name the paths and let the user commit or stash first.
 
@@ -57,30 +61,34 @@ C2 agent files      : [CLAUDE.md — N norms duplicated from the plugin · N sta
                       [AGENTS.md — missing · parts missing · N paths in its UI or Logic part that do not resolve]  or  [both clean]
 C3 language split   : [N identifiers, routes, or database names in the UI language]  or  [clean]
 C4 guard coverage   : [per norm that cannot apply here — which one, and why it is silent]  or  [every norm applies]
-C5 stray documents  : [files outside PRD.md and QUEUE.md · status columns or ticks in QUEUE.md · an empty QUEUE.md]  or  [none]
-C6 lint floor       : [UI — absent · N of 4 refusals written]  or  [n/a — Section 5 not filled, `design-settle` writes it]
+C5 documents       : [files outside docs-format's list · status columns or ticks in the queue · an empty queue]
+                      [docs/ form — frozen records edited or missing their header · living documents missing
+                      or unlisted · N tasks with no guide page · N stale paths]  or  [clean]
+C6 lint floor       : [UI — absent · N of 4 refusals written]  or  [n/a — no DESIGN.md, `design-settle` writes it]
                       [logic — absent · N of 5 refusals written · Data layer row present / missing · N files calling the database outside the folder]
                       [N inline disables of floor rules · N floor rules lowered to a warning]  or  [clean]
-C7 rule coverage    : [N Section 3 topics · N quoted by a test title · runner — <name> / none]  or  [n/a — Section 3 empty]
+C7 rule coverage    : [N rule topics · N quoted by a test title · runner — <name> / none]  or  [n/a — no rules]
 ```
 
 **C1 — platform residue.** The app left a platform; the platform did not leave the app. Read the build config, `package.json` and the lockfile's resolved hosts, agent-facing files, and `.claude/settings*.json` permissions. A private registry belonging to a platform nobody uses any more is the row that matters most here: it is invisible until an install fails on a machine that has never run one.
 
 **C2 — the agent files.** `CLAUDE.md` first: two failures, and they look alike. A norm the plugin now prints, copied into the file, will contradict the plugin the moment the plugin changes — and `session_norms.py` only detects the phrases of the old **English** template, so a hand-written or translated file is invisible to it. Separately, a name that no longer exists — a skill that was merged, a command that was renamed — sends the next session somewhere that is not there.
 
-Then `AGENTS.md`, which `app-settle` N5 gives its shape. **Missing, it is not an untidy repo: every agent that is not Claude Code works here with no rules at all** — no norms, no injected PRD, no idea a shared set of components exists — and its first UI edit writes a second one. Say that as the cost, and ask which other agents touch this repo, because that answer is what ranks the finding. The fix writes the file to that shape; where Section 5 is filled the `## UI` part is filled from the repo as `design-settle` Step 6 fills it, where the `Data layer` row exists the `## Logic` part as `logic-settle` Step 7 fills it, and every path either names must resolve. **It is never produced by moving `CLAUDE.md`'s content or by linking the two**: they have different readers.
+Then `AGENTS.md`, which `app-settle` N5 gives its shape. **Missing, it is not an untidy repo: every agent that is not Claude Code works here with no rules at all** — no norms, no injected documents, no idea a shared set of components exists — and its first UI edit writes a second one. Say that as the cost, and ask which other agents touch this repo, because that answer is what ranks the finding. The fix writes the file to that shape; where `DESIGN.md` exists the `## UI` part is filled from the repo as `design-settle` Step 6 fills it, where the `Data layer` row exists the `## Logic` part as `logic-settle` Step 7 fills it, and every path either names must resolve. **It is never produced by moving `CLAUDE.md`'s content or by linking the two**: they have different readers.
 
 **C3 — language split.** `raizen-norms` puts identifiers, file names, routes, API paths, and every database name in English, whatever language the UI speaks. Count what deviates and name where. **Do not rename anything at this step** — a database name is a migration and a route is a link somebody may have bookmarked; both belong to Step 4 with their costs stated.
 
 **C4 — guard coverage.** The row that pays for this audit. A norm that cannot apply here is worse than one plainly absent, because the repo reads as protected. Two known shapes: a `supabase/config.toml` whose `project_id` is not a hosted project ref, which makes `guard_project_ref` declare nothing and stay silent; and a `.claude/destructive-gate.off` marker nobody remembers setting. Where a norm is silent, say **which guarantee does not hold**, not merely that a file looks odd.
 
-**C5 — stray documents.** `PRD.md` and `QUEUE.md` are the two documents an app repo carries. Anything else that reads as a norm or a record — `ARCHITECTURE.md`, `DECISIONS.md`, a committed audit report — competes with them, and the loser goes stale silently. Three files are not strays, and flagging one is the finding: `CLAUDE.md` and `AGENTS.md`, which instruct agents rather than record the app, and the frontmatter-only `DESIGN.md` that `design-settle` generates from Section 5 for the detector.
+**C5 — the documents.** An app repo carries `docs-format`'s closed list, in the form it is on. Anything else that reads as a norm or a record — `ARCHITECTURE.md`, `DECISIONS.md`, a committed audit report — competes with it, and the loser goes stale silently. `CLAUDE.md` and `AGENTS.md` are not strays, and flagging one is the finding: they instruct agents rather than record the app. **A legacy repo is audited as legacy** — its root `PRD.md` and `QUEUE.md` are its list, its frontmatter-only `DESIGN.md` is not a stray, and an absent `docs/` is never a finding.
 
-**C6 — the lint floor.** Two halves, one config. The UI half is audited only where Section 5 is filled; without it there is nothing to derive a floor from, and `design-settle` writes both. A filled Section 5 with no floor is the same shape as C4: the repo reads as having a design system, and nothing mechanical holds a single file to it — each session, and each agent that never loads `ui-build`, re-decides it by judgement. Count what is there against the four refusals `ui-build` names, then the two ways a floor is hollowed out from inside: inline disables of its rules, and rules lowered to a warning. **The fix is `design-settle` Step 6's lint floor, unchanged** — derived from this app's shared set and styling files, proven on what must pass before what must fail, and **existing hits baselined, not fixed**: repairing them is drift repair, which is `design-settle`'s fix-the-drift path and a diff the user has not approved here. Where the repo has no linter at all, the install is one line inside the finding's cost-to-fix — a dev dependency, not the stack.
+**In the `docs/` form, four more checks.** Every frozen record carries its header — `docs/PRD.md` its `Frozen` line, a finished change its `Done` line, a decision record its status — and `git log` shows no edit after it froze beyond a status set to superseded. Every living document exists, and `docs/README.md` lists what exists and nothing else. Every task the Roles name whose page is usable has its guide page. Every path a living document names resolves — the session-start hook prints those that do not. **The fix never rewrites a frozen record**: an edit made after freezing is reverted only on the user's word, and what it meant to say moves to the living document or a superseding record. A missing living document is `app-settle`'s to seed; a missing guide page is a `docs/queue.md` line; a stale path is the one line corrected.
 
-The logic half is owed by every app with a database or a remote API, Section 5 or none. Count what is there against the five refusals `logic-build` Section 9 names, and read the `Data layer` row of `CLAUDE.md`: missing, the first refusal has no path to scope to and the session-start listing prints nothing. **The fix is `logic-settle` Step 7's floor, unchanged** — the folder named as that skill's Step 2 derives it, as found and never renamed; the five refusals derived from this app; the same two-step proof; and everything already standing baselined. **Moving old call sites into the folder is not conform work**: it is a migration priced in files, and `logic-settle` is where the user approves one. Both halves land in one config behind one lint command.
+**C6 — the lint floor.** Two halves, one config. The UI half is audited only where `DESIGN.md` exists; without it there is nothing to derive a floor from, and `design-settle` writes both. A `DESIGN.md` with no floor is the same shape as C4: the repo reads as having a design system, and nothing mechanical holds a single file to it — each session, and each agent that never loads `ui-build`, re-decides it by judgement. Count what is there against the four refusals `ui-build` names, then the two ways a floor is hollowed out from inside: inline disables of its rules, and rules lowered to a warning. **The fix is `design-settle` Step 6's lint floor, unchanged** — derived from this app's shared set and styling files, proven on what must pass before what must fail, and **existing hits baselined, not fixed**: repairing them is drift repair, which is `design-settle`'s fix-the-drift path and a diff the user has not approved here. Where the repo has no linter at all, the install is one line inside the finding's cost-to-fix — a dev dependency, not the stack.
 
-**C7 — rule coverage.** `logic-build` Section 10 has every implemented Section 3 line leave a test whose title quotes the rule's topic name as the PRD writes it, so coverage is a search: list the Section 3 topics, search the test files for each. A topic no title carries is a rule the app enforces on nobody's word but the session's that wrote it — and the next session, or another agent, can change it while every page still renders. Report the count and name the uncovered topics. **The fix is never a test written here**: a rule test attacks an enforcement point, a failing one is a bug, and both are build work. It is one `QUEUE.md` line per uncovered topic, `Prove: <topic>`, in `build-flow`'s shape — the file created with its header where a finished app no longer has one. No runner in the repo → say so in the row; whether to install one is asked by the build session that reaches the first line, under `logic-build`.
+The logic half is owed by every app with a database or a remote API, `DESIGN.md` or none. Count what is there against the five refusals `logic-build` Section 9 names, and read the `Data layer` row of `CLAUDE.md`: missing, the first refusal has no path to scope to and the session-start listing prints nothing. **The fix is `logic-settle` Step 7's floor, unchanged** — the folder named as that skill's Step 2 derives it, as found and never renamed; the five refusals derived from this app; the same two-step proof; and everything already standing baselined. **Moving old call sites into the folder is not conform work**: it is a migration priced in files, and `logic-settle` is where the user approves one. Both halves land in one config behind one lint command.
+
+**C7 — rule coverage.** `logic-build` Section 10 has every implemented rule leave a test whose title quotes its topic as `docs/rules.md` writes it, so coverage is a search: list the topics, search the test files for each. A topic no title carries is a rule the app enforces on nobody's word but the session's that wrote it — and the next session, or another agent, can change it while every page still renders. Report the count and name the uncovered topics. **The fix is never a test written here**: a rule test attacks an enforcement point, a failing one is a bug, and both are build work. It is one `docs/queue.md` line per uncovered topic, `Prove: <topic>`, in `build-flow`'s shape — the file created with its header where a finished app no longer has one. No runner in the repo → say so in the row; whether to install one is asked by the build session that reaches the first line, under `logic-build`.
 
 ## Step 2 — Rank, with the cost of leaving each one
 
@@ -93,7 +101,7 @@ One table, worst first. The order is by **what breaks without anyone noticing**,
 Three bands, in this order:
 
 1. **A guarantee that does not hold** — C4, a C6 floor that is absent or hollowed out, a C7 topic carrying money or permissions with no test, a missing `AGENTS.md` where the user named another agent working here, and any C1 row that can break an install or a build on a machine that has not run one yet. Silent until it is expensive.
-2. **A rule that points somewhere wrong** — C2 stale names and an `AGENTS.md` path that does not resolve, a missing `AGENTS.md` where no other agent is in use yet, the remaining C7 topics, C5 competing documents. Costs the next session, every session.
+2. **A rule that points somewhere wrong** — C2 stale names and an `AGENTS.md` path that does not resolve, a missing `AGENTS.md` where no other agent is in use yet, the remaining C7 topics, C5 documents — competing, stale, or edited after freezing. Costs the next session, every session.
 3. **Drift that is merely untidy** — C3 renames whose blast radius exceeds their benefit, leftover files nobody reads.
 
 **A fix whose cost exceeds what it buys is still listed**, in band 3, with the recommendation *leave it*. A database column renamed for tidiness is a migration, a type regeneration, and every call site — say that plainly rather than dropping the row.
@@ -117,7 +125,7 @@ Four checks bind every commit:
 - **Anything touching build or run config gets one real run before the commit** — the build command, or the dev server reaching one page. A config swap that type-checks and does not boot is the failure mode this catches, and it is the only check this skill requires.
 - **A lint floor is proven before its commit, in `design-settle` Step 6's order** — the lint command over the whole app first, where every hit is either baselined or a pattern too wide to keep, then one planted violation per refusal seen refused, the scratch file deleted. A floor committed unrun is a C4 finding this skill wrote itself.
 - **Anything touching the database is under `db-ops` unchanged** — the destructive gate, the mandatory order, the role test. A rename is destructive; it does not become safe by being tidy.
-- **A finding that turns out to need a decision is dropped, not decided.** The stack, a business rule absent from the PRD, a prohibition nobody stated: stop on that line, leave the working tree as it stands, report it, and carry on with the next finding.
+- **A finding that turns out to need a decision is dropped, not decided.** The stack, a business rule absent from `docs/rules.md`, a prohibition nobody stated: stop on that line, leave the working tree as it stands, report it, and carry on with the next finding.
 
 **Scope is the selected lines and nothing else.** A path that changed outside them is reported, never committed along — the `raizen-norms` rule, unchanged.
 

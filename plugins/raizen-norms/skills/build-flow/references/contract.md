@@ -28,7 +28,7 @@ A page is not accepted until all six render without the layout breaking. They ar
 | `loading` | A skeleton shaped like the result, not a spinner |
 | `empty` | The empty state says why it is empty and what comes next |
 | `single` | One row does not leave the layout stranded |
-| `bulk` | 500+ rows — pagination, scrolling, column widths, and the density Section 5 asked for |
+| `bulk` | 500+ rows — pagination, scrolling, column widths, and the density `DESIGN.md` asked for |
 | `messy` | Null in every nullable field, the longest string that really occurs, the widest number |
 | `failed` | The failure sits next to its cause, with a way to retry |
 
@@ -40,7 +40,7 @@ Where no real document can be used, say so in the session and name what was subs
 
 ## Switching cases
 
-Two switches — one for the fixture case, one for the role — reachable without a rebuild, and no tooling beyond them. On the web they are two search params; elsewhere they are whatever PRD Section 1's Proof profile's **Cases** line names:
+Two switches — one for the fixture case, one for the role — reachable without a rebuild, and no tooling beyond them. On the web they are two search params; elsewhere they are whatever the **Cases** line of the Proof profile in `docs/product.md` names:
 
 ```
 ?fixture=messy
@@ -54,7 +54,7 @@ No Storybook, no mock server, no fixture generator, on any platform. If two swit
 The query must return the contract type. Three rules, and the first is the one broken quietly:
 
 - **No `as any`, no `as unknown as`, no widening a type to make it fit.** A cast here hides a decision that belongs to the user.
-- **A query that cannot satisfy the contract changes the contract**, and the page it belongs to goes back into `QUEUE.md`. A stated decision, not a side effect of wiring.
+- **A query that cannot satisfy the contract changes the contract**, and the page it belongs to goes back into `docs/queue.md`. A stated decision, not a side effect of wiring.
 - **The mocked session is replaced, not left beside the real one.** Two sources of role is one too many.
 
 ## What a contract does not cover

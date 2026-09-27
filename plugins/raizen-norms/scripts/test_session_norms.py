@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Self-check session_norms.py: the two listings, and that they stay quiet.
+"""Self-check session_norms.py: the two listings, the two document forms, and that they stay quiet.
 
 Components are found by folder name; the data layer is read from the `Data layer` row
 of the app's CLAUDE.md. The quiet cases come first on purpose. Both listings are paid
@@ -7,6 +7,7 @@ for in every session of every app repo, so a repo with nothing to list must add
 nothing — a listing that appears where it should not costs more than one that is missing.
 Run directly: python3 test_session_norms.py
 """
+import importlib.util
 import json
 import subprocess
 import tempfile
@@ -171,7 +172,83 @@ def demo() -> None:
         write(root, "CLAUDE.md", stack + "| Data layer | `../outside` |\n")
         assert DATA_MARK not in run(root)
 
+    forms()
     print("ok")
+
+
+def forms() -> None:
+    """The two document forms. The legacy repo and the repo with neither come first: the
+    four running apps are legacy, and their session start must not move."""
+    spec = importlib.util.spec_from_file_location("session_norms", SCRIPT)
+    norms = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(norms)
+    # every replacement must hit, or the docs form silently prints a legacy line
+    for old, _ in norms.DOCS_FORM:
+        assert old in norms.NORMS, old
+
+    # legacy: a root PRD.md keeps the legacy block and documents, whatever docs/ holds
+    with tempfile.TemporaryDirectory() as tmp:
+        root = Path(tmp)
+        write(root, "PRD.md", "# PRD - Legacy\n")
+        write(root, "QUEUE.md", "- Legacy page\n")
+        write(root, "docs/PRD.md", "# PRD - Stray\n")
+        write(root, "docs/product.md", "# Product - Stray\n")
+        out = run(root)
+        assert out.startswith(norms.NORMS)
+        assert "--- PRD.md — intent and prohibitions ---" in out and "- Legacy page" in out
+        assert "Stray" not in out and "NOTE" not in out
+
+    # neither form: the docs block — the form app-settle will write — a root QUEUE.md when
+    # present, and nothing said about documents that were never seeded
+    with tempfile.TemporaryDirectory() as tmp:
+        root = Path(tmp)
+        write(root, "QUEUE.md", "- Toolkit line\n")
+        out = run(root)
+        assert out.startswith(norms.docs_norms()) and "- Toolkit line" in out and "NOTE" not in out
+
+    # docs form: the three living documents, never the frozen ones
+    with tempfile.TemporaryDirectory() as tmp:
+        root = Path(tmp)
+        write(root, "docs/PRD.md", "# PRD - Frozen\n")
+        write(root, "docs/changes/2026-01-01-import.md", "# Change - Frozen\n")
+        write(root, "docs/decisions/0001-stack.md", "# Decision - Frozen\n")
+        write(root, "docs/README.md", "# Index\n- [product.md](product.md)\n- [rules.md](rules.md#approval)\n")
+        write(root, "docs/product.md", "# Product - Living\nRuns from `package.json`, data in `src/data`.\n")
+        write(root, "docs/rules.md", "# Rules - Not injected\n")
+        write(root, "docs/queue.md", "- Import page — writes `src/contracts/import.ts`\n")
+        write(root, "package.json", "{}\n")
+        write(root, "src/data/leads.ts", "export async function getLeads() {}\n")
+        out = run(root)
+        assert out.startswith(norms.docs_norms())
+        assert "--- docs/README.md — the index ---" in out and "# Product - Living" in out
+        assert "- Import page" in out
+        assert "Frozen" not in out and "Not injected" not in out
+        assert "`PRD.md` and `QUEUE.md`" not in out and "`docs/queue.md` lines" in out
+        # quiet: every named path resolves, and the queue may name files not built yet
+        assert "NOTE" not in out
+
+        # said out loud: a moved file and a dead link, and nothing that only looks like a path
+        write(
+            root,
+            "docs/product.md",
+            "# Product\nData in `src/data/gone.ts`. See [the guide](guide/missing.md).\n"
+            "Not paths: `/help`, `https://x.dev/a.ts`, `api.example.com/v1`, `docs/changes/<date>-<slug>.md`,"
+            " `lead_candidates`, [site](https://x.dev), `Intl.DateTimeFormat`.\n",
+        )
+        write(root, "docs/guide/approve-a-request.md", "# Approve\nOpen `src/pages/gone.tsx`.\n")
+        out = run(root)
+        assert "docs/product.md: `src/data/gone.ts`" in out and "docs/product.md: `guide/missing.md`" in out
+        assert "docs/guide/approve-a-request.md: `src/pages/gone.tsx`" in out
+        for fake in ("/help", "x.dev", "api.example.com", "<date>", "lead_candidates", "Intl."):
+            assert f"`{fake}" not in out.split("NOTE:")[1], fake
+
+    # docs form, half seeded: the missing living document is named, not skipped in silence
+    with tempfile.TemporaryDirectory() as tmp:
+        root = Path(tmp)
+        write(root, "docs/PRD.md", "# PRD - Frozen\n")
+        out = run(root)
+        assert "docs/product.md is missing" in out and "docs/README.md is missing" in out
+        assert "queue.md is missing" not in out
 
 
 if __name__ == "__main__":

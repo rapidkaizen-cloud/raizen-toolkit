@@ -11,7 +11,7 @@ What the user cannot see by reading a skill is whether their answers land where 
 
 **In this repo, against the source under `plugins/`, never the installed plugin copy.**
 
-The target is one of three: a real app repo added as a working directory — read-only: `ls`, `grep`, `git log`, reading files; `npx impeccable detect <path>` where the skill would run it — a scenario in words, or **a scenario this skill proposes** (below). A scenario missing what the skill's first step reads (PRD state, Section 5, UI present, platform, kind of app, who uses it, what is installed) is completed in **one** AskUserQuestion before the interview starts.
+The target is one of three: a real app repo added as a working directory — read-only: `ls`, `grep`, `git log`, reading files; `npx impeccable detect <path>` where the skill would run it — a scenario in words, or **a scenario this skill proposes** (below). A scenario missing what the skill's first step reads (document form, `DESIGN.md`, UI present, platform, kind of app, who uses it, what is installed) is completed in **one** AskUserQuestion before the interview starts.
 
 **Nothing is written, installed, drawn, or run.** No file in the target, no report file here, no `npm install`, no dev server, no canvas. The primary working directory is not this repo → **STOP**.
 
@@ -22,7 +22,7 @@ The target is one of three: a real app repo added as a working directory — rea
 
 ### Proposed scenarios
 
-No target, or the user asks for one → offer **three or four test scenarios in one AskUserQuestion**, each a real kind of app with a platform, a primary role, a register, and a repo state — and each chosen to trip a **different set of the skill's switches**, named in its description: *template Next.js admin, no PRD, shadcn installed — trips: reading from code, UI exists, Keep candidate, audit, gate* · *fresh repo after app-settle, no UI — the shortest path* · *filled Section 5, 40 components, drift only — trips: fix-or-redesign, findings gate* · *public landing page with a brand hex — trips: first-visit register, brand palette as constraint, no data table*. The recommended one is the scenario covering the switches no earlier simulation in this session has exercised. The picked scenario is written out as the facts the skill's first step reads, shown once, and the interview starts from it. At the close, name the switches this run never tripped and the scenario that would.
+No target, or the user asks for one → offer **three or four test scenarios in one AskUserQuestion**, each a real kind of app with a platform, a primary role, a register, and a repo state — and each chosen to trip a **different set of the skill's switches**, named in its description: *template Next.js admin, no PRD, shadcn installed — trips: reading from code, UI exists, Keep candidate, audit, gate* · *fresh repo after app-settle, no UI — the shortest path* · *a written `DESIGN.md`, 40 components, drift only — trips: fix-or-redesign, findings gate* · *public landing page with a brand hex — trips: first-visit register, brand palette as constraint, no data table*. The recommended one is the scenario covering the switches no earlier simulation in this session has exercised. The picked scenario is written out as the facts the skill's first step reads, shown once, and the interview starts from it. At the close, name the switches this run never tripped and the scenario that would.
 
 ## 2 — What is read
 
@@ -45,7 +45,7 @@ Where the skill says *verify live* or *research*, the result is not invented: th
 
 One block, short, before the next question:
 
-- **Decision recorded** — what the answer becomes: a Section 5 line, an install line, an anchor, a switch, a `[needs verification]`
+- **Decision recorded** — what the answer becomes: a `DESIGN.md` line, a decision record, an install line, an anchor, a switch, a `[needs verification]`
 - **Switched on / off** — every step, dialog, or check this answer turns on or off, with the condition named as the skill names it
 - **Next** — where the flow goes, and why
 - **Not fired** — conditionals of this step the target did not trip, with the fact that kept each off, in one line

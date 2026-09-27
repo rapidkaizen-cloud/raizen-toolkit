@@ -5,6 +5,8 @@ description: Rules for the layer between the database and the UI — API keys an
 
 # logic-build — between the database and the UI
 
+Documents are named by their path in the `docs/` form; a repo with a root `PRD.md` reads each through `docs-format`'s legacy map.
+
 `db-ops` owns the database. `ui-build` owns the screen. This owns what runs in between —
 the queries, actions, handlers, and rules that neither of the other two claims.
 
@@ -36,7 +38,7 @@ holds the client read this?* Yes and it is a secret → stop, it needs a server 
 it stays in git history and in every bundle already built. Report it, name the key, and
 tell the user to **rotate it first** — the cleanup is worthless until they do.
 
-Values never appear in `PRD.md`, in a commit message, or in a report. Names only.
+Values never appear in a document, a commit message, or a report. Names only.
 
 ## 2 — Where a rule is allowed to live
 
@@ -53,9 +55,9 @@ A client-side check that mirrors a real rule is allowed as UX — instant feedba
 round trip. It is **never the enforcement**, and the code says so: name it as a mirror of
 the rule it copies, so a later session does not read it as the rule itself.
 
-**A rule that is not in `PRD.md` is a legitimate stop** in `build-flow`
-Section 6 — one of three in a backend batch, and the only one in a UI batch. Do not invent it, and do not write it into the PRD afterwards — `prd-format`
-allows Sections 3 and 4 only *before* implementation, precisely so a rule stays a
+**A rule that is not in `docs/rules.md` is a legitimate stop** in `build-flow`
+Section 6 — one of three in a backend batch, and the only one in a UI batch. Do not invent it, and do not write it there afterwards — `docs-format`
+allows rules only *before* implementation, precisely so a rule stays a
 decision rather than a description of code.
 
 ## 3 — No server layer, the client reaches the database directly (a static SPA on the web)
@@ -118,13 +120,13 @@ add context and re-raise is fine; catching in order to continue is a finding.
 
 ## 6 — Which libraries this layer uses
 
-Decided once, by the `logic-settle` skill in `raizen-hub` — cache, validator, dates, error destination, job placement, change attribution. The names live in the Stack table of `CLAUDE.md`; the choice and its reason live in `PRD.md` Section 1, including every deliberate "none".
+Decided once, by the `logic-settle` skill in `raizen-hub` — cache, validator, dates, error destination, job placement, change attribution. The names live in the Stack table of `CLAUDE.md`; the choice and its reason live in `docs/decisions/`, one record each, including every deliberate "none".
 
 Three rules bind every session after that:
 
-- **A recorded "none" is a decision, not a gap.** Handwritten fetching in a repo whose PRD says "cache: none — two screens" is the norm being followed, not a finding.
+- **A recorded "none" is a decision, not a gap.** Handwritten fetching in a repo whose decision record says "cache: none — two screens" is the norm being followed, not a finding.
 - **A need surfacing that `logic-settle` never scored** — a screen that now wants caching, a handler appearing where none existed — is **raised to the user, never solved by a quiet install**. One question re-opens; the interview does not. Several at once, or a library that is the wrong tool rather than a missing one, re-opens `logic-settle` in `raizen-hub` — still the user's to start, never yours.
-- **A library's defaults are the decision.** `staleTime`, `retry`, `refetchOnWindowFocus`, preload behaviour, and their equivalents ship with an answer, and it holds until `PRD.md` Section 1 records a reason to change it — the same standing `ui-build` gives component defaults. These knobs decide how much traffic reaches the database and how stale a screen may be, so an unrecorded change to one is a finding, not a tuning detail.
+- **A library's defaults are the decision.** `staleTime`, `retry`, `refetchOnWindowFocus`, preload behaviour, and their equivalents ship with an answer, and it holds until a decision record gives a reason to change it — the same standing `ui-build` gives component defaults. These knobs decide how much traffic reaches the database and how stale a screen may be, so an unrecorded change to one is a finding, not a tuning detail.
 
 ## 7 — Reuse, and types
 
@@ -163,13 +165,13 @@ Everything above is obeyed by judgement, and an agent that never loads this file
 
 `logic-settle` writes the floor, derived from this app's folder and its settled libraries; a repo that has none gets it from `app-conform`. It is lived with the way `ui-build` lives with its own: **run the repo's lint command before committing any scope item in this layer**; an inline disable of a floor rule, or a floor rule lowered to a warning, is a finding; a refusal that is wrong is narrowed in the config on the user's word, never silenced at the call site. No floor in the repo → say so in one line and carry on. **A hook refusing a write to the linter config** (another plugin guarding config files) → hand the user the change as a patch in chat and wait; never write it through a shell or another tool.
 
-What the floor cannot see is where a rule lives, a rule the PRD never stated, and a query written twice under two names. The first two are Section 2's; the third is what the listing in Section 8 is for.
+What the floor cannot see is where a rule lives, a rule `docs/rules.md` never stated, and a query written twice under two names. The first two are Section 2's; the third is what the listing in Section 8 is for.
 
 ## 10 — A rule is proven by a test that names it
 
-PRD Section 3 is the one part of an app a later session — or another agent — can break while every page still renders. A rule re-implemented from a session's own reading passes the build, passes the walk, and is wrong. The only thing that refuses it without anyone reading anything is a test.
+`docs/rules.md` is the one part of an app a later session — or another agent — can break while every page still renders. A rule re-implemented from a session's own reading passes the build, passes the walk, and is wrong. The only thing that refuses it without anyone reading anything is a test.
 
-**Every Section 3 line a backend batch implements leaves one test behind, and the test's title quotes the rule's topic name exactly as the PRD writes it** — in the PRD's language. It is the one string in the test files that is not English, because it is a reference to look up, not an identifier. That quote is what makes coverage a search rather than an opinion: a Section 3 topic no test title carries is an unproven rule. Rename the topic in the PRD → rename the title in the same commit.
+**Every rule a backend batch implements leaves one test behind, and the test's title quotes the rule's topic heading exactly as `docs/rules.md` writes it** — in that document's language. It is the one string in the test files that is not English, because it is a reference to look up, not an identifier. That quote is what makes coverage a search rather than an opinion: a topic no test title carries is an unproven rule. Rename the topic → rename the title in the same commit.
 
 **The test attacks the enforcement point, never a mirror of it:**
 
@@ -177,10 +179,10 @@ PRD Section 3 is the one part of an app a later session — or another agent —
 |---|---|
 | RLS — an access rule | The `db-ops` role test, already mandatory on every policy change. Not duplicated here |
 | A constraint, a trigger, or an RPC | Attempts the forbidden write as the role the rule binds and expects the refusal, then the permitted one and expects it to land. Run through the database's own test harness where the stack has one — verified live, never recalled — else through the app's runner over the same client path a user takes |
-| A computation in the data layer — a formula, a limit, a state transition | Calls the function with the PRD's value, the value just inside it, and the value just outside. A number in Section 3 is a boundary, and a test on one tidy value in the middle proves nothing about it |
+| A computation in the data layer — a formula, a limit, a state transition | Calls the function with the rule's value, the value just inside it, and the value just outside. A number in a rule is a boundary, and a test on one tidy value in the middle proves nothing about it |
 
 It tests the rule — not the UI, not the library, and not the reason, which no test can reach.
 
-**A failing rule test is never fixed by editing the test.** The PRD changed → the user changed it, and the test follows the PRD in the same commit. The PRD did not change → the code is wrong. A session that edits the expected value to match its code has rewritten a business rule without the user, which is the exact failure this section exists to catch.
+**A failing rule test is never fixed by editing the test.** The rule changed → the user changed it, and the test follows the rule in the same commit. The rule did not change → the code is wrong. A session that edits the expected value to match its code has rewritten a business rule without the user, which is the exact failure this section exists to catch.
 
-**No test runner in the repo** — `app-settle` recommends deferring one on a first app — → the first Section 3 rule implemented is the moment *later* arrived. Raise it once, through AskUserQuestion, bundled with the questions `build-flow` Section 4 already collects for that page rather than as a turn of its own: install the runner now, recommended by that question's own rule wherever the app carries money, permissions, or a rule expensive to get wrong; or carry on unproven. Unproven is a real answer, and it is recorded where it stays visible — one `QUEUE.md` line per rule, `Prove: <topic>` — never as a quiet install and never as silence. Such a line passes `build-flow`'s test for a line finer than a page: a test added changes nothing that stands.
+**No test runner in the repo** — `app-settle` recommends deferring one on a first app — → the first rule implemented is the moment *later* arrived. Raise it once, through AskUserQuestion, bundled with the questions `build-flow` Section 4 already collects for that page rather than as a turn of its own: install the runner now, recommended by that question's own rule wherever the app carries money, permissions, or a rule expensive to get wrong; or carry on unproven. Unproven is a real answer, and it is recorded where it stays visible — one `docs/queue.md` line per rule, `Prove: <topic>` — never as a quiet install and never as silence. Such a line passes `build-flow`'s test for a line finer than a page: a test added changes nothing that stands.
