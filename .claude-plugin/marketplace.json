@@ -5,7 +5,7 @@
     {
       "name": "raizen-hub",
       "source": "./plugins/raizen-hub",
-      "description": "Settle an internal app one layer at a time, whether the layer is empty or already running: app-settle for the domain, stack and the docs/ documents; logic-settle for the layer between database and UI; design-settle for the visual direction and DESIGN.md; app-conform to bring code that predates these rules back onto them."
+      "description": "Settle an internal app one layer at a time, whether the layer is empty or already running: app-settle for the domain, stack and the docs/ documents; logic-settle for the layer between database and UI; design-settle for the visual direction and DESIGN.md; app-align to bring code that predates these rules back onto them."
     },
     {
       "name": "raizen-norms",

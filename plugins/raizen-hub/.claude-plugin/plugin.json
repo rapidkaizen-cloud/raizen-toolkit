@@ -1,7 +1,7 @@
 {
   "name": "raizen-hub",
-  "version": "0.63.0",
-  "description": "Settle an app of any kind one layer at a time, whether the layer is empty or already running: app-settle for the domain, stack and the docs/ documents; logic-settle for the layer between database and UI; design-settle for the visual direction and DESIGN.md. Each audits what exists first, so one skill covers bootstrap, documentation and rework alike. app-conform is the one that changes existing code, bringing a repo that predates these rules or drifted from them back onto them.",
+  "version": "0.64.0",
+  "description": "Settle an app of any kind one layer at a time, whether the layer is empty or already running: app-settle for the domain, stack and the docs/ documents; logic-settle for the layer between database and UI; design-settle for the visual direction and DESIGN.md. Each audits what exists first, so one skill covers bootstrap, documentation and rework alike. app-align is the one that changes existing code, bringing a repo that predates these rules or drifted from them back onto them.",
   "keywords": [
     "bootstrap",
     "prd",
@@ -11,6 +11,6 @@
     "design-system",
     "rework",
     "brownfield",
-    "conform"
+    "align"
   ]
 }

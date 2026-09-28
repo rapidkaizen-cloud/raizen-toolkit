@@ -1,9 +1,9 @@
 ---
-name: app-conform
+name: app-align
 description: Bring an app repo that predates these skills, or drifted away from them, back onto the current conventions — dead-platform residue, a CLAUDE.md that duplicates the plugin, identifiers in the UI language, a norm that silently cannot apply here, documents that should not exist or have gone stale, a design system or a logic layer nothing enforces, business rules no test names. Audits the repo against the installed plugin text, ranks every finding by what it costs to leave, stops for the user to pick, then executes one finding per commit. Never changes the stack and never adds a feature. Use when a repo was migrated from another platform, or when the user asks whether an existing app follows the current rules.
 ---
 
-# app-conform — the app catches up with the rules
+# app-align — the app catches up with the rules
 
 `app-settle` decides what the app is and writes its documents. `build-flow` builds pages that do not exist yet. This one changes **code that already exists**, and only where it disagrees with the conventions the plugins state today.
 
@@ -11,7 +11,7 @@ It exists because every other skill here reports and refuses to touch. `app-sett
 
 Documents are named by their path in the `docs/` form; a repo with a root `PRD.md` reads each through `docs-format`'s legacy map.
 
-**Not the same as rework.** Rework re-opens a decision. This one changes nothing that was decided — it makes the repo match a decision already taken. A finding that can only be settled by re-deciding the stack is not conform work, and Step 4 stops on it.
+**Not the same as rework.** Rework re-opens a decision. This one changes nothing that was decided — it makes the repo match a decision already taken. A finding that can only be settled by re-deciding the stack is not alignment work, and Step 4 stops on it.
 
 ## Hard limits
 
@@ -19,7 +19,7 @@ Documents are named by their path in the `docs/` form; a repo with a root `PRD.m
 
 **The stack is not on trial.** Swapping a framework, a host, or a database is `app-settle` rework mode in a later session. This skill removes what a departed platform left behind; it does not choose the replacement platform.
 
-**No feature work and no drive-by fixes.** A bug found during the audit is a finding, reported and left. Fixing it inside a conform commit hides it from the diff that was approved.
+**No feature work and no drive-by fixes.** A bug found during the audit is a finding, reported and left. Fixing it inside an alignment commit hides it from the diff that was approved.
 
 **`DESIGN.md` is never written here**, by any path, for the reason `design-settle` owns it. A living document is edited only where a finding is the document itself claiming something the code has never done, and then only the one line. A frozen record is never edited.
 
@@ -44,7 +44,7 @@ Flow         : audit → rank → user picks → execute one finding per commit
 
 Branch `main` → **STOP.** The git guard refuses it, and that refusal is correct.
 
-No PRD in either form → **STOP**, point to `app-settle` document mode. Half the audit below reads the documents, and a conform pass with nothing to conform to is a preference pass.
+No PRD in either form → **STOP**, point to `app-settle` document mode. Half the audit below reads the documents, and an alignment pass with nothing to align to is a preference pass.
 
 **Working tree dirty → say it and stop.** Not advice here, unlike `logic-settle`: this skill commits per finding, and an approved diff that arrives carrying somebody else's uncommitted work is not the diff that was approved. Name the paths and let the user commit or stash first.
 
@@ -86,7 +86,7 @@ Then `AGENTS.md`, which `app-settle` N5 gives its shape. **Missing, it is not an
 
 **C6 — the lint floor.** Two halves, one config. The UI half is audited only where `DESIGN.md` exists; without it there is nothing to derive a floor from, and `design-settle` writes both. A `DESIGN.md` with no floor is the same shape as C4: the repo reads as having a design system, and nothing mechanical holds a single file to it — each session, and each agent that never loads `ui-build`, re-decides it by judgement. Count what is there against the four refusals `ui-build` names, then the two ways a floor is hollowed out from inside: inline disables of its rules, and rules lowered to a warning. **The fix is `design-settle` Step 6's lint floor, unchanged** — derived from this app's shared set and styling files, proven on what must pass before what must fail, and **existing hits baselined, not fixed**: repairing them is drift repair, which is `design-settle`'s fix-the-drift path and a diff the user has not approved here. Where the repo has no linter at all, the install is one line inside the finding's cost-to-fix — a dev dependency, not the stack.
 
-The logic half is owed by every app with a database or a remote API, `DESIGN.md` or none. Count what is there against the five refusals `logic-build` Section 9 names, and read the `Data layer` row of `CLAUDE.md`: missing, the first refusal has no path to scope to and the session-start listing prints nothing. **The fix is `logic-settle` Step 7's floor, unchanged** — the folder named as that skill's Step 2 derives it, as found and never renamed; the five refusals derived from this app; the same two-step proof; and everything already standing baselined. **Moving old call sites into the folder is not conform work**: it is a migration priced in files, and `logic-settle` is where the user approves one. Both halves land in one config behind one lint command.
+The logic half is owed by every app with a database or a remote API, `DESIGN.md` or none. Count what is there against the five refusals `logic-build` Section 9 names, and read the `Data layer` row of `CLAUDE.md`: missing, the first refusal has no path to scope to and the session-start listing prints nothing. **The fix is `logic-settle` Step 7's floor, unchanged** — the folder named as that skill's Step 2 derives it, as found and never renamed; the five refusals derived from this app; the same two-step proof; and everything already standing baselined. **Moving old call sites into the folder is not alignment work**: it is a migration priced in files, and `logic-settle` is where the user approves one. Both halves land in one config behind one lint command.
 
 **C7 — rule coverage.** `logic-build` Section 10 has every implemented rule leave a test whose title quotes its topic as `docs/rules.md` writes it, so coverage is a search: list the topics, search the test files for each. A topic no title carries is a rule the app enforces on nobody's word but the session's that wrote it — and the next session, or another agent, can change it while every page still renders. Report the count and name the uncovered topics. **The fix is never a test written here**: a rule test attacks an enforcement point, a failing one is a bug, and both are build work. It is one `docs/queue.md` line per uncovered topic, `Prove: <topic>`, in `build-flow`'s shape — the file created with its header where a finished app no longer has one. No runner in the repo → say so in the row; whether to install one is asked by the build session that reaches the first line, under `logic-build`.
 
@@ -132,7 +132,7 @@ Four checks bind every commit:
 ## Step 5 — Close
 
 ```
-CONFORM
+ALIGN
 Fixed        : [one line per finding, with the commit]
 Dropped      : [findings that needed a decision — and which decision]
 Left         : [band 3 lines the user declined, or that were recommended to leave]

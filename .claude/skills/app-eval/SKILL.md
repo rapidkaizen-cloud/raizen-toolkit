@@ -20,7 +20,7 @@ Two reasons, and the second is the one that matters:
 
 The primary working directory is not this repo → **STOP** and say so. The `raizen-norms` session block is no signal either way — its hook is installed globally and prints in every session, this one included.
 
-**Nothing in the app repo is written, moved, or deleted.** Fixing the app and fixing the toolkit are separate jobs, and the second may never quietly do the first. A defect worth fixing in the app is reported as a finding, and `app-conform` is what acts on it — in the app repo, in another session.
+**Nothing in the app repo is written, moved, or deleted.** Fixing the app and fixing the toolkit are separate jobs, and the second may never quietly do the first. A defect worth fixing in the app is reported as a finding, and `app-align` is what acts on it — in the app repo, in another session.
 
 `guard_project_ref.py` does not fire here, so the app's Supabase project is not pinned. Name the project ref explicitly before any database read, and read only.
 

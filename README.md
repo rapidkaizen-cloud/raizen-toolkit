@@ -4,7 +4,7 @@ Private repo (`rapidkaizen-cloud/raizen-toolkit`) holding two Claude Code plugin
 
 | Plugin | Holds | Loaded |
 |---|---|---|
-| `raizen-hub` | `app-settle`, `logic-settle`, `design-settle`, `app-conform` | When invoked |
+| `raizen-hub` | `app-settle`, `logic-settle`, `design-settle`, `app-align` | When invoked |
 | `raizen-norms` | `build-flow`, `docs-format`, `ui-build`, `db-ops`, `logic-build`, guard hooks | Every session in an app repo whose `.claude/settings.json` enables it — `app-settle` writes that line |
 
 ## Install
@@ -51,7 +51,7 @@ Then restart. Nothing reaches a session before this.
 | New app, empty directory | `/raizen-hub:app-settle`, then in the new repo `/raizen-hub:logic-settle` and `/raizen-hub:design-settle` |
 | Running app | `/raizen-hub:app-settle` (writes the missing documents, or reworks them), then the other two |
 | Only the look or the logic layer | `design-settle` or `logic-settle` alone |
-| Repo that predates or drifted from these rules | `/raizen-hub:app-conform` — the only skill that changes existing code, one finding per commit |
+| Repo that predates or drifted from these rules | `/raizen-hub:app-align` — the only skill that changes existing code, one finding per commit |
 
 `design-settle` asks Fast or Full with its first question, on a new app and a redesign alike. Fast answers every design dialog with its recommendation in one block you cancel line by line; the frames, the pick, the gate and every check run as in Full. `/raizen-hub:design-settle fast` skips the question.
 
