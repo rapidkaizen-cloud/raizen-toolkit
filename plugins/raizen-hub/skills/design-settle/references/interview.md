@@ -2,6 +2,8 @@
 
 **The order is fixed:** the non-visual dialogs (the stack, four product calls), then the reference search and `ui-ux-pro-max`'s searches where installed, then the direction question, then the install gate (`SKILL.md` Step 4), then 2–4 direction frames the user picks from on screen. **Install nothing while the interview runs** — every dialog only locks an answer. **Ask nothing about the look after the pick** — the picked frame's values are read at ratification. Everything else is Claude's call, reported as a cancellable line (What the designer settles), never silent.
 
+**In Fast, the dialogs below are answered, not asked** (`SKILL.md`, Fast or Full); options and recommendations are composed exactly as for Full.
+
 ## Where options come from
 
 **Invent every option and every frame for this app**, from the corrected Step 1 reading — the kind of app, the platform, who uses it. No fixed option list exists anywhere. **`ui-ux-pro-max`'s data is the one outside source** (Part 2): its pure proposal is drawn as generated, and anything else taken from it is argued for this app like an invented option and labelled as its.

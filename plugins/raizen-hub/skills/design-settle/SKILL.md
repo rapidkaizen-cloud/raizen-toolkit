@@ -1,6 +1,6 @@
 ---
 name: design-settle
-description: Settle the visual direction and component library of an app, with or without existing UI. Two facts switch steps on or off — whether UI components exist (then the code is audited and today's look is one candidate) and whether DESIGN.md is written (then fixing only the drift is offered). Flow — the reading; non-visual dialogs that only lock answers; a search for real products and one multi-select direction question; one install gate; 2-4 direction frames drawn with the real packages and picked on screen; an in-repo canvas of every page in production-grade code, judged in the browser, approved at one gate, then promoted into the app. Use before the first UI component of a repo is written, and whenever the user wants to redesign, restyle, or overhaul the look of an app that already has one.
+description: Settle the visual direction and component library of an app, with or without existing UI. Two facts switch steps on or off — whether UI components exist (then the code is audited and today's look is one candidate) and whether DESIGN.md is written (then fixing only the drift is offered). One answer, Fast or Full, asked on every repo, changes only who answers the dialogs — Fast answers each with its recommendation in one cancellable block. Flow — the reading; non-visual dialogs that only lock answers; a search for real products and one multi-select direction question; one install gate; 2-4 direction frames drawn with the real packages and picked on screen; an in-repo canvas of every page in production-grade code, judged in the browser, approved at one gate, then promoted into the app. Use before the first UI component of a repo is written, and whenever the user wants to redesign, restyle, or overhaul the look of an app that already has one.
 ---
 
 # design-settle — the visual direction, from nothing or from what exists
@@ -9,7 +9,7 @@ description: Settle the visual direction and component library of an app, with o
 
 Documents are named by their path in the `docs/` form; a repo with a root `PRD.md` reads each through `docs-format`'s legacy map.
 
-**One skill, one path, two facts.** There is no mode. Step 0 reads whether **UI components exist** and whether **`DESIGN.md` is written**; every step says what it does under each.
+**One skill, one path, two facts.** There is no second path: the Fast or Full answer (below) changes who answers the dialogs, never which steps run. Step 0 reads whether **UI components exist** and whether **`DESIGN.md` is written**; every step says what it does under each.
 
 | UI components | `DESIGN.md` | What switches on |
 |---|---|---|
@@ -44,6 +44,20 @@ Do not commit (staging is fine; a branch pass's commit is **proposed at the clos
 
 Not decided by the user → `[needs verification]`.
 
+## Fast or Full
+
+**Ask Fast or Full on every repo, as a second question in the reading's call, with neither option marked recommended.** Skip it when the user named one at invocation (`/design-settle fast`); ask it again in a resumed session's re-entry call. Full runs every step as written. Fast changes who answers, never what is decided, drawn, or checked:
+
+- **Answer every dialog with its recommendation, or `Decide for me` where it ends with one** — the stack, the four product calls, the triggered engines, `ui-ux-pro-max`'s draw question, the archetype grouping, and the direction question (`Decide for me`).
+- **Where UI exists, still ask a stack dialog whose recommendation is not *keep***, because a replaced library or styling rewrites every component.
+- **Put Step 2's question in the reading's call.**
+- **Show every pre-answer as one cancellable line with its basis, above the install gate's lines, in the same chat stop** — held even when nothing installs. A cancelled line opens that dialog alone, then the block is shown again.
+- **Ask the canvas judgement in one call: the verdict and the signature question.** Print the features, assumptions, hand-rolled controls, shells, and departures above it as cancellable lines.
+- **Fix a failing contrast pair to the nearest step that passes**, reported as a floor-forced line (`interview.md`, What the designer settles).
+- **Where UI exists, put the font's install line in the Step 6 gate.**
+
+Fast skips no step: the search, the frames and the pick, every scan and floor, the gate's removals, and every Step 8 check run as in Full.
+
 ## Step 0 — Preconditions
 
 ```
@@ -68,9 +82,10 @@ Branch          : [name · clean or has uncommitted changes]
 Leftover        : [none / canvas alive / pass partly applied / pass applied — from
                    src/design-canvas/, .design-audit/gate.md and git state]
 Switches        : [UI exists: yes/no · DESIGN.md written: yes/no]
+Answers         : [Fast / Full — named at invocation, else asked in the reading's call]
 Reading         : [one sentence — see Step 1]
 Flow            : load impeccable + frontend-design (+ review-animations, where installed)
-                  → reading (+ audit, in a subagent, where UI exists)
+                  → reading + Fast or Full (+ audit, in a subagent, where UI exists)
                   → fix or redesign (where DESIGN.md written)
                   → non-visual dialogs, answers locked, nothing installed (library · styling ·
                   icons · engines · widths · theme mode · frame screens · copy voice)
@@ -105,7 +120,7 @@ Documents missing, or a legacy `PRD.md` off-shape → **not a stop**: say so in 
 
 **The platform slot is mandatory** — never asked again where the Surface row holds it, otherwise read from the code and confirmed inside the reading, never as its own question.
 
-Ask for correction — **nothing after this runs before it is answered**: no dialog, no search, no frame. Through AskUserQuestion, **put the full reading sentence inside the question field itself**.
+Ask for correction — **nothing after this runs before it is answered**: no dialog, no search, no frame. Through AskUserQuestion, **put the full reading sentence inside the question field itself**; Fast or Full rides the same call (Fast or Full).
 
 ### The audit — where UI exists
 
@@ -219,7 +234,7 @@ Candidates are **verified live** per the rubrics. **Where UI exists every stack 
 
 ## Step 4 — The install gate, after every answer and before anything is drawn
 
-**The install gate is its own chat stop, after the direction question and before the first frame.** It holds only what the locked answers decided; a reply changing an answer rewrites that line and re-shows the block. **Never put this block inside an AskUserQuestion.** Present it, end the turn, wait for the reply in chat.
+**The install gate is its own chat stop, after the direction question and before the first frame.** It holds only what the locked answers decided — in Fast, under the pre-answers (Fast or Full); a reply changing an answer rewrites that line and re-shows the block. **Never put this block inside an AskUserQuestion.** Present it, end the turn, wait for the reply in chat.
 
 ```
 Will install:

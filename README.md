@@ -53,6 +53,8 @@ Then restart. Nothing reaches a session before this.
 | Only the look or the logic layer | `design-settle` or `logic-settle` alone |
 | Repo that predates or drifted from these rules | `/raizen-hub:app-conform` — the only skill that changes existing code, one finding per commit |
 
+`design-settle` asks Fast or Full with its first question, on a new app and a redesign alike. Fast answers every design dialog with its recommendation in one block you cancel line by line; the frames, the pick, the gate and every check run as in Full. `/raizen-hub:design-settle fast` skips the question.
+
 `build-flow` needs no command; it loads in every app session.
 
 ## Maintaining app repos
