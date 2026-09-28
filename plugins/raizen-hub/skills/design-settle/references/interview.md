@@ -1,12 +1,12 @@
 # Frontend interview — everything non-visual first, then the look
 
-**The order is fixed:** the non-visual dialogs (the stack, four product calls), then the reference search and `ui-ux-pro-max`'s searches where installed, then the direction question, then the install gate (`SKILL.md` Step 4), then 2–4 direction frames the user picks from on screen. **Install nothing while the interview runs** — every dialog only locks an answer. **Ask nothing about the look after the pick** — the picked frame's values are read at ratification. Everything else is Claude's call, reported as a cancellable line (What the designer settles), never silent.
+**The order is fixed:** the non-visual dialogs (the stack, four product calls), then the reference search and `ui-ux-pro-max`'s generator, then the direction question, then the install gate (`SKILL.md` Step 4), then 2–4 direction frames the user picks from on screen. **Install nothing while the interview runs** — every dialog only locks an answer. **Ask nothing about the look after the pick** — the picked frame's values are read at ratification. Everything else is Claude's call, reported as a cancellable line (What the designer settles), never silent.
 
 **In Fast, the dialogs below are answered, not asked** (`SKILL.md`, Fast or Full); options and recommendations are composed exactly as for Full.
 
 ## Where options come from
 
-**Invent every option and every frame for this app**, from the corrected Step 1 reading — the kind of app, the platform, who uses it. No fixed option list exists anywhere. **`ui-ux-pro-max`'s data is the one outside source** (Part 2): its pure proposal is drawn as generated, and anything else taken from it is argued for this app like an invented option and labelled as its.
+**Invent every option and every frame for this app**, from the corrected Step 1 reading — the kind of app, the platform, who uses it. No fixed option list exists anywhere. **`ui-ux-pro-max`'s data is the one outside source** (Part 2): anything taken from it is argued for this app like an invented option.
 
 - **Name each option in plain words, its consequence in parentheses**, written fresh for this app. This file holds no sample phrasing, because a written example gets copied.
 - **Replace any option or frame you cannot argue in one line from this app's documents or platform** — a stock option is a failed option.
@@ -28,7 +28,7 @@ Past four dialogs, a third call in the same turn. Reconcile after every call: tw
 
 - **Component library** — per `library-rubric.md`: 3–4 options, *own components* always one. Where UI exists, `Keep — <installed library>` is first and recommended unless the audit indicts the library.
 - **Styling** — **ask only where the library brings no styling system** (*own components*, headless). On the web **recommend Tailwind CSS**, plain CSS always an alternative. A library with its own styling (theme object, CSS-in-JS, own CSS layer) decides it without a dialog; one built on Tailwind (shadcn, HeroUI and kin) settles it as Tailwind; report either with the library it came from, cancellable. Off the web there is no Tailwind default: styling follows the platform, and a dialog opens only where the platform leaves a real choice. Where UI exists, the installed styling is `Keep` and first.
-- **Icon pack** — ask only when the library bundles none; recommend a pack already installed. Where `ui-ux-pro-max` is installed, the pack its icon search names may be one option, verified like the rest, never with its fallback family. **One icon family per app, no exceptions** — a missing icon is a finding, never a hand-drawn SVG or a second family.
+- **Icon pack** — ask only when the library bundles none; recommend a pack already installed. The pack `ui-ux-pro-max`'s icon search names may be one option, verified like the rest, never with its fallback family. **One icon family per app, no exceptions** — a missing icon is a finding, never a hand-drawn SVG or a second family.
 - **Engines** — no standing dialog; only on `engine-rubric.md`'s triggers.
 
 **Verify every stack candidate** per the rubrics — one pass for all, never a candidate offered on memory alone.
@@ -42,7 +42,7 @@ Derive each recommendation from the reading and the Roles — who uses the app, 
 - **Supported widths** — phone, tablet, or desktop only, as the lowest width to hold. A field or phone role pulls it to phone; an all-desk cast keeps desktop. Off the web, use the platform's unit, consistent with the Proof profile's Bounds line. The desktop judged width becomes `DESIGN.md`'s desktop breakpoint; name both widths in the canvas assumptions block and take round-1 screenshots at them. **State the lower bound in `DESIGN.md`, so anything below it is *unsupported rather than broken*.**
 - **Theme mode** — light, dark, or both following the system; a manual toggle arrives only through Other (a night shift argues for dark). **The answer binds every frame and the canvas**; with both, draw the frames in the mode the primary role works in; only after this dialog's `Decide for me` may one frame be drawn in the other mode (`canvas.md`, Directions first), and picking it settles the mode. With two modes, prove the second on the foundations board and `/design-system`, compute every contrast pair in both, and record the modes in `DESIGN.md`.
 - **The two screens the frames are drawn on** — offer 2–4 real pairs, `<proving page> + <second screen>`, from the Roles and `docs/rules.md` or, where UI exists, `handover.md`'s routes. The recommended pair leads with the page carrying the most of this app's own subject — chosen for what the user will see, never for how many controls or fields it holds — plus the screen the direction most likely breaks on. The proving page is held through the flow (`canvas.md`, Directions first).
-- **Copy voice** — formal, neutral, or casual, and where the language has several forms of address, which (Indonesian: *Anda* or *kamu*). Where a first-visit page group earns a looser voice than the pages behind login, ask per page group. The answer is the copy voice in `DESIGN.md`'s Overview, read by `ui-build`'s Writing section. Where `ui-ux-pro-max` is installed, read its `brand` voice reference, located through that sub-skill's `SKILL.md`, before writing the options; never run that sub-skill.
+- **Copy voice** — formal, neutral, or casual, and where the language has several forms of address, which (Indonesian: *Anda* or *kamu*). Where a first-visit page group earns a looser voice than the pages behind login, ask per page group. The answer is the copy voice in `DESIGN.md`'s Overview, read by `ui-build`'s Writing section. Read `ui-ux-pro-max`'s `brand` voice reference, located through that sub-skill's `SKILL.md`, before writing the options; never run that sub-skill.
 
 ## Part 2 — the reference search, then the direction question
 
@@ -54,21 +54,15 @@ Show **in chat, before the dialog**: 3–6 products, each **name · link · one 
 
 **WebSearch unavailable → say so in one line**, name products from model knowledge without links, mark the set unverified, and still ask the direction question.
 
-### `ui-ux-pro-max` — only where it is installed
+### `ui-ux-pro-max`
 
-**Run its design-system generator once, after the search**, with a query built from the corrected reading — kind of app, domain, who uses it — **and its style, colour, and typography searches with the same query** — its fonts search where a face needs replacing, its motion presets where a frame animates, for their timing only and never their library, its landing search only for a first-visit page group. Read its `SKILL.md` for the commands only, and **never pass `--persist`**. Show the generator's result in chat under the search's list as **one line — style · palette · type pairing — labelled as the generator's, never as a real product**.
+**Run its design-system generator once, after the search**, with a query built from the corrected reading — kind of app, domain, who uses it. Read its `SKILL.md` for the commands only, and **never pass `--persist`**.
 
-**Ask whether to draw it as its own single-select question, in the direction question's call.** Recommend drawing it only where the app has a first-visit page group, because its page patterns are landing patterns; elsewhere recommend not drawing it, with that reason.
+**Search it again for each frame, with that frame's own direction as the query** — its style, colour, and typography searches; its fonts search where a face needs replacing; its motion presets where a frame animates, for their timing only and never their library; its landing search only for a first-visit page group. A query built from the reading alone returns the same few results for every app of one kind.
 
-**Drawn, the pure proposal is one frame of the 2–4**: its style, palette and type pairing on the two frame screens, its page pattern only on a first-visit page group. **It is drawn exactly as generated, floor failures included**: compute each pair it fails and list them under the frame at the pick; a status colour its palette lacks is derived and tagged. Picked, each failing value is replaced at the refactor as a floor-forced line (What the designer settles). Where the set already holds four frames without it, one question asks which frame gives way.
+**Mix its results into any frame** — the generator's proposal, a style, a palette, a pairing — beside ingredients from the reference search or the subject's world. **Adjust each to this app**: move a stock value off its default, fix a pair that fails the floor, replace a face that lacks the app's script, and drop a result whose category misreads the app. The frame's motivation line names each ingredient's source and its adjustment, whatever the source.
 
-**Claude's own frames may mix in its search results** — a style, a palette, a pairing — beside ingredients from the reference search or the subject's world. **Adjust each to this app**: move a stock value off its default, fix a pair that fails the floor, replace a face that lacks the app's script. The frame's motivation line names each ingredient's source and its adjustment.
-
-**At least one frame takes nothing from it**, because it returns the same results for the same reading, and a set drawn from it alone converges across apps of one kind.
-
-**After a rejected set, and at the escalation, the pure proposal is neither offered nor drawn again** — the generator returns the same proposal for the same reading. Its searches re-run only with the steered query.
-
-Not installed → no line, no question, no ingredient.
+**After a rejected set, and at the escalation, its searches re-run only with the steered query.**
 
 ### The direction question
 
@@ -87,11 +81,10 @@ The question text says, in the user's own words: *tick what appeals — it is in
 **Compose 2–4 frames**, the count set by how much the answers leave open and stated in one line. Drawing, judging and promotion are `canvas.md`'s.
 
 - **Every ticked direction is in the set**; a stressed reference has its own frame.
-- **`ui-ux-pro-max`'s pure proposal, where the user said draw it**, holds one frame, its source named as the generator, never as a product.
 - **The rest are Claude's own**, each from a source of a different kind than the ticks and each other — **a product from the search, or a thing from the subject's world** (an object, a place, a medium its users picture), since a set drawn from software alone inherits the nearest software's look.
 - **Off the web, the platform's design language holds one frame** before Claude fills any.
 - **Keep, where ticked, is a frame**, never redrawn.
-- **Only `Decide for me` ticked** → the whole set is Claude's, across the search's directions and the subject's world, beside the generator's pure frame where the user said draw it.
+- **Only `Decide for me` ticked** → the whole set is Claude's, across the search's directions and the subject's world.
 - **The set is never one frame.**
 
 **Every frame names its source in its motivation line.** The picked frame's source is what `DESIGN.md`'s Overview records as the reference.

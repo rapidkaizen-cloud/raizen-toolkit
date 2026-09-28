@@ -48,7 +48,7 @@ Not decided by the user → `[needs verification]`.
 
 **Ask Fast or Full on every repo, as a second question in the reading's call, with neither option marked recommended.** Skip it when the user named one at invocation (`/design-settle fast`); ask it again in a resumed session's re-entry call. Full runs every step as written. Fast changes who answers, never what is decided, drawn, or checked:
 
-- **Answer every dialog with its recommendation, or `Decide for me` where it ends with one** — the stack, the four product calls, the triggered engines, `ui-ux-pro-max`'s draw question, the archetype grouping, and the direction question (`Decide for me`).
+- **Answer every dialog with its recommendation, or `Decide for me` where it ends with one** — the stack, the four product calls, the triggered engines, the archetype grouping, and the direction question (`Decide for me`).
 - **Where UI exists, still ask a stack dialog whose recommendation is not *keep***, because a replaced library or styling rewrites every component.
 - **Put Step 2's question in the reading's call.**
 - **Show every pre-answer as one cancellable line with its basis, above the install gate's lines, in the same chat stop** — held even when nothing installs. A cancelled line opens that dialog alone, then the block is shown again.
@@ -73,9 +73,9 @@ Platform        : [from the Surface row, else from the manifest and platform fil
                    platform found; a non-web value routes every browser-named check below to that
                    Surface's Proof profile line, or to the platform's own tooling where none is written]
 Primary role    : [from the Roles, else from the roles the code enforces, else asked at Step 1]
-Design material : [impeccable present/absent · frontend-design present/absent — both Required ·
-                   review-animations present/absent, found per ui-build · ui-ux-pro-max
-                   present/absent — both Optional · WebKit capture present/absent — the
+Design material : [impeccable present/absent · frontend-design present/absent · ui-ux-pro-max
+                   present/absent — all three Required · review-animations present/absent,
+                   found per ui-build — Optional · WebKit capture present/absent — the
                    bundled `playwright` server with its WebKit build installed, Required
                    where the reading names iPhone, iPad, or Mac users]
 Branch          : [name · clean or has uncommitted changes]
@@ -89,11 +89,11 @@ Flow            : load impeccable + frontend-design (+ review-animations, where 
                   → fix or redesign (where DESIGN.md written)
                   → non-visual dialogs, answers locked, nothing installed (library · styling ·
                   icons · engines · widths · theme mode · frame screens · copy voice)
-                  → reference search (real products, links) + ui-ux-pro-max's proposal and
-                  searches, where installed → direction question, multi-select
-                  → install gate → direction frames composed by Claude, always 2–4, today's
-                  look among them where Keep is ticked → pick → refine (only if the pick
-                  carries a change)
+                  → reference search (real products, links) + ui-ux-pro-max's generator
+                  → direction question, multi-select
+                  → install gate → direction frames composed by Claude, always 2–4, each
+                  with its own ui-ux-pro-max searches, today's look among them where Keep
+                  is ticked → pick → refine (only if the pick carries a change)
                   → design plan → canvas rounds → ratify (+ gate where UI exists)
                   → pass (in place, or on its own branch where UI exists) → verify → close
 ```
@@ -112,7 +112,7 @@ Documents missing, or a legacy `PRD.md` off-shape → **not a stop**: say so in 
 
 **Load `impeccable` and `frontend-design`, and `review-animations` where installed, before writing the reading** — its *leaning* clause is already a taste judgement. `canvas.md` owns which files carry the material and its boundary. Read no skill that prescribes a fixed look as material (`canvas.md`).
 
-**An Optional skill absent is only shown in the row. One Required skill absent is asked through AskUserQuestion, never merely reported**, naming what is lost — `impeccable`'s ban list, display-face and convergence calibrations, the Operate register, every later detector count; `frontend-design`'s direction method and restraint — with continue-without or stop-to-install (`npx impeccable install`); continuing is recommended where installing is unavailable here. The other material still loads. The answer rides every canvas round and the ratification report as its own line, naming what was missing. **WebKit capture absent, where the confirmed reading names iPhone, iPad, or Mac users, is asked the same way** — lost: every WebKit capture (`canvas.md`, Judging); installed through Playwright's own CLI at the version the bundled server depends on, verified live.
+**An Optional skill absent is only shown in the row. One Required skill absent is asked through AskUserQuestion, never merely reported**, naming what is lost — `impeccable`'s ban list, display-face and convergence calibrations, the Operate register, every later detector count; `frontend-design`'s direction method and restraint; `ui-ux-pro-max`'s UX floor, every later UX-floor check, and its frame ingredients — with continue-without or stop-to-install (the README's install lines); continuing is recommended where installing is unavailable here. The other material still loads. The answer rides every canvas round and the ratification report as its own line, naming what was missing. **WebKit capture absent, where the confirmed reading names iPhone, iPad, or Mac users, is asked the same way** — lost: every WebKit capture (`canvas.md`, Judging); installed through Playwright's own CLI at the version the bundled server depends on, verified live.
 
 **Sources, in rank: the user, then the code, then the documents.** An explicit user statement outranks everything. Where the user was silent, read what exists from the code — router for pages, manifest and platform files for the platform, auth and guard code for roles, rendered strings for the locale, dependency file for the stack. Then `docs/product.md` where readable. A gap all three leave is named inside the reading and settled at its correction, never as its own question. **A conflict is a finding named in the reading, never a silent pick**: a user statement against the code is followed and reported; between code and documents, the code wins on what exists, the documents on what ought to be, and the loser is reported.
 
@@ -206,7 +206,7 @@ Fix the drift → Step 6, whose gate shows the findings. `DESIGN.md` is untouche
 
 ## Step 3 — The interview: everything non-visual, then the look
 
-Read `references/interview.md` and run it in its order: **the non-visual dialogs first — the stack (library · styling · icon pack · triggered engines) and four product calls (supported widths · theme mode · the two screens the frames are drawn on · copy voice) — each only locking its answer; then the reference search; then the direction question, multi-select; then the install gate (Step 4); then the direction frames, picked on screen (Step 5). Nothing is installed while the interview runs, and nothing about the look is asked after the pick.** Every option is invented for this app; `ui-ux-pro-max`'s data enters labelled as its own (`interview.md`).
+Read `references/interview.md` and run it in its order: **the non-visual dialogs first — the stack (library · styling · icon pack · triggered engines) and four product calls (supported widths · theme mode · the two screens the frames are drawn on · copy voice) — each only locking its answer; then the reference search; then the direction question, multi-select; then the install gate (Step 4); then the direction frames, picked on screen (Step 5). Nothing is installed while the interview runs, and nothing about the look is asked after the pick.** Every option is invented for this app; `ui-ux-pro-max`'s results are ingredients like any other, each named by its source (`interview.md`).
 
 **A tick is inspiration, not an anchor**; nothing stands the frames down (`interview.md`, Part 2).
 
@@ -472,6 +472,7 @@ All of them before reporting done:
 - **Every contrast ratio on the page was computed**, not recalled, for every pair `canvas.md` Ratification defines, in every ratified theme mode; every semantic dark shade clears 4.5 against its own light shade.
 - **The numbers close** on every page — on its fixtures where it still runs on them, on its real rows where it is wired — totals, percentages, bar widths, pagination (`canvas.md`, Coverage).
 - **The detector ran against the running app** (the dev server): hit count beside the audit's where UI existed, every hit fixed or left standing with one line why. A signed-in page is scanned as its rendered HTML saved from the session's browser, stylesheets inlined — never through a session token on a command line; a check only the URL tier runs is `not verified` on that page. `impeccable` absent → the check could not run, never reported passed.
+- **The UX floor holds on every promoted page**: each interaction on it — form, table, dialog, navigation, feedback — searched in `ui-ux-pro-max`'s UX guidelines, and on a native Surface its stack guidelines, every Critical or High don't fixed or left standing with one line why. `ui-ux-pro-max` absent → the check could not run, never reported passed.
 - **Motion holds `review-animations`' floor** on a web-technology Surface: every animation on the promoted pages read against it, each refusal fixed or left standing with one line why. Not installed → `n/a — not installed`, said aloud.
 - **Every promoted page's primary flow completes by keyboard alone** on the running app — Tab, the arrow keys a composite widget expects, Enter, Escape — with nothing lost or re-run when focus leaves a field, and every dialog and popover named and closable.
 - **axe-core reports no serious or critical violation** on each promoted page, injected into the session's browser for the check only, never added to the app's dependencies.
@@ -491,7 +492,7 @@ Any fails → fix it in the same session.
 
 **Nothing stays a draft.** Every canvas page ends promoted into a real route.
 
-One block: the detector's numbers — Step 8's count, beside the audit's where UI existed — and every hit left standing with its one-line justification · every `review-animations` refusal left standing, with its line · the `DESIGN.md` lines that changed, where there was an old one · the decision records written · files changed, with their count, and files `UNTOUCHED` · every `CLAUDE.md` line naming a file the pass deleted, left for the user to edit · each page's fate — promoted and wired, or promoted on fixtures with its `docs/queue.md` wire line · items the user rejected, still standing as findings · every decision the pass took at the data seam — an error slot, a control disabled during a paid call, retry wording — one cancellable line each · the canvas outcome and how many rounds it took · the verification results, per-page diff verdicts included · the canvas files still standing and the queue line that will retire each · the `/design-system` route named as staying dev-only, deletable at the user's word · the lint floor — refusals written, the baseline's size, anything `not enforceable` · what is still `[needs verification]` · every conflict the Step 1 reading named, with its `docs/queue.md` line where the pass depends on it · **the documents `app-settle` still owes**, where they were missing — `build-flow` will not open a page until the Roles and the rules exist.
+One block: the detector's numbers — Step 8's count, beside the audit's where UI existed — and every hit left standing with its one-line justification · every `review-animations` refusal and every UX-floor don't left standing, with its line · the `DESIGN.md` lines that changed, where there was an old one · the decision records written · files changed, with their count, and files `UNTOUCHED` · every `CLAUDE.md` line naming a file the pass deleted, left for the user to edit · each page's fate — promoted and wired, or promoted on fixtures with its `docs/queue.md` wire line · items the user rejected, still standing as findings · every decision the pass took at the data seam — an error slot, a control disabled during a paid call, retry wording — one cancellable line each · the canvas outcome and how many rounds it took · the verification results, per-page diff verdicts included · the canvas files still standing and the queue line that will retire each · the `/design-system` route named as staying dev-only, deletable at the user's word · the lint floor — refusals written, the baseline's size, anything `not enforceable` · what is still `[needs verification]` · every conflict the Step 1 reading named, with its `docs/queue.md` line where the pass depends on it · **the documents `app-settle` still owes**, where they were missing — `build-flow` will not open a page until the Roles and the rules exist.
 
 **A pass this session could not finish is written down, not implied.** Every page not yet promoted and every verification item not yet passing becomes a `docs/queue.md` line in `build-flow`'s page shape — a failing item rides its page's line; the canvas stays alive until those lines clear.
 
