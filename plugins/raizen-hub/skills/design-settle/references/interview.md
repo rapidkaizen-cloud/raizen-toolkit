@@ -16,9 +16,9 @@
 | Call | Dialogs |
 |---|---|
 | 1 | component library · supported widths · theme mode · copy voice |
-| 2 | styling (where the library brings none) · icon pack (where it bundles none) · engine overview (where a trigger fired) · the two frame screens |
+| 2 | styling (where the library brings none) · icon pack (where it bundles none) · the two frame screens · one engine dialog per triggered category |
 
-A third call carries the per-engine dialogs, only where the overview kept a category. Reconcile after every call: two answers that collide go back as one question naming both.
+Past four dialogs, a third call in the same turn. Reconcile after every call: two answers that collide go back as one question naming both.
 
 ## Part 1 — the non-visual dialogs
 
@@ -38,7 +38,7 @@ A third call carries the per-engine dialogs, only where the overview kept a cate
 Derive each recommendation from the reading and the Roles — who uses the app, when, where, on what — reason in its description. End each dialog with `Decide for me`: the derived value applies, reported as a cancellable line.
 
 - **Supported widths** — phone, tablet, or desktop only, as the lowest width to hold. A field or phone role pulls it to phone; an all-desk cast keeps desktop. Off the web, use the platform's unit, consistent with the Proof profile's Bounds line. The desktop judged width becomes `DESIGN.md`'s desktop breakpoint; name both widths in the canvas assumptions block and take round-1 screenshots at them. **State the lower bound in `DESIGN.md`, so anything below it is *unsupported rather than broken*.**
-- **Theme mode** — light, dark, both, or system (a night shift argues for dark). **The answer binds every frame and the canvas**; only after this dialog's `Decide for me` may one frame be drawn in the other mode (`canvas.md`, Directions first), and picking it settles the mode. With two modes, prove the second on the foundations board and `/design-system`, compute every contrast pair in both, and record the modes in `DESIGN.md`.
+- **Theme mode** — light, dark, or both following the system; a manual toggle arrives only through Other (a night shift argues for dark). **The answer binds every frame and the canvas**; with both, draw the frames in the mode the primary role works in; only after this dialog's `Decide for me` may one frame be drawn in the other mode (`canvas.md`, Directions first), and picking it settles the mode. With two modes, prove the second on the foundations board and `/design-system`, compute every contrast pair in both, and record the modes in `DESIGN.md`.
 - **The two screens the frames are drawn on** — offer 2–4 real pairs, `<proving page> + <second screen>`, from the Roles and `docs/rules.md` or, where UI exists, `handover.md`'s routes. The recommended pair leads with the page carrying the most of this app's own subject — chosen for what the user will see, never for how many controls or fields it holds — plus the screen the direction most likely breaks on. The proving page is held through the flow (`canvas.md`, Directions first).
 - **Copy voice** — formal, neutral, or casual, and where the language has several forms of address, which (Indonesian: *Anda* or *kamu*). Where a first-visit page group earns a looser voice than the pages behind login, ask per page group. The answer is the copy voice in `DESIGN.md`'s Overview, read by `ui-build`'s Writing section. Where `ui-ux-pro-max` is installed, read its `brand` voice reference, located through that sub-skill's `SKILL.md`, before writing the options; never run that sub-skill.
 

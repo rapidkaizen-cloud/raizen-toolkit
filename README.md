@@ -21,7 +21,7 @@ Needs Claude Code, `python3` (every `raizen-norms` hook calls it; with only `pyt
 - In `~/.claude/settings.json`, set `"autoUpdate": false` on `raizen` under `extraKnownMarketplaces` — background auto-update cannot log in to a private repo.
 - Restart Claude Code.
 
-Required alongside: `impeccable` (`npx impeccable install`) and `frontend-design` (`/plugin`). A session missing either asks before continuing. Invoke `/design-settle` by name, since `impeccable`'s description overlaps it.
+Required alongside: `impeccable` (`npx impeccable install`) and `frontend-design` (`/plugin`). A session missing either asks before continuing. `raizen-hub` bundles a Playwright MCP server pinned to WebKit, for apps whose users run iPhone, iPad, or Mac; its browser is installed once per machine — `npx playwright@<the version @playwright/mcp depends on> install webkit` (`npm view @playwright/mcp@<pinned> dependencies` names it). Invoke `/design-settle` by name, since `impeccable`'s description overlaps it.
 
 Optional, never asked for when absent:
 - `review-animations`, the motion floor on web Surfaces — installed alone: `npx skills add emilkowalski/skills --skill review-animations -g -a claude-code`.

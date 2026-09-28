@@ -8,16 +8,16 @@ Ask engine dialogs only when triggered; an app that trips none never hears about
 
 | Trigger | When the dialog is asked |
 |---|---|
-| **The user or the documents name the need** — "a trend chart", an import implying a dropzone | Through the overview multiselect, among the stack dialogs — locked, installed at the install gate |
+| **The user or the documents name the need** — "a trend chart", an import implying a dropzone | Among the stack dialogs — locked, installed at the install gate |
 | **The product draft needs it** — the canvas's full-product draft (`canvas.md`, The brief — the expansion duty) implies a job no installed engine covers | Among the stack dialogs — locked, installed at the install gate |
 | **It emerges mid-drawing** | Draw the frame with the no-engine rendering, tagged as a proposal; the judgement settles it, and an approved adoption installs the engine and redraws that frame next round |
 | **The audit indicts an installed engine** (`design-settle` only) | Among the stack dialogs, priced like the library dialog — *keep* first and recommended unless the indictment stands |
 
 An **installed engine is already decided**; no dialog reopens it without an audit indictment. Swapping or dropping one is always an explicit dialog, never a side effect of approving pixels.
 
-## The overview multiselect — one gate before the dialogs
+## One dialog per detected category
 
-When a trigger fired before drawing, first ask **one multiSelect AskUserQuestion**: each option a detected category with its trigger in the description (`Chart — the home page draws a revenue trend`), all pre-selected, keeping all recommended. **Offer detected triggers only, never the full category list.** An unchecked category keeps the current state, recorded as a decision line; one added through "Other" becomes a named-need trigger. Checked categories open per-engine dialogs in the next call of the same turn. The mid-drawing trigger skips the overview, and so does a single detected category — AskUserQuestion refuses a one-option question; open its engine dialog directly.
+When a trigger fired before drawing, open one engine dialog per detected category, its trigger in the question (`Chart — the home page draws a revenue trend`), the no-engine option among its options (criterion 3). **Offer detected triggers only, never the full category list.** Choosing no engine keeps the current state, recorded as a decision; a category named through "Other" becomes a named-need trigger with its own dialog.
 
 ## The verification duty — candidates assembled live
 
@@ -45,7 +45,7 @@ Categories say what job fires a dialog — never candidate lists.
 |---|---|
 | Virtualization | Lists or tables in the thousands of rows — usually rides the table decision |
 | Rich text editor | The app has notes, comments, or documents |
-| File upload / dropzone | The app imports files |
+| File upload / dropzone | The app imports files — the drop area only; parsing the file is `logic-build`'s, ordered at the gate |
 | Calendar / scheduler | Schedules, shifts, bookings |
 | PDF viewer / generation | Invoices, payslips, printable documents |
 | Barcode / QR | Scanning receipts, labels, inventory |

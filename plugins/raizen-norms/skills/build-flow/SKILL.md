@@ -195,9 +195,9 @@ Business rules carry screen content inside them, and it is routinely never harve
 
 Unchecking one of these means changing `docs/rules.md`. That is a separate decision and it is the user's.
 
-**Optional** — everything else that fits. Presented as a multi-select with **every item already selected**; the user removes what is not wanted.
+**Optional** — everything else that fits. Presented as a multi-select of what to drop — first option `keep all`, recommended, then one option per item; the user ticks what is not wanted, because AskUserQuestion cannot pre-select.
 
-Pre-selected is the whole point of the step. The old bias builds the minimum that passes; this one proposes the full page and lets the user cut it down. Thin pages are born of the first bias, and no later check recovers what was never proposed.
+Keeping by default is the whole point of the step. The old bias builds the minimum that passes; this one proposes the full page and lets the user cut it down. Thin pages are born of the first bias, and no later check recovers what was never proposed.
 
 Where the documents run out, optional candidates come first from the components of the page's archetype in `DESIGN.md`, then from live product-type research — what a mature product of this kind conventionally carries; the same floor `design-settle`'s canvas draft already assumed (`canvas.md`).
 
