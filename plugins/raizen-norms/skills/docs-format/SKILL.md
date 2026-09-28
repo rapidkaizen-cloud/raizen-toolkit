@@ -23,7 +23,7 @@ Write no document outside this list — no `ARCHITECTURE.md`, `DECISIONS.md`, au
 | `docs/rules.md` | The business rules, each an explicit sentence with its why | A build session before implementing; `logic-build` Section 10 | `app-settle`; a build session, before the implementation | The user decides the rule |
 | `docs/glossary.md` | Domain terms, their precise meaning, what they are misread as | Any session naming a thing | Any session, before the implementation that uses the term | None — append-only |
 | `docs/queue.md` | What is not built yet | Every session — injected at start | `build-flow` | `build-flow` Section 3 |
-| `docs/decisions/` | One record per decision — stack, library, logic layer, a deliberate "none" | A session about to change a settled choice; `logic-build` Section 6 | `app-settle`, `logic-settle`, `design-settle`; a session changing a library default | The user's answer — then immutable |
+| `docs/decisions/` | One record per decision — stack, library, logic layer, a deliberate "none", a technical choice the user takes | A session about to change a settled choice; `logic-build` Section 6 | `app-settle`, `logic-settle`, `design-settle`; a session changing a library default, or recording a technical choice the user took | The user's answer — then immutable |
 | `docs/guide/` | How each role finishes each piece of its work, for the app's users | The app's users; the help page | The build session whose commit changes what a page describes | None — mandatory |
 | `docs/whats-new.md` | What users notice, newest first | The app's users, through the help page | The build session whose commit users will notice | Exists only where the app has an in-app help page |
 | `docs/changes/` | One record per big change — why, what it touches, the lines it wrote | The sessions executing it | `build-flow`, past its big-change threshold | The user's approval — frozen when done |
@@ -78,7 +78,7 @@ Environment variables by name, never by value.
 
 **Non-goals change only in `app-settle` rework.** A deleted non-goal is scope opening; the user's reason becomes a decision record.
 
-**One decision record per decision the user takes**: each stack answer at bootstrap, each `logic-settle` answer and each `design-settle` stack answer — every deliberate "none" and every *keep* that had no record included — and a library default changed on purpose (`logic-build` Section 6). A changed decision is a new record superseding the old.
+**One decision record per decision the user takes**: each stack answer at bootstrap, each `logic-settle` answer and each `design-settle` stack answer — every deliberate "none" and every *keep* that had no record included — a library default changed on purpose (`logic-build` Section 6), and a technical choice the user takes in a build session whose reason the code cannot show. A business decision goes to `docs/rules.md` and a "never do this" to Prohibitions instead; a choice you made yourself gets no record — it is a default, reported at the close. A changed decision is a new record superseding the old.
 
 **Restructuring stops first.** Adding or removing a section of a living document, moving content between documents, changing a table's shape: state what changes and why, then wait. Structure changed without deliberation leaves a thin document, and thin looks recorded.
 
@@ -100,7 +100,7 @@ Read `references/shapes.md` before writing a new file of the list, or a new sect
 | `docs/glossary.md` | Section 4 |
 | `DESIGN.md` | Section 5. The root `DESIGN.md` there is generated from it and is never read as the design system |
 | `docs/product.md` — Prohibitions | Section 6 |
-| `docs/decisions/` | Section 1 — one line per `app-settle` or `logic-settle` choice with its reason, rejected alternatives among the non-goals. `design-settle` records none there; its library is `CLAUDE.md`'s row |
+| `docs/decisions/` | Section 1 — one line per `app-settle` or `logic-settle` choice, or technical choice the user took, with its reason, rejected alternatives among the non-goals. `design-settle` records none there; its library is `CLAUDE.md`'s row |
 | `docs/queue.md` | `QUEUE.md` at the root |
 | `docs/README.md`, `docs/guide/`, `docs/whats-new.md`, `docs/changes/`, `docs/PRD.md` | Nothing — never written in a legacy repo |
 

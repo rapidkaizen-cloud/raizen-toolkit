@@ -80,6 +80,7 @@ Behind `origin/development` -> stop and say `git pull --ff-only`.
 Committing is part of finishing, not a separate request:
   - A scope item that is finished is committed in the same turn, without asking first.
   - Name the paths explicitly. `git add -A` and `git add .` are refused.
+  - The message states why, not only what - the diff already shows the what.
   - Paths that changed outside SCOPE are findings reported to the user, never
     committed along.
 
