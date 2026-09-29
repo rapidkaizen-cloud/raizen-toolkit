@@ -1,22 +1,26 @@
 #!/usr/bin/env python3
-"""Guard git operations: block what must never happen, ask before publishing.
+"""Guard git operations: block what must never happen, hold publishing for the user's answer.
 
 Reads the hook payload from stdin.
 Exit 0 = pass, exit 2 = block (the agent reads stderr).
-A JSON payload on stdout with permissionDecision "ask" hands the call to the user.
 
-Blocked:
+Refused, and fixed by the agent itself:
   - commit while HEAD is on main
   - git add -A / git add .  (a commit holds explicit paths from SCOPE)
-  - push --force / -f, and the flagless force spelled as a refspec: push origin +main
+  - a bare force push: --force / -f, and the flagless force spelled as a refspec
+    (push origin +main). --force-with-lease refuses when the remote moved, so it is
+    the only force a session runs.
 
-Asked:
-  - git push
+Held until the user answers:
+  - git push, --force-with-lease included
   - gh pr create / gh pr merge
 
-A session commits on its own; it never publishes on its own. Asking rather than
-refusing is deliberate: a refusal would also hit the push the user just asked for,
-and the answer to the prompt is exactly the instruction the norm requires.
+A held command passes once the transcript shows the user picking `Run` on an
+AskUserQuestion whose question names the exact command in backticks, and no call of
+that command has run since - one answer, one run. The answer is read from the
+transcript rather than asked for with a permission prompt, because an SDK host never
+shows that prompt: "ask" there is a silent refusal that leaves the user typing the
+command by hand.
 """
 import json
 import re
@@ -29,14 +33,23 @@ import sys
 # separate argument, so they need their own alternative.
 GIT = r"\bgit\s+(?:-[cC]\s+\S+\s+|--?[\w-]+(?:=\S+)?\s+)*"
 
+APPROVE = "Run"
+SHELLS = ("Bash", "PowerShell")
 
-def read_command() -> str:
+# A commit message that mentions `gh pr create` is data, not a call. Heredoc bodies and
+# quoted strings are blanked before any rule reads the command; the heredoc's opening
+# line stays, since commands may follow `<<'EOF'` on it.
+# ponytail: `sh -c 'git push'` hides inside quotes too; parse the shell if agents start wrapping git.
+HEREDOC = re.compile(r"(<<-?\s*(['\"]?)(\w+)\2[^\n]*\n).*?^\s*\3\s*$", re.S | re.M)
+QUOTED = re.compile(r"'[^']*'|\"(?:[^\"\\]|\\.)*\"")
+
+
+def read_payload() -> dict:
     try:
         payload = json.load(sys.stdin)
     except Exception:
-        return ""
-    ti = payload.get("tool_input") or {}
-    return ti.get("command") or ""
+        return {}
+    return payload if isinstance(payload, dict) else {}
 
 
 def head_branch() -> str:
@@ -50,31 +63,82 @@ def head_branch() -> str:
         return ""
 
 
+def norm(text: str) -> str:
+    return " ".join(text.split())
+
+
+def entries(path: str):
+    try:
+        with open(path, encoding="utf-8") as f:
+            for line in f:
+                try:
+                    yield json.loads(line)
+                except ValueError:
+                    continue
+    except OSError:
+        return
+
+
+def approved(payload: dict, cmd: str) -> bool:
+    """True when the last `Run` answer naming `cmd` has not been spent by a run of it.
+
+    A call of the command counts as spent once its tool_result is in the transcript, so
+    the call being checked right now - written, not yet answered - never spends it.
+    """
+    want = norm(cmd)
+    ticked = f"`{want}`"
+    granted = False
+    pending = set()
+    for entry in entries(payload.get("transcript_path") or ""):
+        if not isinstance(entry, dict):
+            continue
+        content = (entry.get("message") or {}).get("content")
+        for block in content if isinstance(content, list) else []:
+            if not isinstance(block, dict):
+                continue
+            if (
+                block.get("type") == "tool_use"
+                and block.get("name") in SHELLS
+                and norm(str((block.get("input") or {}).get("command") or "")) == want
+            ):
+                pending.add(block.get("id"))
+            elif block.get("type") == "tool_result" and block.get("tool_use_id") in pending:
+                granted = False
+        result = entry.get("toolUseResult")
+        if isinstance(result, dict) and isinstance(result.get("answers"), dict):
+            for question, answer in result["answers"].items():
+                picked = answer if isinstance(answer, list) else [answer]
+                if ticked in norm(str(question)) and APPROVE in picked:
+                    granted = True
+                    pending.clear()
+    return granted
+
+
 def block(msg: str) -> None:
     sys.stderr.write(msg + "\n")
     sys.exit(2)
 
 
-def ask(reason: str) -> None:
-    json.dump(
-        {
-            "hookSpecificOutput": {
-                "hookEventName": "PreToolUse",
-                "permissionDecision": "ask",
-                "permissionDecisionReason": reason,
-            }
-        },
-        sys.stdout,
+def hold(payload: dict, cmd: str, what: str) -> None:
+    if approved(payload, cmd):
+        sys.exit(0)
+    block(
+        f"HELD: {what} runs only on the user's answer. Ask with AskUserQuestion: name this "
+        f"exact command in backticks in the question, and offer an option labelled exactly "
+        f"`{APPROVE}`. On `{APPROVE}`, retry the same command unchanged - one answer covers "
+        "one run. Never hand the command to the user to type.\n"
+        f"Command: {norm(cmd)}"
     )
-    sys.exit(0)
 
 
 def main() -> None:
-    cmd = read_command()
-    if not re.search(r"\b(git|gh)\b", cmd):
+    payload = read_payload()
+    cmd = (payload.get("tool_input") or {}).get("command") or ""
+    code = QUOTED.sub("''", HEREDOC.sub(r"\1", cmd))
+    if not re.search(r"\b(git|gh)\b", code):
         sys.exit(0)
 
-    if re.search(GIT + r"add\s+(-A\b|--all\b|\.(\s|$))", cmd):
+    if re.search(GIT + r"add\s+(-A\b|--all\b|\.(\s|$))", code):
         block(
             "REFUSED: git add -A / git add . is not used in this repo.\n"
             "A commit contains only paths that are in SCOPE, named explicitly.\n"
@@ -83,13 +147,13 @@ def main() -> None:
         )
 
     # `\s\+\S` is `push origin +main` — a force with no flag to grep for.
-    if re.search(GIT + r"push\b.*(--force\b|--force-with-lease\b|\s-f\b|\s\+\S)", cmd):
+    if re.search(GIT + r"push\b.*(--force(?![-\w])|\s-f\b|\s\+\S)", code):
         block(
-            "REFUSED: a force push is never run from a session. "
-            "If a PR flow needs one, the user runs it."
+            "REFUSED: a bare force push. Use --force-with-lease instead - it refuses when "
+            "the remote moved since your last fetch - and ask for it as for any push."
         )
 
-    if re.search(GIT + r"commit\b", cmd):
+    if re.search(GIT + r"commit\b", code):
         branch = head_branch()
         if branch == "main":
             block(
@@ -97,17 +161,11 @@ def main() -> None:
                 "Switch to development first, then retry."
             )
 
-    if re.search(r"\bgh\s+pr\s+(create|merge)\b", cmd):
-        ask(
-            "A pull request is opened or merged only on the user's word. "
-            "Approve only if you asked for this."
-        )
+    if re.search(r"\bgh\s+pr\s+(create|merge)\b", code):
+        hold(payload, cmd, "opening or merging a pull request")
 
-    if re.search(GIT + r"push\b", cmd):
-        ask(
-            "A session commits on its own but never publishes on its own. "
-            "Approve only if you asked for this push."
-        )
+    if re.search(GIT + r"push\b", code):
+        hold(payload, cmd, "a push")
 
     sys.exit(0)
 

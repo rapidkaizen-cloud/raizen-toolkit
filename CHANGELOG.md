@@ -2,6 +2,22 @@
 
 All notable changes to the `raizen-hub` and `raizen-norms` plugins, newest first. The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). Versions before these are in `git log`.
 
+## [raizen-norms 0.32.0] - 2026-09-29
+
+### Added
+
+- Session norms, `ASKING`: a decision that is the user's is asked through AskUserQuestion, or in chat at a hard stop, and the session runs it. The user is never handed a command to type, only what needs their own hands: a browser login, a dashboard, a key rotation, a payment.
+
+### Changed
+
+- `guard_git`: a push (`--force-with-lease` included), `gh pr create`, and `gh pr merge` run once the user picks `Run` on an AskUserQuestion that names the exact command; one answer covers one run. The permission prompt is gone, because an SDK host never showed it.
+- `guard_git`: a bare force push (`--force`, `-f`, `+branch`) is refused with a pointer to `--force-with-lease`.
+- Session norms: a session behind `origin/development` asks to run `git pull --ff-only` instead of telling the user to run it.
+
+### Fixed
+
+- `guard_git`: a command mentioned inside a commit message, a heredoc, or a quoted string is no longer read as a call, so a message naming `git add -A` or `gh pr create` commits.
+
 ## [raizen-hub 0.65.0, raizen-norms 0.31.0] - 2026-09-28
 
 ### Changed

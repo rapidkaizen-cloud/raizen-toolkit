@@ -75,7 +75,7 @@ holds what is not built yet.
 
 GIT
 Before anything else: `git fetch`, then check the branch position. HEAD on `main` -> stop.
-Behind `origin/development` -> stop and say `git pull --ff-only`.
+Behind `origin/development` -> stop and ask to run `git pull --ff-only`.
 
 Committing is part of finishing, not a separate request:
   - A scope item that is finished is committed in the same turn, without asking first.
@@ -90,8 +90,14 @@ absent from the PRD. Leave the working tree dirty and report the stop instead. S
 the end of a session: a clean tree means finished, a dirty tree means something is
 waiting on the user.
 
-`main` never receives a direct commit. A push or a pull request is never started on
-your own initiative - the user asks for it.
+`main` never receives a direct commit. A push or a pull request runs only after the
+user picks `Run` on an AskUserQuestion naming its exact command - `guard_git` reads
+that answer, and one answer covers one run.
+
+ASKING
+A decision that is the user's is asked through AskUserQuestion, or answered in chat at
+a hard stop; then you run it yourself. Never hand the user a command to type - only
+what needs their own hands: a browser login, a dashboard, a key rotation, a payment.
 
 DECISIONS
 An answer carrying two or more decisions, options, or recommendations closes with one
