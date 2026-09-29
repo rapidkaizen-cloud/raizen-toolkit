@@ -1,6 +1,6 @@
 # raizen-toolkit
 
-Private repo (`rapidkaizen-cloud/raizen-toolkit`) holding two Claude Code plugins and the marketplace `raizen`.
+Two Claude Code plugins and the marketplace `raizen`, in the public repo `rapidkaizen-cloud/raizen-toolkit`.
 
 | Plugin | Holds | Loaded |
 |---|---|---|
@@ -9,7 +9,7 @@ Private repo (`rapidkaizen-cloud/raizen-toolkit`) holding two Claude Code plugin
 
 ## Install
 
-Needs Claude Code, `python3` (every `raizen-norms` hook calls it; with only `python` the guards silently never run), Node.js, and `gh` logged in to an account with **Read** access — another account is added as a collaborator.
+Needs Claude Code, `python3` (every `raizen-norms` hook calls it; with only `python` the guards silently never run), and Node.js.
 
 ```
 /plugin marketplace add rapidkaizen-cloud/raizen-toolkit
@@ -18,7 +18,7 @@ Needs Claude Code, `python3` (every `raizen-norms` hook calls it; with only `pyt
 ```
 
 - Install at **user scope** only; a project-scope entry updates separately and falls behind.
-- In `~/.claude/settings.json`, set `"autoUpdate": false` on `raizen` under `extraKnownMarketplaces` — background auto-update cannot log in to a private repo.
+- In `~/.claude/settings.json`, set `"autoUpdate": true` on `raizen` under `extraKnownMarketplaces`, so a new version reaches the machine at its next start.
 - Restart Claude Code.
 
 Required alongside: `impeccable` (`npx impeccable install`), `frontend-design` (`/plugin`), and `ui-ux-pro-max` (`/plugin marketplace add nextlevelbuilder/ui-ux-pro-max-skill`, then `/plugin install ui-ux-pro-max@ui-ux-pro-max-skill`) — the UX floor level with `impeccable`, and the style, palette and type results `design-settle` mixes into its frames; `ui-build` forbids `--persist` and every script of its sub-skills. A session missing any asks before continuing. `raizen-hub` bundles a Playwright MCP server pinned to WebKit, for apps whose users run iPhone, iPad, or Mac; its browser is installed once per machine — `npx playwright@<the version @playwright/mcp depends on> install webkit` (`npm view @playwright/mcp@<pinned> dependencies` names it). Invoke `/design-settle` by name, since `impeccable`'s description overlaps it.
@@ -37,7 +37,7 @@ Check: `/plugin` lists both plugins; design-settle's Step 0 prints the running b
 
 ## Update
 
-Every commit that changes a plugin bumps its version (`.githooks/pre-commit` refuses otherwise — run `git config core.hooksPath .githooks` once per clone). After the push, on every machine:
+Every commit that changes a plugin bumps its version (`.githooks/pre-commit` refuses otherwise — run `git config core.hooksPath .githooks` once per clone). After the push, a machine with `autoUpdate` on picks it up at its next start; on any other machine run:
 
 ```
 claude plugin marketplace update raizen
@@ -79,8 +79,7 @@ An app with a project-scoped `.mcp.json` shadows the user-scope Supabase server:
 
 ## Not yet verified
 
-- Hooks firing in a real session (`${CLAUDE_PLUGIN_ROOT}` expansion, `PreToolUse` matching): try `git add -A` once in a fresh app repo and confirm the refusal.
 - The UI and logic lint floors and the rule tests have never been written in a real app.
 - The `docs/` form has never been bootstrapped in a real app.
-- Whether a cloud session can read this private marketplace; until then, cloud sessions do frontend work only.
+- Whether a cloud session installs this marketplace; until then, cloud sessions do frontend work only.
 - The account-wide Supabase MCP endpoint end to end: its first-use login, and `project_id` as `guard_project_ref.py` expects.
