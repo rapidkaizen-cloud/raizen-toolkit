@@ -24,10 +24,18 @@ This plugin ships no templates. What a new app repo gets is written by `app-sett
 
 A proof run tests these skills on a throwaway copy of an app in the scratchpad. Write only the public client values into the copy's `.env` — the URL and the publishable key; never copy the real `.env`. A server key reaches the copy only by the user's own hand: a key created for the run and revoked after it. Without one, report every server route `not verified — no server key in the proof copy`.
 
+Write `the proof app`, never the app's name, a client, a person, or a domain, in any file or commit message of this repo, because anyone who installs the plugins reads its history.
+
+## QUEUE.md
+
+Keep `QUEUE.md` only while it holds toolkit work not done yet — delete it with its last item — because the `SessionStart` hook injects it into every session here and stays silent when it is absent.
+
 ## Git
 
 Commit only when the user says so. Do not push, do not open a PR on your own initiative.
 
 A commit that changes a plugin bumps that plugin's `version` in the same commit, because `/plugin update` compares version numbers only; `.githooks/pre-commit` refuses it otherwise, so run `git config core.hooksPath .githooks` once per clone.
+
+A commit that bumps a plugin's version adds that version's entry to `CHANGELOG.md`, in English and in Keep a Changelog form, naming every rename or removal an installed app must act on.
 
 A commit reaches app sessions only after it is pushed to `origin`, and the user decides every push.

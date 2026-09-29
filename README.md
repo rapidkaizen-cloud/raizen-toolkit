@@ -29,6 +29,10 @@ Optional, never asked for when absent:
 
 Recommended: `npx skills add supabase/agent-skills` (Postgres guidance for `db-ops`) and `ponytail`. Do not install the `supabase` plugin — it adds a second Supabase MCP server. Connect the Supabase MCP once at user scope, with no query parameters in its URL.
 
+Two conventions come with `raizen-norms`, and every app inherits them:
+- Sessions sign in and seed test data through an **agent account**: `db-ops` creates it by SQL on Supabase Auth, taking its email and password from the session's own instructions (your `~/.claude/CLAUDE.md`, for example) — the toolkit stores neither.
+- Every row a session creates for a test opens with **`[CLAUDE]`**. Only a `DELETE` narrowed to that prefix passes `guard_destructive` unguarded; any other delete goes through the destructive gate.
+
 Check: `/plugin` lists both plugins; design-settle's Step 0 prints the running build as `Skill build`.
 
 ## Update
@@ -41,7 +45,7 @@ claude plugin update raizen-hub@raizen
 claude plugin update raizen-norms@raizen
 ```
 
-Then restart. Nothing reaches a session before this.
+Then restart. Nothing reaches a session before this. What each version changes: `CHANGELOG.md`.
 
 ## Use
 
