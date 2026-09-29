@@ -2,6 +2,12 @@
 
 All notable changes to the `raizen-hub` and `raizen-norms` plugins, newest first. The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). Versions before these are in `git log`.
 
+## [raizen-hub 0.66.0] - 2026-09-29
+
+### Removed
+
+- The bundled Playwright MCP server pinned to WebKit, with every WebKit capture in `design-settle`: the `Design material` row, the ask when it is absent, and the Judging and verify lines. Screenshots use Chrome DevTools only. The WebKit browser a machine installed for it is no longer used and may be deleted.
+
 ## [raizen-norms 0.32.0] - 2026-09-29
 
 ### Added

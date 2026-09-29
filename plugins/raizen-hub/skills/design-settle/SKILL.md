@@ -75,9 +75,7 @@ Platform        : [from the Surface row, else from the manifest and platform fil
 Primary role    : [from the Roles, else from the roles the code enforces, else asked at Step 1]
 Design material : [impeccable present/absent · frontend-design present/absent · ui-ux-pro-max
                    present/absent — all three Required · review-animations present/absent,
-                   found per ui-build — Optional · WebKit capture present/absent — the
-                   bundled `playwright` server with its WebKit build installed, Required
-                   where the reading names iPhone, iPad, or Mac users]
+                   found per ui-build — Optional]
 Branch          : [name · clean or has uncommitted changes]
 Leftover        : [none / canvas alive / pass partly applied / pass applied — from
                    src/design-canvas/, .design-audit/gate.md and git state]
@@ -112,7 +110,7 @@ Documents missing, or a legacy `PRD.md` off-shape → **not a stop**: say so in 
 
 **Load `impeccable` and `frontend-design`, and `review-animations` where installed, before writing the reading** — its *leaning* clause is already a taste judgement. `canvas.md` owns which files carry the material and its boundary. Read no skill that prescribes a fixed look as material (`canvas.md`).
 
-**An Optional skill absent is only shown in the row. One Required skill absent is asked through AskUserQuestion, never merely reported**, naming what is lost — `impeccable`'s ban list, display-face and convergence calibrations, the Operate register, every later detector count; `frontend-design`'s direction method and restraint; `ui-ux-pro-max`'s UX floor, every later UX-floor check, and its frame ingredients — with continue-without or stop-to-install (the README's install lines); continuing is recommended where installing is unavailable here. The other material still loads. The answer rides every canvas round and the ratification report as its own line, naming what was missing. **WebKit capture absent, where the confirmed reading names iPhone, iPad, or Mac users, is asked the same way** — lost: every WebKit capture (`canvas.md`, Judging); installed through Playwright's own CLI at the version the bundled server depends on, verified live.
+**An Optional skill absent is only shown in the row. One Required skill absent is asked through AskUserQuestion, never merely reported**, naming what is lost — `impeccable`'s ban list, display-face and convergence calibrations, the Operate register, every later detector count; `frontend-design`'s direction method and restraint; `ui-ux-pro-max`'s UX floor, every later UX-floor check, and its frame ingredients — with continue-without or stop-to-install (the README's install lines); continuing is recommended where installing is unavailable here. The other material still loads. The answer rides every canvas round and the ratification report as its own line, naming what was missing.
 
 **Sources, in rank: the user, then the code, then the documents.** An explicit user statement outranks everything. Where the user was silent, read what exists from the code — router for pages, manifest and platform files for the platform, auth and guard code for roles, rendered strings for the locale, dependency file for the stack. Then `docs/product.md` where readable. A gap all three leave is named inside the reading and settled at its correction, never as its own question. **A conflict is a finding named in the reading, never a silent pick**: a user statement against the code is followed and reported; between code and documents, the code wins on what exists, the documents on what ought to be, and the loser is reported.
 
@@ -478,7 +476,7 @@ All of them before reporting done:
 - **axe-core reports no serious or critical violation** on each promoted page, injected into the session's browser for the check only, never added to the app's dependencies.
 - **Under emulated `prefers-reduced-motion: reduce`, nothing on the promoted pages moves**, library transitions included; one the library cannot turn off stands as a finding.
 - **The signature survived promotion** on the pages that carry it.
-- **The proving page holds at both widths**, screenshots taken — in WebKit too where `canvas.md`'s Judging asks for it.
+- **The proving page holds at both widths**, screenshots taken.
 - **Pages running on fixtures are listed by name**, matching the `docs/queue.md` wire lines one for one.
 - **Where UI existed — the file plan matched.** Every file listed at the gate changed, and no file outside it did.
 - **Where UI existed — the seeded walk.** Seed `[CLAUDE]`-prefixed rows first. Walk the proving page at desktop and the lower bound; compare one page per archetype with its audit screenshot — each reads redesigned unless all behind it was *keep* and the gate said so.
