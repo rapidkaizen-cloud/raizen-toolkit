@@ -1,6 +1,6 @@
 {
   "name": "raizen-norms",
-  "version": "0.33.0",
+  "version": "0.34.0",
   "description": "Session norms for app repos: git and destructive-operation guards, plus document, UI, database, application-logic, and build-order rules.",
   "keywords": ["norms", "guard", "prd", "docs", "rls", "hooks", "build-order", "secrets"]
 }

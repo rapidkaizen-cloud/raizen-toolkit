@@ -128,8 +128,8 @@ def hold(payload: dict, cmd: str, what: str) -> None:
     block(
         f"HELD: {what} runs only on the user's answer. Ask with AskUserQuestion: name this "
         f"exact command in backticks in the question, list under it every commit it publishes "
-        f"- one line each, short hash and subject - and offer an option labelled exactly "
-        f"`{APPROVE}`. On `{APPROVE}`, retry the same command unchanged - one answer covers "
+        f"as `- ` bullets, short hash and subject, and offer two options labelled exactly "
+        f"`{APPROVE}` and `Cancel`. On `{APPROVE}`, retry the same command unchanged - one answer covers "
         "one run. Never hand the command to the user to type.\n"
         f"Command: {norm(cmd)}"
     )

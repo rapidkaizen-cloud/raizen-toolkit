@@ -2,6 +2,12 @@
 
 All notable changes to the `raizen-hub` and `raizen-norms` plugins, newest first. The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). Versions before these are in `git log`.
 
+## [raizen-norms 0.34.0] - 2026-10-02
+
+### Changed
+
+- Session norms, `GIT`, and the `guard_git` held message: the commits under a push or pull-request command are `- ` bullets, one per commit, and the question offers exactly two options, `Run` and `Cancel`.
+
 ## [raizen-norms 0.33.0] - 2026-10-02
 
 ### Changed
