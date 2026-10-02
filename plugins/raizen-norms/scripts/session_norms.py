@@ -92,7 +92,8 @@ waiting on the user.
 
 `main` never receives a direct commit. A push or a pull request runs only after the
 user picks `Run` on an AskUserQuestion naming its exact command - `guard_git` reads
-that answer, and one answer covers one run.
+that answer, and one answer covers one run. Under the command, the question lists
+every commit it publishes, one line each: short hash and subject.
 
 ASKING
 A decision that is the user's is asked through AskUserQuestion, or answered in chat at

@@ -32,7 +32,7 @@ Keep `QUEUE.md` only while it holds toolkit work not done yet — delete it with
 
 ## Git
 
-Commit only when the user says so. Push or open a PR only after the user picks `Run` on an AskUserQuestion naming the exact command.
+Commit, push, and open a PR by the `GIT` block of `plugins/raizen-norms/scripts/session_norms.py`, as an app repo does.
 
 A commit that changes a plugin bumps that plugin's `version` in the same commit, because `/plugin update` compares version numbers only; `.githooks/pre-commit` refuses it otherwise, so run `git config core.hooksPath .githooks` once per clone.
 

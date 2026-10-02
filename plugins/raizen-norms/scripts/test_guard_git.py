@@ -89,6 +89,10 @@ def demo() -> None:
         assert run("git  push  origin development", yes) == passed
         assert run("git push origin main", yes) == held
 
+        # the commits listed under the command do not hide it
+        listed = f"Run `{push}`?\n- 4cc1af0 feat: push waits for `Run`\n- e2bd00d docs: README"
+        assert run(push, transcript(asked(listed, ["Run"]))) == passed
+
         # the call being checked is already written, not yet answered: not spent
         assert run(push, transcript(asked(f"Run `{push}`?", ["Run"]), called("t1", push))) == passed
 

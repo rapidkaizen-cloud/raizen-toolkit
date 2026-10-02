@@ -108,6 +108,9 @@ def approved(payload: dict, cmd: str) -> bool:
         if isinstance(result, dict) and isinstance(result.get("answers"), dict):
             for question, answer in result["answers"].items():
                 picked = answer if isinstance(answer, list) else [answer]
+                # ponytail: the whole question is searched, commit list included, so a listed
+                # subject quoting another held command in backticks approves that one too;
+                # match the first line only if that ever happens.
                 if ticked in norm(str(question)) and APPROVE in picked:
                     granted = True
                     pending.clear()
@@ -124,7 +127,8 @@ def hold(payload: dict, cmd: str, what: str) -> None:
         sys.exit(0)
     block(
         f"HELD: {what} runs only on the user's answer. Ask with AskUserQuestion: name this "
-        f"exact command in backticks in the question, and offer an option labelled exactly "
+        f"exact command in backticks in the question, list under it every commit it publishes "
+        f"- one line each, short hash and subject - and offer an option labelled exactly "
         f"`{APPROVE}`. On `{APPROVE}`, retry the same command unchanged - one answer covers "
         "one run. Never hand the command to the user to type.\n"
         f"Command: {norm(cmd)}"

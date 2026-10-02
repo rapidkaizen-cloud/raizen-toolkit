@@ -2,6 +2,13 @@
 
 All notable changes to the `raizen-hub` and `raizen-norms` plugins, newest first. The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). Versions before these are in `git log`.
 
+## [raizen-norms 0.33.0] - 2026-10-02
+
+### Changed
+
+- Session norms, `GIT`: the AskUserQuestion that asks for a push or a pull request lists every commit the command publishes under it, one line each: short hash and subject.
+- `guard_git`: the held message asks for that list.
+
 ## [raizen-hub 0.66.0] - 2026-09-29
 
 ### Removed
