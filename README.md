@@ -51,15 +51,16 @@ Then restart. Nothing reaches a session before this. What each version changes: 
 
 Both plugins load in Antigravity from the same folders: `plugin.json` and `hooks.json` at each plugin's root are its manifest and its hooks, beside Claude Code's `.claude-plugin/` and `hooks/`.
 
-**Proven in headless runs only** — `agy -p`, 1.2.16, Windows, the plugins registered in the repo's own `.agents/plugins.json`: the norms were injected once per conversation, `git add -A` was refused, a push was held, and all nine skills were listed. In the one interactive session tried, that per-folder registration loaded a minute after the conversation began and the conversation never got the hooks: it ran unguarded. Do not count on a guard in an interactive `agy` session until the registration below has been proven there.
+**Proven on the CLI** — `agy` 1.2.16, Windows, headless and interactive, registered as below: the norms are injected once per conversation, `git add -A` is refused, a push is held until `Run` is answered and held again once it has run, the hand-over block arrives, and all nine skills are listed.
 
-Register once per machine: one entry in `~/.gemini/config/plugins.json`, Antigravity's documented global location, naming the clone Claude Code keeps current so one update serves both hosts.
+Register once per machine: one entry in `~/.gemini/config/plugins.json`, naming the clone Claude Code keeps current so one update serves both hosts.
 
 ```json
 { "entries": [ { "path": "C:/Users/<you>/.claude/plugins/marketplaces/raizen/plugins" } ] }
 ```
 
 - Write the path absolute; `~/` in an entry does not resolve on Windows.
+- Register it there, never in a repo's `.agents/plugins.json`: registered per folder, the plugins loaded a minute after an interactive conversation began, and that conversation ran unguarded.
 - Never run `agy plugin import` on these plugins: it replaces `hooks.json` with Claude Code's, which Antigravity cannot parse, and every guard goes silent.
 - `python3` must resolve: there a hook that cannot start blocks every command.
 - A machine without Claude Code clones this repo anywhere and names its `plugins` folder instead.
@@ -110,6 +111,4 @@ An app with a project-scoped `.mcp.json` shadows the user-scope Supabase server:
 - The `docs/` form has never been bootstrapped in a real app.
 - Whether a cloud session installs this marketplace; until then, cloud sessions do frontend work only.
 - The account-wide Supabase MCP endpoint end to end: its first-use login, and `project_id` as `guard_project_ref.py` expects.
-- On Antigravity, the global registration in `~/.gemini/config/plugins.json`, and any interactive session with the guards loaded.
-- On Antigravity, a held push passing on `Run`: the answer line `guard_git` reads from the transcript, `A1: Run`, was captured only as `A1: User Skipped`. Until it is proven, a push there may stay held whatever the user answers.
-- On Antigravity: the four `raizen-hub` skills load and none has been run — their interviews, their subagents, `design-settle`'s browser steps; the hand-over block in a live session; the IDE and Antigravity 2.0. Gemini CLI is not ported.
+- On Antigravity: the four `raizen-hub` skills load and none has been run — their interviews, their subagents, `design-settle`'s browser steps; the IDE and Antigravity 2.0. Gemini CLI is not ported.

@@ -6,7 +6,7 @@ All notable changes to the `raizen-hub` and `raizen-norms` plugins, newest first
 
 ### Added
 
-- Antigravity support: `plugin.json` and `hooks.json` at the plugin root, read by `agy`. The same guards run before `run_command` and `call_mcp_tool`, and the norms are injected before the first model call of a conversation, with the app's `CLAUDE.md` and a `HOST` block mapping Claude Code's tool names. Proven in headless `agy` runs only — README, Antigravity, holds the registration and what is not yet verified.
+- Antigravity support: `plugin.json` and `hooks.json` at the plugin root, read by `agy`. The same guards run before `run_command` and `call_mcp_tool`, and the norms are injected before the first model call of a conversation, with the app's `CLAUDE.md` and a `HOST` block mapping Claude Code's tool names. Proven on `agy` 1.2.16 — README, Antigravity, holds the registration and what is not yet verified.
 - `scripts/host.py`: hands every hook one payload shape on either host.
 - Hand-over block at session start: when the working tree is dirty and the other host ran the last session in the repo, the norms end with that session's last request, the user's answers, its todo list and its last messages, read from its transcript on the same machine.
 
