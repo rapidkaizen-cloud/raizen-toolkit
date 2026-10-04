@@ -123,7 +123,7 @@ Order: as ranked. A later finding that depends on an earlier one says so before 
 Four checks bind every commit:
 
 - **Anything touching build or run config gets one real run before the commit** — the build command, or the dev server reaching one page. A config swap that type-checks and does not boot is the failure mode this catches, and it is the only check this skill requires.
-- **A lint floor is proven before its commit, in `design-settle` Step 6's order** — the lint command over the whole app first, where every hit is either baselined or a pattern too wide to keep, then one planted violation per refusal seen refused, the scratch file deleted. A floor committed unrun is a C4 finding this skill wrote itself.
+- **A lint floor is proven before its commit, in the order `design-settle`'s `pass.md` gives under The lint floor** — the lint command over the whole app first, where every hit is either baselined or a pattern too wide to keep, then one planted violation per refusal seen refused, the scratch file deleted. A floor committed unrun is a C4 finding this skill wrote itself.
 - **Anything touching the database is under `db-ops` unchanged** — the destructive gate, the mandatory order, the role test. A rename is destructive; it does not become safe by being tidy.
 - **A finding that turns out to need a decision is dropped, not decided.** The stack, a business rule absent from `docs/rules.md`, a prohibition nobody stated: stop on that line, leave the working tree as it stands, report it, and carry on with the next finding.
 

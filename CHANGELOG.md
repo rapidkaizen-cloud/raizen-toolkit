@@ -2,6 +2,25 @@
 
 All notable changes to the `raizen-hub` and `raizen-norms` plugins, newest first. The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). Versions before these are in `git log`.
 
+## [raizen-hub 0.68.0] - 2026-10-04
+
+### Changed
+
+- `design-settle` is read one step at a time. `SKILL.md` keeps the switches, the hard limits, Fast or Full and Steps 0 to 2; each later step is a file read when the flow reaches it — `references/interview.md` (Steps 3 and 4), `frames.md` and `canvas.md` (Step 5), `ratify.md` and, where UI exists, `gate.md` (Step 6), `pass.md` (Step 7), `verify.md` (Steps 8 and 9). The audit is `references/audit.md`, read only by the subagent that runs it. Step numbers are unchanged.
+- `design-settle`, cost rules: a step's independent reads, searches and commands run in one turn; the audit, the stack verification, the reference search, the platform research and Step 8's mechanical checks run in a subagent on a cheaper model than the session's; what the session start printed is not re-read.
+- `design-settle`: `impeccable`, `frontend-design` and `review-animations` are loaded after the install gate, before the first frame, instead of before the reading.
+- `design-settle`, the stack where UI exists: a library, styling, icon pack or engine the audit does not indict is one cancellable `Keep` line, not a dialog. On every repo only a dialog's recommendation is verified before it is asked; another option is marked `unverified` and verified when picked.
+- `design-settle`: the `/design-system` route is written once, in the pass, instead of before the frames; the lint floor's rules moved with it to `pass.md`.
+- `design-settle`: every frame's `ui-ux-pro-max` searches run in one command; its commands are taken by searching its `SKILL.md`, not by reading it whole.
+
+Nothing to act on in an installed app.
+
+## [raizen-norms 0.36.1] - 2026-10-04
+
+### Changed
+
+- `build-flow`: the pointer to `design-settle`'s product draft names its new file.
+
 ## [raizen-norms 0.36.0] - 2026-10-04
 
 ### Changed

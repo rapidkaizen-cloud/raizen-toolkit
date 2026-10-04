@@ -9,9 +9,9 @@ Ask engine dialogs only when triggered; an app that trips none never hears about
 | Trigger | When the dialog is asked |
 |---|---|
 | **The user or the documents name the need** — "a trend chart", an import implying a dropzone | Among the stack dialogs — locked, installed at the install gate |
-| **The product draft needs it** — the canvas's full-product draft (`canvas.md`, The brief — the expansion duty) implies a job no installed engine covers | Among the stack dialogs — locked, installed at the install gate |
+| **The product draft needs it** — the full-product draft (`interview.md`, The product draft) implies a job no installed engine covers | Among the stack dialogs — locked, installed at the install gate |
 | **It emerges mid-drawing** | Draw the frame with the no-engine rendering, tagged as a proposal; the judgement settles it, and an approved adoption installs the engine and redraws that frame next round |
-| **The audit indicts an installed engine** (`design-settle` only) | Among the stack dialogs, priced like the library dialog — *keep* first and recommended unless the indictment stands |
+| **The audit indicts an installed engine** (`design-settle` only) | Among the stack dialogs, priced like the library dialog — *keep* among its options, never the recommendation |
 
 An **installed engine is already decided**; no dialog reopens it without an audit indictment. Swapping or dropping one is always an explicit dialog, never a side effect of approving pixels.
 
@@ -19,12 +19,13 @@ An **installed engine is already decided**; no dialog reopens it without an audi
 
 When a trigger fired before drawing, open one engine dialog per detected category, its trigger in the question (`Chart — the home page draws a revenue trend`), the no-engine option among its options (criterion 3). **Offer detected triggers only, never the full category list.** Choosing no engine keeps the current state, recorded as a decision; a category named through "Other" becomes a named-need trigger with its own dialog.
 
-## The verification duty — candidates assembled live
+## The verification duty — the subagent's brief
 
 1. **The model's own knowledge proposes** the engines a working frontend developer would name for this category today.
-2. **A verification pass checks every candidate before it is offered**: maintained, broadly adopted, no fresh supply-chain event, bundle weight, **and how it renders — DOM/SVG or canvas**. What it brings and leaves out is the option's one-sentence consequence. One pass covers all candidates.
+2. **A verification pass checks a candidate live** — the recommendation before the dialog, any other option when it is picked (`interview.md`): maintained, broadly adopted, no fresh supply-chain event, bundle weight, **and how it renders — DOM/SVG or canvas**. What it brings and leaves out is the option's one-sentence consequence.
+3. **It returns one line per candidate**: verdict · last release · bundle weight · how it renders · what it brings and leaves out · the sources.
 
-**Never show an option without verified backing**; every option states what verification found. Zero survive → say so and offer the no-engine rendering; never pad the list.
+The recommendation states what verification found; an option not yet verified says `unverified`. No candidate survives → say so and offer the no-engine rendering; never pad the list.
 
 ## Criteria, in order
 

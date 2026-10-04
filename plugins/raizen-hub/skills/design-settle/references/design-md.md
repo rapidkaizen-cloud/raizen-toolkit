@@ -27,7 +27,7 @@ Headings verbatim; prose in the user's language. **Tokens hold the values, prose
 | `## Components` | The **component-token table**, per component an archetype names — control height per size · input height · field padding · card padding and radius · table row height and vertical padding · header treatment · badge size and radius · modal radius · toast padding · focus ring — then the rules for reusable components, never a list of them. `build-flow` opens every page from this table and never reads the theme |
 | `## Do's and Don'ts` | Only prohibitions the user ratified; may be empty — no stock list exists |
 | `## Page Composition` | The shell, and the **archetype table**: per archetype its shell layout, components, density profile, empty wording, and the routes it owns — every route in exactly one archetype |
-| `## Contrast` | One row per pair `canvas.md`'s Ratification defines, per theme mode: foreground, background, the computed ratio, against 4.5:1 for text and 3:1 for non-text |
+| `## Contrast` | One row per pair `ratify.md`'s Contrast defines, per theme mode: foreground, background, the computed ratio, against 4.5:1 for text and 3:1 for non-text |
 
 The last two are the toolkit's extension sections. The format keeps an unknown section and does not check its order, so they sit after Do's and Don'ts. **Every heading appears once** — a duplicate heading makes the file invalid.
 

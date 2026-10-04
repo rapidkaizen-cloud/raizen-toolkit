@@ -95,7 +95,7 @@ Without item two, do not raise the status. A repo that looks protected while it 
 |---|---|---|
 | A screen exists | The story | `design-settle` applies and will write `DESIGN.md`, the Proof profile is written, questions 2–4 are asked. No screen → no design system and no Proof profile, questions 2, 3, and 4 are skipped |
 | Who reaches it — named roles · strangers with accounts · anonymous visitors | Roles | Named roles or strangers with accounts → RLS and an access matrix from day one; strangers also make `logic-build`'s trust-boundary validation non-optional. Anonymous visitors only → no RLS, Roles collapse to what a visitor must be able to do |
-| Register — judged on the first visit, or on the tenth use | Roles: how often a role comes back | The `frontend-design` branch in `canvas.md`, whether `impeccable`'s operational register loads, posture allowed or the signature alone. A product with both a public front and a logged-in inside carries both, per page group |
+| Register — judged on the first visit, or on the tenth use | Roles: how often a role comes back | The `frontend-design` branch in `design-settle`'s `frames.md`, whether `impeccable`'s operational register loads, posture allowed or the signature alone. A product with both a public front and a logged-in inside carries both, per page group |
 | Data behind the pages | The Data row | Fixture cases and contracts in `build-flow`; without data, a page is proven at the two widths with its real copy |
 
 The switches are not written into any document as fields — Context keeps its three rows. They are re-derived from Roles and the Data row whenever a skill needs them, and `design-settle`'s Step 0 block prints them so a wrong derivation is seen before it costs anything.

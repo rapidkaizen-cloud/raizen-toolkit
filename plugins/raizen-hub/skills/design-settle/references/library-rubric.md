@@ -19,12 +19,13 @@ Answer six yes or no; not mentioned in the documents means no.
 
 Charts needed → the verification pass also covers which chart types suit this data and stack.
 
-## The verification duty — candidates assembled live
+## The verification duty — the subagent's brief
 
 1. **The model's own knowledge proposes** the libraries a working developer would name for this platform today, including those the stack or a decision record's library family leans toward.
-2. **A verification pass checks every candidate before it is offered**: maintained, broadly adopted, no fresh supply-chain event, and **what it bundles and leaves out** against the scored needs — table with sorting and paging, charting, date picker, calendar, drag-and-drop, notifications, skeletons, icon pack. One pass covers all candidates; never recall from memory alone.
+2. **A verification pass checks a candidate live** — the recommendation before the dialog, any other option when it is picked (`interview.md`) — never from memory alone: maintained, broadly adopted, no fresh supply-chain event, and **what it bundles and leaves out** against the scored needs — table with sorting and paging, charting, date picker, calendar, drag-and-drop, notifications, skeletons, icon pack.
+3. **It returns one line per candidate**: verdict · last release · what it bundles · what it leaves out · the styling system it brings · how far the look bends · the icon pack it bundles · the sources.
 
-**Never show an option without verified backing**; every option states what verification found.
+The recommendation states what verification found; an option not yet verified says `unverified`.
 
 ## Rules for assembling the options
 
@@ -36,9 +37,9 @@ Charts needed → the verification pass also covers which chart types suit this 
 
 Every option's consequence names:
 
-- **What the library leaves out** — the researched missing-list.
-- **The styling system it brings** — utility CSS, a theme object, CSS-in-JS, or nothing. Nothing (*own components*, headless) → the styling dialog follows, where **Tailwind CSS is the recommendation on the web** and plain CSS always an alternative; off the web styling follows the platform. `app-settle` sets no styling default at bootstrap. Where a library's system differs from one already installed, **the collision is a decision line the user answers here** — keep the installed one and adapt the library, or replace it and say so.
-- **How far the look bends** — anatomy the app can reshape (headless, copied into the repo) or bounded by the theme's slots (theme object, fixed variants), verified per candidate. A theme-bounded library gives every direction frame the same control anatomy; say so before the choice.
+- **What the library leaves out.**
+- **The styling system it brings** — utility CSS, a theme object, CSS-in-JS, or nothing; nothing opens the styling dialog (`interview.md`). `app-settle` sets no styling default at bootstrap. Where a library's system differs from one already installed, **the collision is a decision line the user answers here** — keep the installed one and adapt the library, or replace it and say so.
+- **How far the look bends** — anatomy the app can reshape (headless, copied into the repo) or bounded by the theme's slots (theme object, fixed variants). A theme-bounded library gives every direction frame the same control anatomy; say so before the choice.
 - **The icon pack it bundles, or that it is headless** — the interview's icon dialog reads this.
 
 **Copy-in versus package.** A package installs faster but bends less. A copy-in library states three consequences:
@@ -46,5 +47,3 @@ Every option's consequence names:
 - Updates do not arrive on their own — the copied version is yours to maintain.
 - Copied components are **existing code** to `ui-build`, so a pattern appearing twice still triggers extraction.
 - Raw colour or spacing values in the copy are **findings to report**, not a pattern to imitate.
-
-Always accept answers outside the list: verify the named library the same way, use it, and say so if you do not know what it brings.

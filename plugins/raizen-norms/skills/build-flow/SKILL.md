@@ -199,7 +199,7 @@ Unchecking one of these means changing `docs/rules.md`. That is a separate decis
 
 Keeping by default is the whole point of the step. The old bias builds the minimum that passes; this one proposes the full page and lets the user cut it down. Thin pages are born of the first bias, and no later check recovers what was never proposed.
 
-Where the documents run out, optional candidates come first from the components of the page's archetype in `DESIGN.md`, then from live product-type research — what a mature product of this kind conventionally carries; the same floor `design-settle`'s canvas draft already assumed (`canvas.md`).
+Where the documents run out, optional candidates come first from the components of the page's archetype in `DESIGN.md`, then from live product-type research — what a mature product of this kind conventionally carries; the same floor `design-settle`'s product draft already assumed (its `interview.md`).
 
 **Both lists coming out short is an answer, not a problem.** Login screens and small settings pages are legitimately quiet, and padding them is worse than leaving them alone. The lists are derived, so a sparse page produces sparse lists by itself — no separate judgement about whether emptiness is acceptable, and none invented on the user's behalf.
 
