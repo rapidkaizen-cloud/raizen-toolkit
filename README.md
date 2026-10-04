@@ -63,6 +63,8 @@ Register once per machine: one entry in `~/.gemini/config/plugins.json`, naming 
 - Register it there, never in a repo's `.agents/plugins.json`: registered per folder, the plugins loaded a minute after an interactive conversation began, and that conversation ran unguarded.
 - Never run `agy plugin import` on these plugins: it replaces `hooks.json` with Claude Code's, which Antigravity cannot parse, and every guard goes silent.
 - `python3` must resolve: there a hook that cannot start blocks every command.
+- A headless run (`agy -p`) cannot be asked for permission, and a skill file sits outside the workspace: allow it in `~/.gemini/antigravity-cli/settings.json` with `{"permissions": {"allow": ["read_file(<that plugins path>)"]}}`, or the run stops at the first skill it reads.
+- `design-settle` needs there what it needs here: its Required companions installed for Antigravity, and a browser MCP server for every screenshot and browser check. Absent, it asks, as on Claude Code.
 - A machine without Claude Code clones this repo anywhere and names its `plugins` folder instead.
 
 What differs from Claude Code:
@@ -111,4 +113,4 @@ An app with a project-scoped `.mcp.json` shadows the user-scope Supabase server:
 - The `docs/` form has never been bootstrapped in a real app.
 - Whether a cloud session installs this marketplace; until then, cloud sessions do frontend work only.
 - The account-wide Supabase MCP endpoint end to end: its first-use login, and `project_id` as `guard_project_ref.py` expects.
-- On Antigravity: the four `raizen-hub` skills load and none has been run — their interviews, their subagents, `design-settle`'s browser steps; the IDE and Antigravity 2.0. Gemini CLI is not ported.
+- On Antigravity: the four `raizen-hub` skills were read by a session there and none has been run — their interviews, their subagents, `design-settle` with its companions and a browser MCP server installed; the IDE and Antigravity 2.0. Gemini CLI is not ported.

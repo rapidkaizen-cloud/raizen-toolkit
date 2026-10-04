@@ -2,6 +2,12 @@
 
 All notable changes to the `raizen-hub` and `raizen-norms` plugins, newest first. The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). Versions before these are in `git log`.
 
+## [raizen-norms 0.35.1] - 2026-10-04
+
+### Changed
+
+- Session norms, `HOST - Antigravity`: three lines an Antigravity session got wrong without them — the guards run there as hooks it cannot see, the installed plugins are the folders the skills are read from, and a `claude mcp add` line means the same server in `~/.gemini/config/mcp_config.json`.
+
 ## [raizen-norms 0.35.0] - 2026-10-04
 
 ### Added
