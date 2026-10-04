@@ -108,6 +108,25 @@ def demo() -> None:
     # BLOCK: the BOM repo still enforces its declaration
     assert run("mcp__supabase__execute_sql", {"project_id": OTHER, "query": "SELECT 1;"}, bom) == 2
 
+    # --- Antigravity: one `call_mcp_tool` for every server, the project in workspacePaths ---
+
+    def antigravity(server: str, tool: str, arguments: dict, workspace: str) -> int:
+        payload = json.dumps({
+            "toolCall": {"name": "call_mcp_tool", "args": {"ServerName": server, "ToolName": tool, "Arguments": arguments}},
+            "workspacePaths": [workspace],
+        })
+        return subprocess.run(
+            [PYTHON, str(GUARD)], input=payload, capture_output=True, text=True, cwd=GUARD.parent.parent
+        ).returncode
+
+    assert antigravity("supabase", "execute_sql", {"project_id": OURS, "query": "SELECT 1;"}, repo) == 0
+    assert antigravity("supabase", "list_projects", {}, repo) == 0
+    assert antigravity("vercel", "get_project", {"project_id": OTHER}, repo) == 0
+    assert antigravity("supabase", "execute_sql", {"project_id": OTHER, "query": "SELECT 1;"}, bare) == 0
+    assert antigravity("supabase", "execute_sql", {"project_id": OTHER, "query": "SELECT 1;"}, repo) == 2
+    # a server the user named otherwise is still pinned by the shape of the call
+    assert antigravity("db", "execute_sql", {"project_id": OTHER, "query": "SELECT 1;"}, repo) == 2
+
     print("ok")
 
 

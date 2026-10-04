@@ -25,10 +25,11 @@ data. Deleting the marker file turns the gate back on.
 
 Exit 0 = pass, exit 2 = block.
 """
-import json
 import os
 import re
 import sys
+
+import host
 
 GATE_OFF_MARKER = os.path.join(".claude", "destructive-gate.off")
 
@@ -66,11 +67,9 @@ CLAUDE_SCOPED = re.compile(r"(?:\bLIKE\b|=)\s*'\[CLAUDE\][^']*'", re.I)
 
 def read_sql() -> tuple[str, bool]:
     """The SQL-bearing text, and whether it arrived as a shell command."""
-    try:
-        payload = json.load(sys.stdin)
-    except Exception:
+    ti = host.read_payload().get("tool_input")
+    if not isinstance(ti, dict):
         return "", False
-    ti = payload.get("tool_input") or {}
     parts = [str(ti[k]) for k in SQL_KEYS if k in ti and ti[k]]
     return "\n".join(parts), "command" in ti
 
@@ -188,11 +187,13 @@ def block(op: str) -> None:
 
 
 def main() -> None:
-    # Hooks run with the project directory as cwd, so this scopes to one repo.
+    text, shell = read_sql()
+
+    # Reading the payload leaves the project directory as cwd on either host, so this
+    # scopes to one repo.
     if os.path.exists(GATE_OFF_MARKER):
         sys.exit(0)
 
-    text, shell = read_sql()
     sql = strip_comments(text)
     if not sql.strip():
         sys.exit(0)

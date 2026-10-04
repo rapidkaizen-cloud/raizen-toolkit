@@ -152,6 +152,30 @@ def demo() -> None:
         # no marker -> the same payload still blocks (fails closed)
         assert run("mcp__supabase__execute_sql", {"query": "DROP TABLE foo;"}, cwd=td) == 2
 
+    # --- Antigravity: the shapes 1.2.16 sends, the hook started outside the project ---
+
+    def antigravity(name: str, args: dict, workspace: str) -> int:
+        payload = json.dumps({"toolCall": {"name": name, "args": args}, "workspacePaths": [workspace]})
+        return subprocess.run(
+            [PYTHON, str(GUARD)], input=payload, capture_output=True, text=True, cwd=GUARD.parent.parent
+        ).returncode
+
+    def mcp(query: str) -> dict:
+        return {"ServerName": "supabase", "ToolName": "execute_sql", "Arguments": {"project_id": "x", "query": query}}
+
+    with tempfile.TemporaryDirectory() as td:
+        assert antigravity("call_mcp_tool", mcp("SELECT count(*) FROM orders;"), td) == 0
+        assert antigravity("call_mcp_tool", mcp(guarded), td) == 0
+        assert antigravity("run_command", {"CommandLine": "git commit -m 'delete from the queue'"}, td) == 0
+        assert antigravity("view_file", {"AbsolutePath": "DROP TABLE.md"}, td) == 0
+        assert antigravity("call_mcp_tool", mcp("DROP TABLE foo;"), td) == 2
+        assert antigravity("run_command", {"CommandLine": 'psql -c "drop table foo"'}, td) == 2
+
+        # the off switch is looked for in the workspace, not where the hook starts
+        (Path(td) / ".claude").mkdir()
+        (Path(td) / ".claude" / "destructive-gate.off").write_text("why, in free text\n")
+        assert antigravity("call_mcp_tool", mcp("DROP TABLE foo;"), td) == 0
+
     print("ok")
 
 

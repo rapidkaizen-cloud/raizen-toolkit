@@ -15,17 +15,20 @@ Held until the user answers:
   - git push, --force-with-lease included
   - gh pr create / gh pr merge
 
-A held command passes once the transcript shows the user picking `Run` on an
-AskUserQuestion whose question names the exact command in backticks, and no call of
-that command has run since - one answer, one run. The answer is read from the
-transcript rather than asked for with a permission prompt, because an SDK host never
-shows that prompt: "ask" there is a silent refusal that leaves the user typing the
-command by hand.
+A held command passes once the transcript shows the user picking `Run` on a question
+- AskUserQuestion on Claude Code, `ask_question` on Antigravity - that names the exact
+command in backticks, and no call of that command has run since - one answer, one run.
+The answer is read from the transcript rather than asked for with a permission prompt,
+because an SDK host never shows that prompt: "ask" there is a silent refusal that
+leaves the user typing the command by hand. Antigravity gets the same reading for a
+second reason: its hook `ask` is approved unasked under `--dangerously-skip-permissions`.
 """
 import json
 import re
 import subprocess
 import sys
+
+import host
 
 # Global options are allowed to sit between `git` and its subcommand: `git -c k=v push`,
 # `git -C dir commit`, `git --no-pager add`. Anchoring on `git push` alone reads only the
@@ -42,14 +45,6 @@ SHELLS = ("Bash", "PowerShell")
 # ponytail: `sh -c 'git push'` hides inside quotes too; parse the shell if agents start wrapping git.
 HEREDOC = re.compile(r"(<<-?\s*(['\"]?)(\w+)\2[^\n]*\n).*?^\s*\3\s*$", re.S | re.M)
 QUOTED = re.compile(r"'[^']*'|\"(?:[^\"\\]|\\.)*\"")
-
-
-def read_payload() -> dict:
-    try:
-        payload = json.load(sys.stdin)
-    except Exception:
-        return {}
-    return payload if isinstance(payload, dict) else {}
 
 
 def head_branch() -> str:
@@ -79,12 +74,57 @@ def entries(path: str):
         return
 
 
+# One `A<n>: <answer>` line per question in the result of Antigravity's `ask_question`.
+ANSWER = re.compile(r"^A(\d+):[ \t]*(.*?)[ \t]*$", re.M)
+
+
+def approved_antigravity(payload: dict, cmd: str) -> bool:
+    """`approved`, read from Antigravity's transcript: one step per line, a planner step
+    carrying `tool_calls` and the step after it carrying their result."""
+    # ponytail: the result is paired to its call by position, which holds while a planner
+    # step carries one call; a step asking and pushing at once is held, which is the safe side.
+    want = norm(cmd)
+    ticked = f"`{want}`"
+    granted = running = False
+    asked = []
+    for step in entries(payload.get("transcript_path") or ""):
+        if not isinstance(step, dict):
+            continue
+        calls = step.get("tool_calls")
+        if isinstance(calls, list):
+            asked, running = [], False
+            for call in calls:
+                if not isinstance(call, dict):
+                    continue
+                args = call.get("args") if isinstance(call.get("args"), dict) else {}
+                if call.get("name") == "ask_question":
+                    questions = args.get("questions")
+                    asked = [
+                        str(i + 1)
+                        for i, q in enumerate(questions if isinstance(questions, list) else [])
+                        if isinstance(q, dict) and ticked in norm(str(q.get("question") or ""))
+                    ]
+                elif call.get("name") == "run_command" and norm(str(args.get("CommandLine") or "")) == want:
+                    running = True
+            continue
+        if asked:
+            answers = dict(ANSWER.findall(str(step.get("content") or "")))
+            if any(answers.get(n) == APPROVE for n in asked):
+                granted = True
+            asked = []
+        elif running:
+            granted = running = False
+    return granted
+
+
 def approved(payload: dict, cmd: str) -> bool:
     """True when the last `Run` answer naming `cmd` has not been spent by a run of it.
 
     A call of the command counts as spent once its tool_result is in the transcript, so
     the call being checked right now - written, not yet answered - never spends it.
     """
+    if payload.get("host") == host.ANTIGRAVITY:
+        return approved_antigravity(payload, cmd)
     want = norm(cmd)
     ticked = f"`{want}`"
     granted = False
@@ -125,8 +165,9 @@ def block(msg: str) -> None:
 def hold(payload: dict, cmd: str, what: str) -> None:
     if approved(payload, cmd):
         sys.exit(0)
+    ask = host.ASK_TOOL.get(payload.get("host"), host.ASK_TOOL[host.CLAUDE])
     block(
-        f"HELD: {what} runs only on the user's answer. Ask with AskUserQuestion: name this "
+        f"HELD: {what} runs only on the user's answer. Ask with {ask}: name this "
         f"exact command in backticks in the question, list under it every commit it publishes "
         f"as `- ` bullets, short hash and subject, and offer two options labelled exactly "
         f"`{APPROVE}` and `Cancel`. On `{APPROVE}`, retry the same command unchanged - one answer covers "
@@ -136,7 +177,7 @@ def hold(payload: dict, cmd: str, what: str) -> None:
 
 
 def main() -> None:
-    payload = read_payload()
+    payload = host.read_payload()
     cmd = (payload.get("tool_input") or {}).get("command") or ""
     code = QUOTED.sub("''", HEREDOC.sub(r"\1", cmd))
     if not re.search(r"\b(git|gh)\b", code):

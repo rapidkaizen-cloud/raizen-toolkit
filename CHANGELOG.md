@@ -2,6 +2,30 @@
 
 All notable changes to the `raizen-hub` and `raizen-norms` plugins, newest first. The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). Versions before these are in `git log`.
 
+## [raizen-norms 0.35.0] - 2026-10-04
+
+### Added
+
+- Antigravity support: `plugin.json` and `hooks.json` at the plugin root, read by `agy`. The same guards run before `run_command` and `call_mcp_tool`, and the norms are injected before the first model call of a conversation, with the app's `CLAUDE.md` and a `HOST` block mapping Claude Code's tool names. Proven in headless `agy` runs only — README, Antigravity, holds the registration and what is not yet verified.
+- `scripts/host.py`: hands every hook one payload shape on either host.
+- Hand-over block at session start: when the working tree is dirty and the other host ran the last session in the repo, the norms end with that session's last request, the user's answers, its todo list and its last messages, read from its transcript on the same machine.
+
+### Changed
+
+- `guard_git`: on Antigravity a held command passes on `Run` answered to `ask_question`, and the held message names the host's own question tool.
+- `guard_project_ref`: a crash passes the call on every host.
+- Hook payloads are decoded as UTF-8 whatever the console codepage.
+
+## [raizen-hub 0.67.0] - 2026-10-04
+
+### Added
+
+- Antigravity support: `plugin.json` at the plugin root, so `agy` loads the four skills.
+
+### Changed
+
+- `app-settle`, the shape of `AGENTS.md`: Antigravity loads that file and is handed the norms too; the norms' `HOST` block says which holds.
+
 ## [raizen-norms 0.34.0] - 2026-10-02
 
 ### Changed

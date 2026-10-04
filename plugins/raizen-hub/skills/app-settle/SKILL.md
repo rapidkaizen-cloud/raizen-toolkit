@@ -181,7 +181,7 @@ Six parts, nothing else. A rule that would hold in another app belongs in the pl
 
 **Written for the agents that never see the plugin.** Claude Code reads `CLAUDE.md`, is handed the norms and the living documents by `raizen-norms` at every session start, and never loads this file. Codex, Cursor, Copilot, and whatever comes next read `AGENTS.md` and nothing else here — no norms, no injected documents, no guard behind any command. Left with nothing, such an agent builds from its own defaults, and the design system goes first: it cannot know a shared set exists, so it writes a second one.
 
-That separation is also what lets this file restate a norm, which `CLAUDE.md` must never do. A restatement here cannot contradict the plugin inside one context, because no agent holds both. It can still go stale, so the file stays short and points at the repo — the documents, the shared set, the lint command — rather than paraphrasing a skill.
+That separation is also what lets this file restate a norm, which `CLAUDE.md` must never do. A restatement here cannot contradict the plugin inside one context, because no agent holds both — except Antigravity, which loads this file and, where `raizen-norms` is installed, is handed the norms too; their `HOST` block says the norms hold. It can still go stale, so the file stays short and points at the repo — the documents, the shared set, the lint command — rather than paraphrasing a skill.
 
 English prose, five parts, nothing else:
 

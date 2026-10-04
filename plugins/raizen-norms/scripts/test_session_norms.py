@@ -251,5 +251,52 @@ def forms() -> None:
         assert "queue.md is missing" not in out
 
 
+def antigravity() -> None:
+    """Antigravity runs the script before every model call, from the folder holding
+    hooks.json: it must hand the norms over once per conversation and stay silent after."""
+
+    def call(root: Path, invocation: int, transcript: str = "") -> str:
+        payload = {"invocationNum": invocation, "workspacePaths": [str(root)], "transcriptPath": transcript}
+        result = subprocess.run(
+            [PYTHON, str(SCRIPT)], input=json.dumps(payload), capture_output=True,
+            text=True, encoding="utf-8", cwd=SCRIPT.parent.parent,
+        )
+        assert result.returncode == 0, result.stderr
+        return result.stdout
+
+    with tempfile.TemporaryDirectory() as tmp:
+        root = Path(tmp) / "app"
+        write(root, "docs/PRD.md", "# PRD - Frozen\n")
+        write(root, "docs/README.md", "# Index\n")
+        write(root, "docs/product.md", "# Product\n")
+        write(root, "CLAUDE.md", "# App\n## Locale\nOn screen: Indonesian\n")
+
+        # quiet: every model call after the first of a turn
+        assert call(root, 3) == ""
+
+        # quiet: a later turn of a conversation that was already handed the norms
+        seen = Path(tmp) / "seen.jsonl"
+        seen.write_text(json.dumps({"type": "USER_INPUT", "content": "SESSION NORMS (raizen-norms)\n..."}) + "\n", encoding="utf-8")
+        assert call(root, 0, str(seen)) == ""
+
+        # the first call: one injected user-role step, and nothing else on stdout
+        fresh = Path(tmp) / "fresh.jsonl"
+        fresh.write_text(json.dumps({"type": "USER_INPUT", "content": "build the page"}) + "\n", encoding="utf-8")
+        steps = json.loads(call(root, 0, str(fresh)))["injectSteps"]
+        assert len(steps) == 1 and list(steps[0]) == ["userMessage"]
+        text = steps[0]["userMessage"]
+        assert text.startswith("SESSION NORMS") and "# Product" in text
+        assert "HOST - Antigravity" in text and "`ask_question`" in text
+        # this host does not load CLAUDE.md, so the app's own facts are handed over too
+        assert "On screen: Indonesian" in text
+
+        # Claude Code is told nothing about another host, and loads CLAUDE.md itself
+        out = run(root)
+        assert "HOST - Antigravity" not in out and "On screen: Indonesian" not in out
+
+    print("ok antigravity")
+
+
 if __name__ == "__main__":
     demo()
+    antigravity()

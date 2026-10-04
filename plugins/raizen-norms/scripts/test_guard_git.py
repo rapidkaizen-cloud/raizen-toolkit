@@ -146,5 +146,103 @@ def demo() -> None:
     print("ok")
 
 
+def run_antigravity(command: str, transcript: str = "", workspace: str = "") -> tuple:
+    """The payload Antigravity 1.2.16 sends before `run_command`, with the hook started
+    where Antigravity starts it: the folder holding hooks.json, not the project."""
+    payload = {
+        "toolCall": {"name": "run_command", "args": {"CommandLine": command, "Cwd": workspace}},
+        "workspacePaths": [workspace or str(Path.cwd())],
+        "transcriptPath": transcript,
+    }
+    result = subprocess.run(
+        [PYTHON, str(GUARD)], input=json.dumps(payload), capture_output=True, text=True, cwd=GUARD.parent.parent
+    )
+    word = result.stderr.split(":", 1)[0] if result.stderr else ""
+    return result.returncode, word, result.stderr
+
+
+def planned(name: str, args: dict) -> dict:
+    return {"type": "PLANNER_RESPONSE", "tool_calls": [{"name": name, "args": args}]}
+
+
+def question(*texts) -> dict:
+    return planned("ask_question", {"questions": [{"question": t, "options": ["Run", "Cancel"]} for t in texts]})
+
+
+def result(content: str = "The command exited with code 0.") -> dict:
+    return {"type": "GENERIC", "content": f"Created At: 2026-10-04T20:42:25+07:00\n{content}"}
+
+
+def antigravity() -> None:
+    def outcome(command: str, transcript: str = "", workspace: str = "") -> tuple:
+        return run_antigravity(command, transcript, workspace)[:2]
+
+    refused, held, passed = (2, "REFUSED"), (2, "HELD"), (0, "")
+
+    # passes first: what a session does all day must not be slowed down
+    assert outcome("git status --porcelain") == passed
+    assert outcome("git add src/app/orders/page.tsx") == passed
+    assert outcome("git commit -m 'add page' -- src/app/orders/page.tsx") == passed
+    assert outcome("npm run dev") == passed
+
+    assert outcome("git add -A") == refused
+    assert outcome("git push --force origin dev") == refused
+
+    push = "git push origin development"
+    code, word, message = run_antigravity(push)
+    assert (code, word) == held
+    # the held message names this host's question tool, not Claude Code's
+    assert "ask_question" in message and "AskUserQuestion" not in message
+
+    with tempfile.TemporaryDirectory() as tmp:
+        def transcript(*steps) -> str:
+            path = Path(tmp) / f"t{len(list(Path(tmp).iterdir()))}.jsonl"
+            path.write_text("\n".join(json.dumps(x) for x in steps) + "\nnot json\n", encoding="utf-8")
+            return str(path)
+
+        ask = question(f"Run `{push}`?\n- 4cc1af0 feat: push waits for `Run`")
+        yes = [ask, result("A1: Run")]
+
+        assert outcome(push, transcript(*yes)) == passed
+        assert outcome("git push origin main", transcript(*yes)) == held
+
+        # the call being checked is already written, not yet answered: not spent
+        mine = planned("run_command", {"CommandLine": push})
+        assert outcome(push, transcript(*yes, mine)) == passed
+
+        # spent by a run; a new answer grants one more
+        assert outcome(push, transcript(*yes, mine, result())) == held
+        assert outcome(push, transcript(*yes, mine, result(), *yes)) == passed
+
+        # a held attempt before the answer spends nothing
+        assert outcome(push, transcript(mine, result("HELD: a push"), *yes, mine)) == passed
+
+        # the second of two questions answers for itself
+        two = question("Deploy too?", f"Run `{push}`?")
+        assert outcome(push, transcript(two, result("A1: Cancel\nA2: Run"))) == passed
+        assert outcome(push, transcript(two, result("A1: Run\nA2: Cancel"))) == held
+
+        # no answer, another answer, or a question that does not name the command
+        assert outcome(push, transcript(ask, result("A1: User Skipped"))) == held
+        assert outcome(push, transcript(ask, result("A1: Cancel"))) == held
+        assert outcome(push, transcript(ask, result("A1: Run it"))) == held
+        assert outcome(push, transcript(question("Push to development?"), result("A1: Run"))) == held
+        assert outcome(push, transcript(ask)) == held
+
+        # the branch is read in the workspace, not in the folder the hook starts in
+        repo = Path(tmp) / "repo"
+        repo.mkdir()
+        subprocess.run(["git", "init", "-q", "-b", "main", str(repo)], check=True)
+        subprocess.run(
+            ["git", "-C", str(repo), "-c", "user.name=t", "-c", "user.email=t@t.dev",
+             "commit", "-q", "--allow-empty", "-m", "init"],
+            check=True,
+        )
+        assert outcome("git commit -m 'add page' -- a.txt", workspace=str(repo)) == refused
+
+    print("ok antigravity")
+
+
 if __name__ == "__main__":
     demo()
+    antigravity()

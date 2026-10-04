@@ -30,10 +30,11 @@ no hook):
 The guard fails OPEN by design: a crash or unreadable input must never turn
 into a block-everything hook. Exit 0 = pass, exit 2 = block.
 """
-import json
 import os
 import re
 import sys
+
+import host
 
 REF_KEYS = ("project_id", "project_ref")
 
@@ -64,12 +65,7 @@ def declared_ref(config_path: str) -> str:
 
 
 def main() -> None:
-    try:
-        payload = json.load(sys.stdin)
-    except Exception:
-        sys.exit(0)
-    if not isinstance(payload, dict):
-        sys.exit(0)
+    payload = host.read_payload()
 
     ti = payload.get("tool_input")
     if not isinstance(ti, dict):
@@ -114,4 +110,9 @@ def main() -> None:
 
 
 if __name__ == "__main__":
-    main()
+    try:
+        main()
+    except Exception:
+        # Failing open has to be said out loud here: Antigravity blocks the call on any
+        # non-zero exit, a crash included.
+        sys.exit(0)

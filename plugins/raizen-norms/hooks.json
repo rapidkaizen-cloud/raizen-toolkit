@@ -1,0 +1,23 @@
+{
+  "raizen-norms": {
+    "PreInvocation": [
+      { "type": "command", "command": "python3 scripts/session_norms.py" }
+    ],
+    "PreToolUse": [
+      {
+        "matcher": "run_command",
+        "hooks": [
+          { "type": "command", "command": "python3 scripts/guard_git.py" },
+          { "type": "command", "command": "python3 scripts/guard_destructive.py" }
+        ]
+      },
+      {
+        "matcher": "call_mcp_tool",
+        "hooks": [
+          { "type": "command", "command": "python3 scripts/guard_project_ref.py" },
+          { "type": "command", "command": "python3 scripts/guard_destructive.py" }
+        ]
+      }
+    ]
+  }
+}

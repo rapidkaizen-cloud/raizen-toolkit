@@ -1,7 +1,9 @@
 #!/usr/bin/env python3
 """Print the session norms, then the files a session must not start without.
 
-SessionStart hook: stdout is added to the session context.
+SessionStart hook on Claude Code: stdout is added to the session context. Antigravity
+has no such event, so the same script runs as its PreInvocation hook - before every
+model call - and hands the same text over once per conversation, as an injected step.
 
 Everything printed here holds in every app repo, so it lives in the plugin rather
 than in an app's CLAUDE.md — changing it then reaches every app through a plugin
@@ -24,11 +26,16 @@ writes it a second time. It is printed here rather than from a PreToolUse hook o
 Write because that hook's additionalContext lands beside the tool result: after the
 file is already written.
 """
+import contextlib
+import io
 import json
 import os
 import re
 import sys
 from pathlib import Path
+
+import handoff
+import host
 
 NORMS = """\
 SESSION NORMS (raizen-norms)
@@ -213,12 +220,32 @@ STALE = [
 PRD_LINES_WARN = 400
 
 
-def repo_root() -> Path:
+# The norms and the skills are written in Claude Code's vocabulary. A session on another
+# host gets this block after them, and it is the only place the two are mapped.
+HOST_ANTIGRAVITY = """\
+
+HOST - Antigravity
+The norms above and every skill name Claude Code's tools. Use this host's own:
+  AskUserQuestion            : `ask_question`
+  the Bash, PowerShell tools : `run_command`
+  a subagent, the Agent tool : `invoke_subagent`
+  an `mcp__server__tool`     : `call_mcp_tool` with that server and tool
+Write the todo list `build-flow` requires in chat, since this host has no tool for one.
+`CLAUDE.md` is printed below, because this host does not load it.
+This host loads `AGENTS.md`, which was written for a session without these norms -
+where the two disagree, these norms hold.
+"""
+
+MARK = NORMS.splitlines()[0]
+
+
+def printed(transcript: str) -> bool:
+    """True when this conversation was already handed the norms."""
     try:
-        payload = json.load(sys.stdin)
-    except Exception:
-        payload = {}
-    return Path(payload.get("cwd") or ".")
+        with open(transcript, encoding="utf-8", errors="replace") as f:
+            return any(MARK in line for line in f)
+    except OSError:
+        return False
 
 
 def read(path: Path) -> str:
@@ -448,21 +475,15 @@ def stale_note(root: Path) -> None:
     )
 
 
-def main() -> None:
-    # On Windows stdout defaults to the ANSI codepage, which mangles anything the PRD
-    # writes outside it — an em dash, a currency symbol, Indonesian quotation marks.
-    try:
-        sys.stdout.reconfigure(encoding="utf-8", errors="replace")
-    except Exception:
-        pass
-
-    root = repo_root()
+def emit(root: Path, payload: dict) -> None:
+    on_antigravity = payload.get("host") == host.ANTIGRAVITY
+    tail = HOST_ANTIGRAVITY if on_antigravity else ""
     if (root / "PRD.md").is_file():
-        sys.stdout.write(NORMS)
+        sys.stdout.write(NORMS + tail)
         inject(root, "PRD.md", "intent and prohibitions")
         inject(root, "QUEUE.md", "what is not built yet")
     elif (root / "docs" / "PRD.md").is_file():
-        sys.stdout.write(docs_norms())
+        sys.stdout.write(docs_norms() + tail)
         for rel, what in LIVING:
             inject(root, rel, what)
         for rel in ("docs/README.md", "docs/product.md"):
@@ -475,11 +496,40 @@ def main() -> None:
         # No PRD in either form: an empty directory, an app not documented yet, or a repo
         # that is not an app. The docs block is the form app-settle will write; a root
         # QUEUE.md is still the only queue such a repo has.
-        sys.stdout.write(docs_norms())
+        sys.stdout.write(docs_norms() + tail)
         inject(root, "QUEUE.md", "what is not built yet")
+    if on_antigravity:
+        inject(root, "CLAUDE.md", "what is true of this app alone")
     stale_note(root)
     inventory(root)
     data_layer(root)
+    sys.stdout.write(handoff.note(root, payload.get("host") or host.CLAUDE, payload.get("transcript_path") or ""))
+
+
+def main() -> None:
+    # On Windows stdout defaults to the ANSI codepage, which mangles anything the PRD
+    # writes outside it — an em dash, a currency symbol, Indonesian quotation marks.
+    try:
+        sys.stdout.reconfigure(encoding="utf-8", errors="replace")
+    except Exception:
+        pass
+
+    payload = host.read_payload()
+    root = Path(payload.get("cwd") or ".")
+    if payload.get("host") != host.ANTIGRAVITY:
+        emit(root, payload)
+        sys.exit(0)
+
+    # PreInvocation fires before every model call. The norms go in before the first call
+    # of a conversation that has not been handed them: the first call of a turn is the
+    # only one that checks, and the transcript is what remembers across turns.
+    if payload.get("invocationNum") or printed(payload.get("transcript_path") or ""):
+        sys.exit(0)
+    text = io.StringIO()
+    with contextlib.redirect_stdout(text):
+        emit(root, payload)
+    # A user-role step stays in the conversation; an `ephemeralMessage` is gone after one call.
+    json.dump({"injectSteps": [{"userMessage": text.getvalue()}]}, sys.stdout)
     sys.exit(0)
 
 

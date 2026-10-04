@@ -1,0 +1,4 @@
+{
+  "name": "raizen-norms",
+  "description": "Session norms for app repos: git and destructive-operation guards, plus document, UI, database, application-logic, and build-order rules."
+}
