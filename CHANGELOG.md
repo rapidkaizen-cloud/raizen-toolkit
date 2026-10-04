@@ -2,6 +2,22 @@
 
 All notable changes to the `raizen-hub` and `raizen-norms` plugins, newest first. The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). Versions before these are in `git log`.
 
+## [raizen-hub 0.69.0] - 2026-10-04
+
+### Changed
+
+- `app-settle`, `logic-settle` and `app-align` are read one step at a time, as `design-settle` is since 0.68.0: `SKILL.md` keeps the cost rules, the hard limits and the first steps, and names per later step the file to read on arrival. Step and question numbers and the finding codes C1 to C7 are unchanged. Every `description` is shorter.
+- `app-settle`: `SKILL.md` is a quarter of its size. Document mode is `references/document.md`, rework `references/rework.md`, N5 and N6 `references/scaffold.md`, the Pioneer path `references/pioneer.md`. The repo read of D1 and R1 runs in a subagent briefed with `references/repo-read.md`.
+- `logic-settle`: Steps 3 to 8 are `references/interview.md`, `install.md`, `pass.md` and `floor.md`; each need of the rubric is its own `references/need-*.md`, read only when that need is asked. The audit runs in a subagent briefed with `references/audit.md`.
+- `app-align`: the audit runs in a subagent briefed with `references/audit.md`.
+- All three: a subagent doing an audit or a live verification runs on a cheaper model than the session's. Only a question's recommendation is verified before it is asked; another option is marked `unverified` and verified when picked.
+
+### Removed
+
+- `app-settle`, N6: the sentence that the toolkit writes no hosting or CI file at bootstrap, which the N5 table contradicted. The table stands; the session still never raises hosting, production env or CI.
+
+Nothing to act on in an installed app.
+
 ## [raizen-norms 0.37.0] - 2026-10-04
 
 ### Changed

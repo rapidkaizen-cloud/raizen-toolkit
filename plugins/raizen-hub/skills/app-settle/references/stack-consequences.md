@@ -1,43 +1,31 @@
 # Consequences per choice
 
-Research already paid for. Bring these up when the related choice is made — do not wait to be asked.
+Say each one when its choice is made — do not wait to be asked.
 
 ## Cloudflare Workers + Vite
 
-Vite freezes `VITE_*` variables at **build** time, not at runtime. Cloudflare Workers Builds does not yet separate production and preview branch configuration natively, so a preview pointing at the staging database needs Wrangler Environments plus a separate build command.
-
-If per-PR previews are not needed, this consequence disappears and Cloudflare becomes an equal choice.
+Vite freezes `VITE_*` variables at **build** time, not at runtime, and Cloudflare Workers Builds does not yet separate production and preview branch configuration natively: a preview pointing at the staging database needs Wrangler Environments plus a separate build command. Per-PR previews not needed → this consequence disappears and Cloudflare is an equal choice.
 
 ## Vercel Hobby
 
-Hobby forbids commercial use. This is a licensing restriction, not a technical limit, and the definition of "commercial" in their fair use guidelines is broad — an app that runs business operations falls under it. Cloudflare has no equivalent clause.
-
-The tightest limit on Hobby: build minutes per month. Per-PR previews consume them too. Exceeded → the project is paused, not billed.
-
-**Say this when the user picks Vercel; do not save it for later.** It decides cost, not code shape.
+**Say this when the user picks Vercel** — it decides cost, not code shape. Hobby forbids commercial use: a licensing restriction, not a technical limit, and their fair use guidelines define "commercial" broadly — an app that runs business operations falls under it. Cloudflare has no equivalent clause. The tightest Hobby limit is build minutes per month, which per-PR previews consume too; exceeded → the project is paused, not billed.
 
 ## Supabase free tier
 
-No backups. For an app whose data is operational, this is the main reason to move to a paid plan — not capacity.
-
-A project untouched for seven days is auto-paused. If migrations run regularly through CI, that activity alone prevents it.
+No backups — for an app whose data is operational, the main reason to move to a paid plan, not capacity. A project untouched for seven days is auto-paused; migrations running regularly through CI prevent it.
 
 ## Staging as a second cloud project
 
-Preview deployments run on the hosting provider's servers, so they cannot reach a database on `localhost`. A local database stays useful for development on your own machine, but it cannot be a preview target.
+Preview deployments run on the hosting provider's servers, so they cannot reach a database on `localhost`: a local database serves development on your own machine, never a preview target.
 
 ## Migrations through GitHub Actions
 
-Schema gets versioned in git, and staging stays in sync with `main` without a manual step.
-
-The consequence that changes other rules: **schema gets git, data does not.** A `DROP COLUMN` can be undone with a new migration; a deleted row cannot. The destructive gate still applies in full to `DELETE`, `TRUNCATE`, and `UPDATE` without a narrow `WHERE`.
+Schema gets versioned in git, and staging stays in sync with `main` without a manual step. **Schema gets git, data does not**: a `DROP COLUMN` can be undone with a new migration, a deleted row cannot. The destructive gate still applies in full to `DELETE`, `TRUNCATE`, and `UPDATE` without a narrow `WHERE`.
 
 ## Static SPA on any host
 
-Needs every path rewritten to `index.html`, otherwise refreshing on a nested route returns a 404. Nothing here scaffolds it — the session writes it for the host chosen at question 4: a `rewrites` entry in `vercel.json`, a `redirects` line in `netlify.toml`, or one `try_files $uri /index.html;` on an own server.
+Every path must be rewritten to `index.html`, otherwise refreshing on a nested route returns a 404. The session writes it for the host chosen at question 4: a `rewrites` entry in `vercel.json`, a `redirects` line in `netlify.toml`, or one `try_files $uri /index.html;` on an own server.
 
 ## Tauri or Electron as the desktop shell
 
-Tauri renders through the webview the OS already ships — WebView2 (Chromium) on Windows, WKWebView on macOS, WebKitGTK on Linux — so a canvas proven in Chrome is proven for Windows alone; fonts, form controls, and newer CSS can land differently on macOS and Linux, and each needs its own capture in the Proof profile before the app is called proven there. Electron bundles its own Chromium: identical rendering on every OS, at the cost of a far larger binary.
-
-**Say this when the shell is chosen.** It decides which OS the design proof covers, not the design itself. Neither is Ready: the first repo that ships on one is what writes its distribution path into the rubric.
+**Say this when the shell is chosen** — it decides which OS the design proof covers, not the design itself. Tauri renders through the webview the OS already ships — WebView2 (Chromium) on Windows, WKWebView on macOS, WebKitGTK on Linux — so a canvas proven in Chrome is proven for Windows alone; fonts, form controls, and newer CSS can land differently on macOS and Linux, and each needs its own capture in the Proof profile before the app is called proven there. Electron bundles its own Chromium: identical rendering on every OS, at the cost of a far larger binary. Neither is Ready: the first repo that ships on one writes its distribution path into the rubric.

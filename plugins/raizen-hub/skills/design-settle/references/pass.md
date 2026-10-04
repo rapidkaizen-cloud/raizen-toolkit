@@ -70,8 +70,8 @@ Write **the four refusals `ui-build` names under its lint floor into the stack's
 - JS/TS web: ESLint's `no-restricted-syntax` and `no-restricted-imports`; other stacks: the analyzer's equivalent **verified live at write time**, an inexpressible refusal reported as `not enforceable on <stack>`. No linter → Step 4 installed one; in fix-the-drift, one install line approved in chat.
 - **Proven on what must pass before what must fail.** Lint the promoted app first; a hit on a freshly written page is a raw value to fix or a pattern too wide (`grid-cols-[1fr_auto]`, a `calc()` is not a raw value). Then plant one violation per refusal in a scratch page, see each refused, delete it.
 - **Files the pass did not rewrite are baselined, never excused** — in the linter's own suppression baseline, verified live. Never lower a rule to a warning. Report the baseline's size at the close; it only shrinks.
-- **One floor, one command**: these four join `logic-settle` Step 7's config where it exists, or found it. The detector stays alongside.
+- **One floor, one command**: these four join `logic-settle` Step 7's config (`references/floor.md`) where it exists, or found it. The detector stays alongside.
 
-**Write `AGENTS.md`'s `## UI` part in the same act**, to `app-settle` N5's shape: the shared-set file and folder, the library, the styling file, `/design-system`, the lint command (no file → write it whole). A path that does not resolve is a failed item.
+**Write `AGENTS.md`'s `## UI` part in the same act**, to the shape in `app-settle`'s `references/scaffold.md` (N5): the shared-set file and folder, the library, the styling file, `/design-system`, the lint command (no file → write it whole). A path that does not resolve is a failed item.
 
 Promoted → `verify.md`.

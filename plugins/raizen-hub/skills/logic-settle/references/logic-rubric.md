@@ -1,141 +1,41 @@
-# Logic rubric — categories, criteria, and the research duty
+# Logic rubric — the research duty, the admission rule, the ladder
 
-Used in Step 3 of `logic-settle`. There is no database for this layer. **This file names no candidates.** It holds the questions, the criteria a candidate must meet, and the rules for recommending; the candidates themselves are assembled live, per the research duty below. A product name written here would only go stale and then anchor the interview to its staleness.
+Used at Step 3 of `logic-settle`, beside one need file per need asked. There is no database for this layer. **This file and the need files name no candidates** — they hold the questions, the criteria a candidate must meet, and the rules for recommending; a product name written here goes stale and then anchors the interview to its staleness.
 
 ## Assembling candidates — the research duty
 
-Candidates are assembled at decision time, per scored need:
+Per scored need, at decision time:
 
 1. **The model's own knowledge proposes** — the libraries a working developer would name for this category today.
-2. **Web research verifies every candidate before it may be offered.** Per candidate: adoption still broad, maintenance still alive, no fresh supply-chain event or advisory, and what it brings versus what it leaves out — that last pair becomes the option's one-sentence consequence. One research pass may cover all candidates of the interview; what is mandatory is the coverage per option, never one search per option.
+2. **A verification pass checks a candidate live before it counts as verified**, in one subagent (`SKILL.md`, What a run costs) briefed with this file, the need files asked, and the candidates. Per candidate: adoption still broad, maintenance still alive, no fresh supply-chain event or advisory, and what it brings versus what it leaves out — that last pair becomes the option's one-sentence consequence. One pass covers every candidate handed to it, never one search per option.
+3. **It returns one line per candidate**: the verdict on each admission point · any supply-chain event or advisory · what it brings · what it leaves out.
 
-**An option without researched backing is not shown.** Zero candidates surviving verification → say so plainly and offer handwritten; never pad the list, and never present memory alone as if verified.
+**Verify the recommendation of every question before it is asked.** Offer every other option from model knowledge, marked `unverified` in its description, and verify it only when it is picked — one pass for everything picked. A pick that fails verification re-opens that question once, naming what failed.
+
+**Never present memory as verified, and never pad the list.** A recommendation that fails is replaced, and its replacement verified; zero candidates surviving → say so plainly and offer handwritten.
 
 ## Admission rule
 
-A candidate earns a place in the options only with all three:
+A candidate earns a place in the options only with all three — this is what keeps this week's trending library out:
 
 1. **Broad adoption** — widely used in production by many teams, not a one-maintainer experiment.
 2. **Actively maintained** — recent releases, security response, no abandonment signal.
 3. **Proven at scale** — known to hold up as the app grows, not just in a demo.
 
-This rule is what keeps the research pass from seating this week's trending library. The user naming a candidate that fails it still gets it — with the failure stated as its consequence.
+A candidate the user names that fails it is still used — with the failure stated as its consequence.
 
 ## The platform ladder
 
-Before any candidate is offered, answer in order — stop at the first rung that holds:
+Before any candidate is offered, answer in order and stop at the first rung that holds:
 
 1. Does the platform already provide it? (native `fetch`, `Intl`, Temporal, a DB extension)
 2. Does an already-installed dependency provide it?
 3. Only then: researched candidates.
 
-This ladder is why the "none" option appears in every question, and why it is the recommendation — and therefore listed first — whenever the ladder stops before the library rung. A library must beat the platform, not merely equal it; when one does, that library is the recommendation and takes the first slot, with "none" still in the list.
+**"None" is an option in every question.** It is the recommendation, and therefore listed first, whenever the ladder stops before the library rung. A library must beat the platform, not merely equal it; one that does is the recommendation and takes the first slot, "none" still in the list.
 
-A candidate that belongs to a library family names that family in its consequence — the family is part of what is being chosen, because an installed member shifts later recommendations (`design-settle` reads the decision records). The ecosystem question is never asked on its own; it is decided inside the need's question, in the open.
+**A candidate that belongs to a library family names that family in its consequence**, because an installed member shifts later recommendations (`design-settle` reads the decision records). Never ask the ecosystem question on its own: decide it inside the need's question, in the open.
 
----
+## Maintaining the rubric
 
-## L1 — Server-state cache
-
-*Asked when the Roles have a role that reads, searches, or filters records.*
-
-**Candidates are measured on:** cross-screen invalidation, optimistic-update support, the discipline the cache imposes (a root provider, a cache-key convention every screen follows), and whether a library family rides along — a family is a consequence to name, in both directions.
-
-**Recommendation rule:** handwritten (effect + state) below roughly three list screens — zero dependencies, at the price of every screen re-implementing loading, error, and cancellation, with manual invalidation; the researched de-facto standard at or above three. A realtime mention in the story adds one note, not one candidate: the chosen cache's invalidation is the natural place to hang a realtime subscription.
-
-## L2 — Validation at the trust boundary
-
-*Asked when a server surface exists. `logic-build` §4 already mandates the parsing itself — this question only decides the tool.*
-
-**Candidates are measured on:** first-class type inference, shipped bundle size, and runtime fit — a validator that is comfortable on Node may be heavyweight for Edge or for shipping to the client.
-
-**Recommendation rule:** the runtime decides — Node → the ecosystem standard; Edge, or a validator that ships to the client where bytes count → the smallest shipped size that holds the admission rule. Prefer candidates implementing Standard Schema, so the choice does not lock the surrounding tools — say so in the consequence. Handwritten parsing fits one handler with one or two fields, and its consequence is that the checks drift from the types as fields accrete.
-
-## L3 — Dates and timezones
-
-*Asked when `docs/rules.md` holds timing or deadline rules.*
-
-**Candidates are measured on:** what they cover beyond `Intl` and Temporal, tree-shakeability and footprint, and how visibly the platform is in the process of absorbing them — a date library is a dependency the web is actively replacing, and that is a consequence to state.
-
-**Recommendation rule:** platform first, always — `Intl` for formatting and day boundaries, Temporal where shipped (it still needs feature detection, and its polyfill is heavy). A library enters only when a concrete rule exceeds what the platform covers — name that rule when recommending. Whatever is chosen, the date helpers live in one extracted module (`logic-build` §7: the second occurrence extracts), so a later move to Temporal touches one file.
-
-## L4 — Error reporting destination
-
-*Asked when a server surface exists **and** `docs/product.md` reads operational rather than experiment. `logic-build` §5 already mandates that the log gets the detail — this question decides where the log goes.*
-
-**The options are destination categories, researched into named services at decision time:**
-
-| Category | Fits when | Consequence shape |
-|---|---|---|
-| **Host's built-in logs** | Experiment stage, or failures are noticed by users faster than by dashboards | Nothing to install; logs expire with the host's retention and are hard to search |
-| An error-triage service | Someone must be told when production breaks, with stack traces grouped | One more service and one more credential to manage — research which service currently owns this category |
-| A structured log drain | The need is searchable history rather than alerting | Queryable logs; alerting still has to be built on top |
-
-**Recommendation rule:** host logs until the app is operational and someone is on the hook for its failures; then the researched triage service. The reason in the decision record must name **who reads the errors** — a destination nobody reads is the host log with extra cost.
-
-## L5 — Where scheduled work runs
-
-*Asked when a rule names a recurring run. The question is placement, not package — every option is a platform rung, and nothing here is researched as a product.*
-
-| Option | Fits when | Consequence |
-|---|---|---|
-| **Not yet** | The recurring rule can start as a manual action | Nothing to operate; the schedule lives in someone's calendar until automated |
-| pg_cron (in the database) | The work is a query — cleanup, aggregation, expiry | No new surface; Supabase ships it; the job is invisible outside the database |
-| Host cron (scheduled function) | The work calls external APIs or app code | Runs app code; one more deploy artifact, and the host's scheduler is the dependency |
-
-**Recommendation rule:** not yet, until a rule actually fires on a clock nobody wants to watch. Then: pure SQL → pg_cron; anything touching an external API → host cron.
-
-## L6 — Change attribution
-
-*Asked when the Roles give a role the power to change or delete records another role created, or `docs/rules.md` holds approval rules.*
-
-This question does not pick a package, and **it is deliberately exempt from the research duty**: its mechanism is a Postgres API stable for a decade, and the two product names below are trap warnings that a fresh research pass would get wrong — research surfaces pgaudit as if it answered this question, and rejects supa_audit for being archived, which is exactly backwards.
-
-**The options are resolved from the database already chosen in `app-settle`**, because the only layer that knows which application user made a change is the one the database itself provides, and that differs per platform. Present the resolved option, never a cross-platform menu.
-
-| Database (Stack table of `CLAUDE.md`) | What the trigger option resolves to |
-|---|---|
-| Supabase | `SECURITY DEFINER` trigger; actor from `auth.uid()`, falling back to a session setting |
-| Another Postgres | The same trigger; actor from a session setting only — there is no `auth.uid()` |
-| No database | Not asked |
-
-| Option | Fits when | Consequence |
-|---|---|---|
-| **Trigger → append-only audit table** | Someone will one day be asked who changed a record, and the answer has to exist | Cannot be bypassed — a write through the SQL editor, a scheduled function, or a migration is recorded like any other; costs write throughput and storage on every tracked table |
-| Written by the app on the mutation path | The entry must carry intent — a reason, a ticket, a customer's phone call — which the database cannot see | Reads well for a human; every write that does not go through the app leaves no trace |
-| **None** | No role touches another role's records, and nobody has asked who did what | Nothing to build; history before the day this is added is gone permanently and cannot be reconstructed |
-
-**Recommendation rule:** the trigger, whenever the need scored yes. This is the one question where "none" is not the platform-ladder default — the platform does provide the mechanism, so choosing it *is* the ladder stopping at rung one. The app-layer option is reached for only as a **second** table alongside the trigger, and only once someone has read the audit and found the raw diff unreadable.
-
-**The admission rule of this file does not apply to this question.** No maintained library is being chosen; the mechanism is a trigger against a Postgres API that has been stable for a decade, so "actively maintained" has nothing to attach to. Supabase's own [supa_audit](https://github.com/supabase/supa_audit) is archived and is still the right design to copy: one `audit.record_version` table, a `record_id` derived from the primary key so one record's history is an indexed lookup rather than a scan, and an index on `table_oid`. Copy the SQL into a migration and own it — do not install it. Do not offer pgaudit as an alternative here: it logs statements rather than values, and answers a different question.
-
-The reason in the decision record names **what the audit settles**; who reads it is the Roles line `logic-settle` Step 8 hands over, never repeated in the record. An audit nobody opens is write throughput spent on storage.
-
-**The audit is read through one function, never by exposing its schema.** The `audit` schema stays out of the API; the reader the Roles name gets one `SECURITY DEFINER` function in an exposed schema that checks that role inside and returns one record's history by `record_id`. Filtering on read (below) lives in that function.
-
-Three consequences are stated when this question is asked, because all three are expensive to discover later.
-
-**The snapshot outranks RLS.** An audit row holds the whole record as jsonb, and neither the base table's RLS nor its column privileges reach inside it. The moment a role that cannot see a column is allowed to read that record's history, the audit table becomes the way around the restriction. Before this question is closed, check the tables about to be tracked for columns not every role may read, and if any exist, say so and hand the user the fork: filter on read (the audit stays complete, the view is narrowed) or filter on write (simpler, and the evidence is permanently incomplete). Recommend filtering on read — an audit with holes is not an audit.
-
-**The `service_role` gap.** Under `service_role` — Edge Functions, cron, admin scripts — `auth.uid()` is null, and those are the paths that make the largest changes. The trigger falls back twice: a request header for writes through the API, where supabase-js runs each call in its own transaction so a session setting is gone before the write; and a transaction-local setting for SQL paths — a cron job, a migration, the SQL editor. The header counts only under `service_role`, or any client could name its own actor:
-
-```sql
--- server, supabase-js: createClient(url, secretKey, { global: { headers: { 'x-actor-id': actorId } } })
--- SQL paths, in the write's own transaction:
-select set_config('app.actor_id', '<uuid>', true);
--- in the trigger (nullif: a reset setting reads '' in a pooled session, and ''::jsonb raises)
-coalesce(
-  auth.uid(),
-  case when nullif(current_setting('request.jwt.claims', true), '')::jsonb->>'role' = 'service_role'
-       then nullif(nullif(current_setting('request.headers', true), '')::jsonb->>'x-actor-id', '')::uuid end,
-  nullif(current_setting('app.actor_id', true), '')::uuid
-)
-```
-
-**Tracking is per table, never global.** Track only the tables whose changes people argue about. Tracking everything is the fastest route to a storage bill whose output nobody reads.
-
----
-
-## Maintaining this file
-
-What this file maintains is the stable part: the L-numbers and their questions, the admission rule, the ladder, and the per-question criteria. **Candidate names are never written back into it** — a session that learns a name records the choice and its reason in the app's decision records, and the next session researches fresh. A criterion is added or dropped only with a stated reason — the same discipline as the stack rubric in `app-settle`.
+The stable part is the L-numbers and their questions, the admission rule, the ladder, and the per-need criteria. **Never write a candidate name back into this file or a need file** — a session that learns one records the choice and its reason in the app's decision records, and the next session researches fresh. Add or drop a criterion only with a stated reason — the same discipline as the stack rubric in `app-settle`.
