@@ -23,7 +23,7 @@ Write the headings named here verbatim; skills find content by them. Everything 
 - [changes/](changes/) — one record per big change
 ```
 
-List only files that exist. Guide pages one line each; decisions and changes by their folder. The queue is not listed: it comes and goes with each batch, and every session is handed it anyway.
+List only files that exist. Guide pages one line each; decisions and changes by their folder. Never the queue: it comes and goes with each batch.
 
 ## `docs/product.md`
 
@@ -65,7 +65,7 @@ Theme  : <where the styling values live, and how a session verifies one applied 
 
 **The Proof profile** is written for every product with a UI, and its seven labels stay verbatim. Every rule that proves something about a screen reads one of its lines instead of naming a browser, a URL, or a CSS pixel; a rule naming a browser without the line it stands in for is a finding, and so is a line left at the web's answer on a platform without a browser. The web defaults: dev server · browser screenshots at the widths `DESIGN.md`'s Layout fixes · two search params · RLS role test · semantic HTML and ARIA · computed style in the browser. Elsewhere: Bounds are the smallest supported device and the largest device class on a phone, the window minimum and a working size on a desktop binary; Cases are launch arguments or a debug-only picker; A11y is Semantics, `contentDescription`, `AutomationProperties`; Theme is the platform's own inspector. **A line not executed is written `[needs verification]`** — except the web defaults — and a skill reading one reports what it could not capture instead of claiming proof. A line names a file only once the file exists; the session-start hook reports a named path that does not.
 
-**Problem** — two or three sentences: the state before the app and why it was intolerable. Not a feature description. **Success** — one or two sentences: the end state that measures success. **Non-goals** — what is deliberately not built, one line each with why it is a decision rather than a gap; no query can tell anyone that something is absent on purpose.
+**Problem** — two or three sentences: the state before the app and why it was intolerable. Not a feature description. **Success** — one or two sentences: the end state that measures success. **Non-goals** — what is deliberately not built, one line each with why it is a decision rather than a gap.
 
 **Roles** — work that must be completable, never screens or permissions, which RLS and the routes hold. The closing sentence is a security decision; write it explicitly.
 
@@ -93,8 +93,6 @@ Groups as the app needs — timing and deadlines, matching and keys, approval, f
 | Term | Precise meaning | Commonly misread as |
 |---|---|---|
 ```
-
-Append-only. Introspection gives structure; this gives meaning.
 
 ## `docs/decisions/NNNN-<slug>.md` — MADR, minimal
 

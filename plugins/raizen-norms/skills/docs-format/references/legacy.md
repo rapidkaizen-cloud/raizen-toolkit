@@ -1,8 +1,23 @@
 # The legacy form — a repo with a root `PRD.md`
 
-Read before editing a legacy `PRD.md`. Every rule of `SKILL.md` binds the section the map sends it to; this file adds only what the legacy form has and the new form does not.
+Every rule of `SKILL.md` binds the section the map sends it to; this file adds only what the legacy form has and the `docs/` form does not.
 
-- **`PRD.md` is one copy, at the root.** Nothing under `docs/` is ever created beside it, and nothing migrates it.
+## The legacy map
+
+| A skill names | A repo with a root `PRD.md` reads |
+|---|---|
+| `docs/product.md` — Context, Surface, Proof profile, problem, success, non-goals | `PRD.md` Section 1 |
+| `docs/product.md` — Roles | Section 2 |
+| `docs/rules.md` | Section 3 |
+| `docs/glossary.md` | Section 4 |
+| `DESIGN.md` | Section 5. The root `DESIGN.md` there is generated from it and is never read as the design system |
+| `docs/product.md` — Prohibitions | Section 6 |
+| `docs/decisions/` | Section 1 — one line per `app-settle` or `logic-settle` choice, or technical choice the user took, with its reason, rejected alternatives among the non-goals. `design-settle` records none there; its library is `CLAUDE.md`'s row |
+| `docs/queue.md` | `QUEUE.md` at the root |
+| `docs/README.md`, `docs/guide/`, `docs/whats-new.md`, `docs/changes/`, `docs/PRD.md` | Nothing — never written in a legacy repo |
+
+## `PRD.md`
+
 - **Keep the shape it has.** Section 1 — a three-row table (Surface · Data · Deploy), the Proof profile under it (`shapes.md`), then problem, success, non-goals. Section 2 — `Role · Must be able to · Must not`. Section 3 — categorized sub-tables with a `Why` column: Timing & Deadlines (`Rule · Value · Why that value`), Matching/Keys (`Source · Key · Fallback`), Approval (`Action · Requires · Notes`), Formulas (`Metric · Formula`), Invariants. Section 4 — `Term · Precise meaning · Commonly misread as`. Section 5 — the design system. Section 6 — prohibitions. Cross-references use the topic name, never a section number.
 - **A rule's topic is the first cell of its Section 3 row** — the name a rule test title quotes.
 - **Past about 400 lines the PRD carries status, not intent.** The session-start hook says so; tell the user.
@@ -12,7 +27,7 @@ Read before editing a legacy `PRD.md`. Every rule of `SKILL.md` binds the sectio
 
 `design-settle` alone writes it. An off-shape `PRD.md` gets Section 5 under its own heading, and nothing else in the file is touched.
 
-**The root `DESIGN.md` of a legacy repo is generated, never a source.** `design-settle` writes it from ratified Section 5 and the styling files — frontmatter tokens to the schema `impeccable`'s document reference gives, read at write time, with any sidecar that schema puts beside it, and one body line: `Generated from PRD Section 5 and the styling files by design-settle — do not edit; Section 5 is the source.` It is regenerated whenever Section 5 changes and never read as the design system; a hand edit, or an `impeccable` refresh from the built code, is a finding.
+**The root `DESIGN.md` of a legacy repo is generated, never a source.** `design-settle` writes it from ratified Section 5 and the styling files — frontmatter tokens to the schema `impeccable`'s document reference gives, read at write time, with any sidecar that schema puts beside it, and one body line: `Generated from PRD Section 5 and the styling files by design-settle — do not edit; Section 5 is the source.` It is regenerated whenever Section 5 changes; a hand edit, or an `impeccable` refresh from the built code, is a finding.
 
 **Section 5 holds rules and scale; the styling files hold the values** — except colour and spacing, whose values contrast needs, and the component-token table.
 

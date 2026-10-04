@@ -1,78 +1,69 @@
 ---
 name: ui-build
-description: Rules for building or changing any UI — component reuse, loading and error states, the interface copy every component ships with, the craft material loaded before any component is written, and the gate that blocks UI work while the design system is still undecided. Use before creating a new component, editing an existing one, touching styling values, or writing any user-facing text.
+description: Rules for building or changing any UI — the DESIGN.md gate, component reuse, loading, empty and failed states, interface copy, and the craft material read first. Use before creating or editing a component, touching a styling value, or writing any user-facing text.
 ---
 
 # ui-build — touching the UI
 
-Documents are named by their path in the `docs/` form; a repo with a root `PRD.md` reads each through `docs-format`'s legacy map.
+Documents are named by their `docs/` path; a repo with a root `PRD.md` reads each through `docs-format`'s legacy map.
+
+## What a load costs — three rules
+
+- **Run independent reads, searches and commands in one turn** — parallel calls, or one chained command — because every extra model call re-reads the whole session.
+- **Never re-read what the session start printed** — its component listing stands in for listing the components folder (Components).
+- **Load only the craft material the edit at hand needs** — the rows of the table below whose condition it meets.
 
 ## The material — loaded before the first component
 
-**Two skills carry the craft rules this file no longer states, and both are read before any component is written**: `impeccable` (its craft floor, and its operational register for an operational app — each located through `impeccable`'s own `SKILL.md`, never by a file name remembered from here) and `frontend-design`. **Where the Surface in `docs/product.md` is iOS or Android, its reference for that platform is read with them** — both on an adaptive surface — because the platform's navigation, type scale, insets, and touch-target floor live only there. Icons, tokens and raw values, library defaults, and accessibility all live there now.
+`impeccable` and `frontend-design` carry the craft rules this file does not state: icons, tokens and raw values, library defaults, accessibility. Read each row's part before writing what the row names, located through that skill's own `SKILL.md`, never by a file name remembered from here:
 
-These two and `ui-ux-pro-max` (below) are **Required** installs for a repo under these skills, and the load is not optional for a session that touches UI — a component written before they are read is written out of the defaults they exist to close.
+| Read | Before writing |
+|---|---|
+| `impeccable`'s craft floor, and on an operational app its operational register | any component |
+| `impeccable`'s iOS or Android reference, both on an adaptive Surface — the platform's navigation, type scale, insets, and touch-target floor live only there | any component, where the Surface in `docs/product.md` is iOS or Android |
+| `frontend-design` | any component |
+| `ui-ux-pro-max`'s UX guidelines for that interaction — searched, its `SKILL.md` read for the search commands only | a component carrying an interaction: a form, table, dialog, navigation, feedback |
+| `ui-ux-pro-max`'s stack guidelines for that framework, searched likewise | the same, on a native Surface (SwiftUI, Compose, a XAML stack, Flutter, React Native and kin) |
+| `ui-ux-pro-max`'s `ui-styling` references on theming, accessibility, and responsive layout, through that sub-skill's `SKILL.md` | any component, where the library is shadcn or the styling is Tailwind |
+| `review-animations`' standards reference, where installed | any animation or transition, on a web-technology Surface |
 
-None absent stops the work. Say which one is missing and what could not be checked because of it, then carry on: an unenforced rule reported is recoverable, a session that refuses to build is not.
-
-**Material, never an authority.** Where any collides with `DESIGN.md`, `DESIGN.md` wins. Their findings are findings — reported to the user, never fixed in place inside another session's work.
-
-**Read its reference files; never run its commands.** Any `impeccable` command that writes `PRODUCT.md` or `DESIGN.md` from the built world — `init`, `extract`, `document` at the time of writing — is never run: an app repo keeps only `docs-format`'s closed list, and `DESIGN.md` is `design-settle`'s alone. Its menu leads with `init` whenever it finds no `PRODUCT.md`; that offer is answered by pointing at `DESIGN.md`, not by taking it.
-
-**`ui-ux-pro-max` is the UX floor, level with `impeccable`.** Before writing a component that carries an interaction — a form, table, dialog, navigation, feedback — search its UX guidelines for that interaction, and on a native Surface (SwiftUI, Compose, a XAML stack, Flutter, React Native and kin) its stack guidelines for that framework, reading its `SKILL.md` for the search commands only. Keep only results that fit this interaction and Surface, and hold what they mark as a don't. **Where both set a floor, hold the stricter one; any other contradiction between them is a finding for the user; `DESIGN.md` wins over both.** A value it names — a hex, a font, an icon library, a chart colour — is never applied; `DESIGN.md`'s is.
-
-**Where the library is shadcn or the styling is Tailwind, read `ui-ux-pro-max`'s `ui-styling` references** on theming, accessibility, and responsive layout, located through that sub-skill's `SKILL.md`, before writing a component. They describe one version; where they disagree with the installed package, the package wins.
-
-**`review-animations` is the motion floor on a web-technology Surface — Optional, and unmentioned when absent.** It is hidden from the skill list and cannot be invoked, so it counts as installed when `review-animations/SKILL.md` exists under `~/.claude/skills/` or the repo's `.claude/skills/`. Before writing any animation or transition, read its standards reference, located through that `SKILL.md`. Hold what it forbids; its curves and durations are defaults `DESIGN.md` overrides. A library's own motion counts; motion the library cannot retune without replacing the component stands as a finding. Skip its opening-message and review-verdict instructions — they address a person invoking it, not this read.
-
-**`ui-ux-pro-max` writes nothing, in any session.** Never pass its `--persist` flag, never run a script or command of its sub-skills — `ui-styling`, `design-system`, `brand`, `design`, `banner-design`, `slides` — and invoke one only when the user names it, because each writes files of its own design outside `DESIGN.md`. Outside `design-settle`'s interview, never run its design-system generator or its look searches — style, colour, typography, fonts, motion presets, landing, product.
+- **`impeccable`, `frontend-design` and `ui-ux-pro-max` are Required installs, and the load is not optional for a session that touches UI.** One absent → say which, and what could not be checked because of it, then carry on; an absence never stops the work.
+- **Material, never an authority.** `DESIGN.md` wins over all of it. What the material finds is reported to the user, never fixed in place inside another session's work.
+- **Read `impeccable`'s reference files; never run its commands.** Never run one that writes `PRODUCT.md` or `DESIGN.md` from the built world — `init`, `extract`, `document` at the time of writing — because an app repo keeps only `docs-format`'s closed list, and `DESIGN.md` is `design-settle`'s alone. Its menu leads with `init` whenever it finds no `PRODUCT.md`: answer by pointing at `DESIGN.md`.
+- **`ui-ux-pro-max` is the UX floor, level with `impeccable`.** Keep only results that fit this interaction and Surface, and hold what they mark as a don't. Where both set a floor, hold the stricter one; any other contradiction between them is a finding for the user. Never apply a value it names — a hex, a font, an icon library, a chart colour; `DESIGN.md`'s is. Where its `ui-styling` references disagree with the installed package, the package wins.
+- **`ui-ux-pro-max` writes nothing, in any session.** Never pass its `--persist` flag, never run a script or command of its sub-skills — `ui-styling`, `design-system`, `brand`, `design`, `banner-design`, `slides` — and invoke one only when the user names it, because each writes files outside `DESIGN.md`. Outside `design-settle`'s interview, never run its design-system generator or its look searches — style, colour, typography, fonts, motion presets, landing, product.
+- **`review-animations` is the motion floor on a web-technology Surface — Optional, and unmentioned when absent.** Hidden from the skill list and not invocable, it counts as installed when `review-animations/SKILL.md` exists under `~/.claude/skills/` or the repo's `.claude/skills/`. Hold what it forbids; its curves and durations are defaults `DESIGN.md` overrides. A library's own motion counts; motion the library cannot retune without replacing the component stands as a finding. Skip its opening-message and review-verdict instructions.
 
 ## Gate — the visual direction must already be set
 
-**Before writing any UI component, read `DESIGN.md`.**
+**Before writing any UI component, read `DESIGN.md`.** Absent, empty, or still `[needs verification]` → **STOP**: write no component, no styling value, no token, because every rule below measures the code against `DESIGN.md`.
 
-Absent, empty, or still `[needs verification]` → **STOP.** Do not write a component, do not write a styling value, do not add a token.
+- **Point the user at `design-settle`, whatever state the repo is in.** Never name a path or decide one; its own audit decides. Components with no `DESIGN.md` are its normal input, not an error — `app-settle`'s document mode leaves the design system unwritten.
+- **One exemption: the design canvas and the `/design-system` scaffold** — `src/design-canvas/` and the design-system route; on a non-web Surface, whatever `canvas.md` defines for that platform. A design skill builds them to produce `DESIGN.md`, and the exemption is theirs alone: no real page, component, or token is written until it lands.
+- **The canvas folder belongs to the design session building it.** A session doing any other work never edits, moves, or deletes anything under it or `.design-audit/`; a problem found there is a finding reported to the user, because an outside edit silently changes what the user approved.
 
-**One exemption: the design canvas and the `/design-system` scaffold.** `src/design-canvas/` and the design-system route — on a non-web Surface, whatever `canvas.md` defines for that platform — are the instruments that *produce* `DESIGN.md` — a design skill building them before it exists is the gate working, not a breach. The exemption is theirs alone: no real page, component, or token is written until `DESIGN.md` lands.
-
-**And the canvas folder belongs to the design session that is building it.** A session doing any other work does not edit, move, or delete anything under that canvas folder or `.design-audit/` — a problem found there is a finding reported to the user, never fixed in place. The canvas is a ratified reference; an edit from outside the design flow silently changes what the user approved.
-
-**Point the user at `design-settle`**, whatever state the repo is in. It is one skill with one entry point, and its own audit decides the path: no UI at all → it interviews the direction from nothing, then proves it as every page of the app on a staged canvas; components already there → it measures what those components actually use and puts each value to the user to ratify or overrule. Do not name a path, and do not decide one here — a session that announces which path it will take has pre-empted an audit it has not run.
-
-A repo with components but no `DESIGN.md` usually arrived through `app-settle`'s document mode, which documents an existing app and deliberately leaves the design system unwritten. That is `design-settle`'s normal input, not an error: its audit measures the values and puts each one to the user.
-
-Why stop rather than choose for them: every rule below — tokens, components, contrast — measures the code against `DESIGN.md`. Without it there is nothing to measure against, and a session that decides for itself is setting the app's norms through the back door.
-
-`DESIGN.md` written → this gate is done. Later pages need no further visual approval; what binds them is the rules below.
+`DESIGN.md` written → this gate is done: later pages need no further visual approval, and the rules below bind them.
 
 ## Components — named in the Plan before execution
 
-Before building any UI element, **check the components already in the repo**. A required step, not a suggestion. Name which existing component covers each element in scope.
+**Before building any UI element, check the components already in the repo and name which one covers each element in scope.** Required, not a suggestion.
 
-**Read the ratified set first, do not search for it.** List the components folder, then read the file holding the app's shared set — one listing, one read, never a grep. The session-start block already carries that listing wherever the repo has a components folder: it stands in for the listing, never for the read. A repo whose `DESIGN.md` was ratified rather than redrawn has never promoted a canvas, so there may be no single file yet; the listing is still the first move, and the placement rule below is what the first extraction follows. A session hunting for `Pagination` does not find a `Pager`, and writes it a second time under a second name; a year of that leaves three components doing one job and no way to tell which one a page should have used.
+**Read the ratified set first, do not search for it** — one listing, one read of the file holding the app's shared set, never a grep: a session hunting for `Pagination` misses a `Pager` and writes it a second time. The session-start block's listing stands in for listing the components folder — none printed, or cut short → list it — never for the read. A repo whose `DESIGN.md` was ratified rather than redrawn may have no single file yet: the listing is still the first move, and the first extraction follows the placement rule below.
 
 The order of sources is fixed:
 
-1. **A component already in the repo.**
-2. **A component from the installed component library.** The library chosen for this app is where UI elements come from, not a place to take inspiration from. An element the library ships is used, not rebuilt — pagination, dialogs, and date fields are shipped far more often than they are missing.
+1. **A component already in the repo.** Components copied in from a library (shadcn and the like) are **existing code**, not a dependency to be ignored.
+2. **A component from the installed component library.** An element the library ships is used, not rebuilt. **List the library's component directory before deciding it lacks something** — one command against `node_modules/<library>/dist/components` or that package's equivalent; "it probably doesn't have one" is not a reason to build.
+3. **A new component**, only when the library ships nothing for the case or nothing that genuinely fits. Three conditions:
+   - **Say what fails**: which component was examined, and what it cannot do here. **Looking slightly different is NOT a reason** — that is what props are for.
+   - **Follow the library's idiom**: its compound shape (`Root` / `Trigger` / `Item`), its prop names (`isDisabled`, `isActive`, `size`), its source of styling. **No library → the first shared component sets the idiom, and every later one follows it**, read from that file.
+   - **Say which rule it holds, in its header**: it freezes a `DESIGN.md` line so no call site can break it — a status marker deriving its icon from its tone cannot pair a warning colour with a success icon — or it is the second appearance of a pattern. Neither → page code; leave it in the page.
 
-   **List the library's component directory before deciding it lacks something.** One command against `node_modules/<library>/dist/components` or the equivalent for that package. "It probably doesn't have one" without listing is not a reason to build.
+**A visual pattern appearing a second time → extract it into a component, do not copy it.**
 
-3. **A new component** — allowed when the library ships nothing for the case, or ships something that genuinely does not fit. Three conditions:
+**Where it lands is fixed too.** Components holding `DESIGN.md` rules live in **one file**, read whole in a single pass — the file the ratified-set rule points at. A component carrying a flow of its own — a wizard, the app shell — gets its own file. Split the shared file by group, never one file per component, and only once it is no longer readable in one pass.
 
-   - **Say what fails.** Which component was examined, and what it cannot do here. "Not quite the right look" is not it.
-   - **Follow the library's idiom.** Same compound shape (`Root` / `Trigger` / `Item`), same prop names (`isDisabled`, `isActive`, `size`), same source of styling. A hand-written component with its own conventions forces every later reader to hold two systems in their head at once. **No library → the first shared component sets the idiom, and every later one follows it** — compound shape, prop names, and styling source are decided once, at the first extraction, and read from that file afterwards.
-   - **Say which rule it holds.** A shared component exists for one of two reasons, and its header names which: it freezes a `DESIGN.md` line so no call site can break it — a status marker deriving its icon from its tone cannot pair a warning colour with a success icon — or it is the second appearance of a pattern. Neither → it is page code, not a shared component. Leave it in the page.
-
-Creating a new component → say why the existing one is not enough. **Looking slightly different is NOT a reason** — that is what props are for.
-
-A visual pattern appearing a second time → **extract it into a component, do not copy it.** The second appearance is the trigger to extract, not permission to duplicate.
-
-**Where it lands is fixed too.** The components holding `DESIGN.md` rules live in **one file**, so a later session reads the whole set in a single pass — that file is what the ratified-set rule above points at. A component carrying a flow of its own — a wizard, the app shell — gets its own file. Split the shared file by group, never one file per component, and only once it has stopped being readable in one pass.
-
-Where the app has a design-system route — `/design-system`, or `/styleguide` where it already sits there — the extracted component is **added to it in the same turn** — that route is the one place all components are seen side by side, and a shared component missing from it is a finding.
-
-Components that came from a copy-in library (shadcn and the like) are **existing code** as far as this rule is concerned, not a dependency to be ignored.
+**Where the app has a design-system route** — `/design-system`, or `/styleguide` where it already sits there — add the extracted component to it in the same turn; a shared component missing from it is a finding.
 
 **A library shipping no strings for the app's locale** (`CLAUDE.md` Locale row) gets them from one dictionary file beside the shared set, passed through the library's own locale provider at the app root — its API read live, never strings patched per call site.
 
@@ -83,52 +74,42 @@ Components that came from a copy-in library (shadcn and the like) are **existing
 
 ## The lint floor — what the repo itself refuses
 
-Everything above is obeyed by judgement, and an agent that never loads this file obeys none of it. So the four failures that cost the most are refused by the repo's own linter, where they reach every session and every agent, whatever it read:
+The repo's own linter refuses the four failures that cost the most, in every session and for every agent, whatever it read:
 
 1. **A raw element the shared set or the library already ships**, written outside the components folder — a bare `<button>`, `<input>`, `<select>`, `<dialog>`, `<table>` on the web, and only the ones this app has a component for.
 2. **A raw value in product code** — a colour literal, or an inline style or arbitrary-value utility carrying a colour, a radius, a font size, or a step of the spacing scale. The styling files are the one place a value is typed.
 3. **A numbered ramp step in product code**, where the alias layer exists. Product code reads a role.
 4. **A primitive the shared set is built on, imported outside the components folder** — the package a dialog wraps, pulled into a page to hand-roll a second dialog.
 
-`design-settle` writes the floor at ratification, derived from this app's shared set and styling files; a repo with a `DESIGN.md` and no floor gets it from `app-align`. This file binds how a session lives with it:
+`design-settle` writes the floor at ratification, derived from this app's shared set and styling files; a repo with a `DESIGN.md` and no floor gets it from `app-align`. Live with it this way:
 
-- **Run the repo's lint command before committing any UI scope item.** A refusal is fixed in the code that caused it.
-- **An inline disable of a floor rule is a finding**, the same standing as a raw hex value. So is a floor rule lowered to a warning — no agent reads a warning.
-- **The floor grows with the set.** Extracting a shared component that replaces a raw element adds that element to the first refusal in the same turn, the way the component is added to the design-system route.
-- **A refusal that is wrong is reported, never worked around.** A layout expression caught as a raw value is a pattern too wide; once the floor is written, it is narrowed in the config only on the user's word, never silenced at the call site — a floor each session may loosen is a floor that lasts one session.
-
-No floor in the repo → say so in one line and carry on; its absence is a finding for `app-align`, not a stop. A hook refusing the config write follows `logic-build` Section 9.
-
-The floor cannot see the fifth failure: a second component doing an existing one's job under another name. No linter can. The listing and the read above are what hold that one.
+- **Run the repo's lint command before committing any UI scope item**, and fix a refusal in the code that caused it.
+- **An inline disable of a floor rule is a finding**, the same standing as a raw hex value; so is a floor rule lowered to a warning.
+- **The floor grows with the set**: extracting a shared component that replaces a raw element adds that element to the first refusal in the same turn.
+- **A refusal that is wrong is reported, never worked around**: a layout expression caught as a raw value is a pattern too wide, narrowed in the config only on the user's word, never silenced at the call site.
+- **No floor in the repo → say so in one line and carry on**; its absence is a finding for `app-align`, not a stop.
+- A hook refusing the config write follows `logic-build` Section 9.
+- The floor cannot see a second component doing an existing one's job under another name — the listing and the read under Components hold that one.
 
 ## Loading, empty, and failed
 
-Fixed norms. Not asked per app, not restated in any document.
+Fixed norms — not asked per app, not restated in any document. Write each state **together with its component**; a component with only a success state is not finished.
 
-**Loading → a skeleton shaped like the final result.** Not a spinner. A skeleton matching the shape of the content to come keeps the layout from jumping when data arrives, and tells the user what is being waited on.
+- **Loading → a skeleton shaped like the final result**, so the layout does not jump when data arrives. A spinner only for what has no shape: a button mid-submit, work running in the background.
+- **Empty → explain why it is empty and what comes next**, ending on the one action that fills it; "No data yet" is not enough. Empty because of a filter and empty because nothing has ever existed take different sentences; the filtered one names the query and offers the exit — `No results for "quarterly". Clear filters`.
+- **Never park persistent information in an empty state** — it disappears the moment content exists. **Delete it, never relocate it** to the page header: information worth keeping is an element on the page; a mechanism the user does not act on belongs in `docs/rules.md`.
+- **Failed → put the message next to its cause**: a form error under its field, never stacked at the top of the page; an error with no field of its own (failed to load, failed to save) where the content should have been, with a way to retry.
+- **A failure message never disappears on its own**; only success notifications may.
 
-Spinners are only for things with no shape: a button mid-submit, and work running in the background.
-
-**Empty → explain why it is empty and what comes next.** "No data yet" is not enough. Empty because of a filter is a different thing from empty because nothing has ever existed, and the two need different sentences, and each ends on one action that fills it. A filtered empty state names the query and offers the exit — `No results for "quarterly". Clear filters`. Never park persistent information in an empty state: it disappears the moment content exists. **The fix is deleting it, not relocating it.** Moved to the page header it becomes permanent, and an unasked-for paragraph costs more there than in a state that at least went away. Information worth keeping is an element on the page; a mechanism the user does not act on belongs in `docs/rules.md`.
-
-**Failed → put the message next to its cause.** Form errors appear under their field, not stacked at the top of the page. Errors with no field of their own (failed to load, failed to save) appear where the content should have been, together with a way to retry.
-
-A failure message never disappears on its own. Only success notifications may.
-
-Each of these states is written **together with its component**, not as follow-up work. A component that only has a success state is not finished.
-
-**Where the app has contract files, these three are proven rather than claimed.** `build-flow` builds each page of a UI batch against six named fixture cases, and three of them are exactly these states — `loading`, `empty`, `failed`. Two more decide whether the rules above hold at scale: `bulk`, several hundred rows, and `messy`, null in every nullable field with the longest string that really occurs. Both must render without the layout breaking before the page is accepted.
-
-Those two are the ones usually skipped and the ones that catch the most. A component that has only ever met three tidy rows has not met the data it will live with. The cases and the rules around them are in `references/contract.md` of `build-flow`.
-
+**Where the app has contract files, these states are proven rather than claimed**: `build-flow` builds each page of a UI batch against six named fixture cases, held in its `references/contract.md`. Three are these states — `loading`, `empty`, `failed`. Two more must render without the layout breaking before the page is accepted: `bulk`, several hundred rows, and `messy`, null in every nullable field with the longest string that really occurs.
 
 ## Writing
 
-Fixed norms for the tenth-use register — the pages somebody comes back to — not asked per app and not restated in any document, because none of them varies between such apps. **The one exception is the voice**: formal, neutral, or casual, and the form of address where the language has more than one — asked by `design-settle` and recorded as the copy voice in `DESIGN.md`'s Overview. Write in that voice; `DESIGN.md` states none → neutral. Copy is written **together with its component**, the same way the three states above are.
+Fixed norms for the tenth-use register — the pages somebody comes back to — not asked per app, not restated in any document. Write copy **together with its component**. Clear and brief beats clever; consistent beats varied; the best error message is the interaction redesigned so the error cannot happen.
 
-**A first-visit page group speaks in its own voice.** A landing page, a marketing site, the public front of a product — the register `app-settle` derives from `docs/product.md`'s Roles — takes the copy voice `DESIGN.md`'s Overview states for that group: the tone table below yields to it there, and humour, an exclamation, a posture in the copy are the direction's to spend, per page group and never behind the login. `DESIGN.md` states no voice for the group → the rules below apply as written. What holds on every register are the structural rules — a verb-first button, a confirmation that repeats its consequence, link text naming its destination, a placeholder that is not a label, an error beside its field written as an instruction, no sentence assembled from fragments, one term per concept — because they are accessibility and localization, not tone.
+**The one exception is the voice** — formal, neutral, or casual, and the form of address where the language has more than one: asked by `design-settle`, recorded as the copy voice in `DESIGN.md`'s Overview. Write in that voice; none stated → neutral.
 
-Clear and brief beats clever; consistent beats varied. The best error message is the interaction redesigned so the error cannot happen.
+**A first-visit page group speaks in its own voice** — a landing page, a marketing site, the public front of a product: read `references/first-visit.md` before writing its copy.
 
 **Copy caps, on every tenth-use page** — counted in words, in the app's on-screen language:
 
@@ -138,9 +119,9 @@ Clear and brief beats clever; consistent beats varied. The best error message is
 | `Name` — field label, column header, badge, heading | 3 words |
 | `Explanation` — helper text, empty and error state, tooltip, toast, subtitle | 1 sentence, 8 words |
 
-Put a subtitle under a heading only when it says something the heading does not. Put helper text only under a field whose input is ambiguous. A destructive confirmation's body may run two sentences, because it must name the consequence. A string over its cap is a defect: cut it before the page is shown or committed. First-visit page groups are exempt, and their copy is still counted.
+A string over its cap is a defect: cut it before the page is shown or committed. A destructive confirmation's body may run two sentences, because it must name the consequence. Put a subtitle under a heading only when it says something the heading does not, and helper text only under a field whose input is ambiguous. First-visit page groups are exempt, and their copy is still counted.
 
-**Read the copy already on screen before writing more.** The product has one voice and its existing copy establishes it; a local edit does not get to invent a new one. One term per concept — `Archive` in the menu is not `Move to storage` in the toast.
+**Read the copy already on screen before writing more** — it sets the product's one voice, and a local edit invents no new one. One term per concept: `Archive` in the menu is not `Move to storage` in the toast.
 
 **Voice is `DESIGN.md`'s, tone moves with the stakes:**
 
@@ -151,21 +132,16 @@ Put a subtitle under a heading only when it says something the heading does not.
 | Errors, destructive confirmations | Calm, plain, zero playfulness |
 | Data loss, security | Serious, explicit |
 
-**Address the reader directly.** Instructional copy says "you", never "the user". In an error, drop the actor rather than reaching for "we" — `Unable to load content`, not `We're having trouble loading this content`, which reads as deflection. Possessives sparingly: `Favorites` beats `Your favorites`. Hold one perspective for a whole flow.
-
-**Plain words, and no word that does no work.** No idioms, no colloquialisms, no humour that does not survive translation. Skip unnecessary gender. Match the input device: `tap` on touch, `click` with a pointer, `select` where both are possible.
-
-**Never assemble a sentence from fragments around a variable.** `"You have " + n + " new messages"` breaks the moment word order changes. Use a full templated string with proper pluralization.
-
-**A button label starts with a verb naming the action** — `Send`, `Save draft`, `Delete project`. Never `OK`, `Let's go`, or a bare `Yes` / `No` on a consequential action. **A confirmation button repeats the consequence**, so the dialog is answerable without reading the body: `Delete this project?` offers `Delete project` and `Cancel`.
-
-**One vocabulary for a whole flow.** `Get started` to enter, `Continue` or `Next` — pick one — to advance, `Done` to finish. Alternating synonyms makes the user wonder whether the buttons do different things.
-
-**Link text names its destination.** Screen-reader users navigate by a list of the page's links, so it has to make sense out of context: `Read the billing docs`, never `Click here`. A bare `Learn more` breaks as soon as two appear on one page — suffix each one: `Learn more about exports`.
-
-**Sentence case, one policy per element type.** Sentence case is the default: calmer, no per-word rules to remember, and it localizes cleanly. `Save Changes` beside `Discard changes` reads as sloppiness.
-
-**A toggle is labelled for its ON state.** `Send read receipts` lets the user infer the off state; the negative turns the toggle into a double negative. Link straight to a referenced setting rather than describing the path to it.
+- **Address the reader directly**: "you", never "the user". In an error drop the actor rather than reaching for "we" — `Unable to load content`, not `We're having trouble loading this content`. Possessives sparingly: `Favorites` beats `Your favorites`. Hold one perspective for a whole flow.
+- **Plain words, and no word that does no work**: no idioms, no colloquialisms, no humour that does not survive translation, no unnecessary gender. Match the input device — `tap` on touch, `click` with a pointer, `select` where both are possible.
+- **Never assemble a sentence from fragments around a variable** — `"You have " + n + " new messages"` breaks when word order changes. Use a full templated string with proper pluralization.
+- **A button label starts with a verb naming the action** — `Send`, `Save draft`, `Delete project`; never `OK`, `Let's go`, or a bare `Yes` / `No` on a consequential action. **A confirmation button repeats the consequence**, so the dialog is answerable without its body: `Delete this project?` offers `Delete project` and `Cancel`.
+- **One vocabulary for a whole flow**: `Get started` to enter, `Continue` or `Next` — pick one — to advance, `Done` to finish.
+- **Link text names its destination**, readable out of context in a screen reader's list of links: `Read the billing docs`, never `Click here`. Suffix every `Learn more` — `Learn more about exports`.
+- **Sentence case, one policy per element type.** Sentence case is the default; never `Save Changes` beside `Discard changes`.
+- **A toggle is labelled for its ON state** — `Send read receipts`, never its negative. Link straight to a referenced setting rather than describing the path to it.
+- **A placeholder is an example, not a label** — `name@example.com`, `DD/MM/YYYY`; it vanishes on input, so every field keeps a visible label of its own.
+- **A state already visible is not written out again.** A selected card carrying the selection in its border, a check mark, an `ACTIVE` badge, and a heading repeating the item's name draws one fact four times: keep the strongest signal and delete the rest — where the strongest is not reachable for everyone, the accessible one survives, never the decorative one. The same holds for a subtitle repeating a word of the title above it, and a count printed beside a list whose length is on screen. **The test is subtraction**: remove the label; nothing became unanswerable → delete it.
 
 **An error is an instruction, and it belongs beside the field that failed.** No blame, no `Oops`, no exclamation marks. Phrase the hint positively, and show it before the mistake rather than after:
 
@@ -177,10 +153,6 @@ Put a subtitle under a heading only when it says something the heading does not.
 
 The same error firing over and over is a finding about the interaction, not a rewording job.
 
-**A placeholder is an example, not a label.** It shows the expected format — `name@example.com`, `DD/MM/YYYY` — and vanishes on input, so every field keeps a visible label of its own.
-
-**A state already visible is not written out again.** A selected card carrying the selection in its border, a check mark, an `ACTIVE` badge, and a heading repeating that item's name has drawn one fact four times — and each copy makes the reader trust the others less, because a screen that says a thing four ways is a screen where saying it once was not believed. Keep the strongest signal and delete the rest; where the strongest one is not reachable for everyone, the copy that survives is the accessible one, never the decorative one. The same holds for a subtitle repeating a word already in the title above it, and for a count printed beside a list whose length is on screen. **The test is subtraction:** remove the label and ask what became unanswerable. Nothing did → it was never carrying the answer.
-
-These bind new code. Copy already in the repo that breaks one of them is a **finding** reported to the user, the same standing as a raw hex value — never rewritten in place inside another session's work. **Source is enough to check every rule here**; none of them needs a rendered page.
+These bind new code. Copy already in the repo that breaks one is a **finding** reported to the user, the same standing as a raw hex value — never rewritten in place inside another session's work. **Source is enough to check every rule here**; none needs a rendered page.
 
 Adapted from the `better-writing` skill of [jakubkrehel/skills](https://github.com/jakubkrehel/skills) (MIT).

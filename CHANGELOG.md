@@ -2,6 +2,18 @@
 
 All notable changes to the `raizen-hub` and `raizen-norms` plugins, newest first. The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). Versions before these are in `git log`.
 
+## [raizen-norms 0.37.0] - 2026-10-04
+
+### Changed
+
+- All five skills are shorter to load, with the same rules: each states a rule once, drops the sentences that argued for it, and opens with the cost rules — independent reads and commands in one turn, nothing the session start printed re-read. Section numbers and names are unchanged. Every `description` is shorter.
+- `build-flow`: `SKILL.md` is half its size. Section 3 — the three routes of a new queue, the change record, the UI and backend split — and the two queue file templates are `references/new-queue.md`, read when `docs/queue.md` is absent or just emptied or the user asks for something outside it. The rule test before wiring, the wiring rules and canvas-file retirement are `references/backend.md`, read by a backend batch or an app that never split. The audit pass is `references/audit.md`, read when the user accepts it. The wiring rules were in two places and are now in one, which a backend batch reads.
+- `ui-build`: the craft material is one table naming what to read before which edit. The voice of a first-visit page group is `references/first-visit.md`.
+- `logic-build`: the rule-test table per enforcement point and the no-test-runner procedure are `references/rule-test.md`; Section 10 keeps the rules.
+- `docs-format`: the legacy map is in `references/legacy.md`, read at once in a repo with a root `PRD.md`.
+
+Nothing to act on in an installed app.
+
 ## [raizen-hub 0.68.0] - 2026-10-04
 
 ### Changed

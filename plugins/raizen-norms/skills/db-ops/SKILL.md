@@ -1,41 +1,40 @@
 ---
 name: db-ops
-description: Rules for touching the database — schema introspection, DDL, migrations, RLS policies and role testing, and destructive operations. Use before writing any SQL, altering any table, creating or changing any RLS policy, or running any DELETE, DROP, TRUNCATE, or UPDATE.
+description: Rules for touching the database — introspection, migrations, RLS and role testing, destructive operations. Use before writing any SQL, altering a table, creating or changing an RLS policy, or running any DELETE, DROP, TRUNCATE, or UPDATE.
 ---
 
 # db-ops — rules for touching the database
 
-Documents are named by their path in the `docs/` form; a repo with a root `PRD.md` reads each through `docs-format`'s legacy map.
+Documents are named by their `docs/` path; a repo with a root `PRD.md` reads each through `docs-format`'s legacy map.
+
+## What a load costs — two rules
+
+- **Run independent reads, searches and commands in one turn** — parallel calls, or one chained command — because every extra model call re-reads the whole session. Nothing is chained past a STOP.
+- **Never re-read what the session start printed.** The database's state is not in it: introspect wherever a rule below says to, every time.
 
 ## The axis
 
 Schema has git through migration files; **data does not**. A `DROP COLUMN` can be undone with a new migration — a deleted row cannot.
 
-The size of the change is not the criterion. Blast radius is only knowable after the fact.
+The size of the change is not the criterion: blast radius is only knowable after the fact.
 
 ## Before writing any DDL
 
-Introspect the relevant state first. DDL written without reading the current state is a guess.
+**Introspect the relevant state first** — DDL written without reading the current state is a guess.
 
-Postgres patterns you are not certain about — indexes, column types, constraints, the shape of an RLS policy — are checked against the `supabase-postgres-best-practices` skill before being written into a migration file.
-
-**Disagreement → `db-ops` wins.** That skill holds what is generally correct for Postgres; this file holds this repo's rules, including the mandatory order, the destructive gate, and role testing. A general rule never overrides a local one.
-
-That skill is not installed → continue without it, do not stop. It sharpens; it does not hold anything up.
+**Check a Postgres pattern you are not certain about** — indexes, column types, constraints, the shape of an RLS policy — against the `supabase-postgres-best-practices` skill before writing it into a migration file. Disagreement → `db-ops` wins: a general Postgres rule never overrides a rule of this file — the mandatory order, the destructive gate, and role testing included. That skill is not installed → continue without it, do not stop.
 
 Schema changes are written as **migration files in the repo**, not run directly against the production database. What may be run directly: `SELECT`, and role tests that end in `ROLLBACK`.
 
 ## A new table in a repo that audits
 
-Applies only when `docs/decisions/` records an audit trigger. Where it does not, this section does not exist.
+Applies only when `docs/decisions/` records an audit trigger.
 
-**A new table is created with its audit trigger in the same migration.** Not in a follow-up, not on the next feature. A table that goes live untracked has no history for the period it ran untracked, and no later migration brings that back — this is the one schema mistake a migration cannot undo, which is why it sits beside the destructive gate rather than in a style guide.
+**A new table is created with its audit trigger in the same migration**, never in a follow-up: the period it ran untracked has no history, and no later migration brings that back.
 
-Leaving a table untracked is allowed, and only as an **explicit answer from the user, asked before the migration runs**. Silence is not that answer. State what the table holds and ask; a table nobody will ever argue about — a lookup of provinces, a cache of computed totals — is a fair thing to leave out, and the user is the one who says so.
+**Leaving a table untracked takes an explicit answer from the user, asked before the migration runs** — silence is not that answer. State what the table holds and ask; a lookup of provinces or a cache of computed totals is fair to leave out, and the user is the one who says so. Never track everything by reflex either: a table tracked without thought is the same failure as a table skipped without thought.
 
-Do not resolve this by tracking everything by reflex either. Blanket tracking is how an audit becomes a storage bill whose output nobody reads, and a table tracked without thought is the same failure as a table skipped without thought.
-
-The skip is recorded nowhere. A table without a trigger is visible to introspection, and the reason it has none is not worth a document that will go stale.
+Record the skip nowhere — introspection shows a table without a trigger.
 
 ## Mandatory order
 
@@ -43,9 +42,9 @@ The skip is recorded nowhere. A table without a trigger is visible to introspect
 migration → run → introspect AFTER → regenerate types → frontend
 ```
 
-Not reversible. Reversing it produces `as any` patches that become permanent technical debt.
+Never reordered — reversing it produces `as any` patches that become permanent technical debt.
 
-**Introspecting afterwards is mandatory, including when the execution looked successful.** Show the result as-is, do not paraphrase — the user is the one checking it, and paraphrasing removes exactly the part that needed checking. Reporting "succeeded" without reading back is not a report; it is a claim without evidence.
+**Introspecting afterwards is mandatory, including when the execution looked successful.** Show the result as-is, never paraphrased: the user is the one checking it, and "succeeded" without the read-back is a claim without evidence.
 
 ## Destructive operations
 
@@ -53,9 +52,9 @@ Not reversible. Reversing it produces `as any` patches that become permanent tec
 
 They are allowed. What is not allowed is doing them **without a number** and **without a guard**.
 
-This gate stands where a migration is **written**, not where it runs. CI applies whatever migration files reach it, ungated. So never tell the user the database is protected from destructive change — the authoring path is. A destructive migration written by hand reaches production with nothing in its way.
+**This gate stands where a migration is written, not where it runs.** CI applies whatever migration files reach it, ungated. So never tell the user the database is protected from destructive change — the authoring path is. A destructive migration written by hand reaches production with nothing in its way.
 
-**A repo may switch the enforcing hook off — the user's decision, never the agent's.** A marker file at `.claude/destructive-gate.off` (content: one line naming why) disables the hook for that repo alone; every other repo keeps it. The three phases below remain the norm even there — the marker removes the enforcement, not the rule. Deleting the file turns enforcement back on.
+**A repo may switch the enforcing hook off — the user's decision, never the agent's.** A marker file at `.claude/destructive-gate.off` (content: one line naming why) disables the hook for that repo alone; deleting it turns enforcement back on. Every phase below remains the norm even there — the marker removes the enforcement, not the rule.
 
 **Phase 1 — PRE.** `SELECT COUNT` for the rows that will be hit. Set the **Expected** number: how many rows should be deleted or changed. That number goes straight into the guard condition.
 
@@ -115,7 +114,7 @@ RLS fails **silently**: no error, just leaked data or missing data.
 
 **The default connection is the owner, so RLS is bypassed.** A query without `SET LOCAL ROLE` tests no policy at all; it only tests whether data exists. The result looks reasonable and proves nothing.
 
-Showing `qual` and `with_check` only proves the policy **exists as written**, not that its predicate is **correct**. Leaks come from predicates that are valid SQL but wrong in logic, and those survive any amount of careful reading.
+Showing `qual` and `with_check` only proves the policy **exists as written**, not that its predicate is **correct** — a predicate that is valid SQL but wrong in logic survives any amount of careful reading.
 
 Test pattern, one call per role:
 
@@ -132,7 +131,7 @@ ROLLBACK;
 
 **Also test the role that should see zero rows.** The negative test is what catches leaks; the positive one only proves the data arrives.
 
-A real user UUID is needed per role. None exists yet → seed one first (`references/agent-account.md`). This is friction that appears on **every** RLS change, not once.
+A real user UUID is needed per role, on **every** RLS change, not once. None exists yet → seed one first (`references/agent-account.md`).
 
 Report per role: role · UUID · rows visible · rows expected · match or not. Mismatch → stop, do not move on to the frontend.
 
