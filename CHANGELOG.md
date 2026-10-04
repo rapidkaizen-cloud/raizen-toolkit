@@ -2,6 +2,16 @@
 
 All notable changes to the `raizen-hub` and `raizen-norms` plugins, newest first. The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). Versions before these are in `git log`.
 
+## [raizen-norms 0.37.1] - 2026-10-04
+
+### Changed
+
+- `build-flow`: commit timing follows the session norms' `GIT` block everywhere. Section 9 no longer says the commit is never made mid-session, and the audit is no longer offered before anything is committed — a finished page is committed when it is finished, and an audit fix is its own commit.
+- `build-flow` Section 9: no longer says bootstrap wrote no host config and no CI workflow; `app-settle` N5 writes a rewrite rule for a static SPA, and a CI workflow when the user asks for one.
+- `ui-build`: the `bulk` fixture case is 500+ rows, the number `build-flow`'s `references/contract.md` gives.
+
+Nothing to act on in an installed app.
+
 ## [raizen-hub 0.69.0] - 2026-10-04
 
 ### Changed

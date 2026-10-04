@@ -143,7 +143,7 @@ Backend batch
 
 ### The audit, offered once — never page by page
 
-Once the last page of the session has been walked, and **before anything is committed**, offer the audit in one question covering every page this session built or changed — once per session, never once per page. Offered, never imposed: declining is not one of the Section 6 stops, needs no reason, and changes nothing else about how the session closes. Accepted → read `references/audit.md` and run it over this session's diff only.
+Once the last page of the session has been walked, offer the audit in one question covering every page this session built or changed — once per session, never once per page. Offered, never imposed: declining is not one of the Section 6 stops, needs no reason, and changes nothing else about how the session closes. Accepted → read `references/audit.md` and run it over this session's diff only.
 
 ## 6 — Do not stop; the list of legitimate stops is closed
 
@@ -186,9 +186,9 @@ A legacy repo writes no guide page and no `whats-new.md`: its queue line is dele
 
 | `docs/queue.md` | What to do about deploy |
 |---|---|
-| Still has lines | **Never raise deploy, hosting, CI, or production environment variables on your own initiative.** None is needed to build a page and use it locally, and bootstrap wrote no host config and no CI workflow |
+| Still has lines | **Never raise deploy, hosting, CI, or production environment variables on your own initiative.** None is needed to build a page and use it locally |
 | Gone | **Raise it, once** — the only time this skill brings deploy up by itself. Name what is still unwired: hosting connection, production environment variables, CI migrations. Add that the host chosen at bootstrap *may* have a Claude connector automating the first of those — derived from the stack actually chosen, never promised. A shortcut offered, not a step required. Then leave it to the user |
 
 - **Read the table against the last batch, not the current one.** A UI queue running empty means every screen is accepted, not that the app works; `Gone` applies when no batch is left.
 - **The user asks to deploy → do it**, with no lecture and no gate: one sentence naming any table whose RLS has not been role-tested, and only if such a table exists.
-- **State the commit once, as a fact, in the close block** — `Uncommitted: 3 files`. Never *shall I commit?*, and never mid-session.
+- **State the commits as a fact in the close block, never as a question** — *shall I commit?* is never asked: a finished page is already committed (Section 8).

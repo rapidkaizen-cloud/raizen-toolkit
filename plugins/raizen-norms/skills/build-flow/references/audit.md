@@ -12,5 +12,5 @@ Read this only when the user accepts the audit `SKILL.md` Section 5 offers. It r
 
 - **Use the session's skills that cover a pass** — `accessibility`, `make-interfaces-feel-better`, `click-path-audit` in the `ecc` plugin. Without them the rows above are the whole checklist: the audit never depends on a plugin being installed.
 - **The Click path row needs wired handlers**, so it is empty in a UI batch running on fixtures. The others run in both batches.
-- **Fix a finding inside the pages this session built now, before the commit.** Everything else becomes a `docs/queue.md` line.
+- **Fix a finding inside the pages this session built now, and commit the fix** by the git norms `raizen-norms` prints. Everything else becomes a `docs/queue.md` line.
 - **No browser tooling in the session → say so and judge the widths live at the dev server**, as for the walk.

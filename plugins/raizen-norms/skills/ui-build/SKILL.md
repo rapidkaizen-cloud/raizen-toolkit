@@ -101,7 +101,7 @@ Fixed norms — not asked per app, not restated in any document. Write each stat
 - **Failed → put the message next to its cause**: a form error under its field, never stacked at the top of the page; an error with no field of its own (failed to load, failed to save) where the content should have been, with a way to retry.
 - **A failure message never disappears on its own**; only success notifications may.
 
-**Where the app has contract files, these states are proven rather than claimed**: `build-flow` builds each page of a UI batch against six named fixture cases, held in its `references/contract.md`. Three are these states — `loading`, `empty`, `failed`. Two more must render without the layout breaking before the page is accepted: `bulk`, several hundred rows, and `messy`, null in every nullable field with the longest string that really occurs.
+**Where the app has contract files, these states are proven rather than claimed**: `build-flow` builds each page of a UI batch against six named fixture cases, held in its `references/contract.md`. Three are these states — `loading`, `empty`, `failed`. Two more must render without the layout breaking before the page is accepted: `bulk`, 500+ rows, and `messy`, null in every nullable field with the longest string that really occurs.
 
 ## Writing
 
