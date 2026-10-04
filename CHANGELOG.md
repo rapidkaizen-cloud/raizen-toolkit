@@ -2,6 +2,12 @@
 
 All notable changes to the `raizen-hub` and `raizen-norms` plugins, newest first. The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). Versions before these are in `git log`.
 
+## [raizen-norms 0.36.0] - 2026-10-04
+
+### Changed
+
+- Session start, legacy `PRD.md` repos: the hook prints Sections 1, 2 and 6 only — context, roles, prohibitions, what `docs/product.md` holds in the other form. Sections 3, 4 and 5 are named with their line range and read from the file when a skill sends a session there. A `PRD.md` whose six numbered sections cannot be located is still printed whole. Nothing to act on in an installed app.
+
 ## [raizen-norms 0.35.1] - 2026-10-04
 
 ### Changed

@@ -6,6 +6,7 @@ Read before editing a legacy `PRD.md`. Every rule of `SKILL.md` binds the sectio
 - **Keep the shape it has.** Section 1 — a three-row table (Surface · Data · Deploy), the Proof profile under it (`shapes.md`), then problem, success, non-goals. Section 2 — `Role · Must be able to · Must not`. Section 3 — categorized sub-tables with a `Why` column: Timing & Deadlines (`Rule · Value · Why that value`), Matching/Keys (`Source · Key · Fallback`), Approval (`Action · Requires · Notes`), Formulas (`Metric · Formula`), Invariants. Section 4 — `Term · Precise meaning · Commonly misread as`. Section 5 — the design system. Section 6 — prohibitions. Cross-references use the topic name, never a section number.
 - **A rule's topic is the first cell of its Section 3 row** — the name a rule test title quotes.
 - **Past about 400 lines the PRD carries status, not intent.** The session-start hook says so; tell the user.
+- **The session-start hook prints Sections 1, 2 and 6 only**, where all six are in shape. Read Section 3, 4 or 5 from the file, at the line range the hook names, before writing or changing anything it governs.
 
 ## Section 5 — the design system
 

@@ -198,6 +198,29 @@ def forms() -> None:
         assert "--- PRD.md — intent and prohibitions ---" in out and "- Legacy page" in out
         assert "Stray" not in out and "NOTE" not in out
 
+        # legacy, off-shape: a PRD whose six sections cannot be located is printed whole
+        off = "# PRD\n\n## 1. Context\nctx\n\n## 3. Business Rules\nrule-body\n\n## Prohibitions\nnever-x\n"
+        write(root, "PRD.md", off)
+        out = run(root)
+        assert "rule-body" in out and "never-x" in out and "Not printed" not in out
+
+        # legacy, in shape: context, roles and prohibitions printed; rules, glossary and
+        # design system named by line range, whatever language the headings are in
+        shaped = (
+            "# PRD\nintro\n\n## 1. Konteks\nctx\n\n## 2. Roles\nrole-body\n\n"
+            "## 3. Business Rules\nrule-body\n### Timing\nmore-rules\n\n## 4. Glossary\nterm-body\n\n"
+            "## 5. Design System\nhex-body\n\n## 6. Larangan\nnever-x\n"
+        )
+        write(root, "PRD.md", shaped)
+        out = run(root)
+        assert "intro" in out and "ctx" in out and "role-body" in out and "never-x" in out
+        assert "rule-body" not in out and "more-rules" not in out
+        assert "term-body" not in out and "hex-body" not in out
+        lines = shaped.splitlines()
+        first, last = lines.index("## 3. Business Rules") + 1, lines.index("## 4. Glossary")
+        assert f"## 3. Business Rules\n\nNot printed. Read `PRD.md` lines {first}-{last} " in out
+        assert "## 4. Glossary\n\nNot printed." in out and "## 5. Design System\n\nNot printed." in out
+
     # neither form: the docs block — the form app-settle will write — a root QUEUE.md when
     # present, and nothing said about documents that were never seeded
     with tempfile.TemporaryDirectory() as tmp:

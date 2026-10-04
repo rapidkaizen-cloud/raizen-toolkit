@@ -13,8 +13,8 @@ and the two gates that must survive the plugin being absent.
 
 The documents are injected rather than pointed at. A pointer is obeyed by judgement,
 and the sessions that skip it are exactly the narrow ones where its prohibitions still
-apply. A repo with a root `PRD.md` is on the legacy form and gets `PRD.md` and
-`QUEUE.md`, exactly as before the `docs/` form existed; any other repo gets the `docs/`
+apply. A repo with a root `PRD.md` is on the legacy form and gets `QUEUE.md` and the
+sections of `PRD.md` that `docs/product.md` holds in the other; any other repo gets the `docs/`
 form's block, and with `docs/PRD.md` the three living documents `docs-format` names —
 never the frozen ones.
 
@@ -215,9 +215,35 @@ STALE = [
 ]
 
 # A PRD past this length means `docs-format` has leaked and the file is accumulating
-# status. It is still injected whole — a prohibition cut off at line 400 is worse than
-# a long file — but the size is said out loud.
+# status. The size is said out loud; what is printed never depends on it.
 PRD_LINES_WARN = 400
+
+# A legacy PRD is printed as the `docs/` form prints `docs/product.md`: context, roles,
+# prohibitions. Sections 3-5 — rules, glossary, design system — are named with their
+# line range instead, the read the `docs/` form already asks for: printed whole they
+# were most of what every model call in the repo re-read, and Section 5 put the old
+# look in front of a `design-settle` session that must draw blind to it.
+PRD_SECTION = re.compile(r"^## (\d+)\..*$", re.M)
+PRD_UNPRINTED = {"3", "4", "5"}
+
+
+def prd_printed(text: str) -> str:
+    marks = list(PRD_SECTION.finditer(text))
+    if [m.group(1) for m in marks] != ["1", "2", "3", "4", "5", "6"]:
+        return text  # off-shape: a prohibition that cannot be located is never cut
+    out = [text[: marks[0].start()]]
+    for mark, after in zip(marks, marks[1:] + [None]):
+        end = after.start() if after else len(text)
+        if mark.group(1) not in PRD_UNPRINTED:
+            out.append(text[mark.start() : end])
+            continue
+        first = text.count("\n", 0, mark.start()) + 1
+        last = text.count("\n", 0, end)
+        out.append(
+            f"{mark.group(0)}\n\nNot printed. Read `PRD.md` lines {first}-{last} before "
+            "writing or changing anything this section governs.\n\n"
+        )
+    return "".join(out)
 
 
 # The norms and the skills are written in Claude Code's vocabulary. A session on another
@@ -264,7 +290,8 @@ def inject(root: Path, rel: str, what: str) -> None:
     text = read(root / rel)
     if not text:
         return
-    sys.stdout.write(f"\n--- {rel} — {what} ---\n\n{text}\n")
+    shown = prd_printed(text) if rel == "PRD.md" else text
+    sys.stdout.write(f"\n--- {rel} — {what} ---\n\n{shown}\n")
     if rel == "PRD.md":
         lines = text.count("\n") + 1
         if lines > PRD_LINES_WARN:
