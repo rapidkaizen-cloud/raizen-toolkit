@@ -53,10 +53,10 @@ One session runs one mode, in the order a repo owes them: Document, then Migrate
 
 ### Align — A1 to A5
 
-1. **A1.** One subagent audits the repo against the installed plugin copy and returns an `AUDIT` block: `C1 platform residue`, `C2 agent files`, `C3 language split`, `C4 guard coverage`, `C5 documents`, `C6 lint floor`, `C7 rule coverage`. Every row reports, a clean one included.
-2. **A2 and A3.** A table ranked by what breaks without anyone noticing, in three bands: a guarantee that does not hold, a rule that points somewhere wrong, drift that is merely untidy. You pick through a question: band 1 only, bands 1 and 2, everything, or nothing.
+1. **A1.** One subagent audits the repo against the installed plugin copy and returns an `AUDIT` block: `C1 platform residue`, `C2 agent files`, `C3 language split`, `C4 guard coverage`, `C5 documents`, `C6 lint floor`, `C7 rule coverage`. Six rows run; `C3 language split` prints `not run`, because it reads every name in the repo and rarely finds more than untidiness. Every row that ran reports, a clean one included.
+2. **A2 and A3.** A table ranked by what breaks without anyone noticing, in three bands: a guarantee that does not hold, a rule that points somewhere wrong, drift that is merely untidy. You pick through a question: band 1 only, bands 1 and 2, everything, or nothing. The same question offers `C3`: audit the language split too, or skip it. Picked, it is audited and its findings are put to you the same way.
 3. **A4.** One finding per commit, named paths. A build or run config gets one real run first; a lint floor is proven before its commit.
-4. **A5.** An `ALIGN` block: `Fixed`, `Dropped`, `Left`, `Still silent`, `Verified`, `For app-eval`. An empty audit is a normal ending.
+4. **A5.** An `ALIGN` block: `Fixed`, `Dropped`, `Left`, `Not audited`, `Still silent`, `Verified`, `For app-eval`. An empty audit is a normal ending.
 
 ### Rework — R1 to R6
 
@@ -75,6 +75,7 @@ One session runs one mode, in the order a repo owes them: Document, then Migrate
 | The six themes | The documents' content; no options, because options would steer the answer |
 | The nine stack questions | The stack, and whether the app keeps help for its users, with `docs/decisions/` records of each choice |
 | Which bands to fix (Align) | What gets one commit each |
+| Audit the language split too (Align) | Whether `C3` runs. Skipped, a name written in the UI language stays unreported, and the close block says `Not audited` |
 | Keep or change, per decision (Rework) | What the documents record; a changed number needs a reason of its own |
 
 ## Where it stops

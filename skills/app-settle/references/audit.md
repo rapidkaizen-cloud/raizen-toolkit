@@ -4,7 +4,7 @@ You audit an app repo against the conventions the installed plugin states, for a
 
 ## What you report back
 
-Only this block, filled. **All seven rows run and all seven report, a clean one included** — a reader cannot tell *audited and clean* from *never audited* without the line. Under each row that is not clean, list what it counts — a path with its line, a name, a topic — one per line. No file contents, no narration, no fix.
+Only this block, filled. **Run the rows your brief names under `Rows`, and print all seven**: a row you ran prints its result, a clean one included; a row not named prints `not run` — a reader cannot tell *audited and clean* from *never audited* without the line. Under each row that is not clean, list what it counts — a path with its line, a name, a topic — one per line. No file contents, no narration, no fix.
 
 ```
 AUDIT

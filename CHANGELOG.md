@@ -2,6 +2,12 @@
 
 All notable changes to the `raizen-norms` plugin, and to `raizen-hub` until 0.70.0 merged it in, newest first. The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). Versions before these are in `git log`.
 
+## [raizen-norms 0.80.0] - 2026-10-05
+
+### Changed
+
+- `app-settle`, Align: the audit runs six rows and prints `C3 language split` as `not run`. The question that puts the ranked table also offers C3 — audit it too, or skip it — and the close block has a `Not audited` row. C3 reads every identifier, route and database name in the repo, and what it finds is mostly renames recommended to leave; it was run on every repo whether or not anyone wanted it.
+
 ## [raizen-norms 0.79.0] - 2026-10-05
 
 ### Added

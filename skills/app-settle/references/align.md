@@ -16,11 +16,13 @@ Mechanical work: change **code and agent files that already exist**, and only wh
 
 ## A1 — Audit, before asking anything
 
-**Run the audit in one subagent on a cheaper model than the session's** (`sonnet` on Claude Code) **whose whole brief is `audit.md`**: hand it that path, the repo root, the installed plugin path, and every `NOTE` line the session start printed, and never read that file here. No subagent → say so and run the audit here from that file. No model choice → the session's model.
+**Run the audit in one subagent on a cheaper model than the session's** (`sonnet` on Claude Code) **whose whole brief is `audit.md`**: hand it that path, the repo root, the installed plugin path, every `NOTE` line the session start printed, and `Rows: C1 C2 C4 C5 C6 C7`, and never read that file here. No subagent → say so and run the audit here from that file. No model choice → the session's model.
+
+**C3 is never run unasked**: it reads every identifier, route and database name in the repo, and what it finds is band 3 unless a rename is cheap. A3 offers it.
 
 **The installed plugin copy is the standard, not the toolkit repo's `master`** — an unreleased fix reaches no app. Read a rule's exact text from the installed plugin. A rule that looks wrong is a finding for `app-eval`, in the toolkit repo, in another session.
 
-**It returns only the `AUDIT` block — seven rows, C1 to C7, a clean one included — with what each row counts listed under it.** Print it as returned.
+**It returns only the `AUDIT` block — seven rows, C1 to C7, a clean one included and C3 as `not run` — with what each row counts listed under it.** Print it as returned.
 
 Each row's cost if left, and the fix Align allows:
 
@@ -54,6 +56,8 @@ Three bands, in this order:
 
 Put the ranked table up through **AskUserQuestion**, never as prose at the end of a turn. Assemble the options from the bands: band 1 only · bands 1 and 2 · everything · nothing. Recommend **band 1 only** unless the session has room and the bands below carry no migration. Individual lines are added or dropped through the answer or "Other". Then **STOP** and wait.
 
+**Offer C3 in the same call while it reads `not run`** — a second question, `Audit the language split too` or `Skip it`, each with its cost: the scan reads the whole repo; skipped, a name in the UI language stays unreported. Recommend `Skip it` unless a finding of the first run quotes such a name. No finding in the first run → ask this question alone. Picked → run the subagent again with `Rows: C3`, add what it finds to the table in its band, and ask again for those lines only.
+
 Nothing selected is a valid answer and a normal ending: close with the audit reported and no commits.
 
 ## A4 — Execute, one finding per commit
@@ -76,6 +80,7 @@ ALIGN
 Fixed        : [one line per finding, with the commit]
 Dropped      : [findings that needed a decision — and which decision]
 Left         : [band 3 lines the user declined, or that were recommended to leave]
+Not audited  : [C3 — offered and skipped]  or  [none]
 Still silent : [any C4 guarantee that is still not in force, and why]
 Verified     : [what was actually run — the build, the page, the role test]
 For app-eval : [findings that are defects in the rules rather than in this app — or "none"]
