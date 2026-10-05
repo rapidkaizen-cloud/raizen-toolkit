@@ -38,6 +38,7 @@ Documents are named by their `docs/` path; a repo with a root `PRD.md` reads eac
 
 **Before writing any UI component, read `DESIGN.md`.** Absent, empty, or still `[needs verification]` → **STOP**: write no component, no styling value, no token, because every rule below measures the code against `DESIGN.md`.
 
+- **A repo the session start marks `NOT SETTLED` is outside this gate**: that block says what UI may be written there.
 - **Point the user at `design-settle`, whatever state the repo is in.** Never name a path or decide one; its own audit decides. Components with no `DESIGN.md` are its normal input, not an error — `app-settle`'s document mode leaves the design system unwritten.
 - **One exemption: the design canvas and the `/design-system` scaffold** — `src/design-canvas/` and the design-system route; on a non-web Surface, whatever `canvas.md` defines for that platform. A design skill builds them to produce `DESIGN.md`, and the exemption is theirs alone: no real page, component, or token is written until it lands.
 - **The canvas folder belongs to the design session building it.** A session doing any other work never edits, moves, or deletes anything under it or `.design-audit/`; a problem found there is a finding reported to the user, because an outside edit silently changes what the user approved.

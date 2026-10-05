@@ -2,6 +2,20 @@
 
 All notable changes to the `raizen-norms` plugin, and to `raizen-hub` until 0.70.0 merged it in, newest first. The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). Versions before these are in `git log`.
 
+## [raizen-norms 0.71.0] - 2026-10-05
+
+### Changed
+
+- Session norms: a repo with neither a root `PRD.md` nor `docs/PRD.md` gets a shorter block. `POINTERS` and `CLOSING THE SESSION` are cut, and a `NOT SETTLED` section stands in their place: `build-flow` and `docs-format` do not apply there, `ui-build`, `db-ops` and `logic-build` hold except where a rule reads `docs/` or `DESIGN.md`, and in an app repo the session says once that `app-settle` has not run.
+- `ui-build`: the `DESIGN.md` gate does not bind a repo marked `NOT SETTLED`. UI there is built only from the components and tokens the repo already has, with no new styling value.
+- `guard_git`: a commit on `main` is refused only where the repo has a `development` branch, local or on `origin`. The `GIT` block of the norms says the same.
+- `app-settle`, `logic-settle`, `app-align`: the stop on branch `main` gives the rule as its reason, no longer the guard.
+
+To act on:
+
+- An app repo with a PRD in either form: nothing — its session start and its gates are unchanged.
+- An app repo with only `main`: sessions now commit there. Create `development` to get the refusal back.
+
 ## [raizen-norms 0.70.0] - 2026-10-05
 
 ### Changed

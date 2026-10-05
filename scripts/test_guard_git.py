@@ -238,7 +238,15 @@ def antigravity() -> None:
              "commit", "-q", "--allow-empty", "-m", "init"],
             check=True,
         )
-        assert outcome("git commit -m 'add page' -- a.txt", workspace=str(repo)) == refused
+        commit = "git commit -m 'add page' -- a.txt"
+        # a repo with only `main` has no other branch to commit on: it passes
+        assert outcome(commit, workspace=str(repo)) == passed
+        subprocess.run(["git", "-C", str(repo), "branch", "development"], check=True)
+        assert outcome(commit, workspace=str(repo)) == refused
+        # the remote's `development` counts before anyone has checked it out
+        subprocess.run(["git", "-C", str(repo), "branch", "-D", "-q", "development"], check=True)
+        subprocess.run(["git", "-C", str(repo), "update-ref", "refs/remotes/origin/development", "HEAD"], check=True)
+        assert outcome(commit, workspace=str(repo)) == refused
 
     print("ok antigravity")
 

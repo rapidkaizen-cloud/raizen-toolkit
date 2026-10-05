@@ -53,7 +53,7 @@ Flow           : audit → score + data layer folder → interview (only what sc
 ```
 
 - **No PRD in either form → STOP**, point to `app-settle`.
-- **Branch `main` → STOP.** The git guard will refuse it, and that refusal is correct.
+- **Branch `main` → STOP**: a session never works on `main`.
 - **Server surface decides half the questions**: a static SPA has no boundary handler to validate and no server log to route (`logic-build` Sections 3 and 4). Read it from the Stack table and the Surface in `docs/product.md`, and where application code exists from the **code** as well — in an app that grew the two disagree, and the code is the one that is true.
 - **Working tree not clean → say it and carry on.** Name the dirty paths in one line, and say that committing or stashing them first keeps this session's diff separable. Advice, not a gate.
 - **No logic decision recorded → not a blocker**: every need starts from *handwritten or nothing* rather than from a recorded choice.

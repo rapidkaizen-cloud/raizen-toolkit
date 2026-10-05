@@ -43,7 +43,7 @@ Plugin text  : [raizen-norms vX — the installed copy, which is what governs th
 Flow         : audit → rank → user picks → execute one finding per commit
 ```
 
-- Branch `main` → **STOP**: the git guard refuses it, correctly.
+- Branch `main` → **STOP**: a session never works on `main`.
 - No PRD in either form → **STOP** and point to `app-settle` document mode; there is nothing to align to.
 - **Working tree dirty → name the paths and STOP** until the user commits or stashes — a stop, not advice as in `logic-settle`, because this skill commits per finding and an approved diff must not carry somebody else's uncommitted work.
 - **The installed plugin copy is the standard, not the toolkit repo's `master`** — an unreleased fix reaches no app. Read a rule's exact text from the installed plugin. A rule that looks wrong is a finding for `app-eval`, in the toolkit repo, in another session.

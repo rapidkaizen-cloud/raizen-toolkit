@@ -71,7 +71,7 @@ Flow       : [bootstrap: story → reading → 6 domain themes → 8 stack quest
 
 - **The directory decides the mode, and nothing else does**: "start fresh" in a directory full of code is rework, "fix up" an empty directory is bootstrap. Report the mode with the fact that produced it; the user may overrule it in one line.
 - **Not empty, yet read as bootstrap** — files that are neither application code nor a PRD, a stray `README` or a `.git` and nothing else → **STOP**, ask whether to continue here or move. Overwrite nothing.
-- **Branch `main` → STOP.** The git guard refuses it, correctly.
+- **Branch `main` → STOP**: a session never works on `main`.
 - **Not a git repo, with code present** → say so, offer `git init`, and continue either way.
 - **`docs/PRD.md` present but a living document it seeds missing** → read `references/prd-structure.md`, seed only the missing ones as N4 does, report them, and close; rework waits for a later session.
 

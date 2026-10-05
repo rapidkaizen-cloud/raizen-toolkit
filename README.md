@@ -6,7 +6,7 @@ One plugin, `raizen-norms`, and the marketplace `raizen`, in the public repo `ra
 |---|---|
 | `app-settle`, `logic-settle`, `design-settle`, `app-align` | When invoked |
 | `build-flow`, `docs-format`, `ui-build`, `db-ops`, `logic-build` | By their descriptions |
-| Session norms, guard hooks | Every session where the plugin is enabled — installed at user scope, every folder on that machine; `app-settle` writes the `enabledPlugins` line into each app repo |
+| Session norms, guard hooks | Every session where the plugin is enabled — installed at user scope, every folder on that machine; `app-settle` writes the `enabledPlugins` line into each app repo. A repo with no PRD in either form gets the norms in their `NOT SETTLED` form: no document gate, UI only from what the repo already has |
 
 ## Install
 

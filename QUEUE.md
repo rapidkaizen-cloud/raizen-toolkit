@@ -8,3 +8,4 @@
 - `logic-settle`: the jump to Step 7 when nothing scored skips Step 5's install block, though Step 7 may need a linter installed.
 - `app-align`: the hard limit names `AGENTS.md` as the only file it may create, and C7 creates `docs/queue.md`.
 - `db-ops`: `references/agent-account.md` says it is also read when a session must sign in without an account; `SKILL.md` points to it only from the role test.
+- The `NOT SETTLED` form (0.71.0): proven by `test_session_norms.py` and `test_guard_git.py` only. No session has run under it in an app repo without a PRD — whether it builds UI from what the repo has without stopping, and says once that `app-settle` has not run, is unobserved.

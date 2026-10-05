@@ -5,7 +5,7 @@ Reads the hook payload from stdin.
 Exit 0 = pass, exit 2 = block (the agent reads stderr).
 
 Refused, and fixed by the agent itself:
-  - commit while HEAD is on main
+  - commit while HEAD is on main, in a repo that has a development branch
   - git add -A / git add .  (a commit holds explicit paths from SCOPE)
   - a bare force push: --force / -f, and the flagless force spelled as a refspec
     (push origin +main). --force-with-lease refuses when the remote moved, so it is
@@ -56,6 +56,19 @@ def head_branch() -> str:
         return out.stdout.strip()
     except Exception:
         return ""
+
+
+def has_development() -> bool:
+    """True when the repo has a `development` branch, local or on origin. A repo with only
+    `main` has nowhere else to commit, and refusing there leaves the session no way out."""
+    try:
+        out = subprocess.run(
+            ["git", "for-each-ref", "--count=1", "refs/heads/development", "refs/remotes/origin/development"],
+            capture_output=True, text=True, timeout=5,
+        )
+        return bool(out.stdout.strip())
+    except Exception:
+        return True  # unreadable: refuse, as before the branch was looked for
 
 
 def norm(text: str) -> str:
@@ -200,7 +213,7 @@ def main() -> None:
 
     if re.search(GIT + r"commit\b", code):
         branch = head_branch()
-        if branch == "main":
+        if branch == "main" and has_development():
             block(
                 "REFUSED: HEAD is on main. A session never works on main.\n"
                 "Switch to development first, then retry."

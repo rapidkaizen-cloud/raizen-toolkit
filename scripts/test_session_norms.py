@@ -177,7 +177,7 @@ def demo() -> None:
 
 
 def forms() -> None:
-    """The two document forms. The legacy repo and the repo with neither come first: the
+    """The two document forms, and the repo with neither. The legacy repo comes first: the
     four running apps are legacy, and their session start must not move."""
     spec = importlib.util.spec_from_file_location("session_norms", SCRIPT)
     norms = importlib.util.module_from_spec(spec)
@@ -185,6 +185,8 @@ def forms() -> None:
     # every replacement must hit, or the docs form silently prints a legacy line
     for old, _ in norms.DOCS_FORM:
         assert old in norms.NORMS, old
+    for old, _ in norms.UNSETTLED_FORM:
+        assert old in norms.docs_norms(), old
 
     # legacy: a root PRD.md keeps the legacy block and documents, whatever docs/ holds
     with tempfile.TemporaryDirectory() as tmp:
@@ -196,7 +198,7 @@ def forms() -> None:
         out = run(root)
         assert out.startswith(norms.NORMS)
         assert "--- PRD.md — intent and prohibitions ---" in out and "- Legacy page" in out
-        assert "Stray" not in out and "NOTE" not in out
+        assert "Stray" not in out and "NOTE" not in out and "NOT SETTLED" not in out
 
         # legacy, off-shape: a PRD whose six sections cannot be located is printed whole
         off = "# PRD\n\n## 1. Context\nctx\n\n## 3. Business Rules\nrule-body\n\n## Prohibitions\nnever-x\n"
@@ -221,13 +223,18 @@ def forms() -> None:
         assert f"## 3. Business Rules\n\nNot printed. Read `PRD.md` lines {first}-{last} " in out
         assert "## 4. Glossary\n\nNot printed." in out and "## 5. Design System\n\nNot printed." in out
 
-    # neither form: the docs block — the form app-settle will write — a root QUEUE.md when
-    # present, and nothing said about documents that were never seeded
+    # neither form: `app-settle` has not run, so the block says so and drops the sections
+    # resting on what it writes; a root QUEUE.md when present, and nothing said about
+    # documents that were never seeded
     with tempfile.TemporaryDirectory() as tmp:
         root = Path(tmp)
         write(root, "QUEUE.md", "- Toolkit line\n")
         out = run(root)
-        assert out.startswith(norms.docs_norms()) and "- Toolkit line" in out and "NOTE" not in out
+        assert out.startswith(norms.unsettled_norms()) and "- Toolkit line" in out and "NOTE" not in out
+        assert "\nNOT SETTLED\n" in out and "\nGIT\n" in out and "\nASKING\n" in out
+        assert "POINTERS" not in out and "CLOSING THE SESSION" not in out
+        assert "injected below" not in out and "block below" not in out and "closed list" not in out
+        assert "docs/rules.md" not in out and "Section 6" not in out
 
     # docs form: the three living documents, never the frozen ones
     with tempfile.TemporaryDirectory() as tmp:
@@ -242,7 +249,7 @@ def forms() -> None:
         write(root, "package.json", "{}\n")
         write(root, "src/data/leads.ts", "export async function getLeads() {}\n")
         out = run(root)
-        assert out.startswith(norms.docs_norms())
+        assert out.startswith(norms.docs_norms()) and "NOT SETTLED" not in out
         assert "--- docs/README.md — the index ---" in out and "# Product - Living" in out
         assert "- Import page" in out
         assert "Frozen" not in out and "Not injected" not in out

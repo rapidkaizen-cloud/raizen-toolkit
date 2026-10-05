@@ -14,9 +14,9 @@ and the two gates that must survive the plugin being absent.
 The documents are injected rather than pointed at. A pointer is obeyed by judgement,
 and the sessions that skip it are exactly the narrow ones where its prohibitions still
 apply. A repo with a root `PRD.md` is on the legacy form and gets `QUEUE.md` and the
-sections of `PRD.md` that `docs/product.md` holds in the other; any other repo gets the `docs/`
-form's block, and with `docs/PRD.md` the three living documents `docs-format` names —
-never the frozen ones.
+sections of `PRD.md` that `docs/product.md` holds in the other; a repo with `docs/PRD.md`
+gets the `docs/` form's block and the three living documents `docs-format` names — never
+the frozen ones. A repo with neither gets the `NOT SETTLED` block and its root `QUEUE.md`.
 
 The two inventories — components, and the data layer's functions — are printed for
 the same reason. `ui-build` orders a listing
@@ -37,12 +37,15 @@ from pathlib import Path
 import handoff
 import host
 
-NORMS = """\
+HEAD = """\
 SESSION NORMS (raizen-norms)
 
 These hold in every app repo. The app's CLAUDE.md holds what is true of that app
 alone; where the two disagree about a norm, this one is the newer.
 
+"""
+
+LANGUAGE = """\
 LANGUAGE
 The user's language and the repo's language are two different things. `PRD.md` is
 injected below in the user's language, and it is the longest thing you will read
@@ -62,6 +65,9 @@ the way in: a PRD that says "view kandidat" becomes `lead_candidates`, never
 `lead_kandidat`. Existing code in the other language is a finding to report, not a
 licence to match it.
 
+"""
+
+POINTERS = """\
 POINTERS - read before touching
   Starting a page, or deciding what to build next : skill `build-flow`
   `PRD.md`                                        : skill `docs-format`
@@ -74,15 +80,22 @@ are listed at the end of this block, wherever it has any. Do not write new UI wi
 reading `ui-build` first, do not write a query without reading `logic-build` first,
 and do not write a key or an environment variable without its Section 1.
 
+"""
+
+SCOPE = """\
 SCOPE
 Only what was asked. No refactor, no rename, no "while I'm here" outside scope.
 Do not emit documentation that was not explicitly requested. `PRD.md` and `QUEUE.md`
 are the only documents maintained in an app repo: `PRD.md` holds intent, `QUEUE.md`
 holds what is not built yet.
 
+"""
+
+GIT = """\
 GIT
-Before anything else: `git fetch`, then check the branch position. HEAD on `main` -> stop.
-Behind `origin/development` -> stop and ask to run `git pull --ff-only`.
+Before anything else: `git fetch`, then check the branch position. Where the repo has a
+`development` branch: HEAD on `main` -> stop, and behind `origin/development` -> stop
+and ask to run `git pull --ff-only`.
 
 Committing is part of finishing, not a separate request:
   - A scope item that is finished is committed in the same turn, without asking first.
@@ -97,17 +110,23 @@ absent from the PRD. Leave the working tree dirty and report the stop instead. S
 the end of a session: a clean tree means finished, a dirty tree means something is
 waiting on the user.
 
-`main` never receives a direct commit. A push or a pull request runs only after the
-user picks `Run` on an AskUserQuestion naming its exact command - `guard_git` reads
-that answer, and one answer covers one run. Under the command, the question lists
-every commit it publishes as `- ` bullets, one per commit: short hash and subject.
-It offers two options, `Run` and `Cancel`.
+`main` never receives a direct commit while `development` exists. A push or a pull
+request runs only after the user picks `Run` on an AskUserQuestion naming its exact
+command - `guard_git` reads that answer, and one answer covers one run. Under the
+command, the question lists every commit it publishes as `- ` bullets, one per commit:
+short hash and subject. It offers two options, `Run` and `Cancel`.
 
+"""
+
+ASKING = """\
 ASKING
 A decision that is the user's is asked through AskUserQuestion, or answered in chat at
 a hard stop; then you run it yourself. Never hand the user a command to type - only
 what needs their own hands: a browser login, a dashboard, a key rotation, a payment.
 
+"""
+
+DECISIONS = """\
 DECISIONS
 An answer carrying two or more decisions, options, or recommendations closes with one
 table: question - options - recommendation. An answer that only explains, with nothing
@@ -119,6 +138,9 @@ is free, and where the price has not been found, say that it has not been found.
 This comes before the work, while it can still change the plan. The block below is the
 report afterwards, and neither replaces the other.
 
+"""
+
+CLOSING = """\
 CLOSING THE SESSION
 Report per scope item: what changed, or "UNTOUCHED". A scope item that did not change
 is flagged. Then this block, always, even where the answer is "none":
@@ -131,6 +153,8 @@ is flagged. Then this block, always, even where the answer is "none":
   - PRD: written this session, and what needs the user's decision
 A missing block is ambiguous between "none" and "forgot".
 """
+
+NORMS = HEAD + LANGUAGE + POINTERS + SCOPE + GIT + ASKING + DECISIONS + CLOSING
 
 # The block above is the legacy form's, printed byte for byte where a root `PRD.md`
 # exists. The `docs/` form differs only where the block names a document.
@@ -194,11 +218,65 @@ FILE_EXT = re.compile(r"\.(md|mdx|[cm]?[jt]sx?|json|toml|ya?ml|s?css|sql|py|dart
 STALE_MAX = 20
 
 
-def docs_norms() -> str:
-    text = NORMS
+def docs_norms(text: str = NORMS) -> str:
     for old, new in DOCS_FORM:
         text = text.replace(old, new)
     return text
+
+
+# A repo with a PRD in neither form has never been through `app-settle`. It is handed the
+# block without the two sections that rest on what `app-settle` writes, and this one in
+# the place of `POINTERS`: a gate that points at a document nobody wrote stops work the
+# user never put under these skills.
+NOT_SETTLED = """\
+NOT SETTLED
+This repo has neither a root `PRD.md` nor `docs/PRD.md`: `app-settle` has not run here,
+and the documents the build skills measure code against do not exist.
+  - `build-flow` and `docs-format` do not apply.
+  - Read `ui-build` before writing UI, `db-ops` before SQL, and `logic-build` before a
+    query, a key or an environment variable. A rule of theirs that reads `docs/` or
+    `DESIGN.md` has nothing to read here and does not apply.
+  - Build UI only from the components and tokens this repo already has, and write no new
+    styling value. A repo with no UI yet is not bound by this.
+  - In an app repo, say once, when the work is done, that `app-settle` has not run here.
+
+"""
+
+# Applied after `DOCS_FORM`: what the docs form says of documents this repo does not have.
+UNSETTLED_FORM = [
+    (
+        " The `docs/`\nfiles are injected below in the user's language - do not let them decide the\n"
+        "language of what you write.\n",
+        "\n",
+    ),
+    (
+        "Write no document outside the closed list in `docs-format`, and keep every listed\n"
+        "one true in the commit that changes what it says. `docs/queue.md` holds what is\n"
+        "not built yet.\n",
+        "Do not emit documentation that was not explicitly requested.\n",
+    ),
+    (
+        "one of the three legitimate stops in `build-flow`\nSection 6 - the `db-ops` destructive "
+        "gate, a role test that misses, a business rule\nabsent from `docs/rules.md`. Leave the "
+        "working tree dirty and report the stop\ninstead. So at the end of a session: a clean "
+        "tree means finished, a dirty tree\nmeans something is waiting on the user.\n",
+        "the `db-ops` destructive gate or a role test that misses.\n"
+        "Leave the working tree dirty and report the stop instead. So at the end of a session:\n"
+        "a clean tree means finished, a dirty tree means something is waiting on the user.\n",
+    ),
+    (
+        "This comes before the work, while it can still change the plan. The block below is the\n"
+        "report afterwards, and neither replaces the other.\n",
+        "This comes before the work, while it can still change the plan.\n",
+    ),
+]
+
+
+def unsettled_norms() -> str:
+    text = docs_norms(HEAD + LANGUAGE + NOT_SETTLED + SCOPE + GIT + ASKING + DECISIONS)
+    for old, new in UNSETTLED_FORM:
+        text = text.replace(old, new)
+    return text.rstrip("\n") + "\n"
 
 
 # Sections that used to be rendered into an app's CLAUDE.md and are now owned by this
@@ -526,9 +604,8 @@ def emit(root: Path, payload: dict) -> None:
         stale_paths(root)
     else:
         # No PRD in either form: an empty directory, an app not documented yet, or a repo
-        # that is not an app. The docs block is the form app-settle will write; a root
-        # QUEUE.md is still the only queue such a repo has.
-        sys.stdout.write(docs_norms() + tail)
+        # that is not an app. A root QUEUE.md is still the only queue such a repo has.
+        sys.stdout.write(unsettled_norms() + tail)
         inject(root, "QUEUE.md", "what is not built yet")
     if on_antigravity:
         inject(root, "CLAUDE.md", "what is true of this app alone")
