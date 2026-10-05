@@ -2,6 +2,15 @@
 
 All notable changes to the `raizen-norms` plugin, and to `raizen-hub` until 0.70.0 merged it in, newest first. The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). Versions before these are in `git log`.
 
+## [raizen-norms 0.75.0] - 2026-10-05
+
+### Added
+
+- Session start: a repo with no PRD in either form gets `docs/queue.md` printed where it keeps its queue there, as it gets a root `QUEUE.md`.
+- `docs/` in the plugin's own repo, written for the people who install it. `docs/guide/gates.md` says what the publishing stop and the destructive gate show, what each waits for, and what its hook checks and does not. The toolkit's own queue moved to `docs/queue.md`.
+
+Nothing to act on in an installed app.
+
 ## [raizen-norms 0.74.0] - 2026-10-05
 
 ### Changed

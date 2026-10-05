@@ -236,6 +236,15 @@ def forms() -> None:
         assert "injected below" not in out and "block below" not in out and "closed list" not in out
         assert "docs/rules.md" not in out and "Section 6" not in out
 
+    # ... and a queue kept under docs/ with no PRD beside it is printed the same way
+    with tempfile.TemporaryDirectory() as tmp:
+        root = Path(tmp)
+        write(root, "docs/queue.md", "- Toolkit line\n")
+        write(root, "docs/guide/gates.md", "# Not injected\n")
+        out = run(root)
+        assert out.startswith(norms.unsettled_norms()) and "--- docs/queue.md" in out
+        assert "- Toolkit line" in out and "Not injected" not in out and "NOTE" not in out
+
     # docs form: the three living documents, never the frozen ones
     with tempfile.TemporaryDirectory() as tmp:
         root = Path(tmp)

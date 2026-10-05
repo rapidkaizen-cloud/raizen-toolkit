@@ -9,6 +9,8 @@ One plugin, `raizen-norms`, and the marketplace `raizen`, in the public repo `ra
 | `norms-version` | When asked what version runs, whether it is current, or what changed |
 | Session norms, guard hooks | Every session where the plugin is enabled — installed at user scope, every folder on that machine; `app-settle` writes the `enabledPlugins` line into each app repo. A repo with no PRD in either form gets the norms in their `NOT SETTLED` form: no document gate, UI only from what the repo already has |
 
+What a user meets, feature by feature — a stop, a question, what a hook checks — is under [`docs/`](docs/README.md).
+
 ## Install
 
 Needs Claude Code, `python3` (every `raizen-norms` hook calls it; with only `python` the guards silently never run), and Node.js.

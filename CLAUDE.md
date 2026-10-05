@@ -26,9 +26,17 @@ A proof run tests these skills on a throwaway copy of an app in the scratchpad. 
 
 Write `the proof app`, never the app's name, a client, a person, or a domain, in any file or commit message of this repo, because anyone who installs the plugin reads its history.
 
-## QUEUE.md
+## docs/
 
-Keep `QUEUE.md` only while it holds toolkit work not done yet — delete it with its last item — because the `SessionStart` hook injects it into every session here and stays silent when it is absent.
+Write `docs/` for the people who install the plugin, never for agents: a rule stays in its skill and is not restated there.
+
+A commit that changes what a user meets — a question, a stop, a command, a file a skill writes — corrects that feature's `docs/guide/` page in the same commit, or writes the page where it has none and lists it in `docs/README.md`.
+
+Keep `docs/queue.md` only while it holds toolkit work not done yet — delete it with its last item — because the `SessionStart` hook injects it into every session here and stays silent when it is absent.
+
+Keep `CHANGELOG.md` at the root, because an installed copy's `norms-version` fetches it from that path on origin.
+
+Never add `docs/PRD.md`: it switches this repo's sessions to the norms of an app.
 
 ## Git
 

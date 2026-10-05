@@ -16,7 +16,8 @@ and the sessions that skip it are exactly the narrow ones where its prohibitions
 apply. A repo with a root `PRD.md` is on the legacy form and gets `QUEUE.md` and the
 sections of `PRD.md` that `docs/product.md` holds in the other; a repo with `docs/PRD.md`
 gets the `docs/` form's block and the three living documents `docs-format` names — never
-the frozen ones. A repo with neither gets the `NOT SETTLED` block and its root `QUEUE.md`.
+the frozen ones. A repo with neither gets the `NOT SETTLED` block and its queue, kept at
+the root or under `docs/`.
 
 The two inventories — components, and the data layer's functions — are printed for
 the same reason. `ui-build` orders a listing
@@ -613,9 +614,10 @@ def emit(root: Path, payload: dict) -> None:
         stale_paths(root)
     else:
         # No PRD in either form: an empty directory, an app not documented yet, or a repo
-        # that is not an app. A root QUEUE.md is still the only queue such a repo has.
+        # that is not an app. Its queue is still printed, from the root or from `docs/`.
         sys.stdout.write(unsettled_norms() + tail)
-        inject(root, "QUEUE.md", "what is not built yet")
+        for rel in ("QUEUE.md", "docs/queue.md"):
+            inject(root, rel, "what is not built yet")
     if on_antigravity:
         inject(root, "CLAUDE.md", "what is true of this app alone")
     stale_note(root)
