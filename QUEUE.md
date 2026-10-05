@@ -8,4 +8,3 @@
 - `logic-settle`: the jump to Step 7 when nothing scored skips Step 5's install block, though Step 7 may need a linter installed.
 - `app-align`: the hard limit names `AGENTS.md` as the only file it may create, and C7 creates `docs/queue.md`.
 - `db-ops`: `references/agent-account.md` says it is also read when a session must sign in without an account; `SKILL.md` points to it only from the role test.
-- Antigravity, `raizen-norms` 0.70.0: `agy plugin install` from the repo URL has not been run — proven from a folder only. Run it once `master` carries 0.70.0, then drop this line and the README's.

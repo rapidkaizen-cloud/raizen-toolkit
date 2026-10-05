@@ -58,7 +58,7 @@ agy plugin install https://github.com/rapidkaizen-cloud/raizen-toolkit
 
 Update: `agy plugin uninstall raizen-norms`, then install again — the install is a copy, and nothing refreshes it.
 
-**Proven on the CLI** — `agy` 1.2.16, Windows, headless, installed from a folder with `agy plugin install`: the nine skills are listed, `hooks.json` is kept as written, the norms and the `HOST` block are injected, `git add -A` is refused, and a push is held. The copy lands in `~/.gemini/config/plugins/raizen-norms`. Proven before 0.70.0 only, registered by path: an interactive session, a held push passing on `Run` and held again once it has run, the hand-over block.
+**Proven on the CLI** — `agy` 1.2.16, Windows, headless, installed from this repo's URL with `agy plugin install`: the nine skills are listed, `hooks.json` is kept as written, the norms and the `HOST` block are injected, `git add -A` is refused, and a push is held. The copy lands in `~/.gemini/config/plugins/raizen-norms`. Proven before 0.70.0 only, registered by path: an interactive session, a held push passing on `Run` and held again once it has run, the hand-over block.
 
 - Install it for the machine as above, never through a repo's `.agents/plugins.json`: registered per folder, the plugin loaded a minute after an interactive conversation began, and that conversation ran unguarded.
 - Never run `agy plugin import` on this plugin: it replaces `hooks.json` with Claude Code's, which Antigravity cannot parse, and every guard goes silent.
@@ -112,4 +112,4 @@ An app with a project-scoped `.mcp.json` shadows the user-scope Supabase server:
 - The `docs/` form has never been bootstrapped in a real app.
 - Whether a cloud session installs this marketplace; until then, cloud sessions do frontend work only.
 - The account-wide Supabase MCP endpoint end to end: its first-use login, and `project_id` as `guard_project_ref.py` expects.
-- On Antigravity: `agy plugin install` from this repo's URL — proven from a folder, and by URL on another plugin. The four settle skills were read by a session there and none has been run — their interviews, their subagents, `design-settle` with its companions and a browser MCP server installed; the IDE and Antigravity 2.0. Gemini CLI is not ported.
+- On Antigravity: the four settle skills were read by a session there and none has been run — their interviews, their subagents, `design-settle` with its companions and a browser MCP server installed; the IDE and Antigravity 2.0. Gemini CLI is not ported.
