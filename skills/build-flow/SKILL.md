@@ -130,7 +130,7 @@ Backend batch
     → one rule test per docs/rules.md topic this page implements — `logic-build` Section 10
     → wire the page → walk the flow in a browser
     → run the lint command — the floors in `ui-build` and `logic-build`
-    → the guide page of every task this page serves — Section 8
+    → the documents this page owes — Section 8
 ```
 
 - **Write the chain as a visible todo list the moment the page starts** — one entry per step of this batch's chain, plus one per spread page that passed the test in Section 1. Required: it lets the user see the next step without asking. Anything unfinished **lands as a `docs/queue.md` line** before the session closes.
@@ -174,11 +174,13 @@ Report the closing block `raizen-norms` prints at session start under `CLOSING T
 
 Commit the page as part of finishing it, by the git norms `raizen-norms` prints. **The commit carries the documents its change made false or incomplete** (`docs-format`, same commit), never a later one:
 
-- **The guide page of every task the page serves** (`docs/guide/`) — mandatory in the batch that makes the page usable to its role. Delete its queue line in the commit carrying the guide, never before. A UI batch on fixtures writes none.
-- **A `docs/whats-new.md` entry** for what users will notice — with or without an in-app help page. A commit users will not notice writes none.
+- **A `docs/changelog.md` entry** for a commit that changes how the app behaves — mandatory, in the batch that makes the page usable. A UI batch on fixtures changes no behaviour and writes none.
+- **The sentence of `docs/architecture.md` or `docs/runbook.md` the change made false** — a part added or moved, a step of the deploy changed.
+- **The guide page of every task the page serves** (`docs/guide/`), where `docs/product.md`'s Help row is not `none` — mandatory in the batch that makes the page usable to its role. A UI batch on fixtures writes none.
+- **Delete the page's queue line in the commit carrying these**, never before.
 - **A `docs/glossary.md` row** for each domain term the page puts on screen that the glossary lacks — written before the page, per `docs-format`, and committed with it.
 
-A legacy repo writes no guide page and no `whats-new.md`: its queue line is deleted when the page is usable.
+A commit that carries none of them is reported `Docs: none — <why>` (`docs-format`, Same commit). A legacy repo writes none of the three: its queue line is deleted when the page is usable.
 
 ## 9 — Before the app has ever shipped
 

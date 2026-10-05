@@ -86,7 +86,7 @@ def demo() -> None:
         assert run(docs) == ""
         commit(docs, "src/page.tsx", "README.md")
         assert run(docs) == ""
-        commit(docs, "docs/whats-new.md")
+        commit(docs, "docs/changelog.md")
         assert run(docs) == ""
         commit(legacy, "src/page.tsx", "PRD.md")
         assert run(legacy) == ""
@@ -99,8 +99,14 @@ def demo() -> None:
         commit(docs, "src/page.tsx", "src/lib/orders.ts")
         asked = run(docs)
         assert asked.startswith("DOCS CHECK - commit ") and "changed 2 file(s) and no document" in asked
-        assert "`docs/guide/`" in asked and "`docs/whats-new.md`" in asked and "`PRD.md`" not in asked
-        assert "`Docs: none`" in asked and "amend" in asked
+        assert "`docs/changelog.md`" in asked and "`docs/architecture.md`" in asked and "`PRD.md`" not in asked
+        assert "`Docs: none - <why>`" in asked and "amend" in asked
+        # the guide page is asked about only where the app keeps guide pages for its users
+        assert "`docs/guide/`" not in asked
+        for help_row, kept in (("none", False), ("guide pages", True), ("in-app — /help", True)):
+            (docs / "docs" / "product.md").write_text(f"## Context\n\n| | |\n|---|---|\n| Help | {help_row} |\n", encoding="utf-8")
+            assert ("`docs/guide/`" in run(docs)) is kept, help_row
+        (docs / "docs" / "product.md").write_text("x\n", encoding="utf-8")
         # ... however the commit was spelled
         assert run(docs, "git -C . commit -q -F - <<'EOF'\nfeat: page\nEOF") == asked
         assert run(docs, "git add src/page.tsx && git commit -m 'page'") == asked
@@ -110,8 +116,8 @@ def demo() -> None:
         assert "`PRD.md`" in asked and "`QUEUE.md`" in asked and "docs/" not in asked
 
         # the amend that adds the document answers it
-        (docs / "docs" / "whats-new.md").write_text("# What's new\n", encoding="utf-8")
-        git(docs, "add", "docs/whats-new.md")
+        (docs / "docs" / "changelog.md").write_text("# Changelog\n", encoding="utf-8")
+        git(docs, "add", "docs/changelog.md")
         git(docs, "commit", "-q", "--amend", "--no-edit")
         assert run(docs, "git commit --amend --no-edit") == ""
 

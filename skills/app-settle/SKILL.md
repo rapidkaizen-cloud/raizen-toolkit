@@ -34,9 +34,9 @@ The user is a junior developer: give a reasoned default, and **ask only what cha
 
 **Never opened on your own initiative.** A session that trips over a finding reports it in one line and carries on. Offer this skill through **AskUserQuestion**, once, with its evidence attached — the measured finding, what it costs to leave, a recommendation; a finding too thin to state in files and counts is a report line, not an offer. Declining closes the matter for the session.
 
-**Write only `docs-format`'s closed list.** No `ARCHITECTURE.md`, `SCHEMA.md`, `CHANGELOG.md`, interview summary, or audit report as a file. A document another skill produces in this session is **not committed**.
+**Write only `docs-format`'s closed list.** No `SCHEMA.md`, API reference, interview summary, or audit report as a file. A document another skill produces in this session is **not committed**.
 
-**`docs/queue.md`, `docs/guide/`, `docs/whats-new.md`, and `docs/changes/` are not born here** — `build-flow` writes them in the building sessions. Two exceptions, each stated in its own file: Migrate moves a root `QUEUE.md`, and Align writes the queue lines for work it may not do itself.
+**`docs/queue.md`, `docs/changelog.md`, `docs/guide/`, and `docs/changes/` are not born here** — `build-flow` writes them in the building sessions. Two exceptions, each stated in its own file: Migrate moves a root `QUEUE.md`, and Align writes the queue lines for work it may not do itself.
 
 **`DESIGN.md` is never written here, nor a legacy PRD's Section 5.** Bootstrap and Document leave it absent; Rework leaves it untouched even when the whole point of the rework is a new look. `design-settle` owns it, and until it exists `ui-build` blocks every component — a gate not yet opened, never a hole to fill. Copying today's CSS into it reverses `user → DESIGN.md → CSS` and makes every accident a norm. One exception: Migrate converts a ratified Section 5 into it, changing no value (`references/migrate.md`).
 
@@ -88,7 +88,7 @@ Flow       : [bootstrap: story → reading → 6 domain themes → 8 stack quest
 - **Branch `main` → STOP**: a session never works on `main`. No `development` branch exists → offer through AskUserQuestion to create it from `main` and switch to it.
 - **Not a git repo, with code present** → say so and offer `git init`. Document continues either way; Migrate and Align **STOP** without one, because their commits are what makes them undoable.
 - **Working tree dirty, before Migrate or Align → name the paths and STOP** until the user commits or stashes, because their commits must carry nobody else's uncommitted work.
-- **`docs/PRD.md` present but a living document it seeds missing** → read `references/prd-structure.md`, seed only the missing ones as N4 does, report them, and close; any other mode waits for a later session.
+- **`docs/PRD.md` present but a living document it seeds missing** → read `references/prd-structure.md`, seed only the missing ones as N4 does, report them, and close; any other mode waits for a later session. A missing `docs/architecture.md` or `docs/runbook.md` has no section to seed it: launch the subagent on `references/repo-read.md` as D1 does, and write the two from its block as D5 does.
 
 Then run the mode's own rows of The steps.
 
@@ -124,7 +124,7 @@ Rules of the digging:
 | Step | Read | What it runs |
 |---|---|---|
 | **Bootstrap** · N1 — Domain | Nothing more | The interview above |
-| N2 — Stack, eight questions | `references/stack-questions.md` and `references/stack-consequences.md`, in one turn. `references/pioneer.md` only on a Pioneer answer, or a platform typed from outside the list | The questions in batches, then the derived lines and the defaults not asked |
+| N2 — Stack, nine questions | `references/stack-questions.md` and `references/stack-consequences.md`, in one turn. `references/pioneer.md` only on a Pioneer answer, or a platform typed from outside the list | The questions in batches, then the derived lines and the defaults not asked |
 | N3 — Summary, then STOP | Nothing more | One message: app name · Surface/Data/Deploy · roles · key business rules · domain terms · non-goals · stack decisions · rejected alternatives with their reasons |
 | N4 — Write `docs/PRD.md`, then seed the living documents · N5 — Scaffold · N6 — Close | After the approval, in one turn: `references/prd-structure.md` (N4) and `references/scaffold.md` (N5, N6) | The frozen PRD and what it seeds, the repo files, `git init`, the bootstrap commit, the close block |
 | **Document** · D1 to D6 | `references/document.md`, in the turn that launches D1's subagent on `references/repo-read.md`. After D4's approval, in one turn: `references/prd-structure.md` and `references/scaffold.md` | The stack read from the repo, the interview above, the summary and its STOP, the documents, the close block |

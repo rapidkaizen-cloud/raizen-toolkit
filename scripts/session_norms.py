@@ -187,7 +187,8 @@ DOCS_FORM = [
         "are the only documents maintained in an app repo: `PRD.md` holds intent, `QUEUE.md`\n"
         "holds what is not built yet.\n",
         "Write no document outside the closed list in `docs-format`, and keep every listed\n"
-        "one true in the commit that changes what it says. `docs/queue.md` holds what is\n"
+        "one true in the commit that changes what it says. A commit that changes how the\n"
+        "app behaves carries its `docs/changelog.md` entry. `docs/queue.md` holds what is\n"
         "not built yet.\n",
     ),
     (
@@ -201,8 +202,8 @@ DOCS_FORM = [
     ("written as `QUEUE.md` lines", "written as `docs/queue.md` lines"),
     (
         "  - PRD: written this session, and what needs the user's decision\n",
-        "  - Docs: which files of `docs-format`'s list this session changed, and what\n"
-        "    needs the user's decision\n",
+        "  - Docs: which files of `docs-format`'s list this session changed, or `none` and\n"
+        "    why, and what needs the user's decision\n",
     ),
 ]
 
@@ -214,8 +215,8 @@ LIVING = [
     ("docs/queue.md", "what is not built yet"),
 ]
 # Living documents whose named paths are checked. Frozen records may name paths that are
-# gone on purpose, `whats-new.md` is dated history, and the queue names files not built yet.
-PATH_CHECKED = ["README.md", "product.md", "rules.md", "glossary.md"]
+# gone on purpose, `changelog.md` is dated history, and the queue names files not built yet.
+PATH_CHECKED = ["README.md", "product.md", "rules.md", "glossary.md", "architecture.md", "runbook.md"]
 LINK = re.compile(r"\]\(([^)\s]+)\)")
 TICKED = re.compile(r"`([^`\s]+)`")
 FILE_EXT = re.compile(r"\.(md|mdx|[cm]?[jt]sx?|json|toml|ya?ml|s?css|sql|py|dart|kt|swift|vue|svelte|astro|html|sh)$")
@@ -255,7 +256,8 @@ UNSETTLED_FORM = [
     ),
     (
         "Write no document outside the closed list in `docs-format`, and keep every listed\n"
-        "one true in the commit that changes what it says. `docs/queue.md` holds what is\n"
+        "one true in the commit that changes what it says. A commit that changes how the\n"
+        "app behaves carries its `docs/changelog.md` entry. `docs/queue.md` holds what is\n"
         "not built yet.\n",
         "Do not emit documentation that was not explicitly requested.\n",
     ),

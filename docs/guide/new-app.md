@@ -20,7 +20,7 @@ Before you start: the plugin and its [companion skills](../start/install.md) are
 
 | File | Holds |
 |---|---|
-| `docs/` | The app's documents: the index, the product, the rules, the glossary, the queue, one record per decision |
+| `docs/` | The app's documents, for the developer and the agent: the index, the product, the rules, the glossary, the architecture map, the runbook, the changelog, the queue, one record per decision |
 | `DESIGN.md` | The design system — written by `design-settle` alone |
 | `README.md` | What the app is and how to run it |
 | `CLAUDE.md`, `AGENTS.md` | Instructions for agents; they record nothing about the app |

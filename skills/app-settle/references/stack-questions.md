@@ -1,4 +1,4 @@
-# Stack questions — N2: eight, with dynamic options
+# Stack questions — N2: nine, with dynamic options
 
 ## How they are asked
 
@@ -64,7 +64,7 @@ Mobile and desktop frameworks are platforms, not framework rows: they are decide
 
 ---
 
-# The eight questions
+# The nine questions
 
 ## 1. Kind of app
 
@@ -79,7 +79,7 @@ Mobile and desktop frameworks are platforms, not framework rows: they are decide
 | Register — judged on the first visit, or on the tenth use | Roles: how often a role comes back | The `frontend-design` branch in `design-settle`'s `frames.md`, whether `impeccable`'s operational register loads, posture allowed or the signature alone. A product with both a public front and a logged-in inside carries both, per page group |
 | Data behind the pages | The Data row | Fixture cases and contracts in `build-flow`; without data, a page is proven at the two widths with its real copy |
 
-The switches are not written into any document as fields — Context keeps its three rows. They are re-derived from Roles and the Data row whenever a skill needs them, and `design-settle`'s Step 0 block prints them so a wrong derivation is seen before it costs anything.
+The switches are not written into any document as fields — Context keeps its four rows. They are re-derived from Roles and the Data row whenever a skill needs them, and `design-settle`'s Step 0 block prints them so a wrong derivation is seen before it costs anything.
 
 ## 2. Platform
 
@@ -145,6 +145,16 @@ Production only · production + staging · production + staging + local for deve
 
 **Recommendation:** leave it until later for a first app; install now where the app carries money, permissions, or a rule that is expensive to get wrong.
 
+## 9. Help for the app's users
+
+**Question:** do the people who use the app get written help, and where do they read it? The repo's own documents are written either way, for the developer and the agent.
+
+**Options:** `None` — nothing is written for users · `Guide pages` — one page per task under `docs/guide/`, written by the session that makes the task's page usable, read as files · `In-app help` — the same pages, and a page inside the app that renders them: one queue line, its route in English and its label in the UI language. No screen → `In-app help` is not offered.
+
+**Recommendation:** `None` for a tool its own builders use; `In-app help` where a role is trained on the app, or the app changes hands.
+
+The answer is Context's Help row, its first words verbatim — `none`, `guide pages`, `in-app` — and a decision record like every other.
+
 ---
 
 # Derived, not asked — reported as a line with its value
@@ -169,4 +179,3 @@ Language and Package manager are **rules, not tables**: the Platform rubric is t
 | Branches | `main` for production, `development` for work | A session never works on `main` |
 | UI language | Inferred from the user's story | What the app writes on screen. Shown as a concrete value, together with date format and thousands and decimal separators — never a separate question and never left unwritten, because a session opened months later in a different language cannot re-derive it |
 | Code language | English, in every app | Comments, identifiers, file names, URL routes, API endpoint paths, and every database name. Never inferred from anything, and **written as its own line, never merged with UI language** — merged, "UI in X" reads as permission for identifiers, file names, and view names in X. Enum values are the one judgement call, decided per enum |
-| In-app help page | None | `docs/guide/` and `docs/whats-new.md` are written either way; a page rendering them inside the app — route in English, label in the UI language — is a queue line the user asks for |

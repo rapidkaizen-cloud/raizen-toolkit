@@ -19,8 +19,10 @@ Headings verbatim, each section written in the shape of the living document it s
 ## Writing and seeding
 
 1. **Write `docs/PRD.md`.** It is frozen from the moment it is written — the summary's approval is its approval.
-2. **Seed the living documents from it in the same session** — the Seeds column, each file to `docs-format`'s shapes — then write `docs/README.md`, the index of what now exists, and `README.md` at the root. Nothing else under `docs/`.
-3. **Write the Proof profile**: on a web platform, the web default as written in `docs-format`'s shapes; on a Pioneer platform, only lines actually executed are written as fact, the rest `[needs verification]`.
-4. **Put rejected stack alternatives in their decision records**, as considered options with their consequences — never among the non-goals, which hold what the app deliberately does not do.
+2. **Seed the living documents from it in the same session** — the Seeds column, each file to `docs-format`'s shapes. Question 9's answer is Context's Help row.
+3. **Write `docs/architecture.md` and `docs/runbook.md` from the stack answers**, to their shapes: what an answer settles is written as fact, and what nothing has run yet — a deploy, a restore — is `[needs verification]`.
+4. **Then write `docs/README.md`, the index of what now exists, and `README.md` at the root.** Nothing else under `docs/`.
+5. **Write the Proof profile**: on a web platform, the web default as written in `docs-format`'s shapes; on a Pioneer platform, only lines actually executed are written as fact, the rest `[needs verification]`.
+6. **Put rejected stack alternatives in their decision records**, as considered options with their consequences — never among the non-goals, which hold what the app deliberately does not do.
 
 **Document mode** records the stack as found — one line per row of D1's block, each naming its file — and seeds no decision record from it: nobody chose from a list, so there were no options. Its other differences are `document.md`'s D5.

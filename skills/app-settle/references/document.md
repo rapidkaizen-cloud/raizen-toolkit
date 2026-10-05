@@ -26,12 +26,14 @@ One message: app name · Surface/Data/Deploy as read · roles · key business ru
 
 ## D5 — Write
 
-After the approval, read `prd-structure.md` and `scaffold.md` in one turn. Write `docs/PRD.md` and seed the living documents as `prd-structure.md` states, with two differences:
+After the approval, read `prd-structure.md` and `scaffold.md` in one turn. Write `docs/PRD.md` and seed the living documents as `prd-structure.md` states, with these differences:
 
 | Where | Difference from bootstrap mode |
 |---|---|
 | Stack | Recorded **as found**, each line a measurement naming its file, and no decision record seeded — nobody chose from a list. The Surface row and Proof profile are still written, measured rather than chosen |
 | Prohibitions | Only those the user states now. A prohibition inferred from code is not a prohibition, it is a habit |
+| `docs/architecture.md`, `docs/runbook.md` | Written from D1's block, each sentence a measurement naming its file. What the repo does not show — a backup, a restore, who decides in an outage — is `[needs verification]`, never asked |
+| Help row | `guide pages` where `docs/guide/` holds pages, `in-app` with its route where a page renders them, else `none` — read, never asked |
 
 Then the rows `scaffold.md` marks Both:
 

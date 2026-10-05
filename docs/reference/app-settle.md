@@ -29,9 +29,9 @@ One session runs one mode, in the order a repo owes them: Document, then Migrate
 ### Bootstrap — N1 to N6
 
 1. **N1, the domain.** One invitation to talk freely, then a one-paragraph reading and a stop for your correction. Then six themes, asked openly with no options: the problem before the app, who uses it and how they work without the app, the work each role must finish, business rules **and the reason behind each number**, domain terms easy to misread, non-goals.
-2. **N2, the stack.** Eight questions, up to four per call: kind of app, platform, framework and rendering, frontend hosting, database and login, which database, database environments, testing. Each option carries a one-sentence consequence, and each question a marked recommendation except frontend hosting and which database, which carry none. Then the derived lines (language, package manager, migrations, styling) and the defaults not asked, in one message for you to change. The component library is not asked here; `design-settle` asks it.
+2. **N2, the stack.** Nine questions, up to four per call: kind of app, platform, framework and rendering, frontend hosting, database and login, which database, database environments, testing, and help for the app's users — none, guide pages in the repo, or a help page inside the app. Each option carries a one-sentence consequence, and each question a marked recommendation except frontend hosting and which database, which carry none. Then the derived lines (language, package manager, migrations, styling) and the defaults not asked, in one message for you to change. The component library is not asked here; `design-settle` asks it.
 3. **N3, the summary.** One message, then a stop for your approval.
-4. **N4, `docs/PRD.md`.** Frozen from the moment it is written. It seeds `docs/product.md`, `docs/rules.md`, `docs/glossary.md` and one record per answered stack question in `docs/decisions/`, then `docs/README.md` and the root `README.md`.
+4. **N4, `docs/PRD.md`.** Frozen from the moment it is written. It seeds `docs/product.md`, `docs/rules.md`, `docs/glossary.md` and one record per answered stack question in `docs/decisions/`. `docs/architecture.md` and `docs/runbook.md` are written from the stack answers, with `[needs verification]` where nothing has run yet. Then `docs/README.md` and the root `README.md`.
 5. **N5, scaffold.** `CLAUDE.md`, `AGENTS.md`, `.claude/settings.json`; `supabase/config.toml` for Supabase Cloud only; a host rewrite rule for a static SPA only; a CI workflow only if you ask. Every file is written for your answers, never copied. Then `git init`, `git branch -M main`, the one commit `main` ever takes directly, and `development` created and switched to.
 6. **N6, close.** The files created, and what you must do by hand: create the database project (and its staging counterpart if question 7 asked for one) and connect it. It says plainly when there is no staging. It offers `/logic-settle`, then `/design-settle`, unless the product has no UI. `raizen-norms` becomes active once the next session starts in this repo.
 
@@ -73,7 +73,7 @@ One session runs one mode, in the order a repo owes them: Document, then Migrate
 | Continue here or move | Whether bootstrap runs in a directory holding files that are neither code nor a PRD |
 | Create `development` from `main`; `git init` | Where the session works; Migrate and Align need a repo |
 | The six themes | The documents' content; no options, because options would steer the answer |
-| The eight stack questions | The stack, with `docs/decisions/` records of the choice |
+| The nine stack questions | The stack, and whether the app keeps help for its users, with `docs/decisions/` records of each choice |
 | Which bands to fix (Align) | What gets one commit each |
 | Keep or change, per decision (Rework) | What the documents record; a changed number needs a reason of its own |
 
@@ -87,7 +87,7 @@ One session runs one mode, in the order a repo owes them: Document, then Migrate
 ## What it never does
 
 - **Open on its own initiative.** A session that finds a problem reports it in one line, or offers this skill once with the evidence. Declining closes the matter for that session.
-- **Write outside `docs-format`'s closed list.** No `ARCHITECTURE.md`, `CHANGELOG.md`, interview summary or audit report as a file. `docs/queue.md`, `docs/guide/`, `docs/whats-new.md` and `docs/changes/` are written by building sessions; Migrate moves a root `QUEUE.md` and Align writes queue lines.
+- **Write outside `docs-format`'s closed list.** No `SCHEMA.md`, API reference, interview summary or audit report as a file. `docs/queue.md`, `docs/changelog.md`, `docs/guide/` and `docs/changes/` are written by building sessions; Migrate moves a root `QUEUE.md` and Align writes queue lines.
 - **Write `DESIGN.md`** apart from Migrate's conversion of Section 5. It stays absent after Bootstrap and Document and untouched after Rework.
 - **Invent.** An unsettled point is written `[needs verification]`. "I don't know" to a reason is written as given.
 - **Put a secret in a file**, or ask for a token: it names the variable.

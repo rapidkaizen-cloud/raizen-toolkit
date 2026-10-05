@@ -17,7 +17,9 @@ description: Rules for the documents an app repo keeps — docs/, DESIGN.md, the
 
 ## The closed list
 
-Write no document outside this list — no `ARCHITECTURE.md`, `DECISIONS.md`, audit report, plan file, or second index. One found is a finding. A document another skill offers to write is not written.
+Write no document outside this list — no `SCHEMA.md`, `DECISIONS.md`, API reference, audit report, plan file, or second index. One found is a finding. A document another skill offers to write is not written.
+
+**Every file of the list is written for the developer who continues the app and the agent that builds it**: in the user's language, technical terms left as they are, nothing explained that a developer knows. `docs/guide/` alone is written for the app's users, in their words.
 
 | File | Holds | Read by | Written by, and when | Gate |
 |---|---|---|---|---|
@@ -27,8 +29,10 @@ Write no document outside this list — no `ARCHITECTURE.md`, `DECISIONS.md`, au
 | `docs/glossary.md` | Domain terms, their precise meaning, what they are misread as | Any session naming a thing | Any session, before the implementation that uses the term | None — append-only |
 | `docs/queue.md` | What is not built yet | Every session — injected at start | `build-flow` | `build-flow` Section 3 |
 | `docs/decisions/` | One record per decision — stack, library, logic layer, a deliberate "none", a technical choice the user takes | A session about to change a settled choice; `logic-build` Section 6 | `app-settle`, `logic-settle`, `design-settle`; a session changing a library default, or recording a technical choice the user took | The user's answer — then immutable |
-| `docs/guide/` | How each role finishes each piece of its work, for the app's users | The app's users; the help page | The build session whose commit changes what a page describes | None — mandatory |
-| `docs/whats-new.md` | What users notice, newest first | The app's users — through the help page where the app has one | The build session whose commit users will notice | None |
+| `docs/architecture.md` | The map: the parts that run, what each is responsible for and talks to, where each kind of code lives, how a user is identified | A developer new to the repo; a session before it adds or moves a part | `app-settle`; any session, in the commit that makes a sentence in it false | None |
+| `docs/runbook.md` | How the app is deployed, rolled back, backed up and restored, and what to check when it is down | A developer or a session about to deploy, restore, or answer an outage | `app-settle`; the commit changing how the app is deployed or restored | None |
+| `docs/changelog.md` | What changed in how the app behaves, newest first | A developer or a session asking what changed, and when | The session whose commit changes how the app behaves | None — mandatory |
+| `docs/guide/` | How each role finishes each piece of its work, for the app's users — kept only where `product.md`'s Help row is not `none` | The app's users; the help page where the app has one | The build session whose commit changes what a page describes | None — mandatory where kept |
 | `docs/changes/` | One record per big change — why, what it touches, the lines it wrote | The sessions executing it | `build-flow`, past its big-change threshold | The user's approval — frozen when done |
 | `docs/PRD.md` | The app as first approved — in a migrated repo, its legacy PRD as it stood | Nobody after seeding — history | `app-settle`: bootstrap and document mode write it, migrate mode moves it there | The user's approval — frozen when written |
 | `DESIGN.md` | The design system — tokens, and the rules for applying them | `ui-build` before any UI; every agent through `AGENTS.md` | `design-settle` alone | The section below |
@@ -40,7 +44,7 @@ Write no document outside this list — no `ARCHITECTURE.md`, `DECISIONS.md`, au
 
 **Write only what a live check cannot recover.** Test every sentence: *deleted, could reading the repo or introspecting the database bring it back?* Yes → do not write it. Tables, columns, routes, components, versions, and whether something is built are read from the code and the live database; a document answering them is a finding.
 
-**Two exceptions.** The Surface row and the Proof profile are written regardless, because the skills that prove a page read them before they could derive them from the repo. `docs/guide/` and `docs/whats-new.md` describe what the app's users see, which no user recovers from code.
+**Three exceptions.** The Surface row and the Proof profile are written regardless, because the skills that prove a page read them before they could derive them from the repo. `docs/guide/` describes what the app's users see, which no user recovers from code. `docs/architecture.md` and `docs/runbook.md` say how the parts connect and how the app is operated, which the code holds in pieces and no single read gives back — never what a table, a column, or a route is.
 
 Conflict about what exists → the code wins and the document is corrected. Conflict about what ought to be → the document wins and the code is a finding.
 
@@ -51,19 +55,23 @@ Six sentence shapes make a document go stale fast:
 | Enumeration — a list that has to stay complete | The criterion, not the list |
 | Status — progress, checkmarks, "not tested yet" | Nothing; zero status fields, no exceptions |
 | State description — "the system records X in Y" | The constraint — "no X without Y" |
-| Technical identifier — table, column, route, component, file | The concept; the glossary is the bridge. The index, the Proof profile, and `README.md`'s Run section name paths and commands by necessity |
+| Technical identifier — table, column, route, component, file | The concept; the glossary is the bridge. The index, the Proof profile, `README.md`'s Run section, `architecture.md` and `runbook.md` name paths and commands by necessity |
 | Snapshot number — "N rows at present" | A number only as the reason behind a rule's value |
-| Change history | The state it produced; history is in git and the frozen records |
+| Change history | The state it produced; history is `docs/changelog.md`, git, and the frozen records |
 
 Environment variables by name, never by value.
 
 ## Timeless wording
 
-**The living documents state what is true, in the present tense** — `README.md`, `product.md`, `rules.md`, `glossary.md`, `guide/`, `DESIGN.md`. No "now", "new", "currently", "no longer", "previously", "was changed", no dates: a sentence needing one describes a change, so write the state it produced.
+**The living documents state what is true, in the present tense** — `README.md`, `product.md`, `rules.md`, `glossary.md`, `architecture.md`, `runbook.md`, `guide/`, `DESIGN.md`. No "now", "new", "currently", "no longer", "previously", "was changed", no dates: a sentence needing one describes a change, so write the state it produced.
 
 ## Same commit
 
-**A commit that makes a living document false carries its correction, never a later commit** — a changed page its guide page, a new term its glossary row, a listed file added or removed its `docs/README.md` line.
+**A commit that makes a living document false carries its correction, never a later commit** — a moved part its `architecture.md` sentence, a changed deploy step its `runbook.md` step, a new term its glossary row, a changed page its guide page where they are kept, a listed file added or removed its `docs/README.md` line.
+
+**A commit that changes how the app behaves carries its `docs/changelog.md` entry** — a rule, a flow, a permission, a schema, an integration, how it is run or deployed.
+
+**A commit that changes no document is reported `Docs: none — <why>`**, the why in one clause: a refactor, a test, a rename nobody outside the code meets. No commit goes unreported.
 
 ## Frozen records
 
@@ -71,9 +79,9 @@ Environment variables by name, never by value.
 
 ## Who may write what
 
-**The trigger is narrow.** A living document changes when a sentence in it becomes false, or when a rule, a term, or a prohibition must be remembered by later sessions. A new feature, screen, table, or column is not a trigger by itself. In doubt → do not write.
+**The trigger is narrow.** A living document changes when a sentence in it becomes false, or when a rule, a term, or a prohibition must be remembered by later sessions. A new feature, screen, table, or column is not a trigger by itself: its record is the `changelog.md` entry. In doubt → do not write.
 
-**Written freely**: a sentence that became false, corrected · Context and Roles in `product.md`, each on its own trigger · a glossary row · a guide page · a `whats-new.md` entry · a `docs/README.md` line.
+**Written freely**: a sentence that became false, corrected · Context and Roles in `product.md`, each on its own trigger · a glossary row · a `changelog.md` entry · a guide page where they are kept · a `docs/README.md` line.
 
 **Rules and glossary rows are written before the implementation, never after** — written after, a rule describes its code and looks decided when nobody decided it. Test: *a business decision, or a mechanism I just built?* The latter → do not write it; a rule that surfaces mid-implementation undiscussed is a finding and a `build-flow` stop. The why is at most three sentences — a business or empirical reason, never how it works: reason · trade-off · the condition for revisiting. A glossary term never changes meaning; a changed meaning is a new term.
 

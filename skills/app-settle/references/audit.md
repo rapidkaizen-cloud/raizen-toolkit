@@ -15,7 +15,7 @@ C3 language split   : [N identifiers, routes, or database names in the UI langua
 C4 guard coverage   : [per norm that cannot apply here — which one, and why it is silent]  or  [every norm applies]
 C5 documents       : [files outside docs-format's list · status columns or ticks in the queue · an empty queue]
                       [docs/ form — frozen records edited or missing their header · living documents missing
-                      or unlisted · N tasks with no guide page · N stale paths]  or  [clean]
+                      or unlisted · N tasks with no guide page, where the Help row keeps them · N stale paths]  or  [clean]
 C6 lint floor       : [UI — absent · N of 4 refusals written]  or  [n/a — no DESIGN.md, `design-settle` writes it]
                       [logic — absent · N of 5 refusals written · Data layer row present / missing · N files calling the database outside the folder]
                       [N inline disables of floor rules · N floor rules lowered to a warning]  or  [clean]
@@ -43,7 +43,7 @@ C7 rule coverage    : [N rule topics · N quoted by a test title · runner — <
 
 1. Every frozen record carries its header — `docs/PRD.md` its `Frozen` line, a finished change its `Done` line, a decision record its status — and `git log` shows no edit after it froze beyond a status set to superseded.
 2. Every living document exists, and `docs/README.md` lists what exists and nothing else.
-3. Every task the Roles name whose page is usable has its guide page.
+3. Where `docs/product.md`'s Help row is not `none`: every task the Roles name whose page is usable has its guide page.
 4. Every path a living document names resolves — the session-start hook prints those that do not.
 
 **C6 — the lint floor.** Two halves, one config.

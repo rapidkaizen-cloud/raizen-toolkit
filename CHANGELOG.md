@@ -2,6 +2,29 @@
 
 All notable changes to the `raizen-norms` plugin, and to `raizen-hub` until 0.70.0 merged it in, newest first. The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). Versions before these are in `git log`.
 
+## [raizen-norms 0.79.0] - 2026-10-05
+
+### Added
+
+- `docs/architecture.md` and `docs/runbook.md` in every settled app, for the developer who continues it and the agent that builds it: how the parts connect and where code lives; how the app is deployed, rolled back and restored. `app-settle` writes them — from the stack answers at bootstrap, from the repo in document mode — with `[needs verification]` where nothing has run. Session start checks the paths both name.
+- `docs/changelog.md`: one entry per commit that changes how the app behaves. A commit that changes no document is reported `Docs: none` with its reason, so no commit goes unreported.
+- `app-settle`, a ninth stack question: help for the app's users — none, guide pages in the repo, or a help page inside the app. The answer is Context's `Help` row.
+
+### Changed
+
+- `docs/guide/` is kept only where the `Help` row is not `none`. It was mandatory in every app, with or without anyone to read it. The reminder after a commit asks about a guide page only there.
+- Every document of the list is written for a technical reader, in the user's language; `docs/guide/` alone is written for the app's users.
+
+### Removed
+
+- `docs/whats-new.md`. `docs/changelog.md` replaces it, written for developers rather than users.
+
+To act on:
+
+- An app on the `docs/` form: run `app-settle`. It finds `docs/architecture.md` and `docs/runbook.md` missing and writes them from the repo.
+- An app with a `docs/whats-new.md`: rename it `docs/changelog.md`, in the commit that corrects its `docs/README.md` line.
+- An app that wants its guide pages kept: add a `Help` row to Context in `docs/product.md`, opening with `guide pages` or `in-app`. Without the row, guide pages are no longer asked for.
+
 ## [raizen-norms 0.78.1] - 2026-10-05
 
 ### Fixed

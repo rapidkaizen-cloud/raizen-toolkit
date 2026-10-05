@@ -50,7 +50,7 @@ UI batch      contract → fixtures (six cases) → page with loading, empty, fa
               → walk the six cases → `bulk` screenshot at both widths, beside the proving page
               → page copy count → lint
 Backend batch rules → migration + RLS → role test → types → query returning the contract type
-              → one rule test per rule → wire the page → walk the flow → lint → guide page
+              → one rule test per rule → wire the page → walk the flow → lint → documents
 ```
 
 - **Backend first inside one page**, never across the whole app.
@@ -61,7 +61,7 @@ Backend batch rules → migration + RLS → role test → types → query return
 
 **A backend batch wires, never patches** (`references/backend.md`). The query returns the contract type, with no `as any` and no `as unknown as`. A query that cannot satisfy the contract changes the contract, and the page returns to the queue. The mocked session is replaced.
 
-**Closing** (Section 8). The session reports the closing block the session start prints, commits the page, and the commit carries the guide page of every task the page serves, a `docs/whats-new.md` entry users will notice, and a glossary row for each term the page puts on screen. A UI batch on fixtures writes no guide page. See [Documents](../concepts/documents.md).
+**Closing** (Section 8). The session reports the closing block the session start prints, commits the page, and the commit carries a `docs/changelog.md` entry where the app's behaviour changed, the sentence of `docs/architecture.md` or `docs/runbook.md` the change made false, a glossary row for each term the page puts on screen, and — in an app that keeps help for its users — the guide page of every task the page serves. A UI batch on fixtures writes no changelog entry and no guide page. A commit that carries no document is reported `Docs: none` with its reason. See [Documents](../concepts/documents.md).
 
 **Deploy stays unraised** (Section 9) while `main` carries nothing beyond the bootstrap commit and `docs/queue.md` has lines. When the file is gone and no batch is left, deploy is raised once. Asked to deploy, the session does it.
 

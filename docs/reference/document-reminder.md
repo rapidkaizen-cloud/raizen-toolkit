@@ -17,7 +17,7 @@ Most commits owe no document, and a hook cannot tell which do. So it asks, at th
 - **On Claude Code** the reminder arrives with the result of the commit command.
 - **On Antigravity** a hook that runs after a tool cannot hand the model text. `scripts/session_norms.py` asks before the next model call instead, once per commit.
 - **The reminder opens** `DOCS CHECK - commit <short hash> changed <N> file(s) and no document.`
-- **The session answers** by amending the document into that commit while it is unpushed, or by carrying on and reporting `Docs: none` for the commit at the close.
+- **The session answers** by amending the document into that commit while it is unpushed, or by carrying on and reporting `Docs: none - <why>` for the commit at the close.
 
 ## What it asks
 
@@ -25,7 +25,7 @@ The questions follow the form the repo is on:
 
 | Repo form | Found by | Questions |
 |---|---|---|
-| `docs/` form | `docs/PRD.md` | Did a sentence in `docs/product.md`, `docs/rules.md`, `docs/glossary.md` or `README.md` become false? Did a page become usable to its role with no `docs/guide/` page for its task, or with its `docs/queue.md` line still standing? Will users notice it — then it owes a `docs/whats-new.md` entry. |
+| `docs/` form | `docs/PRD.md` | Did a sentence in `docs/product.md`, `docs/rules.md`, `docs/glossary.md`, `docs/architecture.md`, `docs/runbook.md` or `README.md` become false? Did it change how the app behaves — then it owes a `docs/changelog.md` entry. Did it finish a `docs/queue.md` line that is still standing? Where the Help row of `docs/product.md` is not `none`: did a page become usable to its role with no `docs/guide/` page for its task? |
 | Legacy form | A root `PRD.md` | Did a sentence in `PRD.md` become false? Did it finish a `QUEUE.md` line that is still standing? |
 
 Any yes means writing the document and amending it into the commit. The rule behind the questions is in [Documents](../concepts/documents.md).

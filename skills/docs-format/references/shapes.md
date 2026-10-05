@@ -14,8 +14,10 @@ Write the headings named here verbatim; skills find content by them. Everything 
 - [rules.md](rules.md) — business rules and why
 - [glossary.md](glossary.md) — domain terms
 - [decisions/](decisions/) — one record per decision
+- [architecture.md](architecture.md) — how the parts connect
+- [runbook.md](runbook.md) — deploy, roll back, restore
+- [changelog.md](changelog.md) — what changed, newest first
 - [guide/<task>.md](guide/<task>.md) — <the task, in the user's words>
-- [whats-new.md](whats-new.md) — what users notice
 - [DESIGN.md](../DESIGN.md) — the design system
 
 ## History — frozen, never current truth
@@ -37,6 +39,7 @@ List only files that exist. Guide pages one line each; decisions and changes by 
 | Surface | Platform: <name> — <who uses it, where> |
 | Data | <what data the app holds, and where it comes from> |
 | Deploy | <where it runs, for whom> |
+| Help | <none · guide pages · in-app — the route> |
 
 ### Proof profile
 
@@ -61,7 +64,7 @@ Theme  : <where the styling values live, and how a session verifies one applied 
 ## Prohibitions
 ```
 
-**Context.** Three rows, no more — stack, framework, versions, and integrations are read from the repo. **The Surface row names the platform, always**: `Platform: <name>`, with `(pioneer)` appended where the platform runs ahead of the toolkit's stack rubric. A Surface row naming no platform means web.
+**Context.** Four rows, no more — stack, framework, versions, and integrations are read from the repo. **The Help row opens with `none`, `guide pages`, or `in-app`, verbatim**: it decides whether `docs/guide/` is kept, the reminder after a commit reads it, and a Context without the row reads as `none`. **The Surface row names the platform, always**: `Platform: <name>`, with `(pioneer)` appended where the platform runs ahead of the toolkit's stack rubric. A Surface row naming no platform means web.
 
 **The Proof profile** is written for every product with a UI, and its seven labels stay verbatim. Every rule that proves something about a screen reads one of its lines instead of naming a browser, a URL, or a CSS pixel; a rule naming a browser without the line it stands in for is a finding, and so is a line left at the web's answer on a platform without a browser. The web defaults: dev server · browser screenshots at the widths `DESIGN.md`'s Layout fixes · two search params · RLS role test · semantic HTML and ARIA · computed style in the browser. Elsewhere: Bounds are the smallest supported device and the largest device class on a phone, the window minimum and a working size on a desktop binary; Cases are launch arguments or a debug-only picker; A11y is Semantics, `contentDescription`, `AutomationProperties`; Theme is the platform's own inspector. **A line not executed is written `[needs verification]`** — except the web defaults — and a skill reading one reports what it could not capture instead of claiming proof. A line names a file only once the file exists; the session-start hook reports a named path that does not.
 
@@ -141,9 +144,65 @@ Opened: YYYY-MM-DD
 
 The commit deleting its last queue line adds `Done: YYYY-MM-DD` under `Opened:` — the file's last edit.
 
+## `docs/architecture.md`
+
+```markdown
+# Architecture — <App name>
+
+<Two or three sentences: what runs where.>
+
+## Parts
+<Each part that runs or deploys on its own — the app, the database, a job runner, an outside service: what it is responsible for, and what it talks to.>
+
+## Where things live
+<The folder each kind of code lives in, and the one place a business rule is enforced.>
+
+## Auth and roles
+<How a user is identified, where the role comes from, and what enforces it.>
+
+## Data flow
+<The path of one typical write and one typical read, from the screen to the row and back.>
+```
+
+A part, a folder, a service and a command are named, because the map is useless without them. A table, a column and a route are not: the code and the database answer those. A sentence nobody has checked against the repo is written `[needs verification]`.
+
+## `docs/runbook.md`
+
+```markdown
+# Runbook — <App name>
+
+## Environments
+<Each environment: what it is for and where it runs. Environment variables by name.>
+
+## Deploy
+<The steps that put a commit in production, and how to tell it landed.>
+
+## Roll back
+<How to return to the previous version, and what a rollback does not undo — a migration, a message already sent.>
+
+## Backup and restore
+<What is backed up, how often, and where; the steps of a restore.>
+
+## When it is down
+<What to check first, in order, and who decides.>
+```
+
+A step nobody has run is written `[needs verification]` — at bootstrap that is most of them, which is correct. The session that first deploys, or first restores, writes what it ran.
+
+## `docs/changelog.md`
+
+```markdown
+# Changelog
+
+## YYYY-MM-DD
+- <What changed in how the app behaves, and what the next developer must know because of it.>
+```
+
+Newest first. One entry per commit that changes behaviour; a commit that changes none writes none. An entry is never edited.
+
 ## `docs/guide/<task>.md`
 
-One file per piece of work a role must be able to finish (`product.md`'s Roles), named for the task — `approve-a-request.md`.
+Written only where `product.md`'s Help row is not `none`. One file per piece of work a role must be able to finish (`product.md`'s Roles), named for the task — `approve-a-request.md`.
 
 ```markdown
 # <The task, in the user's words>
@@ -157,17 +216,6 @@ For: <role>
 ```
 
 No screenshots; an image goes stale without failing anything.
-
-## `docs/whats-new.md`
-
-```markdown
-# What's new
-
-## YYYY-MM-DD
-- <What users can do or will notice, in their words.>
-```
-
-Newest first. Only what a user notices. An entry is never edited.
 
 ## `docs/PRD.md`
 

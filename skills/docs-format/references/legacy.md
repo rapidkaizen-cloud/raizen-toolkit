@@ -14,7 +14,7 @@ Every rule of `SKILL.md` binds the section the map sends it to; this file adds o
 | `docs/product.md` — Prohibitions | Section 6 |
 | `docs/decisions/` | Section 1 — one line per `app-settle` or `logic-settle` choice, or technical choice the user took, with its reason, rejected alternatives among the non-goals. `design-settle` records none there; its library is `CLAUDE.md`'s row |
 | `docs/queue.md` | `QUEUE.md` at the root |
-| `docs/README.md`, `docs/guide/`, `docs/whats-new.md`, `docs/changes/`, `docs/PRD.md` | Nothing — never written in a legacy repo |
+| `docs/README.md`, `docs/architecture.md`, `docs/runbook.md`, `docs/changelog.md`, `docs/guide/`, `docs/changes/`, `docs/PRD.md` | Nothing — never written in a legacy repo |
 
 ## `PRD.md`
 

@@ -56,7 +56,7 @@ Each document opens with `--- <file> — <what it holds> ---`. An empty or missi
 
 ### The notes
 
-- **A named path is gone** (`docs/` form): `NOTE: these living documents name paths that do not exist:`, at most 20 lines. It reads `docs/README.md`, `docs/product.md`, `docs/rules.md`, `docs/glossary.md` and every `docs/guide/` page. Links resolve from the document, backticked paths from the repo root. URLs and host names are not paths.
+- **A named path is gone** (`docs/` form): `NOTE: these living documents name paths that do not exist:`, at most 20 lines. It reads `docs/README.md`, `docs/product.md`, `docs/rules.md`, `docs/glossary.md`, `docs/architecture.md`, `docs/runbook.md` and every `docs/guide/` page. Links resolve from the document, backticked paths from the repo root. URLs and host names are not paths.
 - **A living document is missing** (`docs/` form): `NOTE: <path> is missing.` for `docs/README.md` or `docs/product.md`.
 - **`CLAUDE.md` carries old sections:** `NOTE: CLAUDE.md still carries sections ...`, naming each one it recognises.
 - **The data layer folder does not exist:** `NOTE: the Data layer row of CLAUDE.md names ...`, with the folder. A path that climbs out of the repo is not followed and says nothing.
@@ -72,7 +72,7 @@ It holds the last request, the last 12 answers you gave as question and answer, 
 - **An empty repo** gets the norms and nothing else.
 - **No components folder, no `Data layer` row:** no listing. Components only under `node_modules`, `design-canvas` or a dot folder do not count.
 - **A clean tree, a repo the other host never worked in, or a more recent session of this host's own:** no hand-over.
-- **No `CLAUDE.md`, or none of its old sections, or every named path resolving:** no note. The queue, `docs/whats-new.md` and the frozen records are not path-checked.
+- **No `CLAUDE.md`, or none of its old sections, or every named path resolving:** no note. The queue, `docs/changelog.md` and the frozen records are not path-checked.
 - **On Antigravity, once a conversation holds the norms:** later turns do not hand them over again.
 
 ## On Antigravity

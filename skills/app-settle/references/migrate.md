@@ -69,7 +69,7 @@ Then write the living documents from it, each under the headings `shapes.md` giv
 Two rules for the whole move:
 
 - **A number, a term, a name leaves exactly as it arrived.**
-- **Write no `docs/guide/`, `docs/whats-new.md` or `docs/changes/`**: they describe pages and changes, and align lists the guide pages the app now owes.
+- **Write no `docs/architecture.md`, `docs/runbook.md`, `docs/changelog.md`, `docs/guide/` or `docs/changes/`**: the PRD holds no source for them. The next `app-settle` run writes the first two from the repo (`SKILL.md`, Step 0), and the Context it leaves carries no Help row, which reads as `none`.
 
 ## M3 — `DESIGN.md`, from Section 5
 

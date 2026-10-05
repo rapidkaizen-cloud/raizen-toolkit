@@ -34,12 +34,15 @@ FRESH_SECONDS = 300
 MARK = "DOCS CHECK - commit "
 
 DOCS_FORM = (
-    "  - Did a sentence in `docs/product.md`, `docs/rules.md`, `docs/glossary.md` or "
-    "`README.md` become false?\n"
-    "  - Did a page become usable to its role with no `docs/guide/` page for its task, or "
-    "with its `docs/queue.md` line still standing?\n"
-    "  - Will users notice it? Then it owes a `docs/whats-new.md` entry.\n"
+    "  - Did a sentence in `docs/product.md`, `docs/rules.md`, `docs/glossary.md`, "
+    "`docs/architecture.md`, `docs/runbook.md` or `README.md` become false?\n"
+    "  - Did it change how the app behaves? Then it owes a `docs/changelog.md` entry.\n"
+    "  - Did it finish a `docs/queue.md` line that is still standing?\n"
 )
+# Asked only where the app keeps guide pages for its users: `product.md`'s Help row, which
+# opens with `none` where it keeps none. A Context without the row keeps none.
+GUIDE = "  - Did a page become usable to its role with no `docs/guide/` page for its task?\n"
+HELP = re.compile(r"^\|\s*Help\s*\|\s*(.*?)\s*\|\s*$", re.M)
 LEGACY_FORM = (
     "  - Did a sentence in `PRD.md` become false?\n"
     "  - Did it finish a `QUEUE.md` line that is still standing?\n"
@@ -58,7 +61,11 @@ def questions() -> str:
     """The questions for the form this project is on; empty where it keeps no documents."""
     # The project directory, as `session_norms` reads the form from it.
     if Path("docs", "PRD.md").is_file():
-        return DOCS_FORM
+        try:
+            row = HELP.search(Path("docs", "product.md").read_text(encoding="utf-8", errors="replace"))
+        except OSError:
+            row = None
+        return DOCS_FORM + (GUIDE if row and not row[1].lower().startswith("none") else "")
     if Path("PRD.md").is_file():
         return LEGACY_FORM
     return ""
@@ -89,7 +96,7 @@ def reminder() -> str:
         "commit). Answer for this commit before the next step:\n"
         + asks
         + "Any yes -> write it and amend it into this commit while it is unpushed. All no -> "
-        "carry on, and report `Docs: none` for this commit at the close. Write nothing a "
+        "carry on, and report `Docs: none - <why>` for this commit at the close. Write nothing a "
         "live check of the code can recover."
     )
 
