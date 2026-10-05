@@ -58,12 +58,12 @@ agy plugin install https://github.com/rapidkaizen-cloud/raizen-toolkit
 
 Update: `agy plugin uninstall raizen-norms`, then install again — the install is a copy, and nothing refreshes it.
 
-**Not proven in this form.** Proven on the CLI — `agy` 1.2.16, Windows, headless and interactive — is the plugin registered by path in `~/.gemini/config/plugins.json`, before 0.70.0 moved it to the repo root: the norms injected once per conversation, `git add -A` refused, a push held until `Run` is answered and held again once it has run, the hand-over block, all nine skills listed. After an install, run `agy plugin list` and see `git add -A` refused before trusting a session there.
+**Proven on the CLI** — `agy` 1.2.16, Windows, headless, installed from a folder with `agy plugin install`: the nine skills are listed, `hooks.json` is kept as written, the norms and the `HOST` block are injected, `git add -A` is refused, and a push is held. The copy lands in `~/.gemini/config/plugins/raizen-norms`. Proven before 0.70.0 only, registered by path: an interactive session, a held push passing on `Run` and held again once it has run, the hand-over block.
 
 - Install it for the machine as above, never through a repo's `.agents/plugins.json`: registered per folder, the plugin loaded a minute after an interactive conversation began, and that conversation ran unguarded.
 - Never run `agy plugin import` on this plugin: it replaces `hooks.json` with Claude Code's, which Antigravity cannot parse, and every guard goes silent.
 - `python3` must resolve: there a hook that cannot start blocks every command.
-- A headless run (`agy -p`) cannot be asked for permission, and a skill file sits outside the workspace: allow it in `~/.gemini/antigravity-cli/settings.json` with `{"permissions": {"allow": ["read_file(<the installed plugin's path>)"]}}`, or the run stops at the first skill it reads.
+- A headless run (`agy -p`) cannot be asked for permission, and a skill file sits outside the workspace: allow it in `~/.gemini/antigravity-cli/settings.json` with `{"permissions": {"allow": ["read_file(C:/Users/<you>/.gemini/config/plugins/raizen-norms)"]}}`, or the run stops at the first skill it reads.
 - `design-settle` needs there what it needs here: its Required companions installed for Antigravity, and a browser MCP server for every screenshot and browser check. Absent, it asks, as on Claude Code.
 
 What differs from Claude Code:
@@ -112,4 +112,4 @@ An app with a project-scoped `.mcp.json` shadows the user-scope Supabase server:
 - The `docs/` form has never been bootstrapped in a real app.
 - Whether a cloud session installs this marketplace; until then, cloud sessions do frontend work only.
 - The account-wide Supabase MCP endpoint end to end: its first-use login, and `project_id` as `guard_project_ref.py` expects.
-- On Antigravity: `agy plugin install` of the repo root — that it lists the nine skills and leaves `hooks.json` as written, so the norms and the guards run as they did registered by path. The four settle skills were read by a session there and none has been run — their interviews, their subagents, `design-settle` with its companions and a browser MCP server installed; the IDE and Antigravity 2.0. Gemini CLI is not ported.
+- On Antigravity: `agy plugin install` from this repo's URL — proven from a folder, and by URL on another plugin. The four settle skills were read by a session there and none has been run — their interviews, their subagents, `design-settle` with its companions and a browser MCP server installed; the IDE and Antigravity 2.0. Gemini CLI is not ported.
