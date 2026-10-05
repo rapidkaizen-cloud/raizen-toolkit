@@ -139,6 +139,8 @@ Report per role: role · UUID · rows visible · rows expected · match or not. 
 
 ## Invocation
 
+**A step is one command up to its next STOP**: every statement of the step in one file or one call, never one call per statement — the role test alone keeps its call per role. **A read spans environments in that command**: the same introspection against two servers is two lines of it. **A write reaches one environment per command**, so a mistake lands once.
+
 Multi-object introspection is combined into **one SELECT** (`json_build_object` or `UNION ALL`) when the tool in use only returns the last result set. `DO $$ ... $$` returns zero rows — its success is invisible, so always follow it with a verifying SELECT.
 
 `RAISE NOTICE` often does not get through. Do not use it as output; `RAISE EXCEPTION` to abort, `SELECT` to report.

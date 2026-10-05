@@ -29,7 +29,7 @@ Order: the norms, the documents and their notes, the two listings, the hand-over
 | `POINTERS` | A repo with `PRD.md` or `docs/PRD.md` | Which skill to read before which work: `build-flow`, `docs-format`, `ui-build`, `db-ops`, `logic-build` |
 | `NOT SETTLED` | A repo with neither, in place of `POINTERS` | That `app-settle` has not run: `build-flow` and `docs-format` do not apply, UI is built only from the components and tokens the repo has, and the session says once at the end that `app-settle` has not run |
 | `SCOPE` | Always | Only what was asked, no refactor or rename outside it, and the limit on documents |
-| `GIT` | Always | `git fetch` and a branch check first, a stop on `main` where `development` exists or when behind `origin/development`, commit a finished item in the same turn with named paths, push and pull request as a chat stop |
+| `GIT` | Always | `git fetch` and a branch check first, a stop on `main` where `development` exists or when behind `origin/development`, commit a finished item in the same turn with named paths, one line after a commit telling you to start the next item in a new session, push and pull request as a chat stop |
 | `ASKING` | Always | A decision that is yours is asked, or answered in chat at a hard stop; the session never hands you a command to type |
 | `DECISIONS` | Always | An answer with two or more decisions closes with one table: question, options, recommendation and its trade-off |
 | `CLOSING THE SESSION` | A repo with `PRD.md` or `docs/PRD.md` | The report per scope item, then a block written even when the answer is "none" |

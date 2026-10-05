@@ -2,6 +2,13 @@
 
 All notable changes to the `raizen-norms` plugin, and to `raizen-hub` until 0.70.0 merged it in, newest first. The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). Versions before these are in `git log`.
 
+## [raizen-norms 0.82.0] - 2026-10-05
+
+### Added
+
+- Session norms, `GIT`: a turn that committed ends with one line telling the user to start the next item in a new session. Every call re-reads the whole session, so a step late in a long session costs several times the same step in a fresh one. It is advice and stops nothing.
+- `db-ops`, Invocation: a step is one command up to its next STOP, its statements in one file or one call. A read spans environments in that command; a write reaches one environment per command. The role test keeps its call per role.
+
 ## [raizen-norms 0.81.1] - 2026-10-05
 
 ### Fixed

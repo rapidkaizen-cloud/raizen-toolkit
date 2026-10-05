@@ -47,7 +47,7 @@ A mismatch stops the session entirely and leaves the frontend untouched.
 - **A real user UUID is needed per role, on every RLS change.** Where none exists, the session seeds one, as the last item below describes.
 - **A table created with RLS enabled gets its policy in the same operation.** With RLS and no policy, nobody can read it. A policy that must match an existing one is copied verbatim from introspection.
 
-**Reading results** (Invocation). Multi-object introspection is combined into one `SELECT` where the tool returns only the last result set. A `DO` block returns zero rows, so a verifying `SELECT` follows it. `RAISE NOTICE` is not used as output.
+**Reading results** (Invocation). A step is one command up to its next stop: its statements go in one file or one call, never one call each, except the role test. A read against two servers is one command; a write reaches one server per command, so a mistake lands once. Multi-object introspection is combined into one `SELECT` where the tool returns only the last result set. A `DO` block returns zero rows, so a verifying `SELECT` follows it. `RAISE NOTICE` is not used as output.
 
 **Types** (Types). Regenerated from the live schema after every schema change, before the frontend. An `as any` on a call missing from the types file is reported as a finding.
 
