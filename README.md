@@ -4,12 +4,20 @@
 
 ## Install
 
+Claude Code:
+
 ```
 /plugin marketplace add rapidkaizen-cloud/raizen-toolkit
 /plugin install raizen-norms@raizen
 ```
 
-Requirements and companion skills: [Install](docs/start/install.md). On Antigravity: [Run on Antigravity](docs/guide/antigravity.md).
+Antigravity:
+
+```
+agy plugin install https://github.com/rapidkaizen-cloud/raizen-toolkit
+```
+
+Requirements and companion skills: [Claude Code](docs/start/install.md), [Antigravity](docs/guide/antigravity.md).
 
 ## Use
 

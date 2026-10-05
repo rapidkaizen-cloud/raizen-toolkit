@@ -1,10 +1,15 @@
 # Run on Antigravity
 
-The repo root is an Antigravity plugin too: install it once per machine, and every folder `agy` opens runs under the norms and the guards.
+One command in a terminal, once per machine, and every folder `agy` opens runs under the norms and the guards. For Claude Code, see [Install](../start/install.md).
 
-`plugin.json` and `hooks.json` at the root are its manifest and its hooks, beside Claude Code's `.claude-plugin/` and `hooks/`.
+## Before you start
 
-## Install
+| Needs | Why |
+|---|---|
+| The Antigravity CLI, `agy` | The host the command below is typed into. The IDE and Antigravity 2.0 are not verified: see [What is proven](../reference/status.md) |
+| `python3` | Every `raizen-norms` hook calls it. There, a hook that cannot start blocks every command |
+
+## Install the plugin
 
 ```
 agy plugin install https://github.com/rapidkaizen-cloud/raizen-toolkit
@@ -15,7 +20,25 @@ The copy lands in `~/.gemini/config/plugins/raizen-norms`.
 > [!WARNING]
 > - **Install it for the machine, never through a repo's `.agents/plugins.json`.** Registered per folder, the plugin loaded a minute after an interactive conversation began, and that conversation ran unguarded.
 > - **Never run `agy plugin import` on this plugin.** It replaces `hooks.json` with Claude Code's, which Antigravity cannot parse, and every guard goes silent.
-> - **`python3` must resolve.** There, a hook that cannot start blocks every command.
+
+## Companion skills
+
+Required: the same three as on Claude Code, where [Install](../start/install.md) says what each is for. A session missing one asks before continuing.
+
+| Skill | Install |
+|---|---|
+| `impeccable` | Copy the folder that holds its `SKILL.md` to `~/.gemini/config/skills/impeccable/` |
+| `frontend-design` | Nothing on a machine with Claude Code: the `HOST` block sends the session to Claude Code's own copy, as current as Claude Code keeps it. Without Claude Code, copy its folder to `~/.gemini/config/skills/frontend-design/` |
+| `ui-ux-pro-max` | Copy the folder that holds its `SKILL.md` to `~/.gemini/config/skills/ui-ux-pro-max/` |
+
+> [!NOTE]
+> A skill is found only as a folder of its own under `~/.gemini/config/skills/`. Under `~/.gemini/antigravity-cli/skills/`, or as a link to a folder elsewhere, it is never listed.
+
+`design-settle` also needs a browser MCP server, for every screenshot and browser check. Absent, it asks.
+
+## Check that it loaded
+
+- `agy plugin list` names `raizen-norms`, with `skills` and `hooks` as its components.
 
 ## Update
 
@@ -25,12 +48,6 @@ agy plugin install https://github.com/rapidkaizen-cloud/raizen-toolkit
 ```
 
 The install is a copy, and nothing refreshes it.
-
-## Companion skills
-
-- **A companion skill is found only as a folder under `~/.gemini/config/skills/`.** Copy each one there. Under `~/.gemini/antigravity-cli/skills/`, or as a link to a folder elsewhere, it is never listed.
-- **`frontend-design` needs no copy on a machine with Claude Code.** The `HOST` block sends the session to Claude Code's own copy, so it is as current as Claude Code keeps it. On a machine without Claude Code, copy its folder like the others.
-- **`design-settle` needs there what it needs on Claude Code**: its Required companions, and a browser MCP server for every screenshot and browser check. Absent, it asks.
 
 ## Headless runs
 
