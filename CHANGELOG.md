@@ -2,6 +2,17 @@
 
 All notable changes to the `raizen-norms` plugin, and to `raizen-hub` until 0.70.0 merged it in, newest first. The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). Versions before these are in `git log`.
 
+## [raizen-norms 0.81.0] - 2026-10-05
+
+### Changed
+
+- `build-flow`, the audit: the one question after the last page is a multi-select of the passes that apply — Accessibility, Interaction polish, Click path, Platform conventions — where it was all five or none. The ticked passes run in a subagent on a cheaper model, which reports findings and fixes nothing; the session fixes them. The audit ran in the session itself, at the point where every call re-reads the most.
+- `build-flow`, a UI batch: the walk of a page's six cases runs in a subagent on a cheaper model. It returns one line per case and the paths of the `bulk` screenshots; the session still reads and judges them. A backend batch walks its flow in the session, as before.
+
+### Removed
+
+- `build-flow`, the audit's `Screenshot` pass. A fix that changes how a page looks is followed by the same screenshots, as a rule of the audit and not an option of it.
+
 ## [raizen-norms 0.80.0] - 2026-10-05
 
 ### Changed

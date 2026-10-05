@@ -138,12 +138,17 @@ Backend batch
 - **A page with no data contract** — a landing section, a static page — has no fixture cases; prove it at the two widths with its real copy.
 - **Backend first inside one page**, never backend first across the whole app.
 - **Loading, empty, and failed states ship with the page**, never as follow-up work — `ui-build` binds them to their component.
-- **End the walk with proof, not recall.** Screenshot the `bulk` case at the two Section 4 widths with the session's browser tooling, put the desktop shot beside the proving page at the same width, and answer Section 4's two questions from those screenshots. Dead space taller than one table row at the desktop width → fix the page in this session; it is not a finding to record and move past. No browser tooling → say so and walk the widths live at the dev server; never claim the widths were judged when neither happened.
+- **End the walk with proof, not recall.** Screenshot the `bulk` case at the two Section 4 widths with the session's browser tooling — in a UI batch the walk's subagent saves them (`references/contract.md`) — put the desktop shot beside the proving page at the same width, and answer Section 4's two questions from those screenshots. Dead space taller than one table row at the desktop width → fix the page in this session; it is not a finding to record and move past. No browser tooling → say so and walk the widths live at the dev server; never claim the widths were judged when neither happened.
 - **Fix the lint step's refusals before the commit**, under `ui-build`'s rules for living with the floor. A repo with no floor yet skips the step and says so.
 
 ### The audit, offered once — never page by page
 
-Once the last page of the session has been walked, offer the audit in one question covering every page this session built or changed — once per session, never once per page. Offered, never imposed: declining is not one of the Section 6 stops, needs no reason, and changes nothing else about how the session closes. Accepted → read `references/audit.md` and run it over this session's diff only.
+Once the last page of the session has been walked, offer the audit in one multi-select question covering every page this session built or changed — once per session, never once per page. Its options are the passes that apply — `Accessibility`, `Interaction polish`, `Click path` where handlers are wired, `Platform conventions` where the Surface is not the web — and the question says that more than one may be ticked. Offered, never imposed: ticking none is not one of the Section 6 stops, needs no reason, and changes nothing else about how the session closes.
+
+**A pass ticked → hand the ticked passes to one subagent on a cheaper model than the session's** (`sonnet` on Claude Code) **whose whole brief is `references/audit.md`**: give it that path, the pass names, this session's commit range, the routes it built, and the dev server's address where one runs — and never read that file here, because the audit runs when the session is at its largest. No subagent → say so and run the passes here from that file.
+
+- **Fix a finding inside the pages this session built now, and commit the fix** by the git norms `raizen-norms` prints. Everything else becomes a `docs/queue.md` line.
+- **After a fix that changes how a page looks, screenshot its `bulk` case again at the two Section 4 widths**, and judge the result rather than the intention.
 
 ## 6 — Do not stop; the list of legitimate stops is closed
 

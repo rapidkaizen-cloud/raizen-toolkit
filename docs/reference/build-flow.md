@@ -54,6 +54,7 @@ Backend batch rules → migration + RLS → role test → types → query return
 ```
 
 - **Backend first inside one page**, never across the whole app.
+- **In a UI batch the walk of the six cases runs in a subagent** on a cheaper model, because a walk is dozens of browser calls and each one made in the session re-reads all of it. The subagent reports one line per case and saves the `bulk` screenshots; the session reads and judges them itself. A backend batch walks its flow in the session.
 - **Dead space taller than one table row** at the desktop width is fixed in the session, not recorded.
 - **Lint refusals are fixed before the commit.** A repo with no floor yet skips the step and says so.
 
@@ -85,7 +86,7 @@ Name         longest 4 · median 2
 Explanation  longest 8 · median 6
 ```
 
-- **One audit question** after the last page, covering every page the session built or changed. Declining needs no reason. Accepted, it runs five passes over the session's diff — Accessibility, Interaction polish, Click path, Platform conventions, Screenshot — and writes no document. A fix inside this session's pages is committed; everything else becomes a queue line.
+- **One audit question** after the last page, covering every page the session built or changed. You tick the passes you want — Accessibility, Interaction polish, Click path where handlers are wired, Platform conventions where the app is not on the web — and ticking none needs no reason. The ticked passes run in a subagent over the session's diff and write no document. A fix inside this session's pages is committed, and a page whose look changed is screenshotted again at both widths; everything else becomes a queue line.
 
 ## Where it stops
 
