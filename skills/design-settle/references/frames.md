@@ -4,7 +4,7 @@
 
 ## The material — loaded now
 
-**Load `impeccable` and `frontend-design`, and `review-animations` where installed, now, in one turn** — after the install gate, before the first frame is composed. It stays in hand for the design plan, every round, the judgement and ratification; never re-read step by step, except at the escalation (`canvas.md`, Judging). Each is guidance, never an authority: where one collides with a user answer or a ratified value, the user wins.
+**Load `impeccable` and `frontend-design`, and `review-animations` where installed, now, in one turn** — after the install gate, before the first frame is composed. **Print `Material loaded:` naming every file read, by path, before the first frame** — a frame set shown without that line was drawn without the material. It stays in hand for the design plan, every round, the judgement and ratification; never re-read step by step, except at the escalation (`canvas.md`, Judging). Each is guidance, never an authority: where one collides with a user answer or a ratified value, the user wins.
 
 **Never load a skill that names the look as material** — a fixed palette, pairing, card recipe, or shadow scale. Always load guidance that **narrows the space the look is chosen from** — the generated-looking defaults, the two-accents-one-family formula, the failed-choice typefaces. **`dataviz` is loaded for its method alone**: its palette is never used; the chart palette is `DESIGN.md`'s (`ratify.md`).
 
@@ -66,6 +66,8 @@ Announce nothing before the pick beyond each frame's motivation and trade-off li
 ## The render scan — before any round is shown
 
 Run `impeccable`'s detector against the round's running routes (its URL tier) and fix the defect class — clipped or overflowing containers and text, occlusion, broken images, script errors, an attribute the source writes (`aria-*`, `role`, `href`) missing or rewritten in the rendered page, an accessible name (a library's own included) not in the app's locale (`ui-build` names where missing library strings come from). **Act only on defects in a round**; a hit that judges the direction (nested containers, uniform spacing, a colour family) travels to Step 8. **Read every capture of the round yourself before the user does**, detector or not, and fix clipping, overflow, occlusion, and labels that lie (a size label the frame does not show, an animated state a still renders as nothing). Never use this scan to re-open composition. Compute every number a frame prints as a claim, never type it.
+
+**Name the detector command run and its hit count in the round's report**; where it did not run, write `detector not run` and why, never a clean scan.
 
 ## Capturing
 

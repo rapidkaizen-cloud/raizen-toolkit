@@ -2,6 +2,16 @@
 
 All notable changes to the `raizen-norms` plugin, and to `raizen-hub` until 0.70.0 merged it in, newest first. The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). Versions before these are in `git log`.
 
+## [raizen-norms 0.72.1] - 2026-10-05
+
+### Changed
+
+- `design-settle`, the frames: the session prints `Material loaded:` with the path of every file it read before the first frame, and names the detector command and its hit count in each round's report — `detector not run` and why where it did not. A full run on Antigravity drew frames and a canvas having read no `impeccable` or `frontend-design` file and run no detector, and nothing in its output showed it.
+- The Antigravity `HOST` block says what loading a skill means there: read its `SKILL.md`, then the files it names.
+- The Antigravity `HOST` block sends a session to Claude Code's own copy of `frontend-design` where one exists: no installer puts that skill on Antigravity, and a linked folder is not listed there. The copy follows Claude Code's updates; a machine without Claude Code copies the folder.
+
+Nothing to act on in an installed app. On Antigravity, uninstall and install again to get it; a headless run there also allows `read_file` on Claude Code's `frontend-design` folder.
+
 ## [raizen-norms 0.72.0] - 2026-10-05
 
 ### Added

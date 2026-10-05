@@ -58,13 +58,17 @@ agy plugin install https://github.com/rapidkaizen-cloud/raizen-toolkit
 
 Update: `agy plugin uninstall raizen-norms`, then install again — the install is a copy, and nothing refreshes it.
 
-**Proven on the CLI** — `agy` 1.2.16, Windows, headless, installed from this repo's URL with `agy plugin install`: the nine skills are listed, `hooks.json` is kept as written, the norms and the `HOST` block are injected, `git add -A` is refused, and a push is held. The copy lands in `~/.gemini/config/plugins/raizen-norms`. Proven before 0.70.0 only, registered by path: an interactive session, a held push passing on `Run` and held again once it has run, the hand-over block.
+**Proven on the CLI** — `agy` 1.2.16, Windows, headless, installed from this repo's URL with `agy plugin install`: the nine skills are listed, `hooks.json` is kept as written, the norms and the `HOST` block are injected, `git add -A` is refused, and a push is held. The copy lands in `~/.gemini/config/plugins/raizen-norms`. `design-settle` ran there end to end at 0.70.0, Fast, on a new app with no UI, one question per headless turn: the Step 0 block, the reference search, `ui-ux-pro-max`'s generator, the install gate, frames and canvas with browser screenshots at both widths, `DESIGN.md`, the decision records, promotion, verification, and a commit with named paths. That run read no `impeccable` or `frontend-design` file and ran no detector; a run at 0.72.1 read `impeccable`'s craft floor and operational register and `frontend-design` before the first frame, and ran the detector in every round. Proven before 0.70.0 only, registered by path: an interactive session, a held push passing on `Run` and held again once it has run, the hand-over block.
 
 - Install it for the machine as above, never through a repo's `.agents/plugins.json`: registered per folder, the plugin loaded a minute after an interactive conversation began, and that conversation ran unguarded.
 - Never run `agy plugin import` on this plugin: it replaces `hooks.json` with Claude Code's, which Antigravity cannot parse, and every guard goes silent.
 - `python3` must resolve: there a hook that cannot start blocks every command.
 - A headless run (`agy -p`) cannot be asked for permission, and a skill file sits outside the workspace: allow it in `~/.gemini/antigravity-cli/settings.json` with `{"permissions": {"allow": ["read_file(C:/Users/<you>/.gemini/config/plugins/raizen-norms)"]}}`, or the run stops at the first skill it reads.
-- `design-settle` needs there what it needs here: its Required companions installed for Antigravity, and a browser MCP server for every screenshot and browser check. Absent, it asks, as on Claude Code.
+- `design-settle` needs there what it needs here: its Required companions and a browser MCP server for every screenshot and browser check. Absent, it asks, as on Claude Code.
+- A companion skill is found only as a folder under `~/.gemini/config/skills/`: copy each one there. Under `~/.gemini/antigravity-cli/skills/`, or as a link to a folder elsewhere, it is never listed.
+- `frontend-design` needs no copy on a machine with Claude Code: the `HOST` block sends the session to Claude Code's own copy, so it is as current as Claude Code keeps it. On a machine without Claude Code, copy its folder like the others.
+- A headless `design-settle` run needs these allowed, or the turn ends with no output at the first one missing: `read_file` on the plugin, the skills folder, Claude Code's `frontend-design` folder and the repo, `write_file` on the repo, `command(*)` — `command(git)` does not cover `git status` — `read_url(*)`, `mcp(<browser server>/*)`, and `execute_url(*)` for the browser to open a page. Refuse what must never run through `deny`, which does not end the turn.
+- A dev server started in a headless turn dies when the turn ends; continue the conversation with `--conversation <id>`.
 
 What differs from Claude Code:
 
@@ -112,4 +116,4 @@ An app with a project-scoped `.mcp.json` shadows the user-scope Supabase server:
 - `app-settle`'s migrate mode and its align mode have never run in an app. Run migrate on a copy of a legacy app before a real one.
 - Whether a cloud session installs this marketplace; until then, cloud sessions do frontend work only.
 - The account-wide Supabase MCP endpoint end to end: its first-use login, and `project_id` as `guard_project_ref.py` expects.
-- On Antigravity: the four settle skills were read by a session there and none has been run — their interviews, their subagents, `design-settle` with its companions and a browser MCP server installed; the IDE and Antigravity 2.0. Gemini CLI is not ported.
+- On Antigravity: `design-settle` in Full and where UI exists — its audit subagent, its gate; `app-settle` and `logic-settle`; a question asked through `ask_question` in an interactive session; the IDE and Antigravity 2.0. Gemini CLI is not ported.

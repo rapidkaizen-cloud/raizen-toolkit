@@ -316,7 +316,8 @@ def antigravity() -> None:
         assert len(steps) == 1 and list(steps[0]) == ["userMessage"]
         text = steps[0]["userMessage"]
         assert text.startswith("SESSION NORMS") and "# Product" in text
-        assert "HOST - Antigravity" in text and "`ask_question`" in text
+        assert "HOST - Antigravity" in text and "`ask_question`" in text and "loading a skill" in text
+        assert "claude-plugins-official/plugins/frontend-design" in text
         # this host does not load CLAUDE.md, so the app's own facts are handed over too
         assert "On screen: Indonesian" in text
 

@@ -333,12 +333,17 @@ The norms above and every skill name Claude Code's tools. Use this host's own:
   AskUserQuestion            : `ask_question`
   the Bash, PowerShell tools : `run_command`
   a subagent, the Agent tool : `invoke_subagent`
+  loading a skill            : read its `SKILL.md` with `view_file`, then the files it
+                               names - nothing is loaded until it is read
   an `mcp__server__tool`     : `call_mcp_tool` with that server and tool
   a `claude mcp add` line    : the same server in `~/.gemini/config/mcp_config.json`
 The guards the norms and the skills name run here as this plugin's hooks, unseen
 until one refuses.
 The installed plugin is the folder these skills are read from; its version is in
 its `.claude-plugin/plugin.json`.
+`frontend-design` has no installer for this host. Where Claude Code holds it at
+`~/.claude/plugins/marketplaces/claude-plugins-official/plugins/frontend-design/skills/frontend-design/SKILL.md`
+it is present, unlisted as it is: read it there.
 Write the todo list `build-flow` requires in chat, since this host has no tool for one.
 `CLAUDE.md` is printed below, because this host does not load it.
 This host loads `AGENTS.md`, which was written for a session without these norms -
