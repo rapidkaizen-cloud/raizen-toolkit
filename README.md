@@ -6,6 +6,7 @@ One plugin, `raizen-norms`, and the marketplace `raizen`, in the public repo `ra
 |---|---|
 | `app-settle`, `logic-settle`, `design-settle` | When invoked |
 | `build-flow`, `docs-format`, `ui-build`, `db-ops`, `logic-build` | By their descriptions |
+| `norms-version` | When asked what version runs, whether it is current, or what changed |
 | Session norms, guard hooks | Every session where the plugin is enabled — installed at user scope, every folder on that machine; `app-settle` writes the `enabledPlugins` line into each app repo. A repo with no PRD in either form gets the norms in their `NOT SETTLED` form: no document gate, UI only from what the repo already has |
 
 ## Install
@@ -33,7 +34,7 @@ Two conventions come with `raizen-norms`, and every app inherits them:
 - Sessions sign in and seed test data through an **agent account**: `db-ops` creates it by SQL on Supabase Auth, taking its email and password from the session's own instructions (your `~/.claude/CLAUDE.md`, for example) — the toolkit stores neither.
 - Every row a session creates for a test opens with **`[CLAUDE]`**. Only a `DELETE` narrowed to that prefix passes `guard_destructive` unguarded; any other delete goes through the destructive gate.
 
-Check: `/plugin` lists `raizen-norms`; design-settle's Step 0 prints the running build as `Skill build`.
+Check: `/plugin` lists `raizen-norms`; design-settle's Step 0 prints the running build as `Skill build`; `norms-version` prints it in any session, with whether origin holds a newer one, and offers the update where it is behind.
 
 ## Update
 

@@ -2,6 +2,14 @@
 
 All notable changes to the `raizen-norms` plugin, and to `raizen-hub` until 0.70.0 merged it in, newest first. The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). Versions before these are in `git log`.
 
+## [raizen-norms 0.73.0] - 2026-10-05
+
+### Added
+
+- `norms-version`: reports the version of the copy the session runs, the date it was released and the time it reached the machine, whether origin holds a newer one, and its changelog entry — with every entry the machine lacks when it is behind. `scripts/norms_version.py` does the reading: origin is its changelog, fetched over HTTPS from the public repo, and a machine that cannot reach it still gets its own lines. Behind, on Claude Code, it asks whether to update now and runs the `README.md` commands on `Update`; on Antigravity it reports only.
+
+Nothing to act on in an installed app.
+
 ## [raizen-norms 0.72.2] - 2026-10-05
 
 ### Changed
