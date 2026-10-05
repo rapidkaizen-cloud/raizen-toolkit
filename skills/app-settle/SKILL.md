@@ -70,7 +70,7 @@ Mode       : [bootstrap — empty directory]
              [migrate   — a root PRD.md]
              [align     — documents in place, no change asked for]
              [rework    — documents in place, and the user asked for <what>]
-Owed after : [the modes this repo still owes once this one is done — or "none known"]
+Owed after : [the modes this repo still owes once this one is done, in the order above — or "none known"]
 Flow       : [bootstrap: story → reading → 6 domain themes → 8 stack questions → summary
                          → docs/PRD.md → living docs → scaffold]
              [document:  read stack → story → reading → 6 themes → summary → docs/PRD.md
@@ -82,6 +82,7 @@ Flow       : [bootstrap: story → reading → 6 domain themes → 8 stack quest
 ```
 
 - **What Step 0 reads decides the mode, and nothing else does**: "start fresh" in a directory full of code is never bootstrap, "fix up" an empty directory is. Report the mode with the fact that produced it; the user may overrule it in one line.
+- **Read the `Plugin` row from `.claude-plugin/plugin.json`** of the plugin folder this skill is read from.
 - **Align or Rework is the user's word.** A wish to change what the app does, whom it serves, or what it runs on → Rework. None stated → Align, and the block says that asking for such a change is what turns it into Rework.
 - **Not empty, yet read as bootstrap** — files that are neither application code nor a PRD, a stray `README` or a `.git` and nothing else → **STOP**, ask whether to continue here or move. Overwrite nothing.
 - **Branch `main` → STOP**: a session never works on `main`. No `development` branch exists → offer through AskUserQuestion to create it from `main` and switch to it.

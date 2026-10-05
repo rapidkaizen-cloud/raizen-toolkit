@@ -548,6 +548,8 @@ def named_paths(doc: Path, root: Path) -> list:
     for token in TICKED.findall(text):
         if token.startswith(("/", "~", "$", "-", "http", "@")) or any(c in token for c in "<>*{}()=:"):
             continue
+        if not re.search(r"[A-Za-z]", token):
+            continue  # `09/2026/0001` is a document number, `1/2` a fraction
         first = token.split("/")[0]
         if "/" not in token and not FILE_EXT.search(token):
             continue

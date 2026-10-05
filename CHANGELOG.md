@@ -2,6 +2,26 @@
 
 All notable changes to the `raizen-norms` plugin, and to `raizen-hub` until 0.70.0 merged it in, newest first. The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). Versions before these are in `git log`.
 
+## [raizen-norms 0.72.2] - 2026-10-05
+
+### Changed
+
+`app-settle`'s migrate mode, corrected from two runs on copies of legacy apps:
+
+- A block of `CLAUDE.md` telling a session how to write, keep, or format the PRD is deleted and named in the close block. Left standing, it ordered the next session to write a root `PRD.md` back.
+- A Section 3 list item keeps its whole text under its topic. Its topic is the opening words a rule test already quotes, else its bold lead-in, else its opening words up to the first punctuation mark. A paragraph is never a topic.
+- Everything inside the six sections moves: a part its shape has no heading for stays under its own label, and only text outside the sections is left in `docs/PRD.md` alone.
+- `DESIGN.md` gets no `## Contrast`, its sections follow the format's order, and the five token groups it marks `omitted` are named.
+- The rule-test check, the session-start check, the frozen line and the files that name the old form are each stated one way.
+
+Also:
+
+- Session start, the stale-path note: a backticked token with no letter in it — a document number, a fraction — is no longer read as a path.
+
+To act on:
+
+- An app repo migrated under 0.72.0 or 0.72.1: read its `CLAUDE.md` for a block that still tells sessions to maintain `PRD.md`, and delete it.
+
 ## [raizen-norms 0.72.1] - 2026-10-05
 
 ### Changed
