@@ -30,11 +30,17 @@ Write `the proof app`, never the app's name, a client, a person, or a domain, in
 
 Write `docs/` for the people who install the plugin, never for agents: a rule stays in its skill and is not restated there.
 
-A commit that changes what a user meets — a question, a stop, a command, a file a skill writes — corrects that feature's `docs/guide/` page in the same commit, or writes the page where it has none and lists it in `docs/README.md`.
+A commit that changes what a user meets — a question, a stop, a command, a file a skill writes — corrects that feature's page under `docs/` in the same commit, or writes the page where it has none.
+
+Put a page in the group its reader comes for: `start/` to begin, `concepts/` to understand, `guide/` to finish one task in numbered steps, `reference/` for one page per skill, hook and command.
+
+List every page in `docs/README.md` under its group, because that file is the index on GitHub, the site's home and its sidebar, and what `norms-help` prints: a page it does not list is in none of them.
+
+Write a page in GitHub-flavored Markdown only — no frontmatter, no `:::` container, no include — and open it with its `# ` title and one lead sentence, because the same file is read on GitHub, on the site and by a session.
 
 Keep `docs/queue.md` only while it holds toolkit work not done yet — delete it with its last item — because the `SessionStart` hook injects it into every session here and stays silent when it is absent.
 
-Keep `CHANGELOG.md` at the root and the commands a user runs under `## Use` in `README.md`, because `norms-help` prints the first's top entry and the second's section from an installed copy.
+Keep `CHANGELOG.md` at the root and the commands a user runs in `docs/reference/commands.md`, because `norms-help` prints the first's top entry and the second whole from an installed copy.
 
 Never add `docs/PRD.md`: it switches this repo's sessions to the norms of an app.
 
@@ -44,6 +50,6 @@ Commit, push, and open a PR by the `GIT` block of `scripts/session_norms.py`, as
 
 A commit that changes the plugin — `skills/`, `scripts/`, `hooks/` or a manifest — bumps its `version` in the same commit, because `/plugin update` compares version numbers only; `.githooks/pre-commit` refuses it otherwise, so run `git config core.hooksPath .githooks` once per clone.
 
-A commit that bumps the version adds that version's entry to `CHANGELOG.md`, in English and in Keep a Changelog form, naming every rename or removal an installed app must act on; `.githooks/pre-commit` refuses the bump without it, and warns when the plugin changed and no `docs/guide/` page did.
+A commit that bumps the version adds that version's entry to `CHANGELOG.md`, in English and in Keep a Changelog form, naming every rename or removal an installed app must act on; `.githooks/pre-commit` refuses the bump without it, and warns when the plugin changed and no page under `docs/` did.
 
 A commit reaches app sessions only after it is pushed to `origin`, and the user decides every push.

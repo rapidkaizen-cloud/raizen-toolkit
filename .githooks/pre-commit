@@ -19,7 +19,7 @@ if git diff --cached -U0 -- "$m" | grep -q '^+[[:space:]]*"version"'; then
   fi
 fi
 # A warning, never a refusal: most changes to a skill leave what a user meets as it was.
-if echo "$staged" | grep -qE '^(skills|scripts|hooks)/' && ! echo "$staged" | grep -q '^docs/guide/'; then
-  echo "pre-commit: the plugin changed and no docs/guide/ page did. If what a user meets changed, correct its page and amend (CLAUDE.md, docs/)." >&2
+if echo "$staged" | grep -qE '^(skills|scripts|hooks)/' && ! echo "$staged" | grep -E '^docs/.+\.md$' | grep -qv '^docs/queue\.md$'; then
+  echo "pre-commit: the plugin changed and no page under docs/ did. If what a user meets changed, correct its page and amend (CLAUDE.md, docs/)." >&2
 fi
 exit 0

@@ -1,0 +1,90 @@
+# design-settle
+
+Running it settles how the app looks — a direction picked on screen from 2–4 drawn frames, then every page drawn on a canvas, approved once and promoted into the app — and it alone writes `DESIGN.md`.
+
+| | |
+|---|---|
+| Kind | Settle skill — runs only when you invoke it |
+| Run | `/raizen-norms:design-settle`; name `fast` or `full` at invocation (`/raizen-norms:design-settle fast`) to skip the Fast or Full question |
+| Run it when | Before the first UI component of a repo is written, and whenever you want to redesign, restyle or overhaul an app that already has a look |
+| Needs first | A product with UI; not on `main`. `impeccable`, `frontend-design` and `ui-ux-pro-max` are Required: when one is absent you are asked to continue without it or stop to install. Missing documents do not stop it |
+| Writes | `DESIGN.md`, `docs/decisions/` records, `CLAUDE.md`'s Component library row, the `## UI` part of `AGENTS.md`, styling and theme files, the `/design-system` route, the lint floor, `src/design-canvas/`, `.design-audit/`, the promoted pages, `docs/queue.md` lines |
+| Commits | Never; staging is fine. Where UI exists the pass runs on its own branch and the commit is proposed at the close, on that branch. Never pushes, merges or opens a PR |
+| Source | `skills/design-settle/SKILL.md`, `skills/design-settle/references/` |
+
+## What happens
+
+Step 0 reads two facts, whether UI components exist and whether `DESIGN.md` is written, and prints a block from `Skill build` to `Flow`. **Fast or Full** changes who answers the dialogs, never which steps run.
+
+| UI components | `DESIGN.md` | What switches on |
+|---|---|---|
+| none | absent | The shortest path: reading, interview, frames, canvas, ratify, promote in place, verify |
+| present | absent | The audit, function and frame inventories, `Keep — today's look` as one candidate, a gate before any real page moves, the pass on its own branch |
+| present | written | All of that, plus the fix-or-redesign question and the `DESIGN.md` diff at the gate |
+| none | written | STOP: you are asked whether you really mean to redesign an app whose UI was removed |
+
+When a canvas, a half-applied pass or `.design-audit/gate.md` is left over, one question follows the block: **Continue** at the step the state shows, **Start over**, or **Stop**.
+
+1. **Step 1, the reading.** One sentence: *"I read this as [kind of app] on [platform] for [who uses it], leaning [the feel that fits], because [reason]."* You correct it, and answer Fast or Full in the same call. Nothing else runs first. Where UI exists, a subagent audits the old UI before this, writes `.design-audit/audit.md`, which you read, and `.design-audit/handover.md` for the drawing session, and screenshots every route at desktop width.
+2. **Step 2, fix or redesign.** Only where `DESIGN.md` is written. **Fix the drift** asks nothing and touches only deviating components. **Redesign** rebuilds `DESIGN.md` from zero with the full interview; the existing values survive only as *keep* answers. Recommended: fix the drift unless the audit's indictment count is above zero.
+3. **Step 3, the interview.** A full product draft, then the stack dialogs (component library with `own components` always an option, styling, icon pack, engines only on a trigger), four product calls (supported widths, theme mode, the two frame screens, copy voice), a reference search of real products with links, then a multi-select direction question. Every dialog only locks an answer; nothing is installed yet.
+4. **Step 4, the install gate.** A chat stop listing `Will install:`.
+5. **Step 5, the frames.** The line `Material loaded:` names every file read. 2–4 frames on two screens each are drawn as files under `src/design-canvas/`, shown at two widths in a phone frame and a window frame, and you pick one on screen. A pick carrying a change gets one refine round. The picked frame is the direction; its values are read at ratification.
+6. **Step 5, the canvas.** A narrated design plan and a block of assumptions, then every page drawn in `src/design-canvas/`: production-grade code, static data, live chrome, every state drawn, one signature element. Three scans run before each round. Then the judgement call.
+7. **Step 6, ratification.** Contrast pairs are computed and each value reported as a cancellable line. Where no UI exists, `DESIGN.md`, the decision records and the styling files are written here. Where UI exists, a gate shows `DESIGN.md` as a before-and-after diff, a file plan (`PASS — [n] files`), the detector's count, and what approval orders, contradicts and removes. Fix-the-drift shows `REPAIR — [n] findings` instead.
+8. **Step 7, the pass.** Foundations, chrome and shared components, pages with the proving page first, then `/design-system`, assets, removals, the lint floor and `AGENTS.md`'s `## UI` part. Each canvas file is copied to its real path; the proof is a diff, not a look.
+9. **Step 8 and 9, verify and close.** Each check leaves evidence; one that cannot run is reported `not verified — <reason>` and becomes a `docs/queue.md` line. A mechanical subagent runs the build, structural and pixel diffs, lint floor, contrast, detector, UX floor, keyboard flow, axe-core and reduced-motion checks. The close block lists the numbers, files changed and each page's fate.
+
+**Keep.** Picking `Keep — today's look` ends the drawing: the other frames are deleted and the flow continues at Step 6, as fix-the-drift where `DESIGN.md` is written and as ratification of the measured values where none exists. A Keep pick carrying a change, such as a brand colour, is a redesign.
+
+**Quarantine.** Nothing in the app imports the canvas, and the app renders identically with it deleted. The canvas is dev-only, out of navigation and out of the production build.
+
+Where UI exists, the drawing session never sees the existing look: only the audit subagent opens the old UI, and the blindness ends at the Step 6 gate.
+
+## What it asks you
+
+| Question | What your answer decides |
+|---|---|
+| Fast or Full, neither marked recommended | Fast answers every dialog with its recommendation, shown as cancellable lines above the install gate; the frames, pick and every check still run |
+| The reading | Whether the kind of app, platform, user and feel are right |
+| Stack dialogs | Library, styling, icon pack, engines. Where UI exists, an unindicted part is one cancellable `Keep —` line |
+| Four product calls | Lowest supported width, theme mode, the two frame screens, copy voice; each ends with `Decide for me` |
+| The direction question | A tick is inspiration. Following a reference closely only when you say so in your own words |
+| The pick, then the judgement call | A frame; then approve, rework or escalate, the feature cut (`keep all` first), hand-rolled controls, the shells |
+| The signature | Keep, redraw once, or drop it and accept the quieter page |
+| The gate lines (UI exists) | Approve or reject by name; removals item by item |
+| Font and linter install lines | The one-line package approvals outside the install gate |
+
+Anything the skill decides beyond a dialog appears as one cancellable line with its basis, and a cancelled line opens that value as a dialog.
+
+## Where it stops
+
+- **Step 0.** A product without UI; branch `main`; no UI with a written `DESIGN.md`; leftover state (the question above).
+- **Step 1.** The reading, before any dialog, search or frame.
+- **The pick.** A single-select with the frames on screen. Rejecting the set redraws one fresh set; a second rejected set re-opens the look.
+- **Chat stops**, each ending the turn until you reply: the install gate, font and linter lines, the Step 6 gate and its `REPAIR` list, the Step 8 canvas deletion.
+- **Judging.** Two correction rounds per canvas; a third does not run, and the escalation re-opens the look, not the interview.
+- **Seam points.** The pass can span sessions, stopping only after Foundations, after chrome and shared components, or after a page. It writes `docs/queue.md` lines for what is left, and the next session resumes through the leftover question.
+
+> [!WARNING]
+> `Approve everything` at the gate never covers removals. A reply naming each ID, or a range, does.
+
+## What it never does
+
+- **Write `DESIGN.md` from existing code.** The audit produces findings; a finding becomes a line only when you ratify it. Nothing is written before its stop, and a rejection leaves every document as it was.
+- **Write outside its closed list**, or create `MASTER.md` or a `design-system/` folder.
+- **Install outside the install gate**; the font is the one exception.
+- **Commit, push, merge or open a PR.**
+- **Delete the canvas unasked.** A ratified canvas file is frozen and survives until its page's real implementation is wired and you confirm.
+- **Reproduce a company's distinctive interface**, however the request is phrased.
+- **Run `impeccable` commands that write `PRODUCT.md` or `DESIGN.md`**, or spawn its agents.
+- **Lower a lint rule to a warning.** Existing hits are baselined, and the baseline only shrinks.
+- **Report an unrun check as passed.**
+- **Manufacture a change.** Keeping everything, or picking `Keep — today's look`, is a valid ending with the code untouched; with no `DESIGN.md`, Keep still writes the measured values you ratify.
+
+## Related
+
+- [app-settle](app-settle.md) and [logic-settle](logic-settle.md), the sessions before it
+- [ui-build](ui-build.md) and [build-flow](build-flow.md), the rules that bind pages after it
+- [docs-format](docs-format.md), where `DESIGN.md` sits among the documents
+- [Redesign](../guide/redesign.md), [starting an app](../guide/new-app.md) and [Antigravity](../guide/antigravity.md)

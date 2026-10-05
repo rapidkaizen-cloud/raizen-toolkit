@@ -1,0 +1,39 @@
+# Session norms
+
+What every session is told before it reads your first message — the same text in every repo where the plugin is enabled.
+
+Where an app's `CLAUDE.md` and the norms disagree about a norm, the norms are the newer. `CLAUDE.md` holds what is true of that app alone.
+
+## The blocks
+
+| Block | What a session does because of it |
+|---|---|
+| `LANGUAGE` | Writes chat, the documents, commit messages, pull requests and the strings the app puts on screen in your language. Writes comments, identifiers, file names, URL routes, endpoint paths and every database name in English. Decides enum values per case. Reports existing code in the other language as a finding instead of matching it |
+| `POINTERS` | Reads the rule skill for the work in hand before touching it: `build-flow`, `docs-format`, `ui-build`, `db-ops`, `logic-build` |
+| `SCOPE` | Does only what was asked — no refactor, no rename, nothing "while I'm here" — and writes no document outside the list `docs-format` keeps |
+| `GIT` | Fetches and checks the branch before anything else. Commits a finished scope item in the same turn, without asking, with named paths and a message that says why. Leaves the tree dirty when it stops for you. Never commits on `main` while `development` exists. Treats a push or a pull request as a stop in chat |
+| `ASKING` | Asks you what is yours to decide, then runs it itself. Never hands you a command to type — only what needs your own hands: a browser login, a dashboard, a key rotation, a payment |
+| `DECISIONS` | Closes an answer that carries two or more decisions with one table: question, options, recommendation. The recommendation names its trade-off, and the table comes before the work |
+| `CLOSING THE SESSION` | Ends on a report per scope item, then a fixed block: the page usable now and its route, pages touched by spread, defaults it decided itself, unfinished steps as queue lines, what you must do by hand, the branch and the commits, and the documents it changed |
+
+## What the git block means for you
+
+- **A clean tree means finished. A dirty tree means something is waiting on you.**
+- **`git add -A` and `git add .` are refused**, so a commit never carries a path nobody named. A path that changed outside the scope is reported, never committed along.
+- **A push is never a dialog.** The session ends its turn on the exact command and the commits it publishes, and runs it once when your reply is a clear yes. See [Gates](gates.md).
+
+## Three forms
+
+The text follows the documents a repo has.
+
+| The repo has | The norms |
+|---|---|
+| `docs/PRD.md` | Name the `docs/` files, and `docs/queue.md` as what is not built yet |
+| A root `PRD.md` | Name `PRD.md` and `QUEUE.md`, as the form before `docs/` did |
+| Neither | The `NOT SETTLED` form: no `POINTERS`, no closing block, and the limits listed in [How it works](how-it-works.md) |
+
+## Related
+
+- [session-start](../reference/session-start.md) — the hook that prints the norms, and everything else a session is handed at start.
+- [guard-git](../reference/guard-git.md) — what enforces the git block where a session might not.
+- The text itself: `scripts/session_norms.py`.

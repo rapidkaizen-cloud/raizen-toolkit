@@ -5,9 +5,9 @@ The `norms-help` skill runs this from the plugin folder it was read from, so the
 about the copy the session runs: a machine keeps one folder per installed version, and
 the newest of them is not always the one a session loaded.
 
-Nothing is written for the card alone. The commands are the `Use` section of `README.md`,
-the pages are `docs/README.md`, and the last change is the top entry of `CHANGELOG.md` -
-each printed as its file holds it, so the card cannot disagree with them.
+Nothing is written for the card alone. The commands are `docs/reference/commands.md`, the
+pages are `docs/README.md`, and the last change is the top entry of `CHANGELOG.md` - each
+printed as its file holds it, so the card cannot disagree with them.
 
 Usage: python3 norms_help.py
 """
@@ -18,8 +18,6 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
 MANIFEST = ".claude-plugin/plugin.json"
-# The heading in README.md that holds what to run, and when.
-COMMANDS = "Use"
 
 
 def read(path: Path) -> str:
@@ -29,10 +27,9 @@ def read(path: Path) -> str:
         return ""
 
 
-def section(text: str, heading: str) -> str:
-    """The body under a `## ` heading, up to the next one. Empty when the heading is gone."""
-    found = re.search(rf"^## {re.escape(heading)}[ \t]*\n(.*?)(?=^## |\Z)", text, re.S | re.M)
-    return found[1].strip() if found else ""
+def page(path: Path) -> str:
+    """A docs page without its title line. Empty when the file is gone."""
+    return re.sub(r"\A#[^\n]*\n", "", read(path)).strip()
 
 
 def last_change(changelog: str) -> str:
@@ -44,8 +41,8 @@ def last_change(changelog: str) -> str:
 def card(root: Path) -> str:
     version = json.loads((root / MANIFEST).read_text(encoding="utf-8"))["version"]
     blocks = [
-        ("COMMANDS", section(read(root / "README.md"), COMMANDS)),
-        ("PAGES - under docs/ of the plugin folder", re.sub(r"\A#[^\n]*\n", "", read(root / "docs" / "README.md")).strip()),
+        ("COMMANDS", page(root / "docs" / "reference" / "commands.md")),
+        ("PAGES - under docs/ of the plugin folder", page(root / "docs" / "README.md")),
         ("LAST CHANGE", last_change(read(root / "CHANGELOG.md"))),
     ]
     out = [f"raizen-norms {version}"]

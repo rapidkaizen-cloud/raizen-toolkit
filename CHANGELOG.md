@@ -2,6 +2,20 @@
 
 All notable changes to the `raizen-norms` plugin, and to `raizen-hub` until 0.70.0 merged it in, newest first. The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). Versions before these are in `git log`.
 
+## [raizen-norms 0.78.0] - 2026-10-05
+
+### Added
+
+- `docs/` as a documentation site in four groups — Getting started, Concepts, Guides, Reference — with one page per skill, per hook and for the commands. `docs/README.md` is the index on GitHub, the site's home and its sidebar. `docs/.vitepress/` and `.github/workflows/docs.yml` build it for GitHub Pages on a push to `master` that touches `docs/`.
+
+### Changed
+
+- `norms-help` prints its commands from `docs/reference/commands.md`; `README.md` no longer holds a `Use` section.
+- `README.md` is the landing only: what the plugin holds, the two install commands, and where each page is. The install details, the update, Antigravity, maintaining app repos and what is not yet verified moved to pages under `docs/`.
+- `docs/guide/gates.md` and `docs/guide/documents.md` are `docs/concepts/gates.md` and `docs/concepts/documents.md`; `docs/guide/help.md` is `docs/reference/norms-help.md`.
+
+Nothing to act on in an installed app.
+
 ## [raizen-norms 0.77.0] - 2026-10-05
 
 ### Added
