@@ -2,6 +2,20 @@
 
 All notable changes to the `raizen-norms` plugin, and to `raizen-hub` until 0.70.0 merged it in, newest first. The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). Versions before these are in `git log`.
 
+## [raizen-norms 0.76.0] - 2026-10-05
+
+### Added
+
+- A document reminder: after a commit that touched no document, in a repo with `docs/PRD.md` or a root `PRD.md`, the session is asked whether a sentence in a document became false, whether a page became usable with no guide page, and whether users will notice. It writes the document into that commit or reports `Docs: none`. `scripts/remind_docs.py` never blocks a commit, and is silent in a repo that keeps no documents. On Claude Code it comes with the result of the `git commit`; on Antigravity, where no hook speaks after a tool, the session-start script hands it over before the next model call, once per commit.
+
+### Changed
+
+- `docs-format` and `build-flow`: `docs/whats-new.md` gets an entry for every commit users will notice, with or without an in-app help page. It was written only where the app had one, which left an app without a help page with no record of change but `git log`.
+
+To act on:
+
+- An app on the `docs/` form with no help page: `docs/whats-new.md` is written from the next commit users notice. Nothing is owed for commits already made.
+
 ## [raizen-norms 0.75.0] - 2026-10-05
 
 ### Added

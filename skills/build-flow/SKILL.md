@@ -175,7 +175,7 @@ Report the closing block `raizen-norms` prints at session start under `CLOSING T
 Commit the page as part of finishing it, by the git norms `raizen-norms` prints. **The commit carries the documents its change made false or incomplete** (`docs-format`, same commit), never a later one:
 
 - **The guide page of every task the page serves** (`docs/guide/`) — mandatory in the batch that makes the page usable to its role. Delete its queue line in the commit carrying the guide, never before. A UI batch on fixtures writes none.
-- **A `docs/whats-new.md` entry** for what users will notice — only where the app has an in-app help page.
+- **A `docs/whats-new.md` entry** for what users will notice — with or without an in-app help page. A commit users will not notice writes none.
 - **A `docs/glossary.md` row** for each domain term the page puts on screen that the glossary lacks — written before the page, per `docs-format`, and committed with it.
 
 A legacy repo writes no guide page and no `whats-new.md`: its queue line is deleted when the page is usable.

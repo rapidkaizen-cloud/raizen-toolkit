@@ -79,6 +79,7 @@ What differs from Claude Code:
 |---|---|---|
 | Norms and documents | `SessionStart` | Injected before the first model call of a conversation, with the app's `CLAUDE.md` and a `HOST` block mapping the tool names |
 | Where the norms run | Wherever the plugin is enabled | Every folder `agy` opens |
+| The document reminder | With the result of a commit that touched no document | Before the model call that follows such a commit, once per commit — a hook there cannot hand the model text after a tool has run |
 
 A held push or pull request runs the same way on both: the session ends its turn on the command and its commits, and runs it once when the reply typed in chat is a yes. The guard holds the command until that reply exists; reading it as a yes is the session's.
 
@@ -120,5 +121,6 @@ An app with a project-scoped `.mcp.json` shadows the user-scope Supabase server:
 - `app-settle`'s migrate mode and its align mode have never run in an app. Run migrate on a copy of a legacy app before a real one.
 - Whether a cloud session installs this marketplace; until then, cloud sessions do frontend work only.
 - The account-wide Supabase MCP endpoint end to end: its first-use login, and `project_id` as `guard_project_ref.py` expects.
+- The document reminder after a commit (0.76.0): no session has received it on either host. Whether a plugin's `PostToolUse` text reaches the model on an SDK host, whether Antigravity takes a step injected on a later model call of a turn as it takes the norms on the first, and whether a session answers by writing the document or by `Docs: none`, is unobserved.
 - A held push passing on a chat reply (0.74.0): replayed against one real Claude Code transcript, never run in a session on either host, and no session has been seen to read a no, a question or a condition as anything but a yes. On Antigravity the reply is read in the step shape the hand-over block already reads; a push passed there before 0.74.0 only, on `Run` picked in `ask_question`.
 - On Antigravity: `design-settle` in Full and where UI exists — its audit subagent, its gate; `app-settle` and `logic-settle`; a question asked through `ask_question` in an interactive session; the IDE and Antigravity 2.0. Gemini CLI is not ported.

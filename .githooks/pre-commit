@@ -2,10 +2,24 @@
 # Refuse a commit that changes the plugin without changing its version:
 # /plugin update compares version numbers only, so an unbumped change never reaches the cache.
 m=".claude-plugin/plugin.json"
-if git diff --cached --name-only | grep -qE '^(skills|scripts|hooks)/|^(hooks|plugin)\.json$|^\.claude-plugin/plugin\.json$'; then
+staged=$(git diff --cached --name-only)
+if echo "$staged" | grep -qE '^(skills|scripts|hooks)/|^(hooks|plugin)\.json$|^\.claude-plugin/plugin\.json$'; then
   if ! git diff --cached -U0 -- "$m" | grep -q '^+[[:space:]]*"version"'; then
     echo "pre-commit: the plugin changed but the version in $m did not." >&2
     exit 1
   fi
+fi
+# Refuse a new version with no entry of its own in CHANGELOG.md: `norms-version` prints
+# that entry to whoever asks what changed.
+if git diff --cached -U0 -- "$m" | grep -q '^+[[:space:]]*"version"'; then
+  v=$(git show ":$m" | sed -n 's/.*"version"[^"]*"\([^"]*\)".*/\1/p')
+  if ! git show ":CHANGELOG.md" | grep -qF "## [raizen-norms $v]"; then
+    echo "pre-commit: version $v has no entry in CHANGELOG.md." >&2
+    exit 1
+  fi
+fi
+# A warning, never a refusal: most changes to a skill leave what a user meets as it was.
+if echo "$staged" | grep -qE '^(skills|scripts|hooks)/' && ! echo "$staged" | grep -q '^docs/guide/'; then
+  echo "pre-commit: the plugin changed and no docs/guide/ page did. If what a user meets changed, correct its page and amend (CLAUDE.md, docs/)." >&2
 fi
 exit 0

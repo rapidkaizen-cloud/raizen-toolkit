@@ -37,6 +37,7 @@ from pathlib import Path
 
 import handoff
 import host
+import remind_docs
 
 HEAD = """\
 SESSION NORMS (raizen-norms)
@@ -643,7 +644,19 @@ def main() -> None:
     # PreInvocation fires before every model call. The norms go in before the first call
     # of a conversation that has not been handed them: the first call of a turn is the
     # only one that checks, and the transcript is what remembers across turns.
-    if payload.get("invocationNum") or printed(payload.get("transcript_path") or ""):
+    transcript = payload.get("transcript_path") or ""
+    if payload.get("invocationNum"):
+        # A later call of a turn follows a tool: the one moment this host lets a hook say
+        # what `remind_docs` says after a commit on Claude Code. Never a reason to fail -
+        # this runs before every model call.
+        try:
+            text = remind_docs.unasked(transcript)
+        except Exception:
+            text = ""
+        if text:
+            json.dump({"injectSteps": [{"userMessage": text}]}, sys.stdout)
+        sys.exit(0)
+    if printed(transcript):
         sys.exit(0)
     text = io.StringIO()
     with contextlib.redirect_stdout(text):
