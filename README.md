@@ -1,11 +1,12 @@
 # raizen-toolkit
 
-Two Claude Code plugins and the marketplace `raizen`, in the public repo `rapidkaizen-cloud/raizen-toolkit`. Both also load in Antigravity — see [Antigravity](#antigravity).
+One plugin, `raizen-norms`, and the marketplace `raizen`, in the public repo `rapidkaizen-cloud/raizen-toolkit`. The repo root is the plugin, for Claude Code and for Antigravity — see [Antigravity](#antigravity).
 
-| Plugin | Holds | Loaded |
-|---|---|---|
-| `raizen-hub` | `app-settle`, `logic-settle`, `design-settle`, `app-align` | When invoked |
-| `raizen-norms` | `build-flow`, `docs-format`, `ui-build`, `db-ops`, `logic-build`, guard hooks | Every session in an app repo whose `.claude/settings.json` enables it — `app-settle` writes that line |
+| Holds | Loaded |
+|---|---|
+| `app-settle`, `logic-settle`, `design-settle`, `app-align` | When invoked |
+| `build-flow`, `docs-format`, `ui-build`, `db-ops`, `logic-build` | By their descriptions |
+| Session norms, guard hooks | Every session where the plugin is enabled — installed at user scope, every folder on that machine; `app-settle` writes the `enabledPlugins` line into each app repo |
 
 ## Install
 
@@ -13,7 +14,6 @@ Needs Claude Code, `python3` (every `raizen-norms` hook calls it; with only `pyt
 
 ```
 /plugin marketplace add rapidkaizen-cloud/raizen-toolkit
-/plugin install raizen-hub@raizen
 /plugin install raizen-norms@raizen
 ```
 
@@ -33,15 +33,14 @@ Two conventions come with `raizen-norms`, and every app inherits them:
 - Sessions sign in and seed test data through an **agent account**: `db-ops` creates it by SQL on Supabase Auth, taking its email and password from the session's own instructions (your `~/.claude/CLAUDE.md`, for example) — the toolkit stores neither.
 - Every row a session creates for a test opens with **`[CLAUDE]`**. Only a `DELETE` narrowed to that prefix passes `guard_destructive` unguarded; any other delete goes through the destructive gate.
 
-Check: `/plugin` lists both plugins; design-settle's Step 0 prints the running build as `Skill build`.
+Check: `/plugin` lists `raizen-norms`; design-settle's Step 0 prints the running build as `Skill build`.
 
 ## Update
 
-Every commit that changes a plugin bumps its version (`.githooks/pre-commit` refuses otherwise — run `git config core.hooksPath .githooks` once per clone). After the push, a machine with `autoUpdate` on picks it up at its next start; on any other machine run:
+Every commit that changes the plugin bumps its version (`.githooks/pre-commit` refuses otherwise — run `git config core.hooksPath .githooks` once per clone). After the push, a machine with `autoUpdate` on picks it up at its next start; on any other machine run:
 
 ```
 claude plugin marketplace update raizen
-claude plugin update raizen-hub@raizen
 claude plugin update raizen-norms@raizen
 ```
 
@@ -49,30 +48,30 @@ Then restart. Nothing reaches a session before this. What each version changes: 
 
 ## Antigravity
 
-Both plugins load in Antigravity from the same folders: `plugin.json` and `hooks.json` at each plugin's root are its manifest and its hooks, beside Claude Code's `.claude-plugin/` and `hooks/`.
+The repo root is an Antigravity plugin too: `plugin.json` and `hooks.json` at the root are its manifest and its hooks, beside Claude Code's `.claude-plugin/` and `hooks/`.
 
-**Proven on the CLI** — `agy` 1.2.16, Windows, headless and interactive, registered as below: the norms are injected once per conversation, `git add -A` is refused, a push is held until `Run` is answered and held again once it has run, the hand-over block arrives, and all nine skills are listed.
+Install once per machine:
 
-Register once per machine: one entry in `~/.gemini/config/plugins.json`, naming the clone Claude Code keeps current so one update serves both hosts.
-
-```json
-{ "entries": [ { "path": "C:/Users/<you>/.claude/plugins/marketplaces/raizen/plugins" } ] }
+```
+agy plugin install https://github.com/rapidkaizen-cloud/raizen-toolkit
 ```
 
-- Write the path absolute; `~/` in an entry does not resolve on Windows.
-- Register it there, never in a repo's `.agents/plugins.json`: registered per folder, the plugins loaded a minute after an interactive conversation began, and that conversation ran unguarded.
-- Never run `agy plugin import` on these plugins: it replaces `hooks.json` with Claude Code's, which Antigravity cannot parse, and every guard goes silent.
+Update: `agy plugin uninstall raizen-norms`, then install again — the install is a copy, and nothing refreshes it.
+
+**Not proven in this form.** Proven on the CLI — `agy` 1.2.16, Windows, headless and interactive — is the plugin registered by path in `~/.gemini/config/plugins.json`, before 0.70.0 moved it to the repo root: the norms injected once per conversation, `git add -A` refused, a push held until `Run` is answered and held again once it has run, the hand-over block, all nine skills listed. After an install, run `agy plugin list` and see `git add -A` refused before trusting a session there.
+
+- Install it for the machine as above, never through a repo's `.agents/plugins.json`: registered per folder, the plugin loaded a minute after an interactive conversation began, and that conversation ran unguarded.
+- Never run `agy plugin import` on this plugin: it replaces `hooks.json` with Claude Code's, which Antigravity cannot parse, and every guard goes silent.
 - `python3` must resolve: there a hook that cannot start blocks every command.
-- A headless run (`agy -p`) cannot be asked for permission, and a skill file sits outside the workspace: allow it in `~/.gemini/antigravity-cli/settings.json` with `{"permissions": {"allow": ["read_file(<that plugins path>)"]}}`, or the run stops at the first skill it reads.
+- A headless run (`agy -p`) cannot be asked for permission, and a skill file sits outside the workspace: allow it in `~/.gemini/antigravity-cli/settings.json` with `{"permissions": {"allow": ["read_file(<the installed plugin's path>)"]}}`, or the run stops at the first skill it reads.
 - `design-settle` needs there what it needs here: its Required companions installed for Antigravity, and a browser MCP server for every screenshot and browser check. Absent, it asks, as on Claude Code.
-- A machine without Claude Code clones this repo anywhere and names its `plugins` folder instead.
 
 What differs from Claude Code:
 
 | | Claude Code | Antigravity |
 |---|---|---|
 | Norms and documents | `SessionStart` | Injected before the first model call of a conversation, with the app's `CLAUDE.md` and a `HOST` block mapping the tool names |
-| Where the norms run | Repos whose `.claude/settings.json` enables them | Every folder `agy` opens |
+| Where the norms run | Wherever the plugin is enabled | Every folder `agy` opens |
 | A held push | `Run` on AskUserQuestion | `Run` on `ask_question` |
 
 **Switching hosts mid-work.** When the working tree is dirty and the other host ran the last session in the repo, the session start prints a hand-over block: that session's last request, the answers the user gave, its todo list, the last it said — read from its transcript, so on the same machine only.
@@ -81,12 +80,12 @@ What differs from Claude Code:
 
 | Situation | Run |
 |---|---|
-| New app, empty directory | `/raizen-hub:app-settle`, then in the new repo `/raizen-hub:logic-settle` and `/raizen-hub:design-settle` |
-| Running app | `/raizen-hub:app-settle` (writes the missing documents, or reworks them), then the other two |
+| New app, empty directory | `/raizen-norms:app-settle`, then in the new repo `/raizen-norms:logic-settle` and `/raizen-norms:design-settle` |
+| Running app | `/raizen-norms:app-settle` (writes the missing documents, or reworks them), then the other two |
 | Only the look or the logic layer | `design-settle` or `logic-settle` alone |
-| Repo that predates or drifted from these rules | `/raizen-hub:app-align` — the only skill that changes existing code, one finding per commit |
+| Repo that predates or drifted from these rules | `/raizen-norms:app-align` — the only skill that changes existing code, one finding per commit |
 
-`design-settle` asks Fast or Full with its first question, on a new app and a redesign alike. Fast answers every design dialog with its recommendation in one block you cancel line by line; the frames, the pick, the gate and every check run as in Full. `/raizen-hub:design-settle fast` skips the question.
+`design-settle` asks Fast or Full with its first question, on a new app and a redesign alike. Fast answers every design dialog with its recommendation in one block you cancel line by line; the frames, the pick, the gate and every check run as in Full. `/raizen-norms:design-settle fast` skips the question.
 
 `build-flow` needs no command; it loads in every app session.
 
@@ -113,4 +112,4 @@ An app with a project-scoped `.mcp.json` shadows the user-scope Supabase server:
 - The `docs/` form has never been bootstrapped in a real app.
 - Whether a cloud session installs this marketplace; until then, cloud sessions do frontend work only.
 - The account-wide Supabase MCP endpoint end to end: its first-use login, and `project_id` as `guard_project_ref.py` expects.
-- On Antigravity: the four `raizen-hub` skills were read by a session there and none has been run — their interviews, their subagents, `design-settle` with its companions and a browser MCP server installed; the IDE and Antigravity 2.0. Gemini CLI is not ported.
+- On Antigravity: `agy plugin install` of the repo root — that it lists the nine skills and leaves `hooks.json` as written, so the norms and the guards run as they did registered by path. The four settle skills were read by a session there and none has been run — their interviews, their subagents, `design-settle` with its companions and a browser MCP server installed; the IDE and Antigravity 2.0. Gemini CLI is not ported.

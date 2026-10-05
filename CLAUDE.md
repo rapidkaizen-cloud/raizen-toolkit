@@ -1,6 +1,6 @@
 # CLAUDE.md — repo raizen-toolkit
 
-This repo is not an application. It holds plugins that govern other repos, so a mistake here spreads to every app.
+This repo is not an application. Its root is the plugin that governs other repos, so a mistake here spreads to every app.
 
 ## Language
 
@@ -24,7 +24,7 @@ This plugin ships no templates. What a new app repo gets is written by `app-sett
 
 A proof run tests these skills on a throwaway copy of an app in the scratchpad. Write only the public client values into the copy's `.env` — the URL and the publishable key; never copy the real `.env`. A server key reaches the copy only by the user's own hand: a key created for the run and revoked after it. Without one, report every server route `not verified — no server key in the proof copy`.
 
-Write `the proof app`, never the app's name, a client, a person, or a domain, in any file or commit message of this repo, because anyone who installs the plugins reads its history.
+Write `the proof app`, never the app's name, a client, a person, or a domain, in any file or commit message of this repo, because anyone who installs the plugin reads its history.
 
 ## QUEUE.md
 
@@ -32,10 +32,10 @@ Keep `QUEUE.md` only while it holds toolkit work not done yet — delete it with
 
 ## Git
 
-Commit, push, and open a PR by the `GIT` block of `plugins/raizen-norms/scripts/session_norms.py`, as an app repo does.
+Commit, push, and open a PR by the `GIT` block of `scripts/session_norms.py`, as an app repo does.
 
-A commit that changes a plugin bumps that plugin's `version` in the same commit, because `/plugin update` compares version numbers only; `.githooks/pre-commit` refuses it otherwise, so run `git config core.hooksPath .githooks` once per clone.
+A commit that changes the plugin — `skills/`, `scripts/`, `hooks/` or a manifest — bumps its `version` in the same commit, because `/plugin update` compares version numbers only; `.githooks/pre-commit` refuses it otherwise, so run `git config core.hooksPath .githooks` once per clone.
 
-A commit that bumps a plugin's version adds that version's entry to `CHANGELOG.md`, in English and in Keep a Changelog form, naming every rename or removal an installed app must act on.
+A commit that bumps the version adds that version's entry to `CHANGELOG.md`, in English and in Keep a Changelog form, naming every rename or removal an installed app must act on.
 
 A commit reaches app sessions only after it is pushed to `origin`, and the user decides every push.

@@ -1,6 +1,6 @@
 ---
 name: simulate
-description: Run the interview of any raizen-hub skill — app-settle, logic-settle, design-settle, app-align, or the chain of them — for real, against an app repo, a described scenario, or a test scenario this skill proposes, without executing anything — every question asked as the live skill would ask it, and after each answer the decision it produces and where the flow goes next, so the user can see whether the flow lands where their answers meant it to. Skips every printed block and every build step; installs nothing, writes nothing, draws nothing. Runs in the raizen-toolkit repo. Use to check a flow's decisions before running it in an app repo, or to test a skill change by answering its interview end to end.
+description: Run the interview of any settle skill — app-settle, logic-settle, design-settle, app-align, or the chain of them — for real, against an app repo, a described scenario, or a test scenario this skill proposes, without executing anything — every question asked as the live skill would ask it, and after each answer the decision it produces and where the flow goes next, so the user can see whether the flow lands where their answers meant it to. Skips every printed block and every build step; installs nothing, writes nothing, draws nothing. Runs in the raizen-toolkit repo. Use to check a flow's decisions before running it in an app repo, or to test a skill change by answering its interview end to end.
 ---
 
 # simulate — the interview for real, the work on paper
@@ -9,7 +9,7 @@ What the user cannot see by reading a skill is whether their answers land where 
 
 ## 0 — Where this runs, and what it touches
 
-**In this repo, against the source under `plugins/`, never the installed plugin copy.**
+**In this repo, against the source under `skills/`, never the installed plugin copy.**
 
 The target is one of three: a real app repo added as a working directory — read-only: `ls`, `grep`, `git log`, reading files; `npx impeccable detect <path>` where the skill would run it — a scenario in words, or **a scenario this skill proposes** (below). A scenario missing what the skill's first step reads (document form, `DESIGN.md`, UI present, platform, kind of app, who uses it, what is installed) is completed in **one** AskUserQuestion before the interview starts.
 

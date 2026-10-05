@@ -83,7 +83,7 @@ One event, two shapes:
 
 ## 6 — Which libraries this layer uses
 
-`logic-settle` in `raizen-hub` decides them once — cache, validator, dates, error destination, job placement, change attribution. The names are in the Stack table of `CLAUDE.md`; each choice and its reason is one record in `docs/decisions/`, every deliberate "none" included.
+`logic-settle` decides them once — cache, validator, dates, error destination, job placement, change attribution. The names are in the Stack table of `CLAUDE.md`; each choice and its reason is one record in `docs/decisions/`, every deliberate "none" included.
 
 - **A recorded "none" is a decision, not a gap** — handwritten fetching where the record says "cache: none — two screens" is the norm followed, not a finding.
 - **A need `logic-settle` never scored** — a screen that now wants caching, a handler appearing where none existed — **is raised to the user, never solved by a quiet install.** One question re-opens, not the interview; several at once, or a library that is the wrong tool rather than a missing one, re-opens `logic-settle` — the user's to start, never yours.

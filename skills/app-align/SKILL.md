@@ -5,7 +5,7 @@ description: Bring an app repo that predates these skills, or drifted from them,
 
 # app-align — the app catches up with the rules
 
-This skill changes **code that already exists**, and only where it disagrees with the conventions the installed plugins state. Documents are named by their `docs/` path; a repo with a root `PRD.md` reads each through `docs-format`'s legacy map.
+This skill changes **code that already exists**, and only where it disagrees with the conventions the installed plugin states. Documents are named by their `docs/` path; a repo with a root `PRD.md` reads each through `docs-format`'s legacy map.
 
 ## What a run costs — four rules
 
@@ -39,7 +39,7 @@ Repo         : [name · branch · clean or N uncommitted paths]
 Documents    : [docs/ form / legacy PRD.md / missing]
 CLAUDE.md    : [present — template-derived / present — hand-written / missing]
 AGENTS.md    : [present / missing]
-Plugin text  : [raizen-norms vX · raizen-hub vY — the installed copies, which are what governs this repo]
+Plugin text  : [raizen-norms vX — the installed copy, which is what governs this repo]
 Flow         : audit → rank → user picks → execute one finding per commit
 ```
 
@@ -50,7 +50,7 @@ Flow         : audit → rank → user picks → execute one finding per commit
 
 ## Step 1 — Audit, before asking anything
 
-**Run the audit in one subagent whose whole brief is `references/audit.md`**: hand it that path, the repo root, the two installed plugin paths, and every `NOTE` line the session start printed, and never read that file here. No subagent → say so and run the audit here from that file.
+**Run the audit in one subagent whose whole brief is `references/audit.md`**: hand it that path, the repo root, the installed plugin path, and every `NOTE` line the session start printed, and never read that file here. No subagent → say so and run the audit here from that file.
 
 **It returns only the `AUDIT` block — seven rows, C1 to C7, a clean one included — with what each row counts listed under it.** Print it as returned.
 

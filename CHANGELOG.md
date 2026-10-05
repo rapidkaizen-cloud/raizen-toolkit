@@ -1,6 +1,26 @@
 # Changelog
 
-All notable changes to the `raizen-hub` and `raizen-norms` plugins, newest first. The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). Versions before these are in `git log`.
+All notable changes to the `raizen-norms` plugin, and to `raizen-hub` until 0.70.0 merged it in, newest first. The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). Versions before these are in `git log`.
+
+## [raizen-norms 0.70.0] - 2026-10-05
+
+### Changed
+
+- One plugin instead of two: `raizen-hub` is merged into `raizen-norms`, which holds all nine skills, the session norms and the guards. The version continues above both — 0.70.0 follows `raizen-hub` 0.69.0 and `raizen-norms` 0.37.1.
+- The plugin is the repo root: `skills/`, `scripts/`, `hooks/` and both manifests moved up from `plugins/raizen-norms/`, so Antigravity installs it from the repo URL with `agy plugin install`.
+- The four settle skills are invoked as `/raizen-norms:app-settle`, `/raizen-norms:logic-settle`, `/raizen-norms:design-settle` and `/raizen-norms:app-align`.
+- `design-settle` Step 0 and `app-align` print one plugin version.
+
+### Removed
+
+- The plugin `raizen-hub`. The marketplace's `renames` map sends the name to `raizen-norms`, so Claude Code moves an enabled `raizen-hub@raizen` onto it.
+- The `plugins/` folder.
+
+To act on:
+
+- An app repo: nothing — its `enabledPlugins` line names `raizen-norms@raizen` already.
+- A Claude Code machine: after the update, `/plugin` lists `raizen-norms` and no `raizen-hub`. Where `raizen-hub` is still listed, uninstall it — its copy of the four skills is stale. A machine that enabled only `raizen-hub` now runs the norms and the guards in every folder.
+- An Antigravity machine: a `~/.gemini/config/plugins.json` entry naming `…/raizen/plugins` resolves to nothing once that clone updates, and every session there runs without norms or guards. Remove the entry and install as the README's Antigravity section says.
 
 ## [raizen-norms 0.37.1] - 2026-10-04
 

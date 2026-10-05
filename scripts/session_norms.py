@@ -259,8 +259,8 @@ The norms above and every skill name Claude Code's tools. Use this host's own:
   a `claude mcp add` line    : the same server in `~/.gemini/config/mcp_config.json`
 The guards the norms and the skills name run here as this plugin's hooks, unseen
 until one refuses.
-The installed plugins are the folders these skills are read from; a plugin's version
-is in its `.claude-plugin/plugin.json`.
+The installed plugin is the folder these skills are read from; its version is in
+its `.claude-plugin/plugin.json`.
 Write the todo list `build-flow` requires in chat, since this host has no tool for one.
 `CLAUDE.md` is printed below, because this host does not load it.
 This host loads `AGENTS.md`, which was written for a session without these norms -

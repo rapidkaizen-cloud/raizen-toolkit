@@ -1,6 +1,6 @@
 # The audit — a subagent's brief
 
-You audit an app repo against the conventions the installed plugins state, for a session that ranks and fixes what you find. **Change nothing — no rename, no fix on the way past**: every hit is a finding, a bug included. **The installed plugin copy is the standard**: where a check needs a rule's exact text, read it from the plugin paths in your brief, never from memory. Documents are named by their `docs/` path; a repo with a root `PRD.md` reads each through `docs-format`'s legacy map. Run independent reads, searches and commands in one turn. A `NOTE` line in your brief is the session-start hook's own finding: count it, never recompute it.
+You audit an app repo against the conventions the installed plugin states, for a session that ranks and fixes what you find. **Change nothing — no rename, no fix on the way past**: every hit is a finding, a bug included. **The installed plugin copy is the standard**: where a check needs a rule's exact text, read it from the plugin path in your brief, never from memory. Documents are named by their `docs/` path; a repo with a root `PRD.md` reads each through `docs-format`'s legacy map. Run independent reads, searches and commands in one turn. A `NOTE` line in your brief is the session-start hook's own finding: count it, never recompute it.
 
 ## What you report back
 

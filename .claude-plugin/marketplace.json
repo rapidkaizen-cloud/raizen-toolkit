@@ -3,14 +3,12 @@
   "owner": { "name": "Raizen" },
   "plugins": [
     {
-      "name": "raizen-hub",
-      "source": "./plugins/raizen-hub",
-      "description": "Settle an internal app one layer at a time, whether the layer is empty or already running: app-settle for the domain, stack and the docs/ documents; logic-settle for the layer between database and UI; design-settle for the visual direction and DESIGN.md; app-align to bring code that predates these rules back onto them."
-    },
-    {
       "name": "raizen-norms",
-      "source": "./plugins/raizen-norms",
-      "description": "Session norms for internal app repos: git and destructive-operation guards, plus document, UI, database, application-logic, and build-order rules."
+      "source": "./",
+      "description": "Settle an app one layer at a time and hold it there: app-settle, logic-settle, design-settle and app-align decide the domain, the logic layer and the look; session norms, git and destructive-operation guards, and document, UI, database, application-logic and build-order rules govern every session after."
     }
-  ]
+  ],
+  "renames": {
+    "raizen-hub": "raizen-norms"
+  }
 }

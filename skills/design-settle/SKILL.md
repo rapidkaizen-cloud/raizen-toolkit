@@ -72,7 +72,7 @@ Fast skips no step: the search, the frames and the pick, every scan and floor, t
 ## Step 0 — Preconditions
 
 ```
-Skill build     : [raizen-hub x.y.z — read from this plugin's own .claude-plugin/plugin.json]
+Skill build     : [raizen-norms x.y.z — read from this plugin's own .claude-plugin/plugin.json]
 Documents       : [docs/ form / legacy PRD.md / legacy PRD.md, off-shape / none]
 DESIGN.md       : [written / absent / product without UI — from its presence alone, and in a
                    legacy repo from Section 5's heading and `[needs verification]` markers,
