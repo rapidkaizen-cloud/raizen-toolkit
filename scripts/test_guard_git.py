@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Self-check guard_git.py: what is refused, what is held, what an answer lets through.
+"""Self-check guard_git.py: what is refused, what is held, what a reply lets through.
 
 The outcomes are distinct and a regression turns one into another silently, so each is
 asserted on both the exit code and the word that opens stderr.
@@ -27,6 +27,15 @@ def run(command: str, transcript: str = "") -> tuple:
     )
     word = result.stderr.split(":", 1)[0] if result.stderr else ""
     return result.returncode, word
+
+
+def showed(text: str) -> dict:
+    return {"type": "assistant", "message": {"role": "assistant", "content": [{"type": "text", "text": text}]}}
+
+
+def said(content, **flags) -> dict:
+    """A user entry: `content` is a string, or the list of blocks a real transcript holds."""
+    return {"type": "user", "message": {"role": "user", "content": content}, **flags}
 
 
 def asked(question: str, answer, use_id: str = "ask") -> dict:
@@ -70,7 +79,7 @@ def demo() -> None:
     assert run("git push origin feature+search") == held
     assert run("git push --force-with-lease") == held
 
-    # held without an answer
+    # held without a reply
     assert run("git push origin development") == held
     assert run("gh pr create --fill") == held
     assert run("gh pr merge 12 --squash") == held
@@ -82,43 +91,82 @@ def demo() -> None:
             return str(path)
 
         push = "git push origin development"
-        yes = transcript(asked(f"Run `{push}`?", ["Run"]))
+        gate = showed(f"`{push}`\n- 4cc1af0 feat: push waits for a reply\n- e2bd00d docs: README\n\nRun it?")
+        yes = transcript(gate, said("ok"))
 
-        # the answer lets exactly that command through, whitespace aside
+        # a reply lets exactly that command through, whitespace aside
         assert run(push, yes) == passed
         assert run("git  push  origin development", yes) == passed
         assert run("git push origin main", yes) == held
 
-        # the commits listed under the command do not hide it
-        listed = f"Run `{push}`?\n- 4cc1af0 feat: push waits for `Run`\n- e2bd00d docs: README"
-        assert run(push, transcript(asked(listed, ["Run"]))) == passed
+        # the reply in whatever words - the session reads them, this guard does not
+        for reply in ("gas", "run", "ya, push", "lanjut"):
+            assert run(push, transcript(gate, said(reply))) == passed, reply
+
+        # the reply as a host writes it: a text block, an IDE's open file beside it
+        assert run(push, transcript(gate, said([{"type": "text", "text": "ok"}]))) == passed
+        beside = [{"type": "text", "text": "<ide_opened_file>a.ts</ide_opened_file>"}, {"type": "text", "text": "ok\n"}]
+        assert run(push, transcript(gate, said(beside))) == passed
+
+        # the command alone in a fence is named as well as the command inline
+        assert run(push, transcript(showed(f"```\n{push}\n```\n- 4cc1af0 feat"), said("ok"))) == passed
+        assert run(push, transcript(showed(f"```bash\n{push}\n```"), said("ok"))) == passed
+
+        # a tool call after the message does not take the stop back, and one between the
+        # reply and the push does not take the reply back
+        assert run(push, transcript(gate, called("t0", "git status"), ran("t0"), said("ok"))) == passed
+        assert run(push, transcript(gate, said("ok"), called("t0", "git fetch"), ran("t0"))) == passed
 
         # the call being checked is already written, not yet answered: not spent
-        assert run(push, transcript(asked(f"Run `{push}`?", ["Run"]), called("t1", push))) == passed
+        assert run(push, transcript(gate, said("ok"), called("t1", push))) == passed
 
-        # spent by a run; a new answer grants one more
-        spent = [asked(f"Run `{push}`?", ["Run"]), called("t1", push), ran("t1")]
+        # spent by a run; a new reply to a new message grants one more
+        spent = [gate, said("ok"), called("t1", push), ran("t1")]
         assert run(push, transcript(*spent)) == held
-        assert run(push, transcript(*spent, asked(f"Once more: `{push}`?", ["Run"]))) == passed
+        assert run(push, transcript(*spent, said("ok"))) == held
+        assert run(push, transcript(*spent, gate, said("ok"))) == passed
 
-        # a run before the answer spends nothing; another command's run spends nothing
-        assert run(push, transcript(called("t0", push), ran("t0"), asked(f"`{push}`?", ["Run"]))) == passed
-        assert run(push, transcript(asked(f"`{push}`?", ["Run"]), called("t1", "git status"), ran("t1"))) == passed
-        assert run(push, transcript(asked(f"`{push}`?", ["Run"]), called("t1", push, "PowerShell"), ran("t1"))) == held
+        # a held attempt before the reply spends nothing; the other shell's run spends it
+        assert run(push, transcript(called("t0", push), ran("t0"), gate, said("ok"))) == passed
+        assert run(push, transcript(gate, said("ok"), called("t1", push, "PowerShell"), ran("t1"))) == held
 
-        # anything but the exact label, or a question that does not name the command, is no answer
-        assert run(push, transcript(asked(f"Run `{push}`?", ["Cancel"]))) == held
-        assert run(push, transcript(asked(f"Run `{push}`?", "Run it"))) == held
-        assert run(push, transcript(asked("Push to development?", ["Run"]))) == held
+        # no reply yet, or one with nothing in it
+        assert run(push, transcript(gate)) == held
+        assert run(push, transcript(gate, said(""))) == held
+        assert run(push, transcript(gate, said(" \n"))) == held
+
+        # a reply to a message that does not name this command
+        assert run(push, transcript(said("ok"))) == held
+        assert run(push, transcript(showed("Push to development?"), said("ok"))) == held
+        assert run(push, transcript(showed("`git push origin dev`"), said("ok"))) == held
+        assert run("git push origin dev", transcript(gate, said("ok"))) == held
+
+        # named mid-turn with other words after it: never the stop the user replied to
+        assert run(push, transcript(gate, showed("Tests pass. Run them again?"), said("ok"))) == held
+
+        # typed after the reply: about something else, and the grant is gone
+        assert run(push, transcript(gate, said("ok"), showed("Tagging first."), said("and the changelog"))) == held
+        assert run(push, transcript(gate, said("wait"), said("now"))) == held
+
+        # user entries nobody typed neither grant nor take a grant back: a subagent's
+        # prompt, a host-written note, a tool's result with a note beside it
+        mixed = said([{"type": "tool_result", "tool_use_id": "x", "content": "done"}, {"type": "text", "text": "note"}])
+        for unseen in (said("ok", isSidechain=True), said("ok", isMeta=True), mixed):
+            assert run(push, transcript(gate, unseen)) == held
+            assert run(push, transcript(gate, said("ok"), unseen)) == passed
+
+        # `Run` picked on a question dialog is no reply
+        assert run(push, transcript(asked(f"Run `{push}`?", ["Run"]))) == held
+        assert run(push, transcript(gate, asked(f"Run `{push}`?", ["Run"]))) == held
         assert run(push, str(Path(tmp) / "missing.jsonl")) == held
 
-        # the lease and pull requests go through the same answer; a bare force never does
+        # the lease and pull requests go through the same reply; a bare force never does
         lease = "git push --force-with-lease=master:90aa7fc origin master"
-        assert run(lease, transcript(asked(f"Force push: `{lease}`", "Run"))) == passed
+        assert run(lease, transcript(showed(f"Force push: `{lease}`"), said("ok"))) == passed
         bare = "git push --force origin master"
-        assert run(bare, transcript(asked(f"`{bare}`", ["Run"]))) == refused
+        assert run(bare, transcript(showed(f"`{bare}`"), said("ok"))) == refused
         pr = "gh pr create --fill"
-        assert run(pr, transcript(asked(f"Open it: `{pr}`", ["Run"]))) == passed
+        assert run(pr, transcript(showed(f"Open it: `{pr}`"), said("ok"))) == passed
 
     # a message that mentions a held or refused command is data, not a call
     assert run('git commit -m "docs: gh pr create and git push --force are held"') == passed
@@ -165,6 +213,14 @@ def planned(name: str, args: dict) -> dict:
     return {"type": "PLANNER_RESPONSE", "tool_calls": [{"name": name, "args": args}]}
 
 
+def told(text: str) -> dict:
+    return {"type": "PLANNER_RESPONSE", "content": text}
+
+
+def typed(text: str, source: str = "USER_EXPLICIT") -> dict:
+    return {"type": "USER_INPUT", "source": source, "content": f"<USER_REQUEST>\n{text}\n</USER_REQUEST>"}
+
+
 def question(*texts) -> dict:
     return planned("ask_question", {"questions": [{"question": t, "options": ["Run", "Cancel"]} for t in texts]})
 
@@ -191,8 +247,8 @@ def antigravity() -> None:
     push = "git push origin development"
     code, word, message = run_antigravity(push)
     assert (code, word) == held
-    # the held message names this host's question tool, not Claude Code's
-    assert "ask_question" in message and "AskUserQuestion" not in message
+    # the held message asks for a chat reply on either host, and names no question tool
+    assert "in chat" in message and "ask_question" not in message and "AskUserQuestion" not in message
 
     with tempfile.TemporaryDirectory() as tmp:
         def transcript(*steps) -> str:
@@ -200,34 +256,51 @@ def antigravity() -> None:
             path.write_text("\n".join(json.dumps(x) for x in steps) + "\nnot json\n", encoding="utf-8")
             return str(path)
 
-        ask = question(f"Run `{push}`?\n- 4cc1af0 feat: push waits for `Run`")
-        yes = [ask, result("A1: Run")]
+        gate = told(f"`{push}`\n- 4cc1af0 feat: push waits for a reply\n\nRun it?")
+        yes = [gate, typed("ok")]
 
         assert outcome(push, transcript(*yes)) == passed
         assert outcome("git push origin main", transcript(*yes)) == held
+        assert outcome(push, transcript(gate, typed("ya, push"))) == passed
+        # the reply with nothing wrapped around it
+        bare = {"type": "USER_INPUT", "source": "USER_EXPLICIT", "content": "ok"}
+        assert outcome(push, transcript(gate, bare)) == passed
 
         # the call being checked is already written, not yet answered: not spent
         mine = planned("run_command", {"CommandLine": push})
         assert outcome(push, transcript(*yes, mine)) == passed
 
-        # spent by a run; a new answer grants one more
+        # another command run between the reply and the push does not take the reply back
+        fetch = planned("run_command", {"CommandLine": "git fetch"})
+        assert outcome(push, transcript(*yes, fetch, result(), mine)) == passed
+
+        # spent by a run; a new reply to a new message grants one more
         assert outcome(push, transcript(*yes, mine, result())) == held
+        assert outcome(push, transcript(*yes, mine, result(), typed("ok"))) == held
         assert outcome(push, transcript(*yes, mine, result(), *yes)) == passed
 
-        # a held attempt before the answer spends nothing
+        # a held attempt before the reply spends nothing
         assert outcome(push, transcript(mine, result("HELD: a push"), *yes, mine)) == passed
 
-        # the second of two questions answers for itself
-        two = question("Deploy too?", f"Run `{push}`?")
-        assert outcome(push, transcript(two, result("A1: Cancel\nA2: Run"))) == passed
-        assert outcome(push, transcript(two, result("A1: Run\nA2: Cancel"))) == held
+        # a planner step that names the command and calls a tool still names it
+        both = {**planned("run_command", {"CommandLine": "git log --oneline -3"}), "content": gate["content"]}
+        assert outcome(push, transcript(both, result(), typed("ok"))) == passed
 
-        # no answer, another answer, or a question that does not name the command
-        assert outcome(push, transcript(ask, result("A1: User Skipped"))) == held
-        assert outcome(push, transcript(ask, result("A1: Cancel"))) == held
-        assert outcome(push, transcript(ask, result("A1: Run it"))) == held
-        assert outcome(push, transcript(question("Push to development?"), result("A1: Run"))) == held
-        assert outcome(push, transcript(ask)) == held
+        # no reply, an empty one, a message that does not name the command, other words
+        # after the one that did, something typed after the reply
+        assert outcome(push, transcript(gate)) == held
+        assert outcome(push, transcript(gate, typed(""))) == held
+        assert outcome(push, transcript(told("Push to development?"), typed("ok"))) == held
+        assert outcome(push, transcript(gate, told("Anything else?"), typed("ok"))) == held
+        assert outcome(push, transcript(*yes, told("Tagging first."), typed("and the changelog"))) == held
+
+        # a step the user never typed neither grants nor takes a grant back
+        injected = typed("SESSION NORMS", "SYSTEM_SDK")
+        assert outcome(push, transcript(gate, injected)) == held
+        assert outcome(push, transcript(*yes, injected)) == passed
+
+        # `Run` picked on `ask_question` is no reply
+        assert outcome(push, transcript(question(f"Run `{push}`?"), result("A1: Run"))) == held
 
         # the branch is read in the workspace, not in the folder the hook starts in
         repo = Path(tmp) / "repo"

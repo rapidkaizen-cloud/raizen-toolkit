@@ -18,9 +18,6 @@ import sys
 CLAUDE = "claude-code"
 ANTIGRAVITY = "antigravity"
 
-# What each host calls the tool that puts a question to the user.
-ASK_TOOL = {CLAUDE: "AskUserQuestion", ANTIGRAVITY: "ask_question"}
-
 
 def read_payload() -> dict:
     """The hook payload in the Claude Code shape, plus `host`. Empty when unreadable."""

@@ -59,7 +59,7 @@ agy plugin install https://github.com/rapidkaizen-cloud/raizen-toolkit
 
 Update: `agy plugin uninstall raizen-norms`, then install again — the install is a copy, and nothing refreshes it.
 
-**Proven on the CLI** — `agy` 1.2.16, Windows, headless, installed from this repo's URL with `agy plugin install`: the nine skills are listed, `hooks.json` is kept as written, the norms and the `HOST` block are injected, `git add -A` is refused, and a push is held. The copy lands in `~/.gemini/config/plugins/raizen-norms`. `design-settle` ran there end to end at 0.70.0, Fast, on a new app with no UI, one question per headless turn: the Step 0 block, the reference search, `ui-ux-pro-max`'s generator, the install gate, frames and canvas with browser screenshots at both widths, `DESIGN.md`, the decision records, promotion, verification, and a commit with named paths. That run read no `impeccable` or `frontend-design` file and ran no detector; a run at 0.72.1 read `impeccable`'s craft floor and operational register and `frontend-design` before the first frame, and ran the detector in every round. Proven before 0.70.0 only, registered by path: an interactive session, a held push passing on `Run` and held again once it has run, the hand-over block.
+**Proven on the CLI** — `agy` 1.2.16, Windows, headless, installed from this repo's URL with `agy plugin install`: the nine skills are listed, `hooks.json` is kept as written, the norms and the `HOST` block are injected, `git add -A` is refused, and a push is held. The copy lands in `~/.gemini/config/plugins/raizen-norms`. `design-settle` ran there end to end at 0.70.0, Fast, on a new app with no UI, one question per headless turn: the Step 0 block, the reference search, `ui-ux-pro-max`'s generator, the install gate, frames and canvas with browser screenshots at both widths, `DESIGN.md`, the decision records, promotion, verification, and a commit with named paths. That run read no `impeccable` or `frontend-design` file and ran no detector; a run at 0.72.1 read `impeccable`'s craft floor and operational register and `frontend-design` before the first frame, and ran the detector in every round. Proven before 0.70.0 only, registered by path: an interactive session, the hand-over block.
 
 - Install it for the machine as above, never through a repo's `.agents/plugins.json`: registered per folder, the plugin loaded a minute after an interactive conversation began, and that conversation ran unguarded.
 - Never run `agy plugin import` on this plugin: it replaces `hooks.json` with Claude Code's, which Antigravity cannot parse, and every guard goes silent.
@@ -77,7 +77,8 @@ What differs from Claude Code:
 |---|---|---|
 | Norms and documents | `SessionStart` | Injected before the first model call of a conversation, with the app's `CLAUDE.md` and a `HOST` block mapping the tool names |
 | Where the norms run | Wherever the plugin is enabled | Every folder `agy` opens |
-| A held push | `Run` on AskUserQuestion | `Run` on `ask_question` |
+
+A held push or pull request runs the same way on both: the session ends its turn on the command and its commits, and runs it once when the reply typed in chat is a yes. The guard holds the command until that reply exists; reading it as a yes is the session's.
 
 **Switching hosts mid-work.** When the working tree is dirty and the other host ran the last session in the repo, the session start prints a hand-over block: that session's last request, the answers the user gave, its todo list, the last it said — read from its transcript, so on the same machine only.
 
@@ -117,4 +118,5 @@ An app with a project-scoped `.mcp.json` shadows the user-scope Supabase server:
 - `app-settle`'s migrate mode and its align mode have never run in an app. Run migrate on a copy of a legacy app before a real one.
 - Whether a cloud session installs this marketplace; until then, cloud sessions do frontend work only.
 - The account-wide Supabase MCP endpoint end to end: its first-use login, and `project_id` as `guard_project_ref.py` expects.
+- A held push passing on a chat reply (0.74.0): replayed against one real Claude Code transcript, never run in a session on either host, and no session has been seen to read a no, a question or a condition as anything but a yes. On Antigravity the reply is read in the step shape the hand-over block already reads; a push passed there before 0.74.0 only, on `Run` picked in `ask_question`.
 - On Antigravity: `design-settle` in Full and where UI exists — its audit subagent, its gate; `app-settle` and `logic-settle`; a question asked through `ask_question` in an interactive session; the IDE and Antigravity 2.0. Gemini CLI is not ported.

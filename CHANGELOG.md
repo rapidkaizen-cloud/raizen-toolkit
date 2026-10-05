@@ -2,6 +2,21 @@
 
 All notable changes to the `raizen-norms` plugin, and to `raizen-hub` until 0.70.0 merged it in, newest first. The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). Versions before these are in `git log`.
 
+## [raizen-norms 0.74.0] - 2026-10-05
+
+### Changed
+
+- Session norms, `GIT`, and `guard_git`: a push, `gh pr create` and `gh pr merge` are a chat stop, on Claude Code and Antigravity alike. The session ends its turn on a message naming the exact command in backticks, with the commits it publishes under it, and runs the command once when the reply typed in chat is a clear yes, in whatever words. A question, a condition or another instruction is not one.
+- `guard_git` enforces the stop, not the yes: the command is held until the session's last message names it and the user has typed a reply to that message, with nothing typed since. One reply covers one run. Reading the reply is the session's.
+
+### Removed
+
+- `guard_git`: `Run` picked on an AskUserQuestion, or on `ask_question`, no longer lets a held command through — a dialog gets clicked before it is read.
+
+To act on:
+
+- Nothing in an installed app's files. At the next held push or pull request, answer in chat where `Run` used to be picked.
+
 ## [raizen-norms 0.73.0] - 2026-10-05
 
 ### Added

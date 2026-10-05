@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Guard git operations: block what must never happen, hold publishing for the user's answer.
+"""Guard git operations: block what must never happen, hold publishing for the user's reply.
 
 Reads the hook payload from stdin.
 Exit 0 = pass, exit 2 = block (the agent reads stderr).
@@ -11,17 +11,20 @@ Refused, and fixed by the agent itself:
     (push origin +main). --force-with-lease refuses when the remote moved, so it is
     the only force a session runs.
 
-Held until the user answers:
+Held until the user replies:
   - git push, --force-with-lease included
   - gh pr create / gh pr merge
 
-A held command passes once the transcript shows the user picking `Run` on a question
-- AskUserQuestion on Claude Code, `ask_question` on Antigravity - that names the exact
-command in backticks, and no call of that command has run since - one answer, one run.
-The answer is read from the transcript rather than asked for with a permission prompt,
-because an SDK host never shows that prompt: "ask" there is a silent refusal that
-leaves the user typing the command by hand. Antigravity gets the same reading for a
-second reason: its hook `ask` is approved unasked under `--dangerously-skip-permissions`.
+A held command passes once the transcript shows the session's last message naming the
+exact command in backticks, a reply the user typed to it, nothing typed since, and no
+call of that command since - one reply, one run. What is enforced here is the stop, not
+the yes: a hook cannot read what a reply means, so the session reads it and runs the
+command only on a yes. The reply is typed in chat rather than picked on a question
+dialog, because a dialog gets clicked before it is read. It is read from the transcript
+rather than asked for with a permission prompt, because an SDK host never shows that
+prompt: "ask" there is a silent refusal that leaves the user typing the command by hand.
+Antigravity gets the same reading for a second reason: its hook `ask` is approved
+unasked under `--dangerously-skip-permissions`.
 """
 import json
 import re
@@ -36,8 +39,9 @@ import host
 # separate argument, so they need their own alternative.
 GIT = r"\bgit\s+(?:-[cC]\s+\S+\s+|--?[\w-]+(?:=\S+)?\s+)*"
 
-APPROVE = "Run"
 SHELLS = ("Bash", "PowerShell")
+# Antigravity wraps what the user typed; the steps a hook injects carry another `source`.
+REQUEST = re.compile(r"<USER_REQUEST>\s*(.*?)\s*</USER_REQUEST>", re.S)
 
 # A commit message that mentions `gh pr create` is data, not a call. Heredoc bodies and
 # quoted strings are blanked before any rule reads the command; the heredoc's opening
@@ -87,66 +91,68 @@ def entries(path: str):
         return
 
 
-# One `A<n>: <answer>` line per question in the result of Antigravity's `ask_question`.
-ANSWER = re.compile(r"^A(\d+):[ \t]*(.*?)[ \t]*$", re.M)
+def names(text: str, want: str) -> bool:
+    """True when `text` holds the command between backticks: inline, or alone in a fence."""
+    # ponytail: the whole message is searched, commit list included, so a listed subject
+    # quoting another held command in backticks names that one too; match the first
+    # backticked command only if that ever happens.
+    return bool(re.search(r"(?:```\w* |`)" + re.escape(want) + " ?`", norm(text)))
 
 
 def approved_antigravity(payload: dict, cmd: str) -> bool:
     """`approved`, read from Antigravity's transcript: one step per line, a planner step
     carrying `tool_calls` and the step after it carrying their result."""
     # ponytail: the result is paired to its call by position, which holds while a planner
-    # step carries one call; a step asking and pushing at once is held, which is the safe side.
+    # step carries one call.
     want = norm(cmd)
-    ticked = f"`{want}`"
-    granted = running = False
-    asked = []
+    granted = named = running = False
     for step in entries(payload.get("transcript_path") or ""):
         if not isinstance(step, dict):
             continue
+        content = str(step.get("content") or "")
         calls = step.get("tool_calls")
         if isinstance(calls, list):
-            asked, running = [], False
+            running = False
             for call in calls:
-                if not isinstance(call, dict):
-                    continue
-                args = call.get("args") if isinstance(call.get("args"), dict) else {}
-                if call.get("name") == "ask_question":
-                    questions = args.get("questions")
-                    asked = [
-                        str(i + 1)
-                        for i, q in enumerate(questions if isinstance(questions, list) else [])
-                        if isinstance(q, dict) and ticked in norm(str(q.get("question") or ""))
-                    ]
-                elif call.get("name") == "run_command" and norm(str(args.get("CommandLine") or "")) == want:
+                args = call.get("args") if isinstance(call, dict) else None
+                if (
+                    isinstance(args, dict)
+                    and call.get("name") == "run_command"
+                    and norm(str(args.get("CommandLine") or "")) == want
+                ):
                     running = True
-            continue
-        if asked:
-            answers = dict(ANSWER.findall(str(step.get("content") or "")))
-            if any(answers.get(n) == APPROVE for n in asked):
-                granted = True
-            asked = []
         elif running:
             granted = running = False
+        elif step.get("type") == "USER_INPUT" and step.get("source") == "USER_EXPLICIT":
+            request = REQUEST.search(content)
+            if (request.group(1) if request else content).strip():
+                granted, named = named, False
+        if step.get("type") == "PLANNER_RESPONSE" and content:
+            named = names(content, want)
     return granted
 
 
 def approved(payload: dict, cmd: str) -> bool:
-    """True when the last `Run` answer naming `cmd` has not been spent by a run of it.
+    """True when the user's last message replies to one naming `cmd`, and no run of it has spent that.
 
-    A call of the command counts as spent once its tool_result is in the transcript, so
-    the call being checked right now - written, not yet answered - never spends it.
+    The message is the session's last before the reply: a command named earlier in the
+    turn, with other text after it, was never put to the user as a stop. The reply is the
+    user's last: anything typed after it is about something else, and takes the grant
+    back. A call of the command counts as spent once its tool_result is in the transcript,
+    so the call being checked right now - written, not yet answered - never spends it.
     """
     if payload.get("host") == host.ANTIGRAVITY:
         return approved_antigravity(payload, cmd)
     want = norm(cmd)
-    ticked = f"`{want}`"
-    granted = False
+    granted = named = False
     pending = set()
     for entry in entries(payload.get("transcript_path") or ""):
         if not isinstance(entry, dict):
             continue
         content = (entry.get("message") or {}).get("content")
-        for block in content if isinstance(content, list) else []:
+        blocks = [{"type": "text", "text": content}] if isinstance(content, str) else content
+        said, result = [], False
+        for block in blocks if isinstance(blocks, list) else []:
             if not isinstance(block, dict):
                 continue
             if (
@@ -155,18 +161,24 @@ def approved(payload: dict, cmd: str) -> bool:
                 and norm(str((block.get("input") or {}).get("command") or "")) == want
             ):
                 pending.add(block.get("id"))
-            elif block.get("type") == "tool_result" and block.get("tool_use_id") in pending:
-                granted = False
-        result = entry.get("toolUseResult")
-        if isinstance(result, dict) and isinstance(result.get("answers"), dict):
-            for question, answer in result["answers"].items():
-                picked = answer if isinstance(answer, list) else [answer]
-                # ponytail: the whole question is searched, commit list included, so a listed
-                # subject quoting another held command in backticks approves that one too;
-                # match the first line only if that ever happens.
-                if ticked in norm(str(question)) and APPROVE in picked:
-                    granted = True
-                    pending.clear()
+            elif block.get("type") == "tool_result":
+                result = True
+                if block.get("tool_use_id") in pending:
+                    granted = False
+            elif block.get("type") == "text" and str(block.get("text") or "").strip():
+                said.append(str(block.get("text")))
+        # A tool's result, a subagent's prompt and a host-written note are user entries
+        # nobody typed.
+        # ponytail: every other user entry is taken as typed by the user; read its origin
+        # if a host starts writing prompts of its own there.
+        if not said or result or entry.get("isSidechain") or entry.get("isMeta"):
+            continue
+        if entry.get("type") == "assistant":
+            named = any(names(text, want) for text in said)
+        elif entry.get("type") == "user":
+            granted, named = named, False
+            if granted:
+                pending.clear()
     return granted
 
 
@@ -178,13 +190,14 @@ def block(msg: str) -> None:
 def hold(payload: dict, cmd: str, what: str) -> None:
     if approved(payload, cmd):
         sys.exit(0)
-    ask = host.ASK_TOOL.get(payload.get("host"), host.ASK_TOOL[host.CLAUDE])
     block(
-        f"HELD: {what} runs only on the user's answer. Ask with {ask}: name this "
-        f"exact command in backticks in the question, list under it every commit it publishes "
-        f"as `- ` bullets, short hash and subject, and offer two options labelled exactly "
-        f"`{APPROVE}` and `Cancel`. On `{APPROVE}`, retry the same command unchanged - one answer covers "
-        "one run. Never hand the command to the user to type.\n"
+        f"HELD: {what} runs only on the user's yes in chat. End this turn on a message that "
+        "names this exact command in backticks, lists under it every commit it publishes as "
+        "`- ` bullets, short hash and subject, and asks whether to run it. No question dialog "
+        "- one gets clicked before it is read. Read the reply yourself: on a clear yes, in "
+        "whatever words, retry the same command unchanged before anything else is typed - "
+        "one reply covers one run. A question, a condition or another instruction is not a "
+        "yes. Never hand the command to the user to type.\n"
         f"Command: {norm(cmd)}"
     )
 
