@@ -15,7 +15,7 @@ Hands a session, when it starts, the norms it works by, the documents of the rep
 It prints text, and the host adds it to the session. It refuses nothing and asks nothing.
 
 - **The norms live in the plugin, not in each app.** A change reaches every app repo through a plugin update. An app's `CLAUDE.md` keeps what is true of that app alone: its stack, its locale, its own rules.
-- **The documents are printed, not pointed at.** A pointer is obeyed by judgement, and the sessions that skip it are the narrow ones where its prohibitions still apply.
+- **The documents are printed, not pointed at, wherever they fit.** A pointer is obeyed by judgement, and the sessions that skip it are the narrow ones where its prohibitions still apply. A document too long to fit is named instead; see [The limit](#the-limit).
 - **The two listings are printed for the same reason.** A session that never loads `ui-build` hunts for `Pagination`, misses `Pager`, and writes it a second time.
 
 Order: the norms, the documents and their notes, the two listings, the hand-over. The listings come after the documents so they do not push them out of view.
@@ -47,6 +47,16 @@ Order: the norms, the documents and their notes, the two listings, the hand-over
 | Neither | | The `NOT SETTLED` norms, then `QUEUE.md` and `docs/queue.md`, each if present |
 
 Each document opens with `--- <file> — <what it holds> ---`. An empty or missing file prints nothing.
+
+### The limit
+
+Claude Code replaces a hook's output over 10,000 characters with its first 2,000 and a file path, so an output that long loses most of the norms. The script keeps under it, in this order:
+
+1. **The norms and the notes are always printed whole.**
+2. **Each document is printed whole if it still fits.** One that does not is named under its own heading: `Not printed: no room left at session start. Read it before the first edit of this session.` For a root `PRD.md` in the six-section shape, the line names the line ranges of sections 1, 2 and 6 to read.
+3. **A listing is cut at a line where the room ends**, and closes with a line starting `... more`, telling the session to list the folder itself. So does the hand-over.
+
+A repo whose output already fitted gets exactly what it got before. On Antigravity nothing is cut: the text goes in as a message, which has no such cap.
 
 ### The listings
 

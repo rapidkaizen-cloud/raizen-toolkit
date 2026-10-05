@@ -2,6 +2,16 @@
 
 All notable changes to the `raizen-norms` plugin, and to `raizen-hub` until 0.70.0 merged it in, newest first. The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). Versions before these are in `git log`.
 
+## [raizen-norms 0.81.1] - 2026-10-05
+
+### Fixed
+
+- Session start, on Claude Code: the output stays under the host's cap of 10,000 characters. Past it Claude Code hands a session only the first 2,000 characters and a file path, so in a repo with a long `PRD.md` or many components the session received `LANGUAGE` and part of `POINTERS`, and never `SCOPE`, `GIT`, `ASKING`, `DECISIONS`, the closing block or the documents. The norms and the notes are now always printed whole; a document that no longer fits is named under its heading with `Not printed` and an order to read it, and a listing is cut at a line with a closing `... more`. A repo whose output already fitted gets what it got before. Antigravity is not capped and is unchanged.
+
+To act on:
+
+- Nothing. An app whose `PRD.md` is named instead of printed is read by the session itself, from the lines the note gives.
+
 ## [raizen-norms 0.81.0] - 2026-10-05
 
 ### Changed

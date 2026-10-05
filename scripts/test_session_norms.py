@@ -173,7 +173,88 @@ def demo() -> None:
         assert DATA_MARK not in run(root)
 
     forms()
+    limit()
     print("ok")
+
+
+def limit() -> None:
+    """Claude Code replaces a hook's stdout over 10,000 characters with its first 2,000, so
+    the norms themselves stop arriving. What fits is printed as before - those cases come
+    first - and what does not is named or cut, never allowed to push the output over."""
+    spec = importlib.util.spec_from_file_location("session_norms", SCRIPT)
+    norms = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(norms)
+
+    def sized(out: str) -> int:
+        return len(out) + out.count("\n")  # as a Windows stdout writes it
+
+    # the fixed text leaves room for a repo's own: the three forms of the norms alone
+    for text in (norms.NORMS, norms.docs_norms(), norms.unsettled_norms()):
+        assert sized(text) < norms.BUDGET - 3000, sized(text)
+
+    shaped = (
+        "# PRD\nintro\n\n## 1. Konteks\nctx\n\n## 2. Roles\nrole-body\n\n"
+        "## 3. Business Rules\n" + "rule-line\n" * 40 + "\n## 4. Glossary\nterm-body\n\n"
+        "## 5. Design System\nhex-body\n\n## 6. Larangan\n"
+    )
+
+    # unchanged: a PRD that fits is printed, with its queue and its listing whole
+    with tempfile.TemporaryDirectory() as tmp:
+        root = Path(tmp)
+        write(root, "PRD.md", shaped + "never-x\n")
+        write(root, "QUEUE.md", "- Legacy page\n")
+        write(root, "src/components/Shell.tsx", "export function Shell() {}\n")
+        out = run(root)
+        assert "never-x" in out and "- Legacy page" in out and "Shell.tsx: Shell" in out
+        assert "Not printed:" not in out and "session start carries" not in out
+
+        # too long: the PRD is named by the lines of its printed sections, the norms
+        # arrive whole, and what is small is still printed
+        long = shaped + "never-x\n" * 900
+        write(root, "PRD.md", long)
+        out = run(root)
+        assert sized(out) <= norms.LIMIT, sized(out)
+        assert out.startswith(norms.NORMS) and "CLOSING THE SESSION" in out
+        lines = long.splitlines()
+        rules, last = lines.index("## 3. Business Rules"), lines.index("## 6. Larangan") + 1
+        assert f"Read lines 1-{rules} and {last}-{len(lines)} - context, roles, prohibitions" in out
+        assert "never-x" not in out and "WARNING: PRD.md is" in out
+        assert "- Legacy page" in out and "Shell.tsx: Shell" in out
+
+        # too long and off-shape: no section can be located, so the order is to read it
+        write(root, "PRD.md", "# PRD\n" + "never-x\n" * 2000)
+        out = run(root)
+        assert sized(out) <= norms.LIMIT and "Read it before the first edit" in out
+
+    # docs form: the one document that does not fit is named, the others are printed
+    with tempfile.TemporaryDirectory() as tmp:
+        root = Path(tmp)
+        write(root, "docs/PRD.md", "# PRD - Frozen\n")
+        write(root, "docs/README.md", "# Index\n")
+        write(root, "docs/product.md", "# Product\n" + "context-line\n" * 900)
+        write(root, "docs/queue.md", "- Import page\n")
+        out = run(root)
+        assert sized(out) <= norms.LIMIT and out.startswith(norms.docs_norms())
+        assert "--- docs/product.md — context, roles, prohibitions ---\n\nNot printed: " in out
+        assert "context-line" not in out and "# Index" in out and "- Import page" in out
+
+    # a listing is cut where the room ends and says so; one with no room says only that
+    with tempfile.TemporaryDirectory() as tmp:
+        root = Path(tmp)
+        write(root, "docs/queue.md", "- A line of the queue\n" * 120)
+        for i in range(60):
+            write(root, f"src/components/Component{i:02}.tsx", f"export function AVeryLongComponentName{i:02}() {{}}\n")
+        out = run(root)
+        assert sized(out) <= norms.LIMIT, sized(out)
+        assert "Component00.tsx" in out and "Component59.tsx" not in out
+        assert norms.MORE_COMPONENTS in out
+
+        # a queue sized to leave less room than the listing's own heading takes
+        room = norms.BUDGET - sized(norms.unsettled_norms())
+        write(root, "docs/queue.md", "- A line of the queue\n" * ((room - 150) // 23))
+        out = run(root)
+        assert sized(out) <= norms.LIMIT, sized(out)
+        assert "- A line of the queue" in out and MARK not in out and norms.MORE_COMPONENTS in out
 
 
 def forms() -> None:
@@ -233,7 +314,7 @@ def forms() -> None:
         assert out.startswith(norms.unsettled_norms()) and "- Toolkit line" in out and "NOTE" not in out
         assert "\nNOT SETTLED\n" in out and "\nGIT\n" in out and "\nASKING\n" in out
         assert "POINTERS" not in out and "CLOSING THE SESSION" not in out
-        assert "injected below" not in out and "block below" not in out and "closed list" not in out
+        assert "named below" not in out and "block below" not in out and "closed list" not in out
         assert "docs/rules.md" not in out and "Section 6" not in out
 
     # ... and a queue kept under docs/ with no PRD beside it is printed the same way
@@ -329,6 +410,14 @@ def antigravity() -> None:
         assert "claude-plugins-official/plugins/frontend-design" in text
         # this host does not load CLAUDE.md, so the app's own facts are handed over too
         assert "On screen: Indonesian" in text
+
+        # no cap cuts an injected step, so a long document is still handed over whole
+        write(root, "docs/product.md", "# Product\n" + "context-line\n" * 900)
+        long = Path(tmp) / "long.jsonl"
+        long.write_text(json.dumps({"type": "USER_INPUT", "content": "build the page"}) + "\n", encoding="utf-8")
+        text = json.loads(call(root, 0, str(long)))["injectSteps"][0]["userMessage"]
+        assert text.count("context-line") == 900 and "Not printed:" not in text
+        write(root, "docs/product.md", "# Product\n")
 
         # Claude Code is told nothing about another host, and loads CLAUDE.md itself
         out = run(root)

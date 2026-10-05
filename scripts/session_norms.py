@@ -19,6 +19,13 @@ gets the `docs/` form's block and the three living documents `docs-format` names
 the frozen ones. A repo with neither gets the `NOT SETTLED` block and its queue, kept at
 the root or under `docs/`.
 
+Claude Code replaces a hook's stdout over 10,000 characters with its first 2,000 and a
+file path nobody is told to read, which cut the norms off after `LANGUAGE` in every repo
+whose documents made the output longer. So the output stays under `BUDGET`: the norms
+and the notes always, then each document whole where it fits and named with an order to
+read it where it does not, then the listings, cut where the room ends. A pointer that
+arrives beats a document that does not.
+
 The two inventories — components, and the data layer's functions — are printed for
 the same reason. `ui-build` orders a listing
 of the components folder before any element is written, and a skill is loaded by
@@ -50,8 +57,8 @@ alone; where the two disagree about a norm, this one is the newer.
 LANGUAGE = """\
 LANGUAGE
 The user's language and the repo's language are two different things. `PRD.md` is
-injected below in the user's language, and it is the longest thing you will read
-this session - do not let it decide the language of what you write.
+printed or named below in the user's language, and it is the longest thing you will
+read this session - do not let it decide the language of what you write.
   The user's language : chat, `PRD.md`, `QUEUE.md`, commit messages, pull
                         requests, and the strings the app puts on screen
   English, always     : comments, identifiers, file names, URL routes, API
@@ -164,10 +171,10 @@ NORMS = HEAD + LANGUAGE + POINTERS + SCOPE + GIT + ASKING + DECISIONS + CLOSING
 # exists. The `docs/` form differs only where the block names a document.
 DOCS_FORM = [
     (
-        "`PRD.md` is\ninjected below in the user's language, and it is the longest thing you will read\n"
-        "this session - do not let it decide the language of what you write.\n",
-        "The `docs/`\nfiles are injected below in the user's language - do not let them decide the\n"
-        "language of what you write.\n",
+        "`PRD.md` is\nprinted or named below in the user's language, and it is the longest thing you will\n"
+        "read this session - do not let it decide the language of what you write.\n",
+        "The `docs/`\nfiles are printed or named below in the user's language - do not let them decide\n"
+        "the language of what you write.\n",
     ),
     (
         "  The user's language : chat, `PRD.md`, `QUEUE.md`, commit messages, pull\n"
@@ -250,8 +257,8 @@ and the documents the build skills measure code against do not exist.
 # Applied after `DOCS_FORM`: what the docs form says of documents this repo does not have.
 UNSETTLED_FORM = [
     (
-        " The `docs/`\nfiles are injected below in the user's language - do not let them decide the\n"
-        "language of what you write.\n",
+        " The `docs/`\nfiles are printed or named below in the user's language - do not let them decide\n"
+        "the language of what you write.\n",
         "\n",
     ),
     (
@@ -330,6 +337,58 @@ def prd_printed(text: str) -> str:
     return "".join(out)
 
 
+def prd_ranges(text: str) -> str:
+    """The line ranges of the sections `prd_printed` prints, for a PRD too long to print."""
+    marks = list(PRD_SECTION.finditer(text))
+    if [m.group(1) for m in marks] != ["1", "2", "3", "4", "5", "6"]:
+        return ""
+    spans = []
+    for mark, after in zip(marks, marks[1:] + [None]):
+        if mark.group(1) in PRD_UNPRINTED:
+            continue
+        first = 1 if mark is marks[0] else text.count("\n", 0, mark.start()) + 1
+        last = text.count("\n", 0, after.start() if after else len(text))
+        if spans and spans[-1][1] + 1 == first:
+            spans[-1][1] = last
+        else:
+            spans.append([first, last])
+    return " and ".join(f"{a}-{b}" for a, b in spans)
+
+
+# Claude Code's cap on a hook's plain stdout, and what this script allows itself under
+# it. The gap is room for the closing lines of parts that had to be cut.
+LIMIT = 10_000
+BUDGET = 9_500
+MORE_COMPONENTS = "... more components than a session start carries - list the `components` folders before writing UI.\n"
+MORE_DATA = "... more of the data layer than a session start carries - list the folder `CLAUDE.md` names before writing a query.\n"
+MORE_HANDOVER = "... the hand-over is cut here: a session start carries no more.\n"
+
+
+def size(text: str) -> int:
+    # a Windows stdout writes `\r\n` for every line, and the host may count both
+    return len(text) + text.count("\n")
+
+
+def captured(fn, *args) -> str:
+    out = io.StringIO()
+    with contextlib.redirect_stdout(out):
+        fn(*args)
+    return out.getvalue()
+
+
+def fit(text: str, room: float, more: str) -> str:
+    """A listing whole where it fits, else cut at a line and closed with `more`."""
+    if size(text) <= room:
+        return text
+    kept = ""
+    for line in text.splitlines(keepends=True):
+        if size(kept + line + more) > room:
+            break
+        kept += line
+    # six lines are a listing's own heading: with no entry under them, say only `more`
+    return (kept if kept.count("\n") > 6 else "\n") + more
+
+
 # The norms and the skills are written in Claude Code's vocabulary. A session on another
 # host gets this block after them, and it is the only place the two are mapped.
 HOST_ANTIGRAVITY = """\
@@ -375,20 +434,31 @@ def read(path: Path) -> str:
         return ""
 
 
-def inject(root: Path, rel: str, what: str) -> None:
+def document(root: Path, rel: str, what: str, room: float) -> str:
+    """A document whole where it fits the room left, else named with an order to read it."""
     text = read(root / rel)
     if not text:
-        return
-    shown = prd_printed(text) if rel == "PRD.md" else text
-    sys.stdout.write(f"\n--- {rel} — {what} ---\n\n{shown}\n")
-    if rel == "PRD.md":
-        lines = text.count("\n") + 1
-        if lines > PRD_LINES_WARN:
-            sys.stdout.write(
-                f"\nWARNING: PRD.md is {lines} lines. Past ~{PRD_LINES_WARN} it is "
-                "carrying status rather than intent — read `docs-format` and say so to "
-                "the user.\n"
-            )
+        return ""
+    head = f"\n--- {rel} — {what} ---\n\n"
+    lines = text.count("\n") + 1
+    warning = ""
+    if rel == "PRD.md" and lines > PRD_LINES_WARN:
+        warning = (
+            f"\nWARNING: PRD.md is {lines} lines. Past ~{PRD_LINES_WARN} it is "
+            "carrying status rather than intent — read `docs-format` and say so to "
+            "the user.\n"
+        )
+    whole = head + (prd_printed(text) if rel == "PRD.md" else text) + "\n" + warning
+    if size(whole) <= room:
+        return whole
+    ranges = prd_ranges(text) if rel == "PRD.md" else ""
+    order = (
+        f"Read lines {ranges} - context, roles, prohibitions - before the first edit of\n"
+        "this session, and each other section before changing what it governs."
+        if ranges
+        else "Read it before the first edit of this session."
+    )
+    return f"{head}Not printed: no room left at session start. {order}\n{warning}"
 
 
 # Where components live, by the folder name every stack in the rubric converges on.
@@ -600,33 +670,41 @@ def stale_note(root: Path) -> None:
 
 def emit(root: Path, payload: dict) -> None:
     on_antigravity = payload.get("host") == host.ANTIGRAVITY
-    tail = HOST_ANTIGRAVITY if on_antigravity else ""
+    queue = "what is not built yet"
+    notes = ""
     if (root / "PRD.md").is_file():
-        sys.stdout.write(NORMS + tail)
-        inject(root, "PRD.md", "intent and prohibitions")
-        inject(root, "QUEUE.md", "what is not built yet")
+        norms, files = NORMS, [("PRD.md", "intent and prohibitions"), ("QUEUE.md", queue)]
     elif (root / "docs" / "PRD.md").is_file():
-        sys.stdout.write(docs_norms() + tail)
-        for rel, what in LIVING:
-            inject(root, rel, what)
+        norms, files = docs_norms(), list(LIVING)
         for rel in ("docs/README.md", "docs/product.md"):
             if not (root / rel).is_file():
-                sys.stdout.write(
-                    f"\nNOTE: {rel} is missing. `app-settle` seeds it from docs/PRD.md - tell the user.\n"
-                )
-        stale_paths(root)
+                notes += f"\nNOTE: {rel} is missing. `app-settle` seeds it from docs/PRD.md - tell the user.\n"
+        notes += captured(stale_paths, root)
     else:
         # No PRD in either form: an empty directory, an app not documented yet, or a repo
         # that is not an app. Its queue is still printed, from the root or from `docs/`.
-        sys.stdout.write(unsettled_norms() + tail)
-        for rel in ("QUEUE.md", "docs/queue.md"):
-            inject(root, rel, "what is not built yet")
+        norms, files = unsettled_norms(), [("QUEUE.md", queue), ("docs/queue.md", queue)]
+    notes += captured(stale_note, root)
+    # Antigravity takes the text as an injected step, which no such cap cuts.
+    room = float("inf") if on_antigravity else BUDGET
     if on_antigravity:
-        inject(root, "CLAUDE.md", "what is true of this app alone")
-    stale_note(root)
-    inventory(root)
-    data_layer(root)
-    sys.stdout.write(handoff.note(root, payload.get("host") or host.CLAUDE, payload.get("transcript_path") or ""))
+        norms += HOST_ANTIGRAVITY
+        files.append(("CLAUDE.md", "what is true of this app alone"))
+    out = norms
+    room -= size(norms) + size(notes)
+    for rel, what in files:
+        text = document(root, rel, what, room)
+        out += text
+        room -= size(text)
+    out += notes
+    for listing, more in ((inventory, MORE_COMPONENTS), (data_layer, MORE_DATA)):
+        text = captured(listing, root)
+        text = fit(text, room, more) if text else ""
+        out += text
+        room -= size(text)
+    note = handoff.note(root, payload.get("host") or host.CLAUDE, payload.get("transcript_path") or "")
+    out += fit(note, room, MORE_HANDOVER) if note else ""
+    sys.stdout.write(out)
 
 
 def main() -> None:
