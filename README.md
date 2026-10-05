@@ -6,7 +6,7 @@ One plugin, `raizen-norms`, and the marketplace `raizen`, in the public repo `ra
 |---|---|
 | `app-settle`, `logic-settle`, `design-settle` | When invoked |
 | `build-flow`, `docs-format`, `ui-build`, `db-ops`, `logic-build` | By their descriptions |
-| `norms-version` | When asked what version runs, whether it is current, or what changed |
+| `norms-help` | When asked for help, which command to run, the version, or what changed |
 | Session norms, guard hooks | Every session where the plugin is enabled — installed at user scope, every folder on that machine; `app-settle` writes the `enabledPlugins` line into each app repo. A repo with no PRD in either form gets the norms in their `NOT SETTLED` form: no document gate, UI only from what the repo already has |
 
 What a user meets, feature by feature — a stop, a question, what a hook checks — is under [`docs/`](docs/README.md).
@@ -36,7 +36,7 @@ Two conventions come with `raizen-norms`, and every app inherits them:
 - Sessions sign in and seed test data through an **agent account**: `db-ops` creates it by SQL on Supabase Auth, taking its email and password from the session's own instructions (your `~/.claude/CLAUDE.md`, for example) — the toolkit stores neither.
 - Every row a session creates for a test opens with **`[CLAUDE]`**. Only a `DELETE` narrowed to that prefix passes `guard_destructive` unguarded; any other delete goes through the destructive gate.
 
-Check: `/plugin` lists `raizen-norms`; design-settle's Step 0 prints the running build as `Skill build`; `norms-version` prints it in any session, with whether origin holds a newer one, and offers the update where it is behind.
+Check: `/plugin` lists `raizen-norms`; design-settle's Step 0 prints the running build as `Skill build`; `norms-help` prints it in any session, with the commands and the last change.
 
 ## Update
 
@@ -92,6 +92,7 @@ A held push or pull request runs the same way on both: the session ends its turn
 | New app, empty directory | `/raizen-norms:app-settle`, then in the new repo `/raizen-norms:logic-settle` and `/raizen-norms:design-settle` |
 | Running app | `/raizen-norms:app-settle` — it reads the repo and runs the one mode it owes next: documents it, migrates a root `PRD.md` to `docs/`, then audits the code against the rules and fixes what you pick, one finding per commit. Ask it for a change and it reworks the decisions instead. Then the other two |
 | Only the look or the logic layer | `design-settle` or `logic-settle` alone |
+| Which command to run, what version this is, what changed | `/raizen-norms:norms-help`, or ask in your own words |
 
 `design-settle` asks Fast or Full with its first question, on a new app and a redesign alike. Fast answers every design dialog with its recommendation in one block you cancel line by line; the frames, the pick, the gate and every check run as in Full. `/raizen-norms:design-settle fast` skips the question.
 

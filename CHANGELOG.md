@@ -2,6 +2,21 @@
 
 All notable changes to the `raizen-norms` plugin, and to `raizen-hub` until 0.70.0 merged it in, newest first. The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). Versions before these are in `git log`.
 
+## [raizen-norms 0.77.0] - 2026-10-05
+
+### Added
+
+- `norms-help`: one card holding the version number, the commands of `README.md`'s `Use` section, the pages `docs/README.md` lists, and the newest changelog entry. A question asked with it is answered from the page that covers it, and the file is named. `scripts/norms_help.py` prints each part as its file holds it, so the card cannot disagree with them.
+- `docs/guide/help.md`: what the card holds and where each part comes from.
+
+### Removed
+
+- `norms-version`, with its comparison against origin and the update it offered. The version is now its number and one changelog entry. A machine with `autoUpdate` on gets a new version at its next start; `README.md` holds the update under `Update`.
+
+To act on:
+
+- A note or a habit naming `/raizen-norms:norms-version`: the command is `/raizen-norms:norms-help`.
+
 ## [raizen-norms 0.76.1] - 2026-10-05
 
 ### Fixed

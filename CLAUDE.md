@@ -34,7 +34,7 @@ A commit that changes what a user meets — a question, a stop, a command, a fil
 
 Keep `docs/queue.md` only while it holds toolkit work not done yet — delete it with its last item — because the `SessionStart` hook injects it into every session here and stays silent when it is absent.
 
-Keep `CHANGELOG.md` at the root, because an installed copy's `norms-version` fetches it from that path on origin.
+Keep `CHANGELOG.md` at the root and the commands a user runs under `## Use` in `README.md`, because `norms-help` prints the first's top entry and the second's section from an installed copy.
 
 Never add `docs/PRD.md`: it switches this repo's sessions to the norms of an app.
 

@@ -9,7 +9,7 @@ if echo "$staged" | grep -qE '^(skills|scripts|hooks)/|^(hooks|plugin)\.json$|^\
     exit 1
   fi
 fi
-# Refuse a new version with no entry of its own in CHANGELOG.md: `norms-version` prints
+# Refuse a new version with no entry of its own in CHANGELOG.md: `norms-help` prints
 # that entry to whoever asks what changed.
 if git diff --cached -U0 -- "$m" | grep -q '^+[[:space:]]*"version"'; then
   v=$(git show ":$m" | sed -n 's/.*"version"[^"]*"\([^"]*\)".*/\1/p')
