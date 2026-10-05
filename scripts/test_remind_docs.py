@@ -115,23 +115,36 @@ def demo() -> None:
         git(docs, "commit", "-q", "--amend", "--no-edit")
         assert run(docs, "git commit --amend --no-edit") == ""
 
-        # Antigravity. Silent first: a folder with no documents, a commit carrying one
-        heard = Path(tmp) / "heard.jsonl"
-        heard.write_text(json.dumps({"type": "USER_INPUT", "content": "SESSION NORMS (raizen-norms)"}) + "\n", encoding="utf-8")
-        assert before_call(bare, 1, heard) == ""
-        assert before_call(docs, 1, heard) == ""
+        # Antigravity: the conversation's transcript says whether its last tool call committed
+        norms = {"type": "USER_INPUT", "source": "SYSTEM_SDK", "content": "SESSION NORMS (raizen-norms)"}
+        ran = {"type": "PLANNER_RESPONSE", "tool_calls": [{"name": "run_command", "args": {"CommandLine": 'git add src/page.tsx; git commit -m "page"'}}]}
+        looked = {"type": "PLANNER_RESPONSE", "tool_calls": [{"name": "run_command", "args": {"CommandLine": "git status"}}]}
+        done = {"type": "GENERIC", "content": "The command exited with code 0."}
+
+        def heard(*steps) -> Path:
+            path = Path(tmp) / f"heard{len(list(Path(tmp).glob('heard*')))}.jsonl"
+            path.write_text("\n".join(json.dumps(s) for s in (norms, *steps)) + "\nnot json\n", encoding="utf-8")
+            return path
+
+        # silent first: a folder with no documents, a commit carrying one
+        assert before_call(bare, 1, heard(ran, done)) == ""
+        assert before_call(docs, 1, heard(ran, done)) == ""
         # asked before the model call that follows the commit, in the same words
         commit(docs, "src/page.tsx")
-        asked = before_call(docs, 1, heard)
+        asked = before_call(docs, 1, heard(ran, done))
         assert asked.startswith("DOCS CHECK - commit ") and asked == run(docs)
-        # ... once: the transcript remembers the commit was asked about
-        heard.write_text(heard.read_text(encoding="utf-8") + json.dumps({"type": "USER_INPUT", "source": "SYSTEM_SDK", "content": asked}) + "\n", encoding="utf-8")
-        assert before_call(docs, 2, heard) == ""
-        # a newer commit is another question
-        commit(docs, "src/page.tsx")
-        assert before_call(docs, 3, heard).startswith("DOCS CHECK - commit ")
+        # ... once: the step that asked is in the transcript by the next call
+        said = {"type": "USER_INPUT", "source": "SYSTEM_SDK", "content": asked}
+        assert before_call(docs, 2, heard(ran, done, said)) == ""
+        # ... and not once another tool has run since
+        assert before_call(docs, 3, heard(ran, done, said, looked, done)) == ""
+        assert before_call(docs, 3, heard(ran, done, looked, done)) == ""
+        # a commit another conversation just made is not this one's to answer for
+        assert before_call(docs, 1, heard(looked, done)) == ""
+        # a second commit of its own is another question
+        assert before_call(docs, 4, heard(ran, done, said, looked, done, ran, done)).startswith("DOCS CHECK - commit ")
         # the first call of a turn is the norms' own, and no transcript means no memory
-        assert before_call(docs, 0, heard) == ""
+        assert before_call(docs, 0, heard(ran, done)) == ""
         assert before_call(docs, 1, Path(tmp) / "missing.jsonl") == ""
 
         # a command that exits 0 with nothing committed leaves an old HEAD: not asked about

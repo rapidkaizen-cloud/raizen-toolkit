@@ -15,9 +15,9 @@ Held until the user replies:
   - git push, --force-with-lease included
   - gh pr create / gh pr merge
 
-A held command passes once the transcript shows the session's last message naming the
-exact command in backticks, a reply the user typed to it, nothing typed since, and no
-call of that command since - one reply, one run. What is enforced here is the stop, not
+A held command passes once the transcript shows the session's last message putting the
+exact command in backticks on a line of its own, a reply the user typed to it, nothing
+typed since, and no call of that command since - one reply, one run. What is enforced here is the stop, not
 the yes: a hook cannot read what a reply means, so the session reads it and runs the
 command only on a yes. The reply is typed in chat rather than picked on a question
 dialog, because a dialog gets clicked before it is read. It is read from the transcript
@@ -91,12 +91,16 @@ def entries(path: str):
         return
 
 
+FENCED = re.compile(r"```[^\n]*\n(.*?)```", re.S)
+
+
 def names(text: str, want: str) -> bool:
-    """True when `text` holds the command between backticks: inline, or alone in a fence."""
-    # ponytail: the whole message is searched, commit list included, so a listed subject
-    # quoting another held command in backticks names that one too; match the first
-    # backticked command only if that ever happens.
-    return bool(re.search(r"(?:```\w* |`)" + re.escape(want) + " ?`", norm(text)))
+    """True when `text` puts the command to the user: backticked on a line of its own, or
+    alone in a fence. A command named inside a sentence was mentioned, not put - a closing
+    report says what it pushed, and the next thing the user types is no reply to that."""
+    return any(norm(line) == f"`{want}`" for line in text.splitlines()) or any(
+        norm(block) == want for block in FENCED.findall(text)
+    )
 
 
 def approved_antigravity(payload: dict, cmd: str) -> bool:
@@ -192,8 +196,9 @@ def hold(payload: dict, cmd: str, what: str) -> None:
         sys.exit(0)
     block(
         f"HELD: {what} runs only on the user's yes in chat. End this turn on a message that "
-        "names this exact command in backticks, lists under it every commit it publishes as "
-        "`- ` bullets, short hash and subject, and asks whether to run it. No question dialog "
+        "puts this exact command in backticks on a line of its own, lists under it every "
+        "commit it publishes as `- ` bullets, short hash and subject, and asks whether to run "
+        "it. No question dialog "
         "- one gets clicked before it is read. Read the reply yourself: on a clear yes, in "
         "whatever words, retry the same command unchanged before anything else is typed - "
         "one reply covers one run. A question, a condition or another instruction is not a "

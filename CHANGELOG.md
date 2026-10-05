@@ -2,6 +2,17 @@
 
 All notable changes to the `raizen-norms` plugin, and to `raizen-hub` until 0.70.0 merged it in, newest first. The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). Versions before these are in `git log`.
 
+## [raizen-norms 0.76.1] - 2026-10-05
+
+### Fixed
+
+Both found by running 0.76.0 on Antigravity, before any of it was published:
+
+- The document reminder, on Antigravity: a conversation opened within minutes of another one's commit was asked about that commit, and spent thirty steps on it. It is asked only after its own last tool call ran a `git commit`.
+- `guard_git`: a command named inside a sentence counted as put to the user, so a closing report saying what it pushed turned the next thing typed into a reply that let one more push through. The command counts only backticked on a line of its own, or alone in a fence; the session norms and the held message say so.
+
+Nothing to act on in an installed app.
+
 ## [raizen-norms 0.76.0] - 2026-10-05
 
 ### Added

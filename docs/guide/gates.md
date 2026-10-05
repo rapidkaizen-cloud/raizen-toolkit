@@ -28,7 +28,7 @@ Run it?
 
 What `guard_git` holds the command for, all four at once:
 
-1. The session's last message names the exact command in backticks.
+1. The session's last message puts the exact command in backticks on a line of its own. A command named inside a sentence — a closing report saying what it pushed — does not count.
 2. You typed a reply to that message.
 3. Nothing else has been typed since.
 4. The command has not already run on that reply — one reply, one run.

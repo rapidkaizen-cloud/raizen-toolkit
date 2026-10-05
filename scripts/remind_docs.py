@@ -8,9 +8,8 @@ hook cannot tell which do - so it asks, at the one moment the same-commit rule c
 be met by an amend, and takes "none" for an answer.
 
 Silent unless all hold: the project keeps documents (`docs/PRD.md`, or a root `PRD.md`),
-HEAD is a commit just made, and nothing it changed is a document. On Claude Code the
-command must have run a `git commit`; on Antigravity the commit must not have been asked
-about already.
+the session's own command just ran a `git commit`, HEAD is that commit, and nothing it
+changed is a document.
 """
 import json
 import re
@@ -55,15 +54,26 @@ def git(*args: str) -> str:
     return out.stdout.strip() if out.returncode == 0 else ""
 
 
+def questions() -> str:
+    """The questions for the form this project is on; empty where it keeps no documents."""
+    # The project directory, as `session_norms` reads the form from it.
+    if Path("docs", "PRD.md").is_file():
+        return DOCS_FORM
+    if Path("PRD.md").is_file():
+        return LEGACY_FORM
+    return ""
+
+
+def committed(cmd: str) -> bool:
+    """True when the shell command ran a `git commit`, a message that mentions one aside."""
+    code = guard_git.QUOTED.sub("''", guard_git.HEREDOC.sub(r"\1", cmd))
+    return re.search(guard_git.GIT + r"commit\b", code) is not None
+
+
 def reminder() -> str:
     """The text for HEAD, or an empty string when HEAD owes no question."""
-    # The project directory, as `session_norms` reads the form from it - and no git call
-    # at all in a folder that keeps no documents, which on Antigravity is every model call.
-    if Path("docs", "PRD.md").is_file():
-        questions = DOCS_FORM
-    elif Path("PRD.md").is_file():
-        questions = LEGACY_FORM
-    else:
+    asks = questions()
+    if not asks:
         return ""  # never settled: no document here to keep true
     stamp = git("log", "-1", "--format=%ct")
     if not stamp.isdigit() or time.time() - int(stamp) > FRESH_SECONDS:
@@ -77,7 +87,7 @@ def reminder() -> str:
         "file(s) and no document.\n"
         "A commit that makes a document false carries its correction (`docs-format`, Same "
         "commit). Answer for this commit before the next step:\n"
-        + questions
+        + asks
         + "Any yes -> write it and amend it into this commit while it is unpushed. All no -> "
         "carry on, and report `Docs: none` for this commit at the close. Write nothing a "
         "live check of the code can recover."
@@ -85,25 +95,47 @@ def reminder() -> str:
 
 
 def unasked(transcript: str) -> str:
-    """`reminder`, for a host that can only speak before a model call: empty once the
-    transcript shows this commit was asked about."""
-    text = reminder()
-    if not text:
-        return ""
-    mark = text.split(" changed ", 1)[0]
+    """`reminder`, for a host that can only speak before a model call: empty unless this
+    conversation's last tool call ran a `git commit` and nothing has asked about it since.
+
+    The commit must be the conversation's own. A fresh HEAD alone is not: a session opened
+    a minute after another one committed was asked about that commit, and spent thirty
+    steps on work that was not its own.
+    """
+    if not questions():
+        return ""  # before the transcript is read: this runs ahead of every model call
+    ran = asked = False
+    # ponytail: the whole transcript, before each model call of a repo that keeps
+    # documents; read its tail only if a long conversation ever shows the cost.
     try:
         with open(transcript, encoding="utf-8", errors="replace") as f:
-            asked = any(mark in line for line in f)
+            for line in f:
+                try:
+                    step = json.loads(line)
+                except ValueError:
+                    continue
+                if not isinstance(step, dict):
+                    continue
+                calls = step.get("tool_calls")
+                if isinstance(calls, list):
+                    asked = False
+                    ran = any(
+                        isinstance(call, dict)
+                        and call.get("name") == "run_command"
+                        and isinstance(call.get("args"), dict)
+                        and committed(str(call["args"].get("CommandLine") or ""))
+                        for call in calls
+                    )
+                elif MARK in str(step.get("content") or ""):
+                    asked = True
     except OSError:
         return ""  # nothing remembers what was asked: silence, not a question before every call
-    return "" if asked else text
+    return reminder() if ran and not asked else ""
 
 
 def main() -> None:
     tool_input = host.read_payload().get("tool_input")
-    cmd = str(tool_input.get("command") or "") if isinstance(tool_input, dict) else ""
-    code = guard_git.QUOTED.sub("''", guard_git.HEREDOC.sub(r"\1", cmd))
-    if not re.search(guard_git.GIT + r"commit\b", code):
+    if not isinstance(tool_input, dict) or not committed(str(tool_input.get("command") or "")):
         sys.exit(0)
     text = reminder()
     if text:

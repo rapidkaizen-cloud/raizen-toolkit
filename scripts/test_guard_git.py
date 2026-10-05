@@ -144,6 +144,11 @@ def demo() -> None:
         # named mid-turn with other words after it: never the stop the user replied to
         assert run(push, transcript(gate, showed("Tests pass. Run them again?"), said("ok"))) == held
 
+        # named inside a sentence: mentioned, not put to the user - a closing report says
+        # what it pushed, and the next thing typed is no reply to that
+        assert run(push, transcript(showed(f"Published with `{push}`: 4cc1af0 and e2bd00d."), said("ok"))) == held
+        assert run(push, transcript(showed(f"- **Publish with `{push}`**: done"), said("next page"))) == held
+
         # typed after the reply: about something else, and the grant is gone
         assert run(push, transcript(gate, said("ok"), showed("Tagging first."), said("and the changelog"))) == held
         assert run(push, transcript(gate, said("wait"), said("now"))) == held
@@ -162,11 +167,14 @@ def demo() -> None:
 
         # the lease and pull requests go through the same reply; a bare force never does
         lease = "git push --force-with-lease=master:90aa7fc origin master"
-        assert run(lease, transcript(showed(f"Force push: `{lease}`"), said("ok"))) == passed
+        assert run(lease, transcript(showed(f"Force push:\n`{lease}`"), said("ok"))) == passed
         bare = "git push --force origin master"
         assert run(bare, transcript(showed(f"`{bare}`"), said("ok"))) == refused
         pr = "gh pr create --fill"
-        assert run(pr, transcript(showed(f"Open it: `{pr}`"), said("ok"))) == passed
+        assert run(pr, transcript(showed(f"Open it:\n\n  `{pr}`\n- 4cc1af0 feat"), said("ok"))) == passed
+        # a command of several lines can only be put in a fence
+        body = "gh pr create --title 'Orders' --body \"$(cat <<'EOF'\nStatus filter.\nEOF\n)\""
+        assert run(body, transcript(showed(f"```bash\n{body}\n```\n- 4cc1af0 feat"), said("ok"))) == passed
 
     # a message that mentions a held or refused command is data, not a call
     assert run('git commit -m "docs: gh pr create and git push --force are held"') == passed
@@ -292,6 +300,8 @@ def antigravity() -> None:
         assert outcome(push, transcript(gate, typed(""))) == held
         assert outcome(push, transcript(told("Push to development?"), typed("ok"))) == held
         assert outcome(push, transcript(gate, told("Anything else?"), typed("ok"))) == held
+        # named inside a sentence of a closing report: mentioned, not put to the user
+        assert outcome(push, transcript(told(f"- **Publish with `{push}`**: done"), typed("next page"))) == held
         assert outcome(push, transcript(*yes, told("Tagging first."), typed("and the changelog"))) == held
 
         # a step the user never typed neither grants nor takes a grant back

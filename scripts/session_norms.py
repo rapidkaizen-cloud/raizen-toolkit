@@ -114,8 +114,8 @@ waiting on the user.
 
 `main` never receives a direct commit while `development` exists. A push or a pull
 request is a chat stop, never an AskUserQuestion - a dialog gets clicked before it is
-read. End the turn on a message naming the exact command in backticks and, under it,
-every commit it publishes as `- ` bullets, one per commit: short hash and subject. Run
+read. End the turn on a message with the exact command in backticks on a line of its
+own and, under it, every commit it publishes as `- ` bullets: short hash and subject. Run
 it only when the reply is a clear yes, in whatever words - a question, a condition or
 another instruction is not one. `guard_git` holds the command until that message has a
 reply, and one reply covers one run.
