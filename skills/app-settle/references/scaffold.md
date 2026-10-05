@@ -15,7 +15,7 @@
 
 **No `.mcp.json` is written — ever.** Database MCP servers are connected **user scope**, once per machine, never per repo; for Supabase the exact `claude mcp add -s user` one-liner is printed at N6. Project pinning does not come from server config: `supabase/config.toml` declares the repo's project, and the `guard_project_ref` hook in `raizen-norms` blocks any Supabase MCP call aimed at a different one. A database whose official MCP server exists follows the same pattern; a database with no server → say so rather than leaving the gap silent.
 
-**Bootstrap, after the files:** `git init`, `git branch -M main`, create `development` from `main`, and `git add` the new files. **Stop before committing.**
+**Bootstrap, after the files:** `git init`, `git branch -M main`, and commit the new files there, paths named — the one commit `main` ever takes directly. Then create `development` from `main` and switch to it.
 
 ### The shape of `CLAUDE.md`
 
@@ -33,7 +33,7 @@ Six parts, nothing else. A rule that would hold in another app belongs in the pl
 | `## Rules for this app only` | Empty at bootstrap. Only rules that would be wrong in another app |
 
 - **The last two parts stay in the file on purpose**: they must still bite in a session where the plugin is absent, disabled, or failed to start. Everything else there is a value, not a rule.
-- **Name the skills that exist today, never from memory of an older flow** — never `/app-init` or `/design-rework`, both folded into `app-settle` and `design-settle`.
+- **Name the skills that exist today, never from memory of an older flow** — never `/app-init`, `/app-align`, or `/design-rework`, all folded into `app-settle` and `design-settle`.
 
 ### The shape of `AGENTS.md`
 
@@ -52,7 +52,7 @@ English prose, five parts, nothing else:
 | `## Never` | What the plugin refuses by hook and this file can only ask: no commit on `main`, no push, no staging of everything at once — paths are named · no destructive SQL statement and no unscoped update without the user's word in chat · no secret value in any file — name the variable |
 
 - A product without UI gets no `## UI` part; an app with no database and no remote API gets no `## Logic` part.
-- **A legacy repo** — `design-settle`, `logic-settle`, or `app-align` writing this file into one — names what the map names: `## Read first` reads `PRD.md` whole, Section 5 the design system and Section 6 the prohibitions; the `## UI` gate holds while Section 5 is empty or `[needs verification]`; `## Logic` points at Section 3.
+- **A legacy repo** — `design-settle`, `logic-settle`, or align mode writing this file into one that could not migrate — names what the map names: `## Read first` reads `PRD.md` whole, Section 5 the design system and Section 6 the prohibitions; the `## UI` gate holds while Section 5 is empty or `[needs verification]`; `## Logic` points at Section 3.
 - **It is not `CLAUDE.md` imported or symlinked**: the two files have different readers and hold different things, and a symlink does not survive a Windows checkout without Developer Mode.
 
 ### Connectors are recommended, never a precondition — bootstrap
@@ -103,4 +103,4 @@ Until design-settle is done, any session will refuse to write UI components.
 
 Say what follows them: building runs under `build-flow`, which writes `docs/queue.md` on its first run and sets the size of one session — a new app builds its screens first, a UI batch with every page against a hand-written contract and no database behind it, then wires them in a backend batch.
 
-Close by reminding the user that the first commit waits for their word, and that `raizen-norms` only becomes active once the next session starts in this repo.
+Close by reminding the user that `raizen-norms` only becomes active once the next session starts in this repo.

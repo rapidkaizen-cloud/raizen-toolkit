@@ -118,7 +118,7 @@ Five refusals live in the repo's own linter, where they reach every session and 
 4. **A cast that erases a database type** — `as any`, `as unknown as`, on anything this layer returns.
 5. **A swallowed error** — an empty `catch`, or a `catch` whose whole body returns a default.
 
-`logic-settle` writes the floor, derived from this app's folder and its settled libraries; a repo that has none gets it from `app-align`.
+`logic-settle` writes the floor, derived from this app's folder and its settled libraries; a repo that has none gets it from `app-settle`'s align mode.
 
 - **Run the repo's lint command before committing any scope item in this layer.**
 - An inline disable of a floor rule, or a floor rule lowered to a warning, is a finding.

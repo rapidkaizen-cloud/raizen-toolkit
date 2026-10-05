@@ -6,6 +6,8 @@
 - `design-settle`, the gate: after a blanket approval the removals are asked again alone, and the rule does not say whether a blanket reply to that second question names its items.
 - `design-settle`, the gate: a rejected removal returns to Step 5, and the rule does not say whether the whole gate or only the changed line is shown again after the redraw.
 - `logic-settle`: the jump to Step 7 when nothing scored skips Step 5's install block, though Step 7 may need a linter installed.
-- `app-align`: the hard limit names `AGENTS.md` as the only file it may create, and C7 creates `docs/queue.md`.
 - `db-ops`: `references/agent-account.md` says it is also read when a session must sign in without an account; `SKILL.md` points to it only from the role test.
 - The `NOT SETTLED` form (0.71.0): proven by `test_session_norms.py` and `test_guard_git.py` only. No session has run under it in an app repo without a PRD — whether it builds UI from what the repo has without stopping, and says once that `app-settle` has not run, is unobserved.
+- `app-settle` 0.72.0, migrate and align modes: never run. Owed before any real legacy app: a proof run of migrate on a copy of one. Checked by hand on 2026-10-05: a `DESIGN.md` with a body and every token group `omitted` passes the format's linter with zero errors. Unknown until the proof run — whether Section 3's tables and lists convert to topics without a rule changing.
+- `app-settle`, migrate: an off-shape `PRD.md` and an adopted-whole Section 5 have no mechanical route and stay legacy; nothing but a hand reshape or `design-settle` clears them.
+- `design-settle` and `logic-settle` still say `Do not commit`, against the norms' `GIT` block; `app-settle` commits by it since 0.72.0, and its migrate and align modes stop on the staged files those two leave.

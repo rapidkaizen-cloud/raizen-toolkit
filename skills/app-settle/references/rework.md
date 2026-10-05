@@ -50,11 +50,11 @@ One message:
 Edit the documents under `docs-format` — **the sections touched, not a rewrite.** The old value of a changed rule does not survive as a ghost paragraph: a living document holds current truth, git holds history.
 
 - **`docs/` form** — rules, roles, context, non-goals, and prohibitions in their living documents, timeless; a changed stack decision is a new record superseding the old; `docs/PRD.md` is never touched. Execution crossing `build-flow`'s big-change threshold gets its change record there, in the build session.
-- **Legacy form** — `PRD.md`'s sections through the map, decision lines in Section 1.
+- **Legacy form, in a repo that could not migrate** — `PRD.md`'s sections through the map, decision lines in Section 1.
 - **`DESIGN.md`, and a legacy Section 5, are not touched**, whatever the rework was about.
 - **`CLAUDE.md` rows whose values the rework changed** — stack lines, locale — are updated to match. Nothing else in it moves.
 
-`git add` the edited files. **Stop before committing.**
+Commit the edited files, paths named.
 
 ## R6 — Close
 
@@ -81,4 +81,4 @@ build sessions  — build-flow queues and executes the rest, page by page;
 
 `logic-settle` before `design-settle`, because the promoted pages carry loading, empty, and failed states, and those belong to the data layer.
 
-Do not run any of them now. Close by reminding the user that the commit waits for their word.
+Do not run any of them now.

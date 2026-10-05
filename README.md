@@ -4,7 +4,7 @@ One plugin, `raizen-norms`, and the marketplace `raizen`, in the public repo `ra
 
 | Holds | Loaded |
 |---|---|
-| `app-settle`, `logic-settle`, `design-settle`, `app-align` | When invoked |
+| `app-settle`, `logic-settle`, `design-settle` | When invoked |
 | `build-flow`, `docs-format`, `ui-build`, `db-ops`, `logic-build` | By their descriptions |
 | Session norms, guard hooks | Every session where the plugin is enabled — installed at user scope, every folder on that machine; `app-settle` writes the `enabledPlugins` line into each app repo. A repo with no PRD in either form gets the norms in their `NOT SETTLED` form: no document gate, UI only from what the repo already has |
 
@@ -81,9 +81,8 @@ What differs from Claude Code:
 | Situation | Run |
 |---|---|
 | New app, empty directory | `/raizen-norms:app-settle`, then in the new repo `/raizen-norms:logic-settle` and `/raizen-norms:design-settle` |
-| Running app | `/raizen-norms:app-settle` (writes the missing documents, or reworks them), then the other two |
+| Running app | `/raizen-norms:app-settle` — it reads the repo and runs the one mode it owes next: documents it, migrates a root `PRD.md` to `docs/`, then audits the code against the rules and fixes what you pick, one finding per commit. Ask it for a change and it reworks the decisions instead. Then the other two |
 | Only the look or the logic layer | `design-settle` or `logic-settle` alone |
-| Repo that predates or drifted from these rules | `/raizen-norms:app-align` — the only skill that changes existing code, one finding per commit |
 
 `design-settle` asks Fast or Full with its first question, on a new app and a redesign alike. Fast answers every design dialog with its recommendation in one block you cancel line by line; the frames, the pick, the gate and every check run as in Full. `/raizen-norms:design-settle fast` skips the question.
 
@@ -91,7 +90,7 @@ What differs from Claude Code:
 
 ## Maintaining app repos
 
-An app started before the `docs/` form keeps its root `PRD.md` and `QUEUE.md`; it is never migrated, and every skill reads it through `docs-format`'s legacy map.
+An app started before the `docs/` form keeps its root `PRD.md` and `QUEUE.md` until `app-settle` runs in it and migrates them, in one commit; until then every skill reads it through `docs-format`'s legacy map.
 
 An older app's `CLAUDE.md` may still carry a norm that has since moved into the plugin. The `SessionStart` hook names these sections; delete them:
 
@@ -110,6 +109,7 @@ An app with a project-scoped `.mcp.json` shadows the user-scope Supabase server:
 
 - The UI and logic lint floors and the rule tests have never been written in a real app.
 - The `docs/` form has never been bootstrapped in a real app.
+- `app-settle`'s migrate mode and its align mode have never run in an app. Run migrate on a copy of a legacy app before a real one.
 - Whether a cloud session installs this marketplace; until then, cloud sessions do frontend work only.
 - The account-wide Supabase MCP endpoint end to end: its first-use login, and `project_id` as `guard_project_ref.py` expects.
 - On Antigravity: the four settle skills were read by a session there and none has been run — their interviews, their subagents, `design-settle` with its companions and a browser MCP server installed; the IDE and Antigravity 2.0. Gemini CLI is not ported.

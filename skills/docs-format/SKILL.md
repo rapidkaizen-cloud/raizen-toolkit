@@ -8,7 +8,7 @@ description: Rules for the documents an app repo keeps — docs/, DESIGN.md, the
 ## Which form
 
 - **No root `PRD.md` → the `docs/` form**, the one every skill names its paths in. `app-settle` writes it, into an empty directory and into an app that never had a PRD.
-- **A root `PRD.md` → the legacy form.** Keep it. Never migrate it, and never create a `docs/` file beside it. Read `references/legacy.md` now: its legacy map sends each path to the `PRD.md` section standing in for it.
+- **A root `PRD.md` → the legacy form, until `app-settle`'s migrate mode moves it.** No other session moves it, and none creates a `docs/` file beside it. Read `references/legacy.md` now: its legacy map sends each path to the `PRD.md` section standing in for it.
 
 ## Cost
 
@@ -30,7 +30,7 @@ Write no document outside this list — no `ARCHITECTURE.md`, `DECISIONS.md`, au
 | `docs/guide/` | How each role finishes each piece of its work, for the app's users | The app's users; the help page | The build session whose commit changes what a page describes | None — mandatory |
 | `docs/whats-new.md` | What users notice, newest first | The app's users, through the help page | The build session whose commit users will notice | Exists only where the app has an in-app help page |
 | `docs/changes/` | One record per big change — why, what it touches, the lines it wrote | The sessions executing it | `build-flow`, past its big-change threshold | The user's approval — frozen when done |
-| `docs/PRD.md` | The app as first approved | Nobody after seeding — history | `app-settle`, bootstrap and document mode | The user's approval — frozen when written |
+| `docs/PRD.md` | The app as first approved — in a migrated repo, its legacy PRD as it stood | Nobody after seeding — history | `app-settle`: bootstrap and document mode write it, migrate mode moves it there | The user's approval — frozen when written |
 | `DESIGN.md` | The design system — tokens, and the rules for applying them | `ui-build` before any UI; every agent through `AGENTS.md` | `design-settle` alone | The section below |
 | `README.md` | What the app is and how to run it | Developers | `app-settle`; the commit changing how the app runs | None |
 
@@ -87,7 +87,7 @@ Environment variables by name, never by value.
 
 ## `DESIGN.md` — `design-settle` alone
 
-The derivation runs **user → `DESIGN.md` → styling files**, never the reverse. `design-settle` writes it from the user's answers, or from measured values the user ratified one by one; no other session edits it. A session finding it absent or deviating stops and points the user at `design-settle`. Deviating code is a finding, never a new norm, however much of it exists.
+The derivation runs **user → `DESIGN.md` → styling files**, never the reverse. `design-settle` writes it from the user's answers, or from measured values the user ratified one by one; no other session edits it. One exception: `app-settle`'s migrate mode converts a ratified legacy Section 5 into it once, changing no value. A session finding it absent or deviating stops and points the user at `design-settle`. Deviating code is a finding, never a new norm, however much of it exists.
 
 ## Shapes
 

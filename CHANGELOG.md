@@ -2,6 +2,30 @@
 
 All notable changes to the `raizen-norms` plugin, and to `raizen-hub` until 0.70.0 merged it in, newest first. The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). Versions before these are in `git log`.
 
+## [raizen-norms 0.72.0] - 2026-10-05
+
+### Added
+
+- `app-settle`, migrate mode: a repo with a root `PRD.md` is moved to the `docs/` form in one commit — `PRD.md` to a frozen `docs/PRD.md`, `QUEUE.md` to `docs/queue.md`, its sections copied word for word into `docs/product.md`, `docs/rules.md`, `docs/glossary.md` and `docs/decisions/`, a ratified Section 5 converted into `DESIGN.md` with no value changed. It runs before align or rework, and a repo that cannot move mechanically stays legacy for that run.
+- `app-settle`, align mode: the audit, the ranked table and the one-finding-per-commit fixes that were `app-align`.
+
+### Changed
+
+- `app-settle` has five modes — bootstrap, document, migrate, align, rework — and Step 0 decides which from the directory and the code. With documents in place it audits for align unless the user asks for a change, which is rework. Each mode is decision work or mechanical work, never both.
+- `app-settle` commits what a mode wrote, by the norms' `GIT` block. Bootstrap makes the first commit on `main`, then creates `development` and switches to it.
+- `app-settle` Step 0: on `main` with no `development` branch it offers to create one; migrate and align stop on a dirty working tree.
+- `docs-format`: a root `PRD.md` is the legacy form until `app-settle` migrates it, and `DESIGN.md` has one writer besides `design-settle` — that conversion.
+- Align corrects a document only where it states what exists and the code shows otherwise; a mismatch about what ought to be is left for rework.
+
+### Removed
+
+- The skill `app-align`. `/raizen-norms:app-align` no longer exists; run `/raizen-norms:app-settle`.
+
+To act on:
+
+- An app repo whose `CLAUDE.md` or `AGENTS.md` names `app-align`: the next align run counts it under C2 and corrects it.
+- An app repo with a root `PRD.md`: the next `app-settle` run there migrates it. Migrate has not run in a real app — try it on a copy first.
+
 ## [raizen-norms 0.71.0] - 2026-10-05
 
 ### Changed

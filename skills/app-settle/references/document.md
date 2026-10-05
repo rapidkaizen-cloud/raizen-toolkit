@@ -44,7 +44,7 @@ Then the rows `scaffold.md` marks Both:
 
 **No scaffold, no `git init` on an existing repo, no host config, no CI workflow** — they already exist or the user decided against them.
 
-`git add` the new files. **Stop before committing.**
+Commit the new files, paths named.
 
 ## The stack is not on trial — in this mode
 
@@ -82,13 +82,13 @@ Then the next sessions, in this order:
                   valid ending.
 /design-settle  — audits the styling, then puts every visual decision to you:
                   ratify what the code already does, or decide otherwise.
-/app-settle     — again, once these documents exist: rework mode re-opens business
-                  rules, scope, or stack when the app itself must change.
-/app-align    — only where the Findings row above is not "none": it changes
-                  the existing code to match the rules, one commit per finding.
+/app-settle     — again, once these documents exist: it audits the code against
+                  the rules and fixes what you pick, one commit per finding. Ask
+                  it for a change instead, and it re-opens business rules, scope,
+                  or stack.
 Until DESIGN.md exists, any session will refuse to write a UI component.
 ```
 
 `logic-settle` runs first because the promoted pages carry loading, empty, and failed states, and those belong to the data layer.
 
-Do not run any of them now. Close by reminding the user that the first commit waits for their word, and that `raizen-norms` becomes active only once the next session starts in this repo.
+Do not run any of them now. Close by reminding the user that `raizen-norms` becomes active only once the next session starts in this repo.

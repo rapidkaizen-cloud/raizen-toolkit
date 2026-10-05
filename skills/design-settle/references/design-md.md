@@ -1,6 +1,6 @@
 # `DESIGN.md` — the design system, in Google's DESIGN.md format
 
-Written by `design-settle` alone, at the root: YAML frontmatter tokens, then markdown sections in a fixed order. **Read the format live before writing** — `npx -p @google/design.md designmd spec --rules`; the dot-free `designmd` alias, because `design.md` as a command name collides with the Markdown file association on Windows. Never write it from memory. Where the live spec differs from this file, the spec decides the format and this file decides what goes where; report the difference. Last verified: format `alpha`, CLI 0.4.0, 2026-09-27.
+Written by `design-settle`, at the root — `docs-format` names its one other writer: YAML frontmatter tokens, then markdown sections in a fixed order. **Read the format live before writing** — `npx -p @google/design.md designmd spec --rules`; the dot-free `designmd` alias, because `design.md` as a command name collides with the Markdown file association on Windows. Never write it from memory. Where the live spec differs from this file, the spec decides the format and this file decides what goes where; report the difference. Last verified: format `alpha`, CLI 0.4.0, 2026-09-27.
 
 Headings verbatim; prose in the user's language. **Tokens hold the values, prose holds the rules and the scale**: prose names a role and never restates a token's value.
 

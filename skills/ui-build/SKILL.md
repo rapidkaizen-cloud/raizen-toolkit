@@ -82,13 +82,13 @@ The repo's own linter refuses the four failures that cost the most, in every ses
 3. **A numbered ramp step in product code**, where the alias layer exists. Product code reads a role.
 4. **A primitive the shared set is built on, imported outside the components folder** — the package a dialog wraps, pulled into a page to hand-roll a second dialog.
 
-`design-settle` writes the floor at ratification, derived from this app's shared set and styling files; a repo with a `DESIGN.md` and no floor gets it from `app-align`. Live with it this way:
+`design-settle` writes the floor at ratification, derived from this app's shared set and styling files; a repo with a `DESIGN.md` and no floor gets it from `app-settle`'s align mode. Live with it this way:
 
 - **Run the repo's lint command before committing any UI scope item**, and fix a refusal in the code that caused it.
 - **An inline disable of a floor rule is a finding**, the same standing as a raw hex value; so is a floor rule lowered to a warning.
 - **The floor grows with the set**: extracting a shared component that replaces a raw element adds that element to the first refusal in the same turn.
 - **A refusal that is wrong is reported, never worked around**: a layout expression caught as a raw value is a pattern too wide, narrowed in the config only on the user's word, never silenced at the call site.
-- **No floor in the repo → say so in one line and carry on**; its absence is a finding for `app-align`, not a stop.
+- **No floor in the repo → say so in one line and carry on**; its absence is a finding for `app-settle`'s align mode, not a stop.
 - A hook refusing the config write follows `logic-build` Section 9.
 - The floor cannot see a second component doing an existing one's job under another name — the listing and the read under Components hold that one.
 

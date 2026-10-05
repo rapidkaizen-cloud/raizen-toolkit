@@ -1,6 +1,6 @@
 ---
 name: simulate
-description: Run the interview of any settle skill — app-settle, logic-settle, design-settle, app-align, or the chain of them — for real, against an app repo, a described scenario, or a test scenario this skill proposes, without executing anything — every question asked as the live skill would ask it, and after each answer the decision it produces and where the flow goes next, so the user can see whether the flow lands where their answers meant it to. Skips every printed block and every build step; installs nothing, writes nothing, draws nothing. Runs in the raizen-toolkit repo. Use to check a flow's decisions before running it in an app repo, or to test a skill change by answering its interview end to end.
+description: Run the interview of any settle skill — app-settle, logic-settle, design-settle, or the chain of them — for real, against an app repo, a described scenario, or a test scenario this skill proposes, without executing anything — every question asked as the live skill would ask it, and after each answer the decision it produces and where the flow goes next, so the user can see whether the flow lands where their answers meant it to. Skips every printed block and every build step; installs nothing, writes nothing, draws nothing. Runs in the raizen-toolkit repo. Use to check a flow's decisions before running it in an app repo, or to test a skill change by answering its interview end to end.
 ---
 
 # simulate — the interview for real, the work on paper
