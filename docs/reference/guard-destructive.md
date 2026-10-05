@@ -15,10 +15,10 @@ Refuses destructive SQL that arrives without a guard — a `DO` block that abort
 It reads the SQL a tool call carries and checks its shape. It cannot know whether you agreed, so it relies on the guard needing a number that only your answer gives. The stop you meet is in [Gates](../concepts/gates.md).
 
 - **It reads the SQL fields.** `query`, `sql` and `statement` on an MCP tool, `command` on a shell tool. A call with none of them passes at once. The MCP matcher is wide because the server name is chosen by whoever connects it.
-- **Comments are not read.** `-- ...` and `/* ... */` are removed first.
+- **Comments are not read; strings are.** `/* ... */` and `-- ...` are removed first, and a `--` inside a quoted string is data. In a shell command only a line that opens with `-- ` is a comment, because `--` there is usually a flag.
 - **Each statement is judged alone.** Statements split at `;`, except inside `$$ ... $$` or `$tag$ ... $tag$`, so a whole `DO` block stays one statement.
 - **A guard is not shared.** A guarded `DO` block followed by a bare `DELETE FROM t;` leaves the `DELETE` refused.
-- **Letter case depends on the route.** Over MCP the SQL words match in any case. In a shell command they match in capitals only, unless the command runs `psql` or `supabase`, which makes any case match.
+- **Letter case depends on the route.** Over MCP the SQL words match in any case. In a shell command they match in capitals only, unless the command runs `psql` or `supabase`, which makes any case match — by name or by a path, such as `/usr/bin/psql` or `./node_modules/.bin/supabase`.
 
 ## What it refuses or holds
 
@@ -26,11 +26,11 @@ A statement counts as guarded when it holds a `DO $` block with `RAISE EXCEPTION
 
 | Case | Label in the message | What lets it through |
 |---|---|---|
-| `DROP` followed by `TABLE`, `COLUMN`, `SCHEMA`, `TYPE`, `FUNCTION`, `POLICY`, `INDEX` or `VIEW` | `DROP` | The guard |
+| `DROP` followed by `TABLE`, `FOREIGN TABLE`, `COLUMN`, `SCHEMA`, `DATABASE`, `TYPE`, `DOMAIN`, `FUNCTION`, `PROCEDURE`, `POLICY`, `INDEX`, `VIEW`, `MATERIALIZED VIEW`, `SEQUENCE`, `TRIGGER`, `EXTENSION`, `ROLE` or `OWNED` | `DROP` | The guard |
 | `TRUNCATE` followed by a table name, with or without `TABLE` or `ONLY` | `TRUNCATE` | The guard |
 | `DELETE FROM` | `DELETE` | The guard, or the `[CLAUDE]` carve-out below |
-| `ALTER TABLE ... DROP COLUMN` | `ALTER ... DROP COLUMN` | The guard |
-| `ALTER TABLE ... RENAME` | `RENAME` | The guard |
+| `ALTER TABLE ... DROP` of a column, with or without the word `COLUMN` | `ALTER ... DROP COLUMN` | The guard |
+| `ALTER ... RENAME` on a `TABLE`, `INDEX`, `VIEW`, `MATERIALIZED VIEW`, `SEQUENCE`, `SCHEMA`, `FUNCTION`, `PROCEDURE`, `POLICY`, `TRIGGER`, `ROLE`, `DATABASE` or `DOMAIN` | `RENAME` | The guard |
 | `ALTER TYPE` | `ALTER TYPE` | The guard |
 | `UPDATE ... SET` with no `WHERE`, or a `WHERE` opening with `true` or `1 = 1` | `UPDATE without a narrow WHERE` | A narrower `WHERE`, or the guard |
 
@@ -41,9 +41,10 @@ A `WHERE` inside a subquery is not the statement's own `WHERE`: `UPDATE users SE
 ## What it lets through
 
 - **A `DELETE` narrowed to rows opening with `[CLAUDE]`.** These are the test rows the session made itself. The `WHERE` must read `LIKE '[CLAUDE]...'` or `= '[CLAUDE]...'`, and may be narrowed further with `AND`.
-- **The carve-out fails closed.** `OR` or `NOT` outside parentheses, a `'%[CLAUDE]%'` match, a prefix that appears only inside parentheses such as a subquery, and a `DELETE` with no `WHERE` all go back to needing a guard.
+- **The carve-out fails closed.** `OR`, `NOT` or `USING` outside parentheses, a comparison other than a lone `=` such as `!=`, a `'%[CLAUDE]%'` match, a prefix that appears only inside parentheses such as a subquery, and a `DELETE` with no `WHERE` all go back to needing a guard.
 - **The carve-out is `DELETE` only.** A `DROP` in the same payload, or on a table named `"[CLAUDE] tmp"`, is still refused.
 - **Narrow `UPDATE`, `SELECT`, `CREATE TABLE`.**
+- **An `ALTER TABLE` that drops no data**: a `CONSTRAINT`, a `DEFAULT`, `NOT NULL`, an `IDENTITY`, a generated `EXPRESSION`.
 - **Shell words that are not SQL.** `claude plugin update ...`, `apt update`, `truncate -s 0 logs/app.log`, a `truncate` class edited by `sed`, a commit message saying "delete from queue".
 - **Tools that carry no SQL field,** and SQL that sits in a comment.
 
@@ -52,7 +53,8 @@ A `WHERE` inside a subquery is not the statement's own `WHERE`: `UPDATE users SE
 - **The logic of the guard.** It looks for `DO $` and `RAISE EXCEPTION` in the statement. That the exception compares against the number you approved is not checked.
 - **Lowercase SQL that reaches the database another way** than `psql` or `supabase`, such as a `.sql` file written by heredoc or `node -e`.
 - **Ordinary string literals.** A `;` inside `'...'` still splits a statement, and parentheses inside a string are dropped when the hook looks for a `WHERE`.
-- **Anything outside the table.** Only the forms listed there are read.
+- **Anything outside the table.** Only the forms listed there are read. A `DROP` of a kind it does not list — `USER`, `GROUP`, `RULE`, `SERVER` among them — passes, because those two words are common in ordinary text and SQL arrives with text in it.
+- **A shell command continued onto a line that opens with `-- "<sql>"`.** That line is read as a comment.
 - **SQL that does not pass through the wired tool calls.** [Gates](../concepts/gates.md) lists what that leaves out.
 
 ## Switching it off

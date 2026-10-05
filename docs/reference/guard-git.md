@@ -25,8 +25,8 @@ The rule behind it is the `GIT` block of the norms; see [session-start](session-
 
 | Case | What happens | What lets it through |
 |---|---|---|
-| `git add -A`, `git add --all`, `git add .` | `REFUSED: git add -A / git add . is not used in this repo.` | Naming the paths: `git add src/app/orders/page.tsx` |
-| `git push` with `--force`, `-f` or a `+` refspec such as `+main` | `REFUSED: a bare force push.` | `--force-with-lease`, which is held like any push |
+| `git add` with `-A`, `--all`, `.` or `./` anywhere among its arguments — `git add src -A` and `git add -- .` included | `REFUSED: git add -A / git add . is not used in this repo.` | Naming the paths: `git add src/app/orders/page.tsx` |
+| `git push` with `--force`, `-f` or a `+` refspec such as `+main` among its own arguments, a continued line included | `REFUSED: a bare force push.` | `--force-with-lease`, which is held like any push |
 | `git commit` while HEAD is on `main`, in a repo that has a `development` branch, local or on `origin` | `REFUSED: HEAD is on main.` | Switching to `development` first |
 | `git push`, `--force-with-lease` included | `HELD: a push runs only on the user's yes in chat.` | Your reply |
 | `gh pr create`, `gh pr merge` | `HELD: opening or merging a pull request runs only on the user's yes in chat.` | Your reply |
@@ -51,6 +51,8 @@ How the four are read:
 - **Everyday git and gh.** `git add` with named paths, `git commit -m '...' -- <path>`, `git status`, `git fetch`, `gh pr view`, `gh release list`.
 - **A commit on `main` in a repo with no `development` branch.** Refusing there would leave the session nowhere to commit.
 - **A `+` inside a branch name.** `git push origin feature+search` is held, not refused as a force.
+- **A flag that belongs to a later command.** `git push origin dev && rm -f x` is held as a push, not refused as a force.
+- **Paths that only open like `.`.** `.gitignore` and `./src/a.ts` are named paths.
 - **Commands with no `git` or `gh` in them,** such as `npm run dev`.
 
 ## What it does not reach

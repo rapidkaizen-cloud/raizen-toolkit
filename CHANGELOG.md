@@ -2,6 +2,26 @@
 
 All notable changes to the `raizen-norms` plugin, and to `raizen-hub` until 0.70.0 merged it in, newest first. The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). Versions before these are in `git log`.
 
+## [raizen-norms 0.78.1] - 2026-10-05
+
+### Fixed
+
+`guard_destructive` let these through with no guard; each is refused now:
+
+- A `DELETE` whose `WHERE` compares a `[CLAUDE]` value with `!=`, `<=` or `>=` — every row but the test rows — and one that joins a table in with `USING`.
+- SQL after a `--` flag in a shell command, such as `psql --host=localhost -c "..."`: everything from `--` on was dropped as a comment. In a shell command only a line opening with `-- ` is a comment now, and a `--` inside a quoted string is data on either route.
+- Lowercase SQL run through a client named by a path with `/`, such as `/usr/bin/psql`.
+- `DROP` of a `DATABASE`, `DOMAIN`, `PROCEDURE`, `MATERIALIZED VIEW`, `SEQUENCE`, `TRIGGER`, `EXTENSION`, `ROLE`, `FOREIGN TABLE` or `OWNED`; a column dropped without the word `COLUMN`; a rename of anything but a table.
+
+`guard_git`:
+
+- `git add src -A`, `git add -- .`, `git add ./` and `git add -Av` passed; any argument of the add is read now.
+- `git push origin dev && rm -f x` was refused as a bare force push with no reply that let it through; a force flag counts only among the push's own arguments, a continued line included.
+
+To act on:
+
+- A migration that drops a column without the word `COLUMN`, or drops or renames one of the kinds above, now meets the destructive gate where it is written.
+
 ## [raizen-norms 0.78.0] - 2026-10-05
 
 ### Added

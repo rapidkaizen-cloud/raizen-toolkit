@@ -140,6 +140,56 @@ def demo() -> None:
         "query": "DELETE FROM notes WHERE title LIKE '[CLAUDE]%'; DROP TABLE orders;"
     }) == 2
 
+    # --- comments, clients named by a path, the DROP kinds: the cases that must pass first ---
+
+    sql = "mcp__supabase__execute_sql"
+
+    # a `--` flag is not a comment, and a statement that is commented out is not sent
+    assert run("Bash", {"command": 'psql --host=localhost -c "SELECT count(*) FROM orders;"'}) == 0
+    assert run("Bash", {"command": "cat > m.sql <<'EOF'\n-- DROP TABLE old was done by hand\nCREATE TABLE t (id int);\nEOF"}) == 0
+    assert run(sql, {"query": "-- DROP TABLE old\nSELECT 1;"}) == 0
+    assert run(sql, {"query": "SELECT 1; -- DELETE FROM orders"}) == 0
+    assert run(sql, {"query": "SELECT 1; /* DROP TABLE old */"}) == 0
+    assert run(sql, {"query": "INSERT INTO log (note) VALUES ('step -- one');"}) == 0
+    # what an ALTER TABLE drops without losing data
+    assert run(sql, {"query": "ALTER TABLE orders DROP CONSTRAINT orders_lead_fk;"}) == 0
+    assert run(sql, {"query": "ALTER TABLE orders ALTER COLUMN note DROP DEFAULT;"}) == 0
+    assert run(sql, {"query": "ALTER TABLE orders ALTER COLUMN note DROP NOT NULL;"}) == 0
+    # prose that only resembles a DROP statement, in a row being written
+    assert run(sql, {"query": "INSERT INTO faq (q) VALUES ('can I drop user uploads or drop group chats?');"}) == 0
+    # a folder named after a client runs nothing
+    assert run("Bash", {"command": "ls apps/supabase && git commit -m 'delete from the queue'"}) == 0
+
+    # must block: the flag no longer hides the SQL after it
+    assert run("Bash", {"command": 'psql --host=localhost -c "DROP TABLE foo"'}) == 2
+    # a `--` inside a string is data, and the statement after it is still read
+    assert run(sql, {"query": "INSERT INTO log (note) VALUES ('step -- one'); DELETE FROM orders;"}) == 2
+    # a client named by a path, forward slashes included
+    assert run("Bash", {"command": '/usr/bin/psql -c "drop table foo"'}) == 2
+    assert run("Bash", {"command": 'C:/pg/bin/psql.exe -c "drop table foo"'}) == 2
+    assert run("Bash", {"command": "./node_modules/.bin/supabase migration new wipe && echo 'truncate leads;' >> wipe.sql"}) == 2
+    # the DROP kinds and the renames that were not listed
+    for statement in (
+        "DROP MATERIALIZED VIEW daily_totals;",
+        "DROP TRIGGER audit ON orders;",
+        "DROP SEQUENCE orders_no_seq;",
+        "DROP ROLE reporting;",
+        "DROP OWNED BY reporting;",
+        "ALTER INDEX orders_idx RENAME TO orders_lead_idx;",
+        "ALTER VIEW open_orders RENAME TO pending_orders;",
+    ):
+        assert run(sql, {"query": statement}) == 2, statement
+    # a column dropped without the word COLUMN
+    assert run(sql, {"query": "ALTER TABLE orders DROP legacy_id;"}) == 2
+    assert run(sql, {"query": "ALTER TABLE orders DROP IF EXISTS legacy_id;"}) == 2
+
+    # the carve-out: `!=` selects every row but the marked ones
+    assert run(sql, {"query": "DELETE FROM notes WHERE title != '[CLAUDE] x';"}) == 2
+    assert run(sql, {"query": "DELETE FROM notes WHERE title >= '[CLAUDE] x';"}) == 2
+    assert run(sql, {"query": "DELETE FROM notes WHERE title <> '[CLAUDE] x';"}) == 2
+    # USING joins a table in, and the prefix is tested on that one
+    assert run(sql, {"query": "DELETE FROM notes USING other WHERE other.title LIKE '[CLAUDE]%';"}) == 2
+
     # --- the per-repo off switch: .claude/destructive-gate.off in the project cwd ---
 
     import tempfile

@@ -194,6 +194,21 @@ def demo() -> None:
     assert run("git status --porcelain") == passed
     assert run("git fetch") == passed
 
+    # paths that only open like `.`, and a flag that belongs to the next command, pass
+    assert run("git add .gitignore ./src/a.ts .github/workflows/docs.yml") == passed
+    assert run("git add -- src/a.ts") == passed
+    assert run("git add src/a.ts && ls -A") == passed
+    # ... while everything added by another spelling is the same refusal
+    for everything in ("git add src -A", "git add -- .", "git add ./", "git add -Av", "git add src --all", "(cd app && git add .)"):
+        assert run(everything) == refused, everything
+
+    # a force flag belongs to the push it follows: one on a later command is not a force
+    assert run("git push origin dev && rm -f x") == held
+    assert run("git push origin dev 2>&1 | tail -f") == held
+    assert run("git push origin dev; echo a +b") == held
+    # ... and a force continued onto the next line is still one
+    assert run("git push \\\n  --force origin dev") == refused
+
     # unrelated commands are none of this guard's business
     assert run("npm run dev") == passed
     assert run("gh release list") == passed

@@ -34,13 +34,20 @@ import host
 GATE_OFF_MARKER = os.path.join(".claude", "destructive-gate.off")
 
 DESTRUCTIVE = [
-    (r"\bDROP\s+(TABLE|COLUMN|SCHEMA|TYPE|FUNCTION|POLICY|INDEX|VIEW)\b", "DROP"),
+    # A DROP statement, by the kind of object it names. A kind is listed only where the two
+    # words are rare in prose: SQL arrives with text in it, and `drop user` or `drop group`
+    # in an inserted sentence must pass.
+    (r"\bDROP\s+(TABLE|FOREIGN\s+TABLE|COLUMN|SCHEMA|DATABASE|TYPE|DOMAIN|FUNCTION|PROCEDURE|"
+     r"POLICY|INDEX|VIEW|MATERIALIZED\s+VIEW|SEQUENCE|TRIGGER|EXTENSION|ROLE|OWNED)\b", "DROP"),
     # `TRUNCATE` followed by an identifier (optionally TABLE/ONLY) is SQL; coreutils
     # `truncate -s 0 file` is followed by a flag and must pass.
     (r"\bTRUNCATE\s+(TABLE\s+|ONLY\s+)?[\"A-Za-z_]", "TRUNCATE"),
     (r"\bDELETE\s+FROM\b", "DELETE"),
-    (r"\bALTER\s+TABLE\b.*\bDROP\s+COLUMN\b", "ALTER ... DROP COLUMN"),
-    (r"\bALTER\s+TABLE\b.*\bRENAME\b", "RENAME"),
+    # The word COLUMN is optional in SQL, so the column is whatever follows DROP that is not
+    # one of the things an ALTER TABLE drops without losing data.
+    (r"\bALTER\s+TABLE\b.*\bDROP\s+(?!(?:CONSTRAINT|DEFAULT|NOT|IDENTITY|EXPRESSION)\b)", "ALTER ... DROP COLUMN"),
+    (r"\bALTER\s+(TABLE|INDEX|VIEW|MATERIALIZED\s+VIEW|SEQUENCE|SCHEMA|FUNCTION|PROCEDURE|POLICY|"
+     r"TRIGGER|ROLE|DATABASE|DOMAIN)\b.*\bRENAME\b", "RENAME"),
     (r"\bALTER\s+TYPE\b", "ALTER TYPE"),
 ]
 
@@ -52,7 +59,10 @@ SQL_KEYS = ("query", "sql", "command", "statement")
 # Tailwind's `truncate` class in a file edit. So in a shell command the SQL words match
 # in capitals only, unless psql or supabase runs it. Residual ceiling: lowercase SQL
 # reaching the database another way (a .sql file written by heredoc, `node -e`) passes.
-SQL_CLIENT = re.compile(r"(?<![\w./@-])(psql|supabase)(\.exe)?(?![\w./-])")
+# A client named by a path runs as a bare one does: `/usr/bin/psql`, `C:/pg/bin/psql.exe`,
+# `./node_modules/.bin/supabase`. A folder named `supabase` runs nothing, so after a `/`
+# that word counts only where the folder before it is a `bin`.
+SQL_CLIENT = re.compile(r"(?:(?<![\w.@-])psql|(?:(?<![\w./@-])|(?<=bin/))supabase)(\.exe)?(?![\w./-])")
 
 # The hooks.json matcher is deliberately mcp__.* (not mcp__supabase__.*): the server
 # name in the user's MCP config is chosen by whoever connects it, outside this repo's control.
@@ -62,7 +72,12 @@ DOLLAR_TAG = re.compile(r"\$([A-Za-z_][A-Za-z0-9_]*)?\$")
 
 # A string literal that OPENS with the marker: `LIKE '[CLAUDE]%'`, `= '[CLAUDE] smoke'`.
 # In Postgres LIKE only % and _ are special, so `[` here is a literal bracket, not a class.
-CLAUDE_SCOPED = re.compile(r"(?:\bLIKE\b|=)\s*'\[CLAUDE\][^']*'", re.I)
+# The `=` stands alone: in `!=` it selects every row but the marked ones.
+CLAUDE_SCOPED = re.compile(r"(?:\bLIKE\b|(?<![!<>=])=)\s*'\[CLAUDE\][^']*'", re.I)
+
+# A quoted string, a block comment, a line comment - tried in that order, so a `--` inside
+# a string is data: blanking the rest of its line would hide the statement after it.
+COMMENT = re.compile(r"'(?:[^']|'')*'|/\*.*?\*/|--[^\n]*", re.S)
 
 
 def read_sql() -> tuple[str, bool]:
@@ -74,10 +89,25 @@ def read_sql() -> tuple[str, bool]:
     return "\n".join(parts), "command" in ti
 
 
-def strip_comments(sql: str) -> str:
-    sql = re.sub(r"--[^\n]*", " ", sql)
-    sql = re.sub(r"/\*.*?\*/", " ", sql, flags=re.S)
-    return sql
+def strip_comments(sql: str, shell: bool) -> str:
+    """Blank SQL comments and nothing else, so that a commented-out statement passes.
+
+    In a shell command `--` is a flag or the end of options far more often than a comment,
+    and blanking from `--host=localhost` on would hide the SQL after it. There only a line
+    that opens with `-- ` is a comment, the way one stands in a heredoc. Residual ceiling:
+    a command continued onto a line that opens with `-- "<sql>"` is read as one."""
+    def blank(found: re.Match) -> str:
+        text = found.group(0)
+        if text.startswith("'"):
+            return text
+        if shell and text.startswith("--"):
+            line_start = sql.rfind("\n", 0, found.start()) + 1
+            opens_line = not sql[line_start:found.start()].strip()
+            if not (opens_line and text[2:3] in ("", " ", "\t")):
+                return text
+        return " "
+
+    return COMMENT.sub(blank, sql)
 
 
 def split_statements(sql: str) -> list[str]:
@@ -137,6 +167,7 @@ def claude_test_delete(stmt: str) -> bool:
     Strict on purpose, and fails closed — anything it cannot read as prefix-narrow
     goes back to needing a guard:
       - OR and NOT can widen the target back out past the prefix.
+      - USING joins another table in, and the prefix may be tested on that one.
       - A subquery's WHERE says nothing about the row being deleted, so
         strip_parens removes it before the prefix is looked for.
       - '%[CLAUDE]%' (contains) would reach real rows that merely mention the
@@ -148,7 +179,7 @@ def claude_test_delete(stmt: str) -> bool:
     body = strip_parens(m.group(1))
     if not re.search(r"\bWHERE\b", body, flags=re.I):
         return False
-    if re.search(r"\b(OR|NOT)\b", body, flags=re.I):
+    if re.search(r"\b(OR|NOT|USING)\b", body, flags=re.I):
         return False
     return CLAUDE_SCOPED.search(body) is not None
 
@@ -194,7 +225,7 @@ def main() -> None:
     if os.path.exists(GATE_OFF_MARKER):
         sys.exit(0)
 
-    sql = strip_comments(text)
+    sql = strip_comments(text, shell)
     if not sql.strip():
         sys.exit(0)
     flags = re.S if shell and not SQL_CLIENT.search(sql) else re.I | re.S

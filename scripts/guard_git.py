@@ -38,6 +38,9 @@ import host
 # bare spelling, and the long way round walks past every rule below. `-c`/`-C` take a
 # separate argument, so they need their own alternative.
 GIT = r"\bgit\s+(?:-[cC]\s+\S+\s+|--?[\w-]+(?:=\S+)?\s+)*"
+# What follows a subcommand up to the end of its own command. A rule that reads further
+# takes the `-f` of `git push origin dev && rm -f x` for a force push.
+ARGS = r"\b[^;&|\n]*?"
 
 SHELLS = ("Bash", "PowerShell")
 # Antigravity wraps what the user typed; the steps a hook injects carry another `source`.
@@ -211,10 +214,14 @@ def main() -> None:
     payload = host.read_payload()
     cmd = (payload.get("tool_input") or {}).get("command") or ""
     code = QUOTED.sub("''", HEREDOC.sub(r"\1", cmd))
+    # A command continued over lines is one command to every rule below.
+    code = re.sub(r"\\\r?\n", " ", code)
     if not re.search(r"\b(git|gh)\b", code):
         sys.exit(0)
 
-    if re.search(GIT + r"add\s+(-A\b|--all\b|\.(\s|$))", code):
+    # Any argument of the add, not only the first: `git add src -A` and `git add -- .` add
+    # everything too, and `./` is `.`. `.gitignore` and `./src/a.ts` are paths and pass.
+    if re.search(GIT + r"add" + ARGS + r"\s(--all|-[a-zA-Z]*A[a-zA-Z]*|\./?)(?=[\s;&|)]|$)", code):
         block(
             "REFUSED: git add -A / git add . is not used in this repo.\n"
             "A commit contains only paths that are in SCOPE, named explicitly.\n"
@@ -223,7 +230,7 @@ def main() -> None:
         )
 
     # `\s\+\S` is `push origin +main` — a force with no flag to grep for.
-    if re.search(GIT + r"push\b.*(--force(?![-\w])|\s-f\b|\s\+\S)", code):
+    if re.search(GIT + r"push" + ARGS + r"(--force(?![-\w])|\s-f\b|\s\+\S)", code):
         block(
             "REFUSED: a bare force push. Use --force-with-lease instead - it refuses when "
             "the remote moved since your last fetch - and ask for it as for any push."
