@@ -14,7 +14,7 @@ Before you start: the plugin and its [companion skills](../start/install.md) are
 6. **Reply when it asks to publish.** A push waits for your answer in chat. See [Gates](../concepts/gates.md).
 
 > [!NOTE]
-> `logic-settle` and `design-settle` do not commit what they write. Have each one's work committed when it closes, before the next command: `app-settle`'s migrate and align modes stop on a working tree that is not clean.
+> `logic-settle` and `design-settle` each commit what they wrote when they close. One that stopped before its close leaves the working tree dirty, and `app-settle`'s migrate and align modes stop on a tree that is not clean.
 
 ## What the repo holds afterwards
 

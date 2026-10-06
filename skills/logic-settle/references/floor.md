@@ -2,7 +2,7 @@
 
 ## Step 7 — The floor: what the repo refuses from now on
 
-**Run it for every app with a database or a remote API, whatever scored** — the session that installed nothing and the one that kept everything included. An app with neither skips this step and says so. Where the jump from Step 2 skipped Step 4, write the `Data layer` row of `CLAUDE.md` here first (`SKILL.md`, Hard limits).
+**Run it for every app with a database or a remote API, whatever scored** — the session that installed nothing and the one that kept everything included. An app with neither skips this step and says so. Where nothing scored and Step 4 was skipped, write the `Data layer` row of `CLAUDE.md` here first (`SKILL.md`, Hard limits).
 
 **Write the five refusals `logic-build` Section 9 names into the stack's own linter, derived from this app and never pasted from a stock config** — the decision records and `logic-build` are obeyed by judgement, and an agent that is not Claude Code reads neither.
 
@@ -27,5 +27,5 @@
 
 - **Nothing scored, or nothing changed → say so in one line**, list the audit findings that remain, and say that this is the intended outcome for an app of this shape.
 - **A trigger chosen at L6 → hand the user the Roles line** (`need-attribution.md`).
-- **Remind the user that the commit waits for their word** — and where a migration ran, that a migration of this size deserves a commit of its own, with nothing else riding along inside it.
+- **Commit by the session norms' `GIT` block** — where a migration ran, the migration in a commit of its own, with nothing else riding along inside it.
 - **On a new repo, offer `design-settle` as the next session**: the visual direction is still the open gate.

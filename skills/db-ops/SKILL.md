@@ -106,7 +106,7 @@ The exception aborts the whole transaction, so the verifying SELECT never runs a
 
 **Phase 4 — REPORT.** Actual versus Expected, plus the SELECT output as-is. Include integrity checks when relations are touched: orphaned FKs, `NOT NULL` now violated, rows that failed to cast.
 
-Mismatch → **stop entirely, do not touch the frontend.**
+Aborted by the guard, or an integrity check that fails → **stop entirely, do not touch the frontend.**
 
 ## RLS — role testing is mandatory
 
@@ -116,7 +116,7 @@ RLS fails **silently**: no error, just leaked data or missing data.
 
 Showing `qual` and `with_check` only proves the policy **exists as written**, not that its predicate is **correct** — a predicate that is valid SQL but wrong in logic survives any amount of careful reading.
 
-Test pattern, one call per role:
+Test pattern, one call per role — the claims and role names are Supabase's; on another Postgres, set the role and the session settings its own policies read:
 
 ```sql
 BEGIN;
@@ -136,6 +136,10 @@ A real user UUID is needed per role, on **every** RLS change, not once. None exi
 Report per role: role · UUID · rows visible · rows expected · match or not. Mismatch → stop, do not move on to the frontend.
 
 **Writing policies:** multi-table predicates with overlapping column names → fully qualify them. A policy that must be identical to an existing one → copy the predicate verbatim from introspection, do not rewrite it from memory. A new table → RLS enabled and its policy in the same operation; a table with RLS enabled and no policy is readable by nobody.
+
+## An account for the session
+
+**A session that must sign in to the app and holds no account for it reads `references/agent-account.md` before creating one** — a login inserted by SQL, never by a migration.
 
 ## Invocation
 

@@ -45,7 +45,7 @@ Documents are named by their `docs/` path; a repo with a root `PRD.md` reads eac
 
 `DESIGN.md` written → this gate is done: later pages need no further visual approval, and the rules below bind them.
 
-## Components — named in the Plan before execution
+## Components — named before execution
 
 **Before building any UI element, check the components already in the repo and name which one covers each element in scope.** Required, not a suggestion.
 

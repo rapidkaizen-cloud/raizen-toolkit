@@ -30,7 +30,7 @@ The declaration is read from the project directory: the working directory on Cla
 
 A ref padded with spaces is trimmed before the comparison.
 
-The message tells the session to stop and ask you, not to retry with another ref and not to edit `project_id` itself. Re-pointing it re-pins every later call in the repo, which only you may decide.
+The message tells the session to stop and tell you, not to retry with another ref and not to edit `project_id` itself. No answer you give in that session lifts the refusal: the hook cannot read one. Work on the other project from a session in that project's own repo, or re-point `project_id` by hand, which re-pins every later call in this repo.
 
 ## What it lets through
 

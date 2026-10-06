@@ -7,7 +7,7 @@ description: Settle the logic layer of an app whose documents are written — se
 
 `app-settle` writes the documents, `design-settle` decides how the app looks. This skill decides what sits **between the database and the UI**: the libraries — or the deliberate absence of them — for fetching, validating, dating, logging, scheduling, and attributing changes to the user who made them. Documents are named by their `docs/` path; a repo with a root `PRD.md` reads each through `docs-format`'s legacy map.
 
-**One path, no mode to pick.** The Step 1 audit decides the rest: empty, the repo starts from nothing; full, its choices were already made, or never made and filled in by hand. Every later step reads the audit, never asks which case this is.
+**One path, whatever the repo holds.** Fast or Full (`references/interview.md`) changes who answers, never the path. The Step 1 audit decides the rest: empty, the repo starts from nothing; full, its choices were already made, or never made and filled in by hand. Every later step reads the audit, never asks which case this is.
 
 On a new repo, run **after `app-settle` and before `design-settle`**: the pages `design-settle` promotes carry loading, empty, and failed states, and those belong to the data layer.
 
@@ -28,13 +28,13 @@ On a new repo, run **after `app-settle` and before `design-settle`**: the pages 
 
 **Assemble candidates live, as `references/logic-rubric.md` rules** — it holds the categories, the criteria, the admission rule, and the research duty, and names no candidates. Never present memory as verified, and never offer a candidate the admission rule would refuse.
 
-**Write the output in three places and no fourth:** `docs/decisions/` — one record per decision, its rejected candidates among the considered options; where the folder is new, `docs/README.md` gets its line · the Stack table of `CLAUDE.md` — names only, plus the `Data layer` row · the `## Logic` part of `AGENTS.md`, at Step 7 — the pointer an agent without the plugin reads. The Step 7 lint floor is config, not a document. No `ARCHITECTURE.md`, no `DECISIONS.md`, no audit report as a file.
+**Record decisions in three places and no fourth:** `docs/decisions/` — one record per decision, its rejected candidates among the considered options; where the folder is new, `docs/README.md` gets its line · the Stack table of `CLAUDE.md` — names only, plus the `Data layer` row · the `## Logic` part of `AGENTS.md`, at Step 7 — the pointer an agent without the plugin reads. The Step 7 lint floor is config, and a `docs/queue.md` line for a migration too large for the session (`references/pass.md`) and the L6 trigger's migration file record no decision. No `ARCHITECTURE.md`, no `DECISIONS.md`, no audit report as a file.
 
 **The `Data layer` row holds the folder path in backticks, first in its cell**: `session_norms.py` reads the path from exactly there to print the folder's functions at every session start, and a row it cannot parse prints nothing.
 
 **Every question goes through AskUserQuestion, never prose**, in auto mode too — a prose question at the end of a turn is answered by no one. The recommendation is first and marked "(Recommended)", each option's consequence sits in its description, up to four questions travel per call; the tool caps at four options and adds "Other" on its own, which is how an answer outside the options arrives. The Step 5 block is the one chat stop.
 
-**Do not commit and do not push**; staging is fine.
+**Commit at the close, by the session norms' `GIT` block; never push.**
 
 ## Step 0 — Preconditions
 
@@ -98,7 +98,7 @@ Data layer : src/lib — 20 of 20 files already there
 ```
 
 - **Confirm the block through AskUserQuestion**: the first option accepts the score as read and is the marked recommendation, the second overrides — the lines to flip arrive through the answer or "Other". A yes the user cancels is not asked; a no they raise is; the folder line is overridden through the same dialog.
-- **All six score *no* and the audit found nothing installed → jump to Step 7.** The folder and its floor are owed by every app with a database, whatever scored; only an app with no database and no remote API closes at Step 8 from here.
+- **All six score *no* and the audit found nothing installed → skip Steps 3, 4 and 6, and Step 5 only where its skip condition holds** — a repo with no linter still gets the block, because Step 7 writes its floor into one. The folder and its floor are owed by every app with a database, whatever scored; only an app with no database and no remote API closes at Step 8 from here.
 
 ## Steps 3 to 8 — read on arrival
 

@@ -158,6 +158,7 @@ Once the last page of the session has been walked, offer the audit in one multi-
 | A role test that misses | RLS fails silently; carrying on to the frontend locks the leak in |
 | A business rule that is not in `docs/rules.md` | Guessing it invents a norm through the back door |
 
+- **The list binds from the first line of a page's code.** The queue's approval (Section 3) and the content questions (Section 4) are asked before any page starts, and are not stops of the build.
 - **In a UI batch only the third can occur** — there is no migration to gate and no RLS to test. Both return in full in the backend batch, where the role test checks against what the UI already declares each role sees.
 - **Anything else: keep going until the page is usable**, and report at the end, never between steps.
 - **Stopped for one of the three → leave the working tree dirty**, so the repository itself says something is waiting on the user.

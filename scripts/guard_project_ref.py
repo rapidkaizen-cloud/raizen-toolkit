@@ -99,10 +99,11 @@ def main() -> None:
         "declares project '{expected}'.\n\n"
         "The MCP server is connected account-wide, so a call can reach any "
         "project in the account — this repo only ever operates on its own.\n"
-        "Cross-project work needs the user's explicit go-ahead in this "
-        "session: STOP and ask. Do not retry with a different ref and do not "
-        "edit project_id yourself — re-pointing it re-pins every later call "
-        "in this repo, which only the user may decide.\n".format(
+        "Nothing said in this session lifts this, a go-ahead included: STOP "
+        "and tell the user. Work on the other project runs from a session in "
+        "that project's own repo. Do not retry with a different ref and do "
+        "not edit project_id yourself — re-pointing it re-pins every later "
+        "call in this repo, which only the user may do, by hand.\n".format(
             other=other, path=config_path, expected=expected
         )
     )

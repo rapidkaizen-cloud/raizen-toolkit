@@ -99,7 +99,7 @@ Two sessions remain before pages can be built, in this order:
 Until design-settle is done, any session will refuse to write UI components.
 ```
 
-`logic-settle` runs first because the pages `design-settle` promotes carry loading, empty, and failed states, and those belong to the data layer. **Do not run either now**: bootstrap ends with zero dependencies installed, and `design-settle` needs to install several.
+`logic-settle` runs first because the pages `design-settle` promotes carry loading, empty, and failed states, and those belong to the data layer. **Do not run either now**: bootstrap installs only what an answer approved — question 8's test runner, a Pioneer platform's init command — and `design-settle` installs several more behind its own gate.
 
 Say what follows them: building runs under `build-flow`, which writes `docs/queue.md` on its first run and sets the size of one session — a new app builds its screens first, a UI batch with every page against a hand-written contract and no database behind it, then wires them in a backend batch.
 

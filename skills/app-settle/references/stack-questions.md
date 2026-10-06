@@ -4,7 +4,7 @@
 
 - **Batch them** — up to four per AskUserQuestion call, several calls per turn; a question whose options or recommendation read an earlier answer (the *Fits when* column is the map) goes in a later call than its source.
 - **Reconcile after every batch**: two answers that collide go back as one question naming both and what collides, never resolved silently.
-- **Each question carries more than two options, one marked recommendation, and a one-sentence consequence per option.** Questions 4 and 6 carry no recommendation, and say so where they are asked — both are vendor picks this toolkit has no stake in.
+- **Each question carries more than two options, one marked recommendation, and a one-sentence consequence per option** — question 8 has two answers, and so has question 9 where no screen exists. Questions 4 and 6 carry no recommendation, and say so where they are asked — both are vendor picks this toolkit has no stake in.
 - **Accept an answer outside the options**: use it, and state its consequence if known or say it is not.
 - **The stack is not locked.** Assemble platform, framework, hosting, and database options from the rubric below, filtered by the needs readable from the user's story.
 - **Never offer an option marked Not ready** — a bootstrap that leaves a repo without config and without migrations has failed, and a junior developer will not know what is missing. The user names one anyway → accept it, and say plainly what they will have to set up themselves.

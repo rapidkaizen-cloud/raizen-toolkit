@@ -2,6 +2,25 @@
 
 All notable changes to the `raizen-norms` plugin, and to `raizen-hub` until 0.70.0 merged it in, newest first. The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). Versions before these are in `git log`.
 
+## [raizen-norms 0.83.1] - 2026-10-06
+
+### Changed
+
+- `logic-settle` commits at the close by the session norms' `GIT` block, a migration that ran in a commit of its own. It said `Do not commit`.
+- `guard_project_ref`: the refusal no longer tells the session to ask for a go-ahead the hook cannot read. It says that nothing said in the session lifts it, and that work on another project runs from a session in that project's own repo.
+
+### Fixed
+
+- `logic-settle`: with nothing scored, the install block still runs where the repo has no linter, because Step 7 writes its floor into one. The skill no longer says both that it has no mode and that it asks Fast or Full, nor that it writes in three places while it also writes a queue line and a migration file.
+- `db-ops`: `SKILL.md` points to the agent-account reference for a session that must sign in and holds no account. The role-test pattern is marked as Supabase's. A guarded statement that aborted is named as the stop, where the text spoke of a mismatch no abort leaves.
+- `app-settle`: the Mode row names `seed`. Bootstrap no longer claims zero dependencies where question 8 or a Pioneer init command installs some. Questions 8 and 9 are named as the two-answer exceptions. The files Align may create include the linter's config and its baseline.
+- `build-flow`: the closed list of stops binds from a page's first line of code, so the queue's approval and the content questions are not on it.
+- `ui-build`: the components heading no longer names a Plan that only a host with plan mode has.
+
+To act on:
+
+- Nothing. A `logic-settle` session that closed under an older version left its work uncommitted: commit it before the next settle skill runs.
+
 ## [raizen-norms 0.83.0] - 2026-10-06
 
 ### Changed

@@ -9,7 +9,7 @@ Running it decides what sits between the database and the UI — fetching, valid
 | Run it when | After `app-settle` and before `design-settle` on a repo started from scratch; or when a repo grows handwritten data fetching or validation and you ask what to adopt |
 | Needs first | `docs/PRD.md`, or a root `PRD.md` read through the legacy map. Not on `main`. A clean working tree is advised, not required |
 | Writes | `docs/decisions/` records (and a `docs/README.md` line where `docs/decisions/` is created), `CLAUDE.md`'s Stack table and its `Data layer` row, the `## Logic` part of `AGENTS.md`, the lint floor config; installs only what the Step 5 block lists |
-| Commits | Never, and never pushes. Staging is fine. The close reminds you the commit waits for your word |
+| Commits | At the close, by the session norms' `GIT` block; a migration that ran gets a commit of its own. Never pushes |
 | Source | `skills/logic-settle/SKILL.md`, `skills/logic-settle/references/` |
 
 ## What happens
@@ -65,7 +65,7 @@ A trigger chosen at L6 installs no package. Its design is copied into a migratio
 ## Where it stops
 
 - **Step 0.** No PRD in either form (it points to `app-settle`), and branch `main`.
-- **Step 2.** The confirmation question. All six scoring no with nothing installed jumps to Step 7.
+- **Step 2.** The confirmation question. All six scoring no with nothing installed skips the interview, the record and the pass; the install block still runs where the repo has no linter, because Step 7 writes its floor into one.
 - **Step 5.** The install block is the one chat stop: end of turn, then your reply in chat. The data layer line is a migration like any other, priced in files and declinable; declined, those files are baselined at Step 7.
 
 > [!NOTE]
@@ -76,7 +76,7 @@ A trigger chosen at L6 installs no package. Its design is copied into a migratio
 - **Open on its own initiative on a running app.** Your asking is the trigger. A session that finds the layer bleeding offers it once, through a question carrying the measured finding and a recommendation. Declining closes the matter for that session.
 - **Manufacture a need.** Zero needs scoring yes, and keeping everything, are normal endings.
 - **Install outside the block**, or offer a candidate that fails the admission rule: broad adoption, active maintenance, proven at scale. Unverified options are marked `unverified`.
-- **Write output in a fourth place** beside `docs/decisions/`, `CLAUDE.md` and `AGENTS.md`; the lint config is not a document. No `ARCHITECTURE.md`, no `DECISIONS.md`, no audit report as a file.
+- **Record a decision in a fourth place** beside `docs/decisions/`, `CLAUDE.md` and `AGENTS.md`. The lint config, a `docs/queue.md` line for a migration too large for the session and the audit trigger's migration file record none. No `ARCHITECTURE.md`, no `DECISIONS.md`, no audit report as a file.
 - **Repair what stands when it writes the floor.** Existing violations go into the linter's baseline, which only shrinks; no rule is lowered to a warning.
 - **Install a later need silently.** A need that surfaces after the session is raised to you; this skill is the only place its question is asked.
 

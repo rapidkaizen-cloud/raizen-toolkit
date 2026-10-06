@@ -70,6 +70,7 @@ Mode       : [bootstrap — empty directory]
              [migrate   — a root PRD.md]
              [align     — documents in place, no change asked for]
              [rework    — documents in place, and the user asked for <what>]
+             [seed      — docs/PRD.md in place, a living document missing: seeded, then close]
 Owed after : [the modes this repo still owes once this one is done, in the order above — or "none known"]
 Flow       : [bootstrap: story → reading → 6 domain themes → 8 stack questions → summary
                          → docs/PRD.md → living docs → scaffold]
@@ -88,7 +89,7 @@ Flow       : [bootstrap: story → reading → 6 domain themes → 8 stack quest
 - **Branch `main` → STOP**: a session never works on `main`. No `development` branch exists → offer through AskUserQuestion to create it from `main` and switch to it.
 - **Not a git repo, with code present** → say so and offer `git init`. Document continues either way; Migrate and Align **STOP** without one, because their commits are what makes them undoable.
 - **Working tree dirty, before Migrate or Align → name the paths and STOP** until the user commits or stashes, because their commits must carry nobody else's uncommitted work.
-- **`docs/PRD.md` present but a living document it seeds missing** → read `references/prd-structure.md`, seed only the missing ones as N4 does, report them, and close; any other mode waits for a later session. A missing `docs/architecture.md` or `docs/runbook.md` has no section to seed it: launch the subagent on `references/repo-read.md` as D1 does, and write the two from its block as D5 does.
+- **`docs/PRD.md` present but a living document it seeds missing** → the Mode row reads `seed`, a repair no mode runs before: read `references/prd-structure.md`, seed only the missing ones as N4 does, report them, and close; any other mode waits for a later session. A missing `docs/architecture.md` or `docs/runbook.md` has no section to seed it: launch the subagent on `references/repo-read.md` as D1 does, and write the two from its block as D5 does.
 
 Then run the mode's own rows of The steps.
 

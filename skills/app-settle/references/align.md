@@ -10,7 +10,7 @@ Mechanical work: change **code and agent files that already exist**, and only wh
 
 **A document that disagrees with the code is corrected only where it states what exists** — a path, a name, something the code has never done: the code wins, and that one line changes. A mismatch about what ought to be — a rule, a role's limit, a prohibition — is never settled here in either direction: list it under `Dropped`, because Rework is where the user says which side is right. In doubt → the second. Never edit a frozen record.
 
-**The findings live in the session and the commits** — no audit report, migration plan, or checklist as a file. Align creates two files only, because neither records the app: `AGENTS.md` under C2, and `docs/queue.md` under C5 and C7.
+**The findings live in the session and the commits** — no audit report, migration plan, or checklist as a file. Align creates only files that record nothing about the app: `AGENTS.md` under C2, `docs/queue.md` under C5 and C7, and under C6 the linter's config and its suppression baseline.
 
 **An empty audit is a normal ending.** Close having changed nothing and say so; manufacture no finding.
 
