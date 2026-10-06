@@ -41,11 +41,11 @@ A rule marked *UI exists* or *`DESIGN.md` written* runs only under that fact; an
 
 **Blindness — where UI exists, the current design is not an input, and `DESIGN.md`'s prose is the current design.** Its visual-direction prose, signature, ornament rules, and archetype shell column are not constraints; a signature is redrawn only because the new direction earns it, tagged. The audit's numbers price the pass and power the before/after, never anchor the direction. **It is enforced by distance**: only the audit subagent opens the old UI; the drawing session works from `.design-audit/handover.md` and the answers, opens no file of the app beyond `docs/product.md`, `docs/rules.md`, `docs/glossary.md`, `CLAUDE.md`, and the data-layer files `handover.md` names, and never reads the dependency file. **The one exception is a value the user chose to keep**: that value alone is read from the styling files. A value meets the one it replaces only at the Step 6 gate, where the blindness ends.
 
-**Keeping everything is a valid ending.** All *keep*, `Keep — today's look`, or a revert closes with the code untouched and `DESIGN.md` unchanged — except that Keep with no `DESIGN.md` writes the ratified measured values (Step 6). Say so, report the findings, manufacture no change.
+**Keeping everything is a valid ending.** All *keep*, `Keep — today's look`, or a revert closes with the code untouched and `DESIGN.md` unchanged — except that Keep with no `DESIGN.md` still writes it, from the ratified measured values, as the pass's first act after the gate (`gate.md`). Say so, report the findings, manufacture no change.
 
 **A code-minimizing session mode governs the how, never the what.** Write every file lean, but never remove what this skill requests: the full product draft with its proposals tagged, every state drawn, the fixtures file that closes, the two-layer palette and the component-token table, the `/design-system` route, the compare page, the signature, and every engine or library approved at the install gate, used where it covers the job.
 
-**Do not commit** — staging is fine; a branch pass's commit is proposed at the close, on that branch. Never push, merge, or open a PR.
+**Commit once, at the close, by the session norms' `GIT` block** — on the pass's branch where UI exists, on the current branch where none does (`verify.md`, Step 9). Nothing is committed before it, so a pass stopped at a seam leaves its tree dirty. Never push, merge, or open a PR.
 
 **What the session does not know with confidence is researched with WebSearch at the step that needs it, source named** — platform guidelines, a package's current API or version, a product's current screens, a standard's wording — never recalled, never written into this toolkit. Load a search tool the harness defers before use: unavailable means the load itself failed, never that the name was absent from the tool list. Unavailable → say so and mark the finding unverified.
 
@@ -59,11 +59,11 @@ A rule marked *UI exists* or *`DESIGN.md` written* runs only under that fact; an
 
 **Ask Fast or Full on every repo, as a second question in the reading's call, with neither option marked recommended.** Skip it when the user named one at invocation (`/design-settle fast`); ask it again in a resumed session's re-entry call. Full runs every step as written. Fast changes who answers, never what is decided, drawn, or checked:
 
-- **Answer every dialog with its recommendation, or `Decide for me` where it ends with one** — the stack, the four product calls, the triggered engines, the archetype grouping, the direction question. Compose and verify only the recommendation; the other options are composed when its line is cancelled.
+- **Answer every dialog with its recommendation** — the stack, the four product calls, the triggered engines, the archetype grouping — **and the direction question with `Decide for me` alone**, because its recommended direction is one tick, never a set. Compose and verify only the recommendation; the other options are composed when its line is cancelled.
 - **Where UI exists, still ask a stack dialog whose recommendation is not *keep***, because a replaced library or styling rewrites every component.
-- **Put Step 2's question in the reading's call.**
-- **Show every pre-answer as one cancellable line with its basis, above the install gate's lines, in the same chat stop** — held even when nothing installs. A cancelled line opens that dialog alone, then the block is shown again.
-- **Ask the canvas judgement in one call: the verdict and the signature question.** Print the features, assumptions, hand-rolled controls, shells, and departures above it as cancellable lines.
+- **Put Step 2's question in the reading's call where Fast was named at invocation**; chosen in that call, ask it alone in the next one.
+- **Show every pre-answer as one cancellable line with its basis, above the install gate's lines, in the same chat stop** — held even when nothing installs. A cancelled line opens that dialog alone, several cancelled in one reply in one call; every line that read its answer — the styling, the icon pack and the install lines after a cancelled library — is answered again from the new one, then the block is shown again.
+- **Ask the canvas judgement in one call: the verdict and the signature question.** Print the features, assumptions, hand-rolled controls, shells, and departures above it as cancellable lines. A line is cancelled by naming it under the verdict's Other or in chat; it then opens the question Full asks for it (`canvas.md`, Judging), several in one call, and the verdict is asked again after.
 - **Fix a failing contrast pair to the nearest step that passes**, reported as a floor-forced line (`interview.md`, What the designer settles).
 - **Where UI exists, put the font's install line in the Step 6 gate.**
 
@@ -74,9 +74,11 @@ Fast skips no step: the search, the frames and the pick, every scan and floor, t
 ```
 Skill build     : [raizen-norms x.y.z — read from this plugin's own .claude-plugin/plugin.json]
 Documents       : [docs/ form / legacy PRD.md / legacy PRD.md, off-shape / none]
-DESIGN.md       : [written / absent / product without UI — from its presence alone, and in a
-                   legacy repo from Section 5's heading and `[needs verification]` markers,
-                   never from its prose: that is the old look]
+DESIGN.md       : [written / absent / product without UI — written or absent from its presence
+                   alone; product without UI from the Surface row naming a CLI or a service
+                   nobody looks at, never from `DESIGN.md` being absent; in a legacy repo from
+                   Section 5's heading and `[needs verification]` markers, never from its
+                   prose: that is the old look]
 UI components   : [file count — 0 on a repo with no UI]
 Kind of app     : [from docs/product.md, else read from the code, else asked at Step 1 — a label, never a branch]
 Register        : [first visit / tenth use / both, per page group — from the Roles, else from the routes]
@@ -117,7 +119,7 @@ Documents missing, or a legacy `PRD.md` off-shape → **not a stop**: say so in 
 
 **The reading** is one sentence, your own conclusion before asking anything: *"I read this as [kind of app] on [platform] for [who uses it], leaning [the feel that fits], because [reason from the documents]."* The platform slot is mandatory — taken from the Surface row where it holds one, otherwise read from the code and confirmed inside the reading.
 
-**Ask for correction through AskUserQuestion, the full sentence inside the question field itself**, Fast or Full in the same call. Nothing after this runs before it is answered: no dialog, no search, no frame.
+**Ask for correction through AskUserQuestion, the full sentence inside the question field itself**, Fast or Full in the same call. Its options are the reading as written, first and recommended, then up to three others, each the reading with one slot changed — a slot the sources left open or in conflict first, else the one the reading rests on least; any other correction arrives under Other. Nothing after this runs before it is answered: no dialog, no search, no frame.
 
 **One Required skill absent is asked through AskUserQuestion, never merely reported**, naming what is lost — `impeccable`'s ban list, display-face and convergence calibrations, the Operate register, every later detector count; `frontend-design`'s direction method and restraint; `ui-ux-pro-max`'s UX floor, every later UX-floor check, and its frame ingredients — with continue-without or stop-to-install (the README's install lines); continuing is recommended where installing is unavailable here. The answer rides every canvas round and the ratification report as its own line. An Optional skill absent is only shown in the row.
 
@@ -153,8 +155,8 @@ Fix the drift → `references/gate.md`, whose REPAIR list shows the findings, th
 | Step | Read | What it runs |
 |---|---|---|
 | 3 — The interview · 4 — The install gate | `references/interview.md` | The stack and four product calls that only lock answers, the reference search, the direction question, then the one install block. Nothing is installed while it runs |
-| 5 — The frames | `references/frames.md` | The material loaded, 2–4 direction frames on two screens, the pick on screen, one refine round. Nothing about the look is asked after the pick |
-| 5 — The canvas | `references/canvas.md`, after the pick | The design plan, every page drawn in production-grade code, the three scans, the judgement — two correction rounds, then the look re-opens |
+| 5, first half — The frames | `references/frames.md` | The material loaded, 2–4 direction frames on two screens, the pick on screen, one refine round. No value of the look is asked after the pick |
+| 5, after the pick — The canvas | `references/canvas.md`, and the five-rules section of `references/ratify.md` | The design plan, every page drawn in production-grade code, the three scans, the judgement of what was drawn — two correction rounds, then the look re-opens |
 | 6 — Ratification | `references/ratify.md`, and `references/gate.md` where UI exists | `DESIGN.md`, the decision records, the styling files, the lint floor — and the single stop that authorizes changing existing UI |
 | 7 — The pass | `references/pass.md` | Every canvas page promoted, in a fixed order, across sessions where it must |
 | 8 — Verification · 9 — Close | `references/verify.md` | Every check with its evidence, the canvas deletion proposal, the closing block |

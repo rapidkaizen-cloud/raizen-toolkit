@@ -28,7 +28,7 @@ Before you start: `impeccable`, `frontend-design` and `ui-ux-pro-max` are instal
 
 ## Afterwards
 
-`design-settle` does not commit what it writes. Where UI exists the pass runs on its own branch, and the commit is proposed when it closes.
+`design-settle` commits once, when it closes. Where UI exists the pass runs on its own branch and the commit lands there; merging it is yours.
 
 `DESIGN.md` is the design source, and `design-settle` is the only skill that edits it. A later session that finds it absent or finds code deviating from it stops and points you back here. Deviating code is a finding, never a new norm.
 

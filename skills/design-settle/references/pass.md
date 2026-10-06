@@ -8,7 +8,7 @@
 
 **Where UI exists, branch first** — its own branch or worktree from a committed base (`design/rework-<date>` or the user's naming), the untracked canvas folder and `.design-audit/` brought along. Dropping the branch reverts everything, at the user's word, closing at Step 9.
 
-- **First act: write `DESIGN.md`** in full and the decision records (`ratify.md`, What is written), then `CLAUDE.md`'s Component library row if the library changed — the only moment any of them is written. **Save the gate block as `.design-audit/gate.md`** — the `DESIGN.md` diff, file plan, ordered work, answered deviations — read on every resume, and the body of the commit proposed at the close.
+- **First act: write `DESIGN.md`** in full and the decision records (`ratify.md`, What is written), then `CLAUDE.md`'s Component library row if the library changed — the only moment any of them is written. **Save the gate block as `.design-audit/gate.md`** — the `DESIGN.md` diff, file plan, ordered work, answered deviations — read on every resume, and the body of the close's commit.
 - **Second act: the freshness check.** Re-walk the function inventory against current code; a flow changed since ratification is a new deviation line put to the user **before** its page moves.
 
 **The pass may span sessions, stopping only at a seam point** — after Foundations, after chrome and shared components, after any page. **Nothing is committed on the way**: a session stopping at a seam first writes Step 9's `docs/queue.md` lines for what is left, and the next session resumes from the working tree through Step 0's re-entry gate.

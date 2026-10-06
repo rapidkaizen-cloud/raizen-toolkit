@@ -49,7 +49,7 @@ Categories say what job fires a dialog — never candidate lists.
 | File upload / dropzone | The app imports files — the drop area only; parsing the file is `logic-build`'s, ordered at the gate |
 | Calendar / scheduler | Schedules, shifts, bookings |
 | PDF viewer / generation | Invoices, payslips, printable documents |
-| Barcode / QR | Scanning receipts, labels, inventory |
+| Barcode / QR | The app reads a code through a camera, or draws one — a hardware scanner typing into a field is an input, never this job |
 | Editable grid (spreadsheet-edit, not display) | Bulk cell-level editing |
 | Diagram / flow | Workflow or pipeline builders |
 | Gantt / timeline | Production or project scheduling |

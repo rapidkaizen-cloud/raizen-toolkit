@@ -1,6 +1,6 @@
 # The direction frames — Step 5, first half
 
-**The frames run in every session, without exception**, after the install gate. **Nothing stands them down** — not a stressed reference (it gets its own frame), not a brand palette (a constraint every frame is drawn under, colour derived per `impeccable`), not Keep (today's look is one of the frames), not a user who seems to know what they want. **Nothing about the look is asked after them**: the picked frame is the direction, its values read at ratification.
+**The frames run in every session, without exception**, after the install gate. **Nothing stands them down** — not a stressed reference (it gets its own frame), not a brand palette (a constraint every frame is drawn under, colour derived per `impeccable`), not Keep (today's look is one of the frames), not a user who seems to know what they want. **No value of the look is asked after them**: the picked frame is the direction, its values read at ratification, and what follows is judged as drawn (`canvas.md`, Judging).
 
 ## The material — loaded now
 
@@ -39,7 +39,7 @@
 - **The rest are Claude's own**, each from a source of a different kind than the ticks and each other — **a product from the search, or a thing from the subject's world** (an object, a place, a medium its users picture), since a set drawn from software alone inherits the nearest software's look.
 - **Off the web, the platform's design language holds one frame** before Claude fills any.
 - **Keep, where ticked, is a frame**: the running app at its real routes, never redrawn.
-- **Only `Decide for me` ticked** → the whole set is Claude's, across the search's directions and the subject's world.
+- **Only `Decide for me` ticked** → the whole set is Claude's, across the search's directions and the subject's world. Ticked beside others it adds nothing: the ticks are in the set and the rest are Claude's own, as above.
 
 **Search `ui-ux-pro-max` once per frame, with that frame's own direction as the query, every frame's searches in one chained command** — its style, colour, and typography searches; its fonts search where a face needs replacing; its motion presets where a frame animates, for their timing only and never their library; its landing search only for a first-visit page group. A query built from the reading alone returns the same few results for every app of one kind. After a rejected set, and at the escalation, the searches re-run only with the steered query.
 

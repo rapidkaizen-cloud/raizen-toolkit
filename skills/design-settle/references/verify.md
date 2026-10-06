@@ -68,6 +68,6 @@ One block:
 
 State that this gate **no longer applies** to later pages — from here on `DESIGN.md` and `ui-build`'s component rules bind.
 
-**The commit waits for the user's word** — proposed on the pass's branch with nothing else in it, its message body the gate block from `.design-audit/gate.md`, which goes once that commit is made; merging is the user's move.
+**Commit by the session norms' `GIT` block, once, with nothing else in it** — where UI exists on the pass's branch, its message body the gate block from `.design-audit/gate.md`, which goes once that commit is made; where none exists on the current branch, its body the `DESIGN.md` sections and decision records written. Merging is the user's move.
 
-Nothing changed — every answer *keep*, today's look picked, or the canvas reverted → say so in one line and list the audit findings that remain.
+Nothing changed — every answer *keep*, today's look picked where `DESIGN.md` was already written, or the canvas reverted → say so in one line and list the audit findings that remain.

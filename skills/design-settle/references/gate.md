@@ -39,11 +39,15 @@ UNTOUCHED        PhoneContact.tsx
 
 - **Ratified elements lacking data**, one line each — element, page, the work ordered (column · RPC · migration · a query, where the data exists and nothing reads it), and that the element renders waiting until that work runs.
 - **Deviations**: canvas elements the real flow contradicts and real controls the canvas never drew, one decision line each.
-- **Removals, confirmed item by item** — every function or control leaving, plus every part in `audit.md`'s frame inventory that no canvas page carries; with a routes-only inventory, every route no canvas page carries, under `frame coverage unverified — the running app could not be walked`. *Approve everything* never covers this group; a reply naming its items — each ID, or a range such as X1–X12 — does.
+- **Removals, confirmed item by item** — every function or control leaving, plus every part in `audit.md`'s frame inventory that no canvas page carries; with a routes-only inventory, every route no canvas page carries, under `frame coverage unverified — the running app could not be walked`. *Approve everything* never covers this group; a reply naming its items — each ID, or a range such as X1–X12 — does. Removals a reply leaves unnamed are shown again alone, in a message holding nothing else, and a clear yes to that message covers them all.
 
-End the turn and wait for the chat reply; lines may be approved or rejected by name. Rejected values return to Step 5, nothing written; all approved → the pass. Nothing changed → close at Step 9.
+End the turn and wait for the chat reply; lines may be approved or rejected by name. Rejected values and rejected removals return to Step 5, nothing written; after the redraw the gate is shown again whole, its changed lines marked, and a line approved before and unchanged stays approved. All approved → the pass. Nothing changed → close at Step 9.
 
-## Fix the drift, or `Keep — today's look` with `DESIGN.md` written
+## Fix the drift, or `Keep — today's look`
+
+**Nothing is redrawn and nothing leaves on this gate**: it has no file plan beyond the findings' files and no removals — the frame inventory is read against canvas pages only in a redesign.
+
+**Keep with no `DESIGN.md` opens with `DESIGN.md` as it will be written**, one line per ratified value (`ratify.md`) — `Radius : 8px (measured) → kept`, or `Radius : scattered (measured) → 8px` where the answer differs — then the findings list, one finding per place that departs from an answered value. A rejected value line reopens that value's question, never Step 5. Approval writes `DESIGN.md` as the pass's first act even where the list is empty, never closing at Step 9 with it unwritten; from here on that Keep is fix-the-drift against the `DESIGN.md` just approved, and every rule naming fix-the-drift binds it.
 
 The same gate shows the findings list:
 

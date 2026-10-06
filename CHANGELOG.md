@@ -2,6 +2,25 @@
 
 All notable changes to the `raizen-norms` plugin, and to `raizen-hub` until 0.70.0 merged it in, newest first. The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). Versions before these are in `git log`.
 
+## [raizen-norms 0.83.0] - 2026-10-06
+
+### Changed
+
+- `design-settle` commits its work once, at the close, by the session norms' `GIT` block: on the pass's own branch where UI exists, on the current branch where none does. It said `Do not commit` and left its files staged, which `app-settle`'s migrate and align modes stop on.
+- `design-settle`, `Keep — today's look` with no `DESIGN.md`: only what the audit measured is ratified, the gate shows `DESIGN.md` as it will be written and a `REPAIR` list, and an answer that differs from the measurement is retokened in the pass. It was to be redrawn at Step 5, on a path where the drawing has ended. `DESIGN.md` is written as the pass's first act even where nothing is repaired.
+- `design-settle`, the gate: removals a reply leaves unnamed are shown again alone, and a clear yes to that message covers them. A rejected line is redrawn and the gate shown again whole, its changed lines marked.
+- `design-settle`, Fast: the direction question is answered `Decide for me`. Step 2's question rides the reading's call only where Fast was named at invocation. A cancelled pre-answer re-answers the lines that read it, and a line above the canvas call is cancelled under the verdict's Other or in chat.
+- `design-settle`, Full, with nothing to install: one line and no stop. What leaves is authorized at the Step 6 gate.
+
+### Fixed
+
+- `design-settle`: replies that had no rule have one — `Decide for me` ticked beside directions, a second pick failing verification, a refused font line, `escalate to the questions` on a first round, an icon pack indicted for two families, an answered width or theme mode the kept app does not hold. The reading's correction has defined options. A want stated there moves a recommendation, and a need stated there enters the product draft.
+- `design-settle`: a product without UI is read from the Surface row, never from `DESIGN.md` being absent. Canvas type imports name their source where a data layer exists and no UI does. The Barcode / QR engine category no longer fires for a hardware scanner that types into a field.
+
+To act on:
+
+- Nothing. A `design-settle` session that closed under an older version left its work uncommitted: commit it before the next settle skill runs.
+
 ## [raizen-norms 0.82.0] - 2026-10-05
 
 ### Added
