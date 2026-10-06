@@ -36,6 +36,8 @@ A page is not accepted until all six render without the layout breaking. They ar
 
 **Fixtures are copied from the document the app replaces, not invented** — a spreadsheet, an export, a paper form. Its rows are the fixture: real column widths, real name lengths, real edge cases, and figures whose correct answer the user already knows. Where no real document can be used, say so in the session and name what was substituted.
 
+**A fixture carries no person and no secret**: replace every name, phone number, e-mail, address, identity or account number and free-text value with an invented one of the same length and format, and keep every figure, date, code and status as it stands — the file is committed.
+
 ## Switching cases
 
 Two switches — one for the fixture case, one for the role — reachable without a rebuild, and no tooling beyond them. On the web they are two search params; elsewhere they are whatever the **Cases** line of the Proof profile in `docs/product.md` names:

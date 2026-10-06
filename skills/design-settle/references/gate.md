@@ -49,7 +49,7 @@ End the turn and wait for the chat reply; lines may be approved or rejected by n
 
 **Keep with no `DESIGN.md` opens with `DESIGN.md` as it will be written**, one line per ratified value (`ratify.md`) — `Radius : 8px (measured) → kept`, or `Radius : scattered (measured) → 8px` where the answer differs — then the findings list, one finding per place that departs from an answered value. A rejected value line reopens that value's question, never Step 5. Approval writes `DESIGN.md` as the pass's first act even where the list is empty, never closing at Step 9 with it unwritten; from here on that Keep is fix-the-drift against the `DESIGN.md` just approved, and every rule naming fix-the-drift binds it.
 
-The same gate shows the findings list:
+The same gate shows the findings list, its places taken from `.design-audit/findings.md` and never searched for again:
 
 ```
 REPAIR — [n] findings
@@ -59,6 +59,6 @@ REPAIR — [n] findings
    "Belum dihubungi"  →  icon only, text to aria-label
 ```
 
-STOP for approval per item; a rejected item stays a finding, reported at Step 9. Merging two `DESIGN.md` roles at one value is approved line by line here. The archetype table, where `DESIGN.md` lacks one, is filled from `audit.md` and ratified here at repair scale (`interview.md`); the proving page, where it names none, is one line beside it — the page carrying the most of this app's own subject. A rejected row or proving page is asked what stands instead.
+STOP for approval per item. **A rejected item is asked once — kept on purpose, or left for later**, the first recommended where the reply gave that item a reason: kept on purpose, it becomes one exception line of `DESIGN.md`'s Do's and Don'ts — what departs, from which rule, and the user's reason in their words, asked for where the reply gave none — written at the pass's first act; left for later, it stays a finding, reported at Step 9. Merging two `DESIGN.md` roles at one value is approved line by line here. The archetype table, where `DESIGN.md` lacks one, is filled from `audit.md` and ratified here at repair scale (`interview.md`); the proving page, where it names none, is one line beside it — the page carrying the most of this app's own subject. A rejected row or proving page is asked what stands instead.
 
 Approved → `pass.md`.

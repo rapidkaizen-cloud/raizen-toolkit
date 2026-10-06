@@ -4,9 +4,10 @@ You audit the UI an app has today, for a session that will redesign it **without
 
 ## What you write
 
-Two files under `.design-audit/` at the repo root:
+Three files under `.design-audit/` at the repo root:
 
 - **`audit.md`** — for the user: the block below, the frame inventory, the component measurements, the contrast pairs, the `DESIGN.md` deviations, the screenshot paths.
+- **`findings.md`** — for a gate that redraws nothing, never read by a session that draws: every hit a repair of the UI could clear, one line per place — file and line · what is there · the block row or `DESIGN.md` rule it falls under.
 - **`handover.md`** — the only thing the drawing session reads, holding in this order and nothing else: the app in three sentences from `docs/product.md` · the roles · the function inventory · the route list, each route with a few words on what it is for and nothing on what it holds · the data vocabulary a fixture must respect, with a handful of real rows from the data layer where it holds any · the data-layer files a fixture may take types from, by path, none carrying a look or importing from the components folder · the UI stack row, font packages left out · the counts that price the pass, as numbers.
 
 **`handover.md` carries no colour, hex, font name, radius, spacing value, component measurement, shell description, part or section name per page, `DESIGN.md` prose, screenshot, or code excerpt** — nothing on how anything looks or where it sits.
@@ -44,8 +45,8 @@ Repeated labels     : [longest · median · how many repeat per screen]
 Supporting text     : [how many paragraphs · the longest in sentences]
 Frame inventory     : [routes counted from the router, or from the routes folder of a
                        file-routed app · parts and states named per route, a route the
-                       walk could not open by name alone — none opened:
-                       `routes only — the running app could not be walked`]
+                       walk could not open by name alone — or, where it opened no route
+                       at all, `routes only — the running app could not be walked`]
 Deviates            : [list, per DESIGN.md rule broken — DESIGN.md written only]
 Components affected : [file count that will be touched if tokens change]
 ```
@@ -54,7 +55,7 @@ Counts are occurrences in source; label lengths are in words, as `ui-build`'s co
 
 ## How each part is read
 
-- **The walk** is every route opened in the running app, started by the Proof profile's Run line in `docs/product.md`, or by the repo's own dev command where it has none.
+- **The walk** is every route opened in the running app — started by the Proof profile's Run line in `docs/product.md`, or by the repo's own dev command where it has none, and signed in with the account handed to you, which you write into no file. Create no account.
 - **`UI stack`** is the canvas's import whitelist. An installed engine nothing uses is a finding.
 - **A stack part is indicted** — the library, the styling, the icon pack, an engine — in three cases and no other: a floor (contrast, `impeccable`'s Refuse list, a detector rule) failed inside a package's own stylesheet or anatomy — never inside a copy-in library's files, which are the app's own · two packages in use for one job (two icon families, two chart engines, two styling systems) · an engine that paints where the styling files cannot reach (a `<canvas>` on the web). Every other failure in how the app uses a part is a finding.
 - **`Token health`** reads the library's slot list from the installed package — for a copy-in library, from the tokens its copied files read — never from memory. Read `DESIGN.md` first: a legacy Section 5 of the adopted-whole shape (`docs-format`, `references/legacy.md`) reports `n/a — stock` and counts no unmapped slots.
@@ -71,6 +72,7 @@ Counts are occurrences in source; label lengths are in words, as `ui-build`'s co
 **Where `DESIGN.md` is written:**
 
 - A deviation is a finding, never a reason to change `DESIGN.md` — a component measurement off its value in the component-token table included.
+- A departure its Do's and Don'ts ratifies as an exception is no deviation.
 - **The indictment** is the count of `DESIGN.md` rules that themselves fail a floor — contrast, `impeccable`'s Refuse list (located through its own `SKILL.md` index), a detector rule.
 - Two of its roles at the same value are a finding against it.
 - No archetype table is a finding.

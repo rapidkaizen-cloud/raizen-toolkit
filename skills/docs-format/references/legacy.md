@@ -41,7 +41,7 @@ Every rule of `SKILL.md` binds the section the map sends it to; this file adds o
 | Layout | Spacing, and Breakpoints & Density — base unit, permitted values, the desktop breakpoint, the unsupported lower bound, density profiles |
 | Elevation & Depth, Shapes | None — shadows and radius live in the styling files and the component tokens |
 | Components | Component Tokens and Reusable Components |
-| Do's and Don'ts | Anti-patterns — only prohibitions the user ratified |
+| Do's and Don'ts | Anti-patterns — only prohibitions and exceptions the user ratified |
 | Page Composition | Page Composition — the shell, the proving page and the archetype table |
 | Contrast | The contrast minimums in Color |
 

@@ -31,7 +31,7 @@ A rule marked *UI exists* or *`DESIGN.md` written* runs only under that fact; an
 
 **`DESIGN.md` is never written from existing code.** The audit produces findings; a finding becomes a line only once the user ratifies it, line by line.
 
-**`DESIGN.md` and the decision records are written once, never before their stop** — at Step 6 where no UI exists; where UI exists, after the gate approves, as the pass's first act on its own branch. No draft stands in for them, and a rejection leaves every document as it was.
+**`DESIGN.md` and the decision records are written once, never before their stop** — at Step 6 where no UI exists; where UI exists, after the gate approves, as the pass's first act on its own branch. No draft stands in for them, and a rejected gate leaves every document as it was.
 
 **Decisions are written in four places and no fifth:** `DESIGN.md` (`references/design-md.md`), with any sidecar `impeccable`'s schema puts beside it — in a legacy repo, Section 5 and the `DESIGN.md` generated from it · `docs/decisions/`, one record per stack part settled (`ratify.md`) — none in a legacy repo · the Component library row of `CLAUDE.md` when the library answer is not *keep* or the row names none · the `## UI` part of `AGENTS.md` — paths and a command, never a value.
 
@@ -126,8 +126,9 @@ Documents missing, or a legacy `PRD.md` off-shape → **not a stop**: say so in 
 
 ### The audit — where UI exists
 
-**Run it before the reading is put for correction, in one subagent whose whole brief is `references/audit.md`** — hand it the path and the repo root, and never read that file here. **The session that draws never opens the old UI** (Hard limits, Blindness).
+**Run it before the reading is put for correction, in one subagent whose whole brief is `references/audit.md`** — hand it the path, the repo root and the account that signs in, and never read that file here. **The session that draws never opens the old UI** (Hard limits, Blindness).
 
+- **Settle the account before the launch, where the app signs its users in.** An account for this app that the session's own instructions carry is handed over. None → ask once, in Fast too: create one under `db-ops` (`references/agent-account.md`), recommended — a login and a role row written to the app's database, its sign-in proven by the audit's walk and never here · wait for one the user supplies · walk signed out, every route behind the sign-in then measured `from source`.
 - **Its report back carries only counts, names and paths, never a word on the look**: what prices the pass, the pages holding too little, any logic-layer bleeding, what it indicts — in `DESIGN.md` where it is written, in the stack — whether the running app was walked, the path of `.design-audit/audit.md`, and the screenshot paths. The user reads `audit.md` now; this session opens it only at Step 6.
 - **`Components affected` sizes the pass**; show it before the user decides anything.
 - **What the subagent cannot do runs here, after its report and the confirmed reading**: the archetype grouping's ratify-or-correct (`interview.md`, The archetype table) — where `DESIGN.md` is written and carries no archetype table, that absence is a finding — then the `logic-settle` offer for logic-layer bleeding, under that skill's rule — only where Step 0's Logic layer row reads `not settled`; bleeding that skill already priced and baselined is a report line. Declined → continue. Accepted → close here, run `logic-settle` in its own session, then `design-settle` from Step 0, because its pass reads every page and would end this session's blindness.
@@ -140,7 +141,7 @@ No `DESIGN.md` → not asked; continue at Step 3. Otherwise one question, two op
 
 | Choice | What changes | Questions asked | Components touched |
 |---|---|---|---|
-| **Fix the drift** | Zero new norms — only bringing code back in line with the existing `DESIGN.md` | None | Only the deviating ones |
+| **Fix the drift** | No new norm — code is brought back in line with the existing `DESIGN.md`, or a departure kept on purpose is ratified as its exception | None about the look | Only the deviating ones |
 | **Redesign** | **`DESIGN.md` is rebuilt from zero** — every line re-decided, archetype shells and visual-direction prose included; today's values survive only as *keep* answers. The app looks redesigned afterwards, not retuned | The full interview, *keep* first on the stack and `Keep — today's look` among the directions; the gate names the value each replaces | Every page, replaced by its canvas file |
 
 Offer no third, narrower option: scope is narrowed by *keep* answers, which every decision carries.

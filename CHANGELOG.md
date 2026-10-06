@@ -2,6 +2,25 @@
 
 All notable changes to the `raizen-norms` plugin, and to `raizen-hub` until 0.70.0 merged it in, newest first. The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). Versions before these are in `git log`.
 
+## [raizen-norms 0.85.0] - 2026-10-06
+
+Five decisions the proof of 0.84.3 left owed, each answered as recommended. Checked on paper by case questions; no session has run them.
+
+### Added
+
+- `design-settle`, before the audit: where the app has a sign-in and the session holds no account for it, you are asked once which account walks the app — create one through `db-ops` (recommended; a login and a role row written to the app's database), wait for one you supply, or walk signed out. It is asked in Fast too. With no walk, every measurement was read from source.
+- `design-settle`, the audit: it writes `.design-audit/findings.md`, every finding with its file and line. A gate that redraws nothing builds its `REPAIR` list from that file; the session searched the code for every place again.
+- `design-settle`, a finding rejected at a `REPAIR` gate: it is asked once. Kept on purpose, it becomes an exception line in `DESIGN.md`'s Do's and Don'ts with your reason, and later audits no longer list it; left for later, it stays a finding. It returned in every audit.
+
+### Changed
+
+- `ui-build`, the gate: it stops where `DESIGN.md` is absent, empty, or `[needs verification]` in every line. With only some lines `[needs verification]` — what a Keep writes for what nothing measured — the session builds, takes what such a line would rule from a component already in the repo, and reports the line.
+- `build-flow`, fixtures: a fixture copied from the document the app replaces has every name, phone number, e-mail, address and free-text value replaced by an invented one of the same shape. Figures, dates, codes and statuses stay. The fixtures file is committed.
+
+To act on:
+
+- A fixtures file copied from a real document before this version may hold real names and phone numbers. Nothing looks for them: replace them in the next session that touches the page.
+
 ## [raizen-norms 0.84.3] - 2026-10-06
 
 Rules for what the proof of 0.84.2 found on the two paths that draw no canvas, `Keep — today's look` and fix-the-drift. Walked on paper by three subagents on invented apps, fix-the-drift through to its close for the first time; what they found in the new text was corrected and not walked again. No session has run any of it.

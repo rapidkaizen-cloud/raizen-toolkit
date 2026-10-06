@@ -60,7 +60,7 @@ One block, a line nothing fills left out:
 - the `DESIGN.md` lines that changed, where there was an old one · the decision records written;
 - files changed, with their count, and files `UNTOUCHED` · every `CLAUDE.md` line naming a file the pass deleted, left for the user to edit;
 - each page's fate — promoted and wired, or promoted on fixtures with its `docs/queue.md` wire line;
-- items the user rejected, still standing as findings;
+- items the user rejected — ratified as exceptions, or still standing as findings;
 - the product draft's proposals a Keep left undrawn, named once · every need stated at the reading's correction that `docs/product.md` lacks;
 - every decision the pass took at the data seam — an error slot, a control disabled during a paid call, retry wording — one cancellable line each; a cancelled one is redone to what the user says and its Step 8 checks re-run, in a commit of its own;
 - the canvas outcome and how many rounds it took · the verification results, per-page diff verdicts included;

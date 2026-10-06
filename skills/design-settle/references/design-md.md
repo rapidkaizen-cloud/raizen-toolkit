@@ -25,7 +25,7 @@ Headings verbatim; prose in the user's language. **Tokens hold the values, prose
 | `## Elevation & Depth` | How depth is conveyed, and the shadow scale where one exists |
 | `## Shapes` | The radius scale and what each step is for |
 | `## Components` | The **component-token table**, per component an archetype names — control height per size · input height · field padding · card padding and radius · table row height and vertical padding · header treatment · badge size and radius · modal radius · toast padding · focus ring · icon sizes and stroke weight — then the one **icon family**, by name, and the rules for reusable components, never a list of them. `build-flow` opens every page from this table and never reads the theme |
-| `## Do's and Don'ts` | Only prohibitions the user ratified; may be empty — no stock list exists |
+| `## Do's and Don'ts` | Only what the user ratified, never a stock list: prohibitions, and exceptions — what departs from a rule above on purpose, and why (`gate.md`); may be empty |
 | `## Page Composition` | The shell · the **proving page**, by route — the first screen of the frame-screens answer (`interview.md`), which `build-flow` judges every later page beside · the **archetype table**: per archetype its shell layout, components, density profile, empty wording, and the routes it owns — every route in exactly one archetype |
 | `## Contrast` | One row per pair `ratify.md`'s Contrast defines, per theme mode: foreground, background, the computed ratio, against 4.5:1 for text and 3:1 for non-text |
 
