@@ -27,7 +27,7 @@ No target, or the user asks for one → offer **three or four test scenarios in 
 
 ## 2 — What is read
 
-The skill's `SKILL.md` and **every** reference it names, whole, from this repo, before the first question. The `raizen-norms` skills a step defers to, where the step reads them. From the target, **only what the live skill would read at that step, in that order** — the router at the audit, not at Step 0; a fact read early produces a question the live run could not have asked, and is a defect of the simulation to report.
+The skill's `SKILL.md` whole, from this repo, before the first question; **each reference when the flow reaches the step that reads it** — a file the live run would not open, for a switch that is off, is not opened. The skills a step defers to, in `raizen-norms` or outside it — `ui-ux-pro-max`'s brand voice reference at the copy-voice dialog — where the step reads them and as far as it reads them; one not installed → the option carries `would read <skill>`. From the target, **only what the live skill would read at that step, in that order** — the router at the audit, not at Step 0; a fact read early produces a question the live run could not have asked, and is a defect of the simulation to report.
 
 Where the skill says *verify live* or *research*, the result is not invented: the option carries `would verify live` and the interview goes on.
 
@@ -38,7 +38,7 @@ Where the skill says *verify live* or *research*, the result is not invented: th
 | Print a block — preconditions, audit, frame inventory, close | Skip it. State only the switches it sets, in one line: `UI exists: yes → audit runs, Keep candidate offered, gate at Step 6` |
 | Stop in chat on a block the user must read — the install block, the gate | Show the block **reduced to its decision lines** — each line's recommendation and alternatives, the gate's diff and removals — and ask the same approval in chat |
 | Report cancellable lines — assumptions, ratified values, derived decisions | List the lines, then one multi-select: *which of these do you want to change?* — a cancelled line opens the dialog the skill defines for it |
-| Draw frames, build a canvas, promote pages | Describe, do not draw: each candidate's name, the source it takes after, the axis it explores, the proving page and why, the signature — then ask the pick as the live skill asks it |
+| Draw frames, build a canvas, promote pages | Describe, do not draw: each candidate's name, the axis it explores, its motivation and trade-off lines, the proving page and why — never a palette, pairing or signature, which the live skill withholds before the pick — then ask the pick as the live skill asks it |
 | Install, run, verify | State `would run:` in one line and move on |
 | Ask a question | **Ask it, for real**, through AskUserQuestion, with the options the skill's own rule produces for this target, labels in the user's words, one marked as the skill marks it |
 
