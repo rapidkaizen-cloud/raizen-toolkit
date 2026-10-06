@@ -1,6 +1,6 @@
 ---
 name: simulate
-description: Run the interview of any settle skill — app-settle, logic-settle, design-settle, or the chain of them — for real, against an app repo, a described scenario, or a test scenario this skill proposes, without executing anything — every question asked as the live skill would ask it, and after each answer the decision it produces and where the flow goes next, so the user can see whether the flow lands where their answers meant it to. Skips every printed block and every build step; installs nothing, writes nothing, draws nothing. Runs in the raizen-toolkit repo. Use to check a flow's decisions before running it in an app repo, or to test a skill change by answering its interview end to end.
+description: Run the interview of any settle skill — app-settle, logic-settle, design-settle, or the chain of them — for real, against an app repo, a described scenario, or a test scenario this skill proposes, without executing anything — every question asked as the live skill would ask it, and after each answer the decision it produces and where the flow goes next, so the user can see whether the flow lands where their answers meant it to. Skips every printed block and every build step; installs nothing, writes nothing, draws nothing. Runs in the raizen-toolkit repo. Use to check a flow's decisions before running it in an app repo, or to test a skill change by answering its interview end to end. Also runs alone on request — a background subagent answers from a brief it writes first — to evaluate a skill with no one answering.
 ---
 
 # simulate — the interview for real, the work on paper
@@ -19,6 +19,7 @@ The target is one of three: a real app repo added as a working directory — rea
 
 1. **Which skill**, or the chain `app-settle → logic-settle → design-settle`, each skill's decisions feeding the next as the live chain would.
 2. **The target** — a repo path, a scenario in words, or none: then this skill proposes one.
+3. **Who answers** — the user, or no one when the user asks for a run they do not answer: then section 6.
 
 ### Proposed scenarios
 
@@ -63,3 +64,22 @@ At the end, one table: **question · your answer · decision recorded · where i
 Findings about the skill itself — a step reference that resolves nowhere, a condition with no behavior, a question with no recommendation, two rules that contradict on this target — are listed apart, each quoting the rule. **No patching**: a change here reaches every app repo on the next version bump, and it is the user's call after reading.
 
 Three lines close the output: what a live run would additionally need (installs, credentials, capture tooling, a committed base, a non-`main` branch) · what could not be simulated (pixels, live verification) · that a live run invents different taste options — the shape was tested, not the content.
+
+## 6 — Self-run: the brief answers
+
+The user asks for a run they do not answer → this section replaces every AskUserQuestion and every chat stop above; sections 2 to 5 hold as written.
+
+**The session launches and relays; it never reads the skill.** One background subagent per scenario, on a cheaper model than the session's (`sonnet` on Claude Code), handed this file's path, the skill, the target, and the switches to trip where the user named any. No subagent → run it here and say so.
+
+The subagent, in this order:
+
+1. **Writes the brief before opening the skill** — who the person is, the kind of app, and what they want from it in five to eight plain sentences: from the scenario's words, from a repo target's `README.md` alone, or invented where there is no target. No sentence uses the skill's words, describes the repo state, or serves a switch handed over — because a want written after the rule is read bends to the rule.
+2. Reads what section 2 names, then fixes the repo state around the brief's app: the target's own, or with no target the one *Proposed scenarios* would recommend, counting what `docs/queue.md` names as not exercised. A fact section 0 would ask for is chosen and marked `assumed`.
+3. Prints each question as it would be asked — text, options, the marked one — then the answer and the brief's sentence that gives it. No sentence gives it → `brief silent`, and the marked option is taken; none marked → the first; a chat stop → approval. A cancellable line is cancelled only where a sentence of the brief contradicts it.
+4. Trips a switch handed over by the repo state where state trips it, by the answer where an answer does, printed `aimed`.
+5. Adds one line to section 4's block, **Uncovered**: each reply the question's options or its chat stop allow — ticks that conflict, a blanket option ticked beside others, a partial approval, a refusal — that the step's rules give no behavior for; never free text where options are offered, and none listed twice. Each is a finding; none is taken.
+6. Checks section 5's `Mismatch` against the brief alone, never against why it picked: a line the skill answered itself is judged like an answer, an `aimed` answer is not.
+
+Nothing is written here either: the report is the subagent's last message. Before relaying it, the session greps every rule a finding quotes and drops the finding whose quote is not in the file.
+
+The close gains a fourth line: the answerer had read the rule, so a question a person would misread was not found.
