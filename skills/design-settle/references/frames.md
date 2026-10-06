@@ -71,7 +71,7 @@ Run `impeccable`'s detector against the round's running routes (its URL tier) an
 
 ## Capturing
 
-- **Screenshot at two widths**: `DESIGN.md`'s desktop breakpoint (1440px where none exists yet) and the lowest supported width, with the session's browser tooling. A width below the browser window's minimum (near 500px) is captured by emulating a mobile viewport of that width (Chrome DevTools' `emulate`), never by resizing the window. A page longer than the browser captures is captured in viewport-height segments. Where the Proof profile names something other than a browser, capture through its Visual line — same two bounds or the platform's equivalent.
+- **Screenshot at two widths**: `DESIGN.md`'s desktop breakpoint (1440px where none exists yet, and in a redesign, which rebuilds it from zero — the old breakpoint returns only as a line of the gate's diff) and the lowest supported width, with the session's browser tooling. A width below the browser window's minimum (near 500px) is captured by emulating a mobile viewport of that width (Chrome DevTools' `emulate`), never by resizing the window. A page longer than the browser captures is captured in viewport-height segments. Where the Proof profile names something other than a browser, capture through its Visual line — same two bounds or the platform's equivalent.
 - **Shown inside its device.** Present the narrow capture inside a phone frame and the wide one inside a window frame. **No fake chrome inside the frame** — no painted status bar, keyboard, or fake tab strip carrying content. **The frame belongs to the entry route, never a page file.** With no capture tooling, report the run target and both widths; draw no frame around nothing.
 
 ## The pick
@@ -81,6 +81,8 @@ Run `impeccable`'s detector against the round's running routes (its URL tier) an
 - **Where Keep is a candidate, a subagent takes the Keep captures and the side-by-side and returns only their paths**; the drawing session hands the paths over without opening them or the compare page. No subagent available → the side-by-side shows the frames alone, and the user opens Keep's real routes themselves.
 - **Read an Other answer carrying a correction** (*the second one, but with the brand green*) **or a mix** (*the layout of the first with the palette of the third*) as that frame with the change attached.
 - **The question text says how to reject the set**: *none of them — type what is wrong under Other and I draw another set*. Reject-the-set deletes the set and redraws one fresh set to what was said wrong, under the same rules; a second rejected set opens the escalation (`canvas.md`, Judging). The pick is not a correction round.
+
+**Picking another frame releases a stressed reference**: say so in one line; its point-by-point list never runs, and `DESIGN.md` records the picked frame's source alone. An escalation releases it too, unless the user stresses it again at the re-asked direction question.
 
 **Picking `Keep — today's look`** ends the drawing: nothing is redrawn, the unchosen frames are deleted, and the flow continues at Step 6 — as fix-the-drift where `DESIGN.md` is written, as the ratification of measured values where none exists. **A Keep pick carrying a change** (*keep it, but with the brand green*) is not Keep: the refine round redraws the proving page to today's values, read from the styling files (`SKILL.md`, Blindness), with the change applied, and the flow is a redesign from there.
 

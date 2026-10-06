@@ -51,7 +51,7 @@ A rule marked *UI exists* or *`DESIGN.md` written* runs only under that fact; an
 
 **Not decided by the user → `[needs verification]`.**
 
-**Every question goes through AskUserQuestion, never prose**, in auto mode too — recommendation first and marked "(Recommended)", each option's consequence in its description, everything needed inside the dialog, up to four per call, every label in the words the user uses and never this skill's (*ratify*, *seam*, *archetype*, *departure*). The chat stops are the exceptions, each ending the turn and waiting for a reply: the install gate, the one-line package approvals (font, linter), the Step 6 gate and its REPAIR list, the Step 8 deletion.
+**Every question goes through AskUserQuestion, never prose**, in auto mode too — recommendation first and marked "(Recommended)", each option's consequence in its description, everything needed inside the dialog, up to four per call, every label in the words the user uses and never this skill's (*ratify*, *seam*, *archetype*, *departure*, *escalate*). Two questions mark no recommendation: Fast or Full, and the verdict on a round — the session does not grade its own drawing. The chat stops are the exceptions, each ending the turn and waiting for a reply: the install gate, the one-line package approvals (font, linter), the Step 6 gate and its REPAIR list, the Step 8 deletion.
 
 **Nothing the user did not choose is silent**: every value decided beyond the picked frame surfaces as one cancellable line with its basis (`interview.md`, What the designer settles).
 
@@ -89,6 +89,7 @@ Primary role    : [from the Roles, else from the roles the code enforces, else a
 Design material : [impeccable · frontend-design · ui-ux-pro-max present/absent — Required ·
                    review-animations present/absent, found per ui-build — Optional.
                    Presence only: none is read before Step 5]
+Logic layer     : [settled — CLAUDE.md carries a Data layer row / not settled]
 Branch          : [name · clean or has uncommitted changes]
 Leftover        : [none / canvas alive / pass partly applied / pass applied — from
                    src/design-canvas/, .design-audit/gate.md and git state]
@@ -129,7 +130,7 @@ Documents missing, or a legacy `PRD.md` off-shape → **not a stop**: say so in 
 
 - **Its report back carries only**: the counts that price the pass, the pages holding too little by name, any logic-layer bleeding, the `DESIGN.md` indictment count where it is written, the path of `.design-audit/audit.md`, and the screenshot paths. The user reads `audit.md` now; this session opens it only at Step 6.
 - **`Components affected` sizes the pass**; show it before the user decides anything.
-- **What the subagent cannot do runs here, after its report and the confirmed reading**: the archetype grouping's ratify-or-correct (`interview.md`, The archetype table) — where `DESIGN.md` is written and carries no archetype table, that absence is a finding — then the `logic-settle` offer for logic-layer bleeding, under that skill's rule. Declined → continue. Accepted → close here, run `logic-settle` in its own session, then `design-settle` from Step 0, because its pass reads every page and would end this session's blindness.
+- **What the subagent cannot do runs here, after its report and the confirmed reading**: the archetype grouping's ratify-or-correct (`interview.md`, The archetype table) — where `DESIGN.md` is written and carries no archetype table, that absence is a finding — then the `logic-settle` offer for logic-layer bleeding, under that skill's rule — only where Step 0's Logic layer row reads `not settled`; bleeding that skill already priced and baselined is a report line. Declined → continue. Accepted → close here, run `logic-settle` in its own session, then `design-settle` from Step 0, because its pass reads every page and would end this session's blindness.
 - **No subagent available → say so, run the walk here from that file, and report the redesign as drawn with the old UI in context.**
 - **App could not be run, or no credentials → say so here and at Step 6**, whose gate then carries `frame coverage unverified — the running app could not be walked`.
 
@@ -146,7 +147,7 @@ Offer no third, narrower option: scope is narrowed by *keep* answers, which ever
 
 **Recommendation:** fix the drift unless the audit's indictment count is above zero.
 
-**Consequence, said in the question:** the affected-component count · a redesign includes the component-library decision, and a non-*keep* library answer rewrites every component and revokes `CLAUDE.md`'s stack lock · the app looks different afterwards · picking `Keep — today's look` at the frames turns a redesign into fix-the-drift · the pages holding too little, by name — drawn whole in a redesign, handed to `build-flow` Section 4 as one `docs/queue.md` line each in fix-the-drift.
+**Consequence, said in the question:** the affected-component count · a redesign re-opens the component library — a dialog where the audit indicts it, a cancellable `Keep` line where it does not — and a non-*keep* library answer rewrites every component and revokes `CLAUDE.md`'s stack lock · the app looks different afterwards · picking `Keep — today's look` at the frames turns a redesign into fix-the-drift · the pages holding too little, by name — drawn whole in a redesign, handed to `build-flow` Section 4 as one `docs/queue.md` line each in fix-the-drift.
 
 Fix the drift → `references/gate.md`, whose REPAIR list shows the findings, then the pass. `DESIGN.md` is untouched, except merging two roles at one value, approved line by line.
 

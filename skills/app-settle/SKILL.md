@@ -48,7 +48,7 @@ The user is a junior developer: give a reasoned default, and **ask only what cha
 
 **Run the domain interview alone, without third-party skills.** Another interview skill offering itself in this session (a keyword trigger, for instance) is ignored — its output would collide with the documents, which change only by the user's decision.
 
-**N3, D4 and R4 are one message, then a STOP for explicit approval.** No file is written or edited before it is answered.
+**N3, D4 and R4 are one message, then a STOP for explicit approval.** No file is written or edited before it is answered. A reply approving part of it writes nothing: settle the lines it rejects, then show the summary again whole, the changed lines marked.
 
 **Bootstrap only — no `npm install` and no dependency added without the user's approval.**
 
@@ -103,6 +103,9 @@ Then run the mode's own rows of The steps.
 | Document | What problem this app solves, who uses it, what they did before it existed | *"I read this as [problem] experienced by [who], previously handled by [the old way], with this app now covering [which part]."* |
 | Rework | What feels wrong, what triggered the rework, what must be true when it is over | *"I read this as [what hurts] driving changes to [which decisions], with [what] staying as it is."* |
 
+- **A user who declines to tell the story gets the themes below as one batch of open questions**, and the reading is stated from the answers.
+- **A corrected reading is restated in one line and the digging continues**; it stops for correction again only where the correction replaced the problem or the people.
+
 **Bootstrap and Document then cover six themes, and do not continue without them** — Rework walks decisions instead (`references/rework.md`):
 
 - The real problem before this app existed, and why that state was intolerable
@@ -117,6 +120,8 @@ Rules of the digging:
 - **Never dig for table names, screen names, or folder structure** — they are born from the code and belong in no document.
 - **Once the reading is agreed, summarize back what you captured per theme**, then ask what is still empty or ambiguous in one batch, in your own words; only a follow-up whose wording depends on an earlier answer waits for it.
 - **Domain questions carry no options** — their answers cannot be enumerated, and a guess offered as a choice steers the answer. "More than two options plus a recommendation" is the rule for technical questions only.
+- **Ask in that batch what no theme gathers, where the story or the repo left it out**: the app's name · what must be true for the problem to count as solved, which is `## Success` · what a user with no role or an unknown one may do, which is the closing sentence of Roles.
+- **`none` is an answer for rules, terms and non-goals — write it as said.** The problem, the people and the work each role finishes cannot be none: without them, STOP.
 - **Never skip the reason behind a number.** A live check finds the value in a constant or an RLS predicate and never recovers the reason. *"I don't know, it has always been that way"* is a valid answer — write it as-is, never invent or improve one.
 - **Stop when the six are answered, not when the questions run out.**
 

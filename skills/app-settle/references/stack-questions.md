@@ -4,7 +4,7 @@
 
 - **Batch them** — up to four per AskUserQuestion call, several calls per turn; a question whose options or recommendation read an earlier answer (the *Fits when* column is the map) goes in a later call than its source.
 - **Reconcile after every batch**: two answers that collide go back as one question naming both and what collides, never resolved silently.
-- **Each question carries more than two options, one marked recommendation, and a one-sentence consequence per option** — question 8 has two answers, and so has question 9 where no screen exists. Questions 4 and 6 carry no recommendation, and say so where they are asked — both are vendor picks this toolkit has no stake in.
+- **Each question carries more than two options, one marked recommendation, and a one-sentence consequence per option** — question 8 has two answers, and so has question 9 where no screen exists. Questions 4 and 6 carry no recommendation, and say so where they are asked — both are vendor picks this toolkit has no stake in. **Fewer than three rows fit → offer the ones that fit, never a row whose *Fits when* fails**; one row left is a derived line, not a question.
 - **Accept an answer outside the options**: use it, and state its consequence if known or say it is not.
 - **The stack is not locked.** Assemble platform, framework, hosting, and database options from the rubric below, filtered by the needs readable from the user's story.
 - **Never offer an option marked Not ready** — a bootstrap that leaves a repo without config and without migrations has failed, and a junior developer will not know what is missing. The user names one anyway → accept it, and say plainly what they will have to set up themselves.
@@ -74,7 +74,7 @@ Mobile and desktop frameworks are platforms, not framework rows: they are decide
 
 | Switch | Derived from | Decides |
 |---|---|---|
-| A screen exists | The story | `design-settle` applies and will write `DESIGN.md`, the Proof profile is written, questions 2–4 are asked. No screen → no design system and no Proof profile, questions 2, 3, and 4 are skipped |
+| A screen exists | The story | `design-settle` applies and will write `DESIGN.md`, the Proof profile is written, questions 2–4 are asked. No screen → no design system and no Proof profile, questions 2, 3, and 4 are skipped, and the Platform is the derived line `CLI or service without UI` |
 | Who reaches it — named roles · strangers with accounts · anonymous visitors | Roles | Named roles or strangers with accounts → RLS and an access matrix from day one; strangers also make `logic-build`'s trust-boundary validation non-optional. Anonymous visitors only → no RLS, Roles collapse to what a visitor must be able to do |
 | Register — judged on the first visit, or on the tenth use | Roles: how often a role comes back | The `frontend-design` branch in `design-settle`'s `frames.md`, whether `impeccable`'s operational register loads, posture allowed or the signature alone. A product with both a public front and a logged-in inside carries both, per page group |
 | Data behind the pages | The Data row | Fixture cases and contracts in `build-flow`; without data, a page is proven at the two widths with its real copy |
@@ -121,7 +121,7 @@ Neither → skip questions 6 and 7.
 
 ## 6. Which database
 
-**Options from:** the Database table, rows marked **Ready**, plus anything the user already runs.
+**Options from:** the Database table, rows marked **Ready** — never `No database`, which question 5 already answered — plus anything the user already runs.
 
 **No recommendation**, for the same reason as question 4: what decides it is what already exists and what is already paid for. **Offer Supabase as two options, Cloud and self-hosted**, because bootstrap writes a different connection for each (`scaffold.md`, The database connection).
 
@@ -151,7 +151,7 @@ Production only · production + staging · production + staging + local for deve
 
 **Options:** `None` — nothing is written for users · `Guide pages` — one page per task under `docs/guide/`, written by the session that makes the task's page usable, read as files · `In-app help` — the same pages, and a page inside the app that renders them: one queue line, its route in English and its label in the UI language. No screen → `In-app help` is not offered.
 
-**Recommendation:** `None` for a tool its own builders use; `In-app help` where a role is trained on the app, or the app changes hands.
+**Recommendation:** `None` for a tool its own builders use; `In-app help` where a role is trained on the app, or the app changes hands — both read from the story and the Roles. Where they say neither, `None`, and the question says what would change it.
 
 The answer is Context's Help row, its first words verbatim — `none`, `guide pages`, `in-app` — and a decision record like every other.
 
@@ -179,3 +179,5 @@ Language and Package manager are **rules, not tables**: the Platform rubric is t
 | Branches | `main` for production, `development` for work | A session never works on `main` |
 | UI language | Inferred from the user's story | What the app writes on screen. Shown as a concrete value, together with date format and thousands and decimal separators — never a separate question and never left unwritten, because a session opened months later in a different language cannot re-derive it |
 | Code language | English, in every app | Comments, identifiers, file names, URL routes, API endpoint paths, and every database name. Never inferred from anything, and **written as its own line, never merged with UI language** — merged, "UI in X" reads as permission for identifiers, file names, and view names in X. Enum values are the one judgement call, decided per enum |
+
+**Branches and Code language are shown, never re-opened.** A request to change either is answered in one line: `guard_git` reads those two branch names, and the session norms hold English in every repo.

@@ -113,14 +113,18 @@ Capture every round as `frames.md` rules — two widths, inside its device.
 
 **The judgement call** holds, four questions per call, more in a second call the same turn:
 
-- a single-select verdict — approve · rework this round · escalate to the questions, which opens the escalation at once, whatever the round;
+- a single-select verdict, none of its options recommended — approve · rework this round · start the look over, with new references and new frames, which opens the escalation at once, whatever the round;
 - the marked-feature multi-select (The brief);
 - the assumption lines and the hand-rolled-control lines;
-- the shells — one report, each archetype's new shell in a sentence, **whether it departed or not**; where UI exists beside the audit screenshot paths of its routes, never a description of an old shell this session has not seen; where it does not, only the archetypes the user's archetype-table correction did not already settle — then one multi-select of the shells to redraw, first option `keep all`, recommended.
+- the shells — one report, each archetype's new shell in a sentence, **whether it departed or not**; where UI exists beside the audit screenshot paths of its routes, never a description of an old shell this session has not seen; where it does not, only the archetypes the user's archetype-table correction did not already settle — then one multi-select of the shells to redraw, first option `keep all`, recommended, more questions in the same call past four.
+
+- **`keep all` ticked beside another option changes nothing yet**: one question naming both settles which was meant.
+- **A cancelled assumption or hand-rolled line opens one question — what stands instead — and its redraw is a correction round.**
+- **A verdict that starts the look over keeps that call's feature answers and drops the rest**: the shells, departures and signature of a canvas about to be replaced are neither asked nor applied.
 
 Ask contrast failures, cancelled value lines, and reopened questions the same way. **Two more lines join the departure report whenever they exist**: the reference differences against a stressed reference · the direction candidate the user picked, named, so later rounds cannot drift off it.
 
-**The signature is its own question, asked on its own** — one AskUserQuestion naming the element, saying what it costs the pages around it, offering keep · redraw it once · drop it and accept the quieter page. A rejected signature is redrawn once; only the user drops it. In Fast it rides the verdict call (`SKILL.md`, Fast or Full).
+**The signature is its own question, asked on its own** — one AskUserQuestion naming the element, saying what it costs the pages around it, offering keep, first and recommended · redraw it once · drop it and accept the quieter page. A rejected signature is redrawn once; only the user drops it. In Fast it rides the verdict call (`SKILL.md`, Fast or Full).
 
 **Two correction rounds per canvas**, a correction round being one opened by the user rejecting what was drawn; a third does not run — the escalation opens. A round opened by the user **asking for something new** is not counted and quotes the request it serves; a round that cannot quote one is a correction round.
 

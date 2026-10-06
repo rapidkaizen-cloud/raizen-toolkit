@@ -2,6 +2,29 @@
 
 All notable changes to the `raizen-norms` plugin, and to `raizen-hub` until 0.70.0 merged it in, newest first. The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). Versions before these are in `git log`.
 
+## [raizen-norms 0.83.4] - 2026-10-06
+
+Rules for what three `simulate` self-runs found with no rule to follow. None has run in a session yet.
+
+### Changed
+
+- `app-settle`, the interview: the batch after the reading also asks the app's name, what must be true for the problem to count as solved, and what a user with no role may do — the title, `## Success` and the closing sentence of Roles were written from no answer. `none` is an answer for rules, terms and non-goals. A user who declines to tell the story gets the themes as one batch of questions. A corrected reading is restated, and stops again only where the problem or the people changed. A partial approval of the summary writes nothing.
+- `app-settle`, the stack questions: fewer than three rows that fit are offered as they are, and one row is a derived line. An app with no screen gets its Platform as a derived line. Question 6 no longer offers `No database`. Question 9 recommends `None` where the story and the Roles say nothing of training or a hand-over. Branches and Code language are shown and never re-opened.
+- `app-settle`, bootstrap: where the database project does not exist at N5, `supabase/config.toml` is written at N6 from the ref the user replies with. `CLAUDE.md`'s component library row reads `not decided — design-settle` until that skill writes it.
+- `app-settle`, document: a correction of the reading that contradicts a measurement is written by what it states, and the other side is a `Findings` line.
+- `logic-settle`: L1 counts only the list screens fetched on the client. L4 reads the Deploy row for people other than the app's builders. Each `Will migrate` line of the install block says `this session` or `queue line`, and a library the answers leave unused is a `Will remove` line.
+- `design-settle`: Step 0 prints a `Logic layer` row, and `logic-settle` is offered only where it reads `not settled`. A redesign is judged at 1440px until its `DESIGN.md` is rebuilt. Picking another frame, or an escalation, releases a stressed reference. Followed closely means the judgement's measurable rows, never a product's identity. The verdict marks no recommendation and its third option reads `start the look over`; the signature question recommends keep. The audit reports whether `DESIGN.md` carries an archetype table.
+- `design-settle`, replies that had no rule: no tick at the direction question · `keep all` beside another tick · shells past four options · a cancelled assumption or hand-rolled line · a verdict that starts over beside other answers · a rejected value, file-plan, ordered-work or deviation line at the gate · a cancelled data-seam line at the close · seed rows kept while the canvas goes.
+
+### Fixed
+
+- `design-settle`: Step 2 no longer promises a component-library decision where the audit indicts nothing. The Keep lines of Full say how one is cancelled, and the archetype grouping how it is corrected. The two-screens dialog no longer names a direction before one is asked.
+- `build-flow` and `design-settle` no longer point at each other for the product draft's floor: `build-flow` Section 4 holds it.
+
+To act on:
+
+- Nothing.
+
 ## [raizen-norms 0.83.3] - 2026-10-06
 
 ### Changed

@@ -43,7 +43,7 @@ Every check leaves something the user can inspect. **A check here or in Step 7 t
 **A ratified canvas file outlives its promotion as a frozen reference, and dies with its page's real implementation — never before, and never unasked.**
 
 - **Frozen.** Never edit a ratified canvas file again, and never use it as a source of values or patterns — `DESIGN.md`, the theme files, and the promoted page are the sources.
-- **Passing checks earn a proposal to delete — never a deletion.** Where real data was wired in-session: report the per-page diff verdict, invite a side-by-side walk at `/design-canvas`, end the turn and ask whether the canvas and seed rows may go — a chat stop, never an AskUserQuestion. Only a granted confirmation deletes page files, entry route, foundations board, canvas CSS and `.design-audit/` together, `.design-audit/gate.md` excepted until the pass's commit is made. A refusal or a named page makes that page a failed item now; the canvas stays.
+- **Passing checks earn a proposal to delete — never a deletion.** Where real data was wired in-session: report the per-page diff verdict, invite a side-by-side walk at `/design-canvas`, end the turn and ask whether the canvas and seed rows may go — a chat stop, never an AskUserQuestion. Only a granted confirmation deletes page files, entry route, foundations board, canvas CSS and `.design-audit/` together, `.design-audit/gate.md` excepted until the pass's commit is made. The seed rows go only on a yes that names them; kept, Step 9 lists them as `[CLAUDE]` rows still in the database. A refusal or a named page makes that page a failed item now; the canvas stays.
 - **A page left on fixtures, or wired but never seen on real data, keeps its canvas file** until the session that wires it sees it survive both widths, compares page and canvas file, fixes silent divergence, and the user confirms the side-by-side at a chat stop — carried by `build-flow`. The remnants go with the last page file.
 
 ## Step 9 — Close
@@ -58,7 +58,7 @@ One block:
 - files changed, with their count, and files `UNTOUCHED` · every `CLAUDE.md` line naming a file the pass deleted, left for the user to edit;
 - each page's fate — promoted and wired, or promoted on fixtures with its `docs/queue.md` wire line;
 - items the user rejected, still standing as findings;
-- every decision the pass took at the data seam — an error slot, a control disabled during a paid call, retry wording — one cancellable line each;
+- every decision the pass took at the data seam — an error slot, a control disabled during a paid call, retry wording — one cancellable line each; a cancelled one is redone to what the user says and its Step 8 checks re-run, in a commit of its own;
 - the canvas outcome and how many rounds it took · the verification results, per-page diff verdicts included;
 - the canvas files still standing and the queue line that will retire each;
 - the `/design-system` route named as staying dev-only, deletable at the user's word;

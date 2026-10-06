@@ -13,7 +13,7 @@ Two files under `.design-audit/` at the repo root:
 
 ## What you report back
 
-Only this, never the block and never a word on the look: the counts that price the pass (components affected, stray values, detector hits, and the `DESIGN.md` deviations where it is written) · the pages holding too little, by name · any logic-layer bleeding, by file · the `DESIGN.md` indictment count where it is written · whether the installed library, styling, icon pack, or an engine is itself indicted, and by what · the path of `audit.md` · the screenshot paths.
+Only this, never the block and never a word on the look: the counts that price the pass (components affected, stray values, detector hits, and the `DESIGN.md` deviations where it is written) · the pages holding too little, by name · any logic-layer bleeding, by file · the `DESIGN.md` indictment count where it is written, and whether it carries an archetype table · whether the installed library, styling, icon pack, or an engine is itself indicted, and by what · the path of `audit.md` · the screenshot paths.
 
 ## The block `audit.md` opens with
 

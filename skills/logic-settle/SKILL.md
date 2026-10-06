@@ -77,7 +77,7 @@ Flow           : audit → score + data layer folder → interview (only what sc
 | L1 | Screens read lists from the database | Roles — a role reads, searches, or filters records |
 | L2 | Input crosses a trust boundary | A server surface exists (Step 0) |
 | L3 | Rules bound to dates, deadlines, or timezones | `docs/rules.md` holds timing or deadline rules |
-| L4 | Errors need a destination beyond the host's default log | A server surface exists — or the Surface ships as an installed binary, whose failures happen where no host log can see them — **and** `docs/product.md` says the app is operational rather than an experiment |
+| L4 | Errors need a destination beyond the host's default log | A server surface exists — or the Surface ships as an installed binary, whose failures happen where no host log can see them — **and** the Deploy row of `docs/product.md` names people other than its builders, which is what makes an app operational rather than an experiment |
 | L5 | Work runs on a schedule | A rule names a recurring run |
 | L6 | A change has to be traceable to the person who made it | Roles — a role may change or delete records another role created; **or** `docs/rules.md` holds approval rules |
 
@@ -105,7 +105,7 @@ Data layer : src/lib — 20 of 20 files already there
 | Step | Read | Runs when |
 |---|---|---|
 | 3 — Interview · 4 — Record | `references/interview.md` and `references/logic-rubric.md`, plus under `references/` the need file of each need asked: L1 `need-cache.md` · L2 `need-validation.md` · L3 `need-dates.md` · L4 `need-errors.md` · L5 `need-jobs.md` · L6 `need-attribution.md` | A need is asked — only what scored |
-| 5 — Install | `references/install.md` | Skipped when every answer was "none" or *keep*, the repo already carries a linter, and no database call sits outside the data layer folder |
+| 5 — Install | `references/install.md` | Skipped when every answer was "none" or *keep*, the repo already carries a linter, no database call sits outside the data layer folder, and no installed library is left unused |
 | 6 — One pass | `references/pass.md` | Only where something is replaced or moved. Nothing removed and nothing migrated — every need answered "none", *keep*, or a first install onto bare ground, and the data-layer line declined or empty — → skip to Step 7 |
 | 7 — The floor · 8 — Close | `references/floor.md` | Step 7 for every app with a database or a remote API; Step 8 always |
 

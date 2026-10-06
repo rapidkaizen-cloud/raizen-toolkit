@@ -7,38 +7,14 @@
 - Session start, a document named where it does not fit (0.81.1): in both legacy clones `PRD.md` was named with its line ranges, and in the migrated clone `docs/product.md` was named. The Opus session read the named lines before its first edit. Of three Sonnet sessions on a small task, one read them, one read only the section its task changed, and one read nothing; the seed and the align session never opened the named `docs/product.md`. Owed: whether Prohibitions are printed first where the whole document does not fit — they are what a narrow session breaks.
 - The host's skill listing: on this laptop it holds 468 skills and keeps a description for 48, so `norms-help`, `app-settle`, `logic-settle` and `design-settle` arrive as a name alone. Asked which commands and which version it runs, the Opus session loaded `norms-help` from the installed copy, ran the script from the skill's own folder and relayed the card. The Sonnet session never loaded it and answered from `installed_plugins.json`, wrong about the scope; invoked by name it answered from the page and named it. Owed: whether the norms name `norms-help`, at about 90 characters of every session start. Unobserved on Antigravity.
 - A brevity hook from another plugin: under one, the session running migrate printed neither Step 0's block nor the `MIGRATE` block, so M5 compared its counts with nothing on record, and it closed in bullets where the `MIGRATED` block is ordered. Owed: whether a skill's block is marked as output that no brevity rule shortens.
-- `app-settle`, bootstrap, on paper only — a self-run:
-  - `supabase/config.toml` is written at N5 with the ref of a project the user creates after N6.
-  - No step creates a Ready platform's app skeleton or its manifest, so question 8's `install now` has nothing to install into.
-  - `## Success`, the closing sentence of Roles and the app's name are written from no answer.
-  - `CLAUDE.md`'s Stack lists a component library row that no N2 answer fills.
-  - An app with no screen skips question 2, the only place its Platform row is offered.
-  - Question 6 offers `No database` after question 5 answered both; a question may be left with fewer than three rows that fit; question 9's recommendation reads whether a role is trained on the app, which nothing gathers.
-  - Replies with no rule: a refusal to talk freely, a correction of the reading, `none` for a theme, an override of Branches or of Code language, a partial approval of the summary.
+- `app-settle`, bootstrap, on paper only — a self-run: no step creates a Ready platform's app skeleton or its manifest, so question 8's `install now` has nothing to install into.
 - `app-settle`, document, on paper — the chain's first skill, on an app's clone:
   - A `CLAUDE.md` that imports `AGENTS.md`, as a framework's template ships it, has no rule: adding the missing rows to both makes `AGENTS.md`'s opening line false.
   - A dirty tree stops Migrate and Align only. Document commits too, and so do `logic-settle` and `design-settle`, where a path someone else staged rides along.
-  - A correction of the reading that contradicts a measured fact has no rule for which of the two is written.
-- `logic-settle`, on paper, in the chain:
-  - L1 on an app that fetches in server components and has more than three list screens: the ladder says keep, the need file says a library.
-  - L4 reads whether the app is operational, a fact only Bootstrap's question 7 gathers, so a documented repo scores no by silence.
-  - `too large to finish in this session` has no measure, and a validator left installed and unused after a `keep` has no rule.
-- `design-settle`, on paper — a self-run of a Full redesign over a written `DESIGN.md`, and the chain's last skill:
-  - A stressed reference when another frame is picked: its point-by-point check never runs, `DESIGN.md` records only the picked frame's reference, and it stays in force through an escalation steered away from it.
-  - The desktop width a redesign is judged at: the widths dialog asks the lowest only, and `1440px where none exists yet` meets a `DESIGN.md` that is rebuilt from zero.
-  - The audit's report back has no field for an absent archetype table, nor for what indicts each stack part — Step 1 and the Keep lines read both.
-  - Step 2 promises a component-library decision, and the interview asks none where the audit indicts nothing.
-  - Full prints the Keep lines in chat, with no call in which one is cancelled.
-  - The archetype grouping is `a report for correction`, and the correction has no form.
-  - The two-screens dialog names the archetype `the direction most likely breaks on` before any direction is asked.
-  - `followed closely` and `Refuse imitating a company's distinctive interface` meet on a stressed product, with no line between them.
-  - The verdict and the signature question carry no recommendation, against the hard limit's `(Recommended)` on every question; the verdict's label says `escalate to the questions`, and only the look re-opens.
-  - After `logic-settle` priced and baselined the database calls in UI files, the audit reports the same bleeding and that skill is offered again; Step 0 has no row showing it ran.
-  - The product draft's floor is named in `interview.md` and in `build-flow`, each pointing at the other.
-  - Replies with no rule: no tick at the direction question; `keep all` ticked beside others; shells past four options; a cancelled assumption or hand-rolled line; an escalation in the verdict's call, the shells, departures and signature of that round unasked; a rejected file-plan, ordered-work or deviation line at the gate; a cancelled value line against a rejected value; a cancelled data-seam line at the close; the canvas approved for deletion and the seed rows not.
 
 ## Not run, or run only in part
 
+- The rules of 0.83.4, written for what the three self-runs found with no rule — the interview's batch and replies of `app-settle`, its stack questions, `supabase/config.toml` at N6, `logic-settle`'s L1, L4 and install block, `design-settle`'s stressed reference, judged width, verdict, `Logic layer` row and its replies: written on paper and run by no session, self-run or live.
 - `design-settle`, live: never run since the restructure of 0.68.0. On paper the self-runs now cover Full, Fast, the no-UI path, a Keep pick, a written `DESIGN.md`, a redesign into the gate's removals, a stressed reference and the escalation. Tripped by none: a first-visit register, a non-web platform, the re-entry gate, a Required skill absent, fix-the-drift, a rejected set, the refine round, Keep through the gate's `REPAIR` list, the gate's second ask for removals.
 - `design-settle`, open on a Keep: the component-token table has no measured source, so `build-flow` opens pages from a table marked `[needs verification]`.
 - `app-settle`, migrate (0.72.2): run a third time, by a session, on a third app's clone. 167 of 181 lines and cells of Sections 1 to 6 arrived word for word; the rest are twelve labels the shapes replace and the two lines above Section 5's first sub-section. `DESIGN.md` linted with no error, one commit, and the session start read the `docs/` form. It offered a push in a clone with no remote. Never run in a real app.

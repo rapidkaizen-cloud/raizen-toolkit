@@ -23,7 +23,7 @@
 
 ## Step 8 — Close
 
-**One block:** the needs scored and their source lines · what the audit found · decisions taken, including every "none" and every *keep* · the data layer folder and its basis · what was installed and removed · call sites moved · migrations deferred to `docs/queue.md` · the floor — refusals written, the baseline's size, anything `not enforceable` · the verification results · what is still `[needs verification]`.
+**One block:** the needs scored and their source lines · what the audit found · decisions taken, including every "none" and every *keep* · the data layer folder and its basis · what was installed and removed, and any library left installed and unused · call sites moved · migrations deferred to `docs/queue.md` · the floor — refusals written, the baseline's size, anything `not enforceable` · the verification results · what is still `[needs verification]`.
 
 - **Nothing scored, or nothing changed → say so in one line**, list the audit findings that remain, and say that this is the intended outcome for an app of this shape.
 - **A trigger chosen at L6 → hand the user the Roles line** (`need-attribution.md`).

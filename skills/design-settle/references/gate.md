@@ -41,7 +41,7 @@ UNTOUCHED        PhoneContact.tsx
 - **Deviations**: canvas elements the real flow contradicts and real controls the canvas never drew, one decision line each.
 - **Removals, confirmed item by item** — every function or control leaving, plus every part in `audit.md`'s frame inventory that no canvas page carries; with a routes-only inventory, every route no canvas page carries, under `frame coverage unverified — the running app could not be walked`. *Approve everything* never covers this group; a reply naming its items — each ID, or a range such as X1–X12 — does. Removals a reply leaves unnamed are shown again alone, in a message holding nothing else, and a clear yes to that message covers them all.
 
-End the turn and wait for the chat reply; lines may be approved or rejected by name. Rejected values and rejected removals return to Step 5, nothing written; after the redraw the gate is shown again whole, its changed lines marked, and a line approved before and unchanged stays approved. All approved → the pass. Nothing changed → close at Step 9.
+End the turn and wait for the chat reply; lines may be approved or rejected by name. A rejected value opens its question first, as a cancelled value line does (`ratify.md`); a rejected file-plan, ordered-work or deviation line is asked in chat what stands instead. Rejected values and rejected removals return to Step 5, the other three only where the answer changes what is drawn, nothing written; after the redraw the gate is shown again whole, its changed lines marked, and a line approved before and unchanged stays approved. All approved → the pass. Nothing changed → close at Step 9.
 
 ## Fix the drift, or `Keep — today's look`
 

@@ -49,10 +49,10 @@ Where UI exists, the drawing session never sees the existing look: only the audi
 | The reading | Whether the kind of app, platform, user and feel are right. The options are the reading as written, then the reading with one unsettled part changed |
 | Stack dialogs | Library, styling, icon pack, engines. Where UI exists, an unindicted part is one cancellable `Keep —` line |
 | Four product calls | Lowest supported width, theme mode, the two frame screens, copy voice; each ends with `Decide for me` |
-| The direction question | A tick is inspiration. Following a reference closely only when you say so in your own words |
-| The pick, then the judgement call | A frame; then approve, rework or escalate, the feature cut (`keep all` first), hand-rolled controls, the shells |
-| The signature | Keep, redraw once, or drop it and accept the quieter page |
-| The gate lines (UI exists) | Approve or reject by name; removals item by item. A rejected line is redrawn, then the gate is shown again whole with its changed lines marked |
+| The direction question | A tick is inspiration, and no tick reads as `Decide for me`. Following a reference closely only when you say so in your own words: its density, colour temperature, type and shell, never its name, mark or a screen copied element for element. Picking another frame releases it |
+| The pick, then the judgement call | A frame; then approve, rework, or start the look over (none marked recommended), the feature cut (`keep all` first), hand-rolled controls, the shells |
+| The signature | Keep (recommended), redraw once, or drop it and accept the quieter page |
+| The gate lines (UI exists) | Approve or reject by name; removals item by item. A rejected value opens its question first; a rejected file-plan, ordered-work or deviation line is asked what stands instead. What changes the drawing is redrawn, then the gate is shown again whole with its changed lines marked |
 | Font and linter install lines | The one-line package approvals outside the install gate |
 
 Anything the skill decides beyond a dialog appears as one cancellable line with its basis, and a cancelled line opens that value as a dialog.

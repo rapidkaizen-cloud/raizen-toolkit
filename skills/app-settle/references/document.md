@@ -10,6 +10,8 @@ Rows that come out `not readable` stay that way. They are asked at D3 only where
 
 Run the interview of `SKILL.md`. **The reading may draw on the code, and it must say which parts did**: separate what was measured from what was inferred, so the user knows what they are correcting.
 
+**A correction that contradicts a measurement is written by what it states**: what the app is meant to do — a rule, a role's limit — as the user said it; what exists — a version, a host, a file — as measured. The losing side is a `Findings` line at D6.
+
 ## D3 — Six themes, and one rule that outranks the rest
 
 **Three themes are partly readable and three leave no trace at all.** Roles, rule *values*, and terms came back from D1. Nothing readable is asked as though unknown — it is **shown and confirmed**:
@@ -72,7 +74,7 @@ Written    : docs/PRD.md · docs/README.md · product.md · rules.md · glossary
              AGENTS.md [new / N parts added] · .claude/settings.json
 Not read   : [rows still unreadable]
 Unverified : [what carries [needs verification]]
-Findings   : [concrete stack findings only — or "none"]
+Findings   : [concrete stack findings, and D2's corrections that met a measurement — or "none"]
 DESIGN.md  : absent — design-settle writes it
 ```
 
