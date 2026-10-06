@@ -16,7 +16,7 @@ A session reads the database before it changes it, writes schema as migration fi
 
 **Read first, then write migrations** (Before writing any DDL). The session introspects the relevant state before it writes DDL. Schema changes are migration files in the repo, never run directly against the production database. What may run directly is `SELECT`, and role tests that end in `ROLLBACK`. A Postgres pattern the session is unsure of is checked against `supabase-postgres-best-practices`; where that skill disagrees with `db-ops`, `db-ops` wins, and an absent skill never stops the work.
 
-**Audited tables** (A table in a repo that audits). Applies only where `docs/decisions/` records an audit trigger. A table is created with its audit trigger in the same migration. Leaving one untracked takes your explicit answer, asked before the migration runs; silence is not that answer. The skip is recorded nowhere, because introspection shows a table without a trigger.
+**Audited tables** (A new table in a repo that audits). Applies only where `docs/decisions/` records an audit trigger. A table is created with its audit trigger in the same migration. Leaving one untracked takes your explicit answer, asked before the migration runs; silence is not that answer. The skip is recorded nowhere, because introspection shows a table without a trigger.
 
 **A fixed order** (Mandatory order). Never reordered:
 

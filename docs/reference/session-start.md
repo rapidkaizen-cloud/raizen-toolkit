@@ -54,7 +54,7 @@ Claude Code replaces a hook's output over 10,000 characters with its first 2,000
 
 1. **The norms and the notes are always printed whole.**
 2. **Each document is printed whole if it still fits.** One that does not is named under its own heading: `Not printed: no room left at session start. Read it before the first edit of this session.` For a root `PRD.md` in the six-section shape, the line names the line ranges of sections 1, 2 and 6 to read.
-3. **A listing is cut at a line where the room ends**, and closes with a line starting `... more`, telling the session to list the folder itself. So does the hand-over.
+3. **A listing is cut at a line where the room ends**, and closes with a line starting `... more`, telling the session to list the folder itself. A hand-over that does not fit is cut the same way and closes with `... the hand-over is cut here: a session start carries no more.`
 
 A repo whose output already fitted gets exactly what it got before. On Antigravity nothing is cut: the text goes in as a message, which has no such cap.
 
@@ -69,7 +69,7 @@ A repo whose output already fitted gets exactly what it got before. On Antigravi
 - **A named path is gone** (`docs/` form): `NOTE: these living documents name paths that do not exist:`, at most 20 lines. It reads `docs/README.md`, `docs/product.md`, `docs/rules.md`, `docs/glossary.md`, `docs/architecture.md`, `docs/runbook.md` and every `docs/guide/` page. Links resolve from the document, backticked paths from the repo root. URLs and host names are not paths.
 - **A living document is missing** (`docs/` form): `NOTE: <path> is missing.` for `docs/README.md` or `docs/product.md`.
 - **`CLAUDE.md` carries old sections:** `NOTE: CLAUDE.md still carries sections ...`, naming each one it recognises.
-- **The data layer folder does not exist:** `NOTE: the Data layer row of CLAUDE.md names ...`, with the folder. A path that climbs out of the repo is not followed and says nothing.
+- **The data layer folder does not exist:** `NOTE: the Data layer row of CLAUDE.md names ...`, with the folder. It is printed in the data layer listing's place, after the documents, and shares that listing's room, unlike the notes above. A path that climbs out of the repo is not followed and says nothing.
 
 ### The hand-over
 

@@ -28,8 +28,8 @@ Ask "how does the push stop work" and the session answers from the page that cov
 
 ## What you can rely on
 
-- **The version is its number and that one changelog entry.** Whether a newer version exists is not checked: a machine with `autoUpdate` on gets it at its next start. See [Update the plugin](../guide/update.md).
-- **The card is about the copy the session loaded**, not the newest one on the machine. A project-scope install can sit versions behind the user-scope one.
+- **The version is its number and that one changelog entry.** Whether a newer version exists is not checked. [Update the plugin](../guide/update.md) says how a newer one arrives.
+- **The card is about the copy the session loaded**, not the newest one on the machine. A machine keeps one folder per installed version, and the newest is not always the one a session loaded.
 - **Nothing is changed.** A `To act on` line is shown word for word, and acted on only when you ask.
 
 ## Related

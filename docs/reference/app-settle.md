@@ -39,7 +39,7 @@ One session runs one mode, in the order a repo owes them: Document, then Migrate
 
 ### Document — D1 to D6
 
-1. **D1.** A subagent reads the stack from the repo into a `STACK` block. Nothing in it is asked.
+1. **D1.** A subagent reads the stack from the repo into a `STACK` block. What it could read is not asked; a row that came out `not readable` is asked later, only where it changes what the documents must say.
 2. **D2 and D3.** The story and reading as above; the reading says which parts drew on the code. Roles, rule values and terms read from code are shown with their `file:line` and confirmed. The problem before the app, how the work was done then, and the non-goals are asked openly. The locale is confirmed.
 3. **D4.** The summary, then a stop. **D5.** `docs/PRD.md`, the living documents, `CLAUDE.md`, `AGENTS.md`, `.claude/settings.json`, then a commit. The stack is recorded as found and no decision record is seeded. An existing `CLAUDE.md`, `AGENTS.md` or root `README.md` is never overwritten.
 4. **D6.** A block — `Written`, `Not read`, `Unverified`, `Findings`, `DESIGN.md` — then `/logic-settle`, `/design-settle` and `/app-settle` in that order. `Findings` holds only concrete stack findings; "you would have picked differently" is not one.
@@ -54,7 +54,7 @@ One session runs one mode, in the order a repo owes them: Document, then Migrate
 ### Align — A1 to A5
 
 1. **A1.** One subagent audits the repo against the installed plugin copy and returns an `AUDIT` block: `C1 platform residue`, `C2 agent files`, `C3 language split`, `C4 guard coverage`, `C5 documents`, `C6 lint floor`, `C7 rule coverage`. Six rows run; `C3 language split` prints `not run`, because it reads every name in the repo and rarely finds more than untidiness. Every row that ran reports, a clean one included.
-2. **A2 and A3.** A table ranked by what breaks without anyone noticing, in three bands: a guarantee that does not hold, a rule that points somewhere wrong, drift that is merely untidy. You pick through a question: band 1 only, bands 1 and 2, everything, or nothing. The same question offers `C3`: audit the language split too, or skip it. Picked, it is audited and its findings are put to you the same way.
+2. **A2 and A3.** A table ranked by what breaks without anyone noticing, in three bands: a guarantee that does not hold, a rule that points somewhere wrong, drift that is merely untidy. You pick through a question: band 1 only, bands 1 and 2, everything, or nothing. A second question in the same call offers `C3`: audit the language split too, or skip it. With no finding in the first run, that question is asked alone. Picked, it is audited and its findings are put to you the same way.
 3. **A4.** One finding per commit, named paths. A build or run config gets one real run first; a lint floor is proven before its commit.
 4. **A5.** An `ALIGN` block: `Fixed`, `Dropped`, `Left`, `Not audited`, `Still silent`, `Verified`, `For app-eval`. An empty audit is a normal ending.
 
@@ -69,7 +69,7 @@ One session runs one mode, in the order a repo owes them: Document, then Migrate
 | Question | What your answer decides |
 |---|---|
 | The mode, when Step 0 reads it wrong | One line overrules it |
-| Align or Rework | A wish to change what the app does, whom it serves or what it runs on makes it Rework; none stated, Align |
+| Align or Rework — never asked, read from what you said | A wish to change what the app does, whom it serves or what it runs on makes it Rework; none stated, Align, and the block says so |
 | Continue here or move | Whether bootstrap runs in a directory holding files that are neither code nor a PRD |
 | Create `development` from `main`; `git init` | Where the session works; Migrate and Align need a repo |
 | The six themes | The documents' content; no options, because options would steer the answer |

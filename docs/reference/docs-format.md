@@ -12,7 +12,7 @@ A session keeps an app repo's documents to a closed list, writes only what readi
 
 ## What a session is held to
 
-**Which form** (Which form, `references/legacy.md`). A repo with no root `PRD.md` uses the `docs/` form, which `app-settle` writes. A repo with a root `PRD.md` stays in the legacy form until `app-settle`'s migrate mode moves it. No other session moves it, and none creates a `docs/` file beside it. In the legacy form each `docs/` path is read from a `PRD.md` section: `product.md` from Sections 1, 2 and 6, `rules.md` from 3, `glossary.md` from 4, the design system from 5, and the queue from `QUEUE.md` at the root. `docs/README.md`, the guide pages, `docs/whats-new.md`, `docs/changes/` and `docs/PRD.md` are never written there.
+**Which form** (Which form, `references/legacy.md`). A repo with no root `PRD.md` uses the `docs/` form, which `app-settle` writes. A repo with a root `PRD.md` stays in the legacy form until `app-settle`'s migrate mode moves it. No other session moves it, and none creates a `docs/` file beside it. In the legacy form each `docs/` path is read from a `PRD.md` section: `product.md` from Sections 1, 2 and 6, `rules.md` from 3, `glossary.md` from 4, the design system from 5, and the queue from `QUEUE.md` at the root. `docs/README.md`, `docs/architecture.md`, `docs/runbook.md`, `docs/changelog.md`, the guide pages, `docs/changes/` and `docs/PRD.md` are never written there.
 
 **A closed list** (The closed list). No other document is written — no `SCHEMA.md`, `DECISIONS.md`, API reference, audit report, plan file or second index. One found is a finding. Every file of the list is written for the developer who continues the app and the agent that builds it, in your language with technical terms left as they are; `docs/guide/` alone is written for the app's users.
 
@@ -45,7 +45,7 @@ A session keeps an app repo's documents to a closed list, writes only what readi
 
 **Frozen records** (Frozen records). `docs/PRD.md` once written, a `docs/changes/` file once done and an accepted decision record are never edited. Superseding a decision sets the old record's status to `superseded by NNNN`.
 
-**Rules before code** (Who may write what). A rule or glossary row is written before the implementation, never after, so a rule is a decision and not a description of code. A rule's why is three sentences at most. Adding a feature, screen, table or column is not a reason to write a document by itself; in doubt, nothing is written.
+**Rules before code** (Who may write what). A rule or glossary row is written before the implementation, never after, so a rule is a decision and not a description of code. A rule's why is three sentences at most. A new feature, screen, table or column does not change a living document by itself: its record is the `docs/changelog.md` entry. In doubt, nothing is written.
 
 **One decision record per decision you take**: each stack answer, each `logic-settle` answer, each `design-settle` stack answer, a library default changed on purpose, a technical choice you took. A choice the session made itself gets no record. It is a default, reported at the close.
 
@@ -71,7 +71,7 @@ A session keeps an app repo's documents to a closed list, writes only what readi
 ## What it does not cover
 
 - **The shape of `DESIGN.md`** belongs to `design-settle`, and of `docs/queue.md` to `build-flow`.
-- **The legacy `PRD.md` sections** belong to `app-settle`. In a legacy repo the root `DESIGN.md` is generated and never read as the design system; a hand edit is a finding.
+- **The legacy `PRD.md` sections** belong to `app-settle`, except Section 5, which `design-settle` alone writes. In a legacy repo the root `DESIGN.md` is generated and never read as the design system; a hand edit is a finding.
 - **Anything a reading of the code or database gives back.** A document answering it is a finding.
 
 ## Related

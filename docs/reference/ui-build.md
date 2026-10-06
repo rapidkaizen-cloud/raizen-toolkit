@@ -30,7 +30,7 @@ A session writes no UI until `DESIGN.md` exists, reuses the components already i
 
 1. **A component already in the repo**, including components copied in from a library.
 2. **A component the installed library ships.** The session lists the library's component directory before deciding it lacks one.
-3. **A component of its own**, only when the library ships nothing that fits. It names what fails in the ones examined — looking slightly different is not a reason — follows the library's idiom, and states in its header which `DESIGN.md` rule it holds.
+3. **A component of its own**, only when the library ships nothing that fits. It names what fails in the ones examined — looking slightly different is not a reason — follows the library's idiom, and states in its header which rule it holds: a `DESIGN.md` line it freezes, or the second appearance of a pattern. Neither, and it stays page code.
 
 A pattern appearing a second time is extracted, not copied. Components that hold `DESIGN.md` rules live in one file; a component with a flow of its own, such as a wizard or the app shell, gets its own. An extracted component is added to the design-system route in the same turn, where the app has one. A library with no strings for the app's locale gets them from one dictionary file, passed through the library's own locale provider.
 
@@ -48,7 +48,7 @@ A pattern appearing a second time is extracted, not copied. Components that hold
 
 - **Loading** is a skeleton shaped like the result. A spinner is for what has no shape, such as a button mid-submit.
 - **Empty** says why it is empty and ends on the one action that fills it. A filtered result names the query and offers the exit. Persistent information is never parked there.
-- **Failed** sits next to its cause, with a retry. A failure message never disappears on its own.
+- **Failed** sits next to its cause: a form error under its field; a failed load or save where the content should have been, with a way to retry. A failure message never disappears on its own.
 
 **Interface copy** (Writing). The voice is the copy voice in `DESIGN.md`'s Overview; none stated means neutral. Tone moves with the stakes: warm in success, onboarding and empty states; neutral in routine actions and settings; calm and plain in errors and destructive confirmations; serious and explicit in data loss and security. Caps count words in the app's on-screen language.
 
