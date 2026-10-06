@@ -14,7 +14,7 @@ Running it settles an app repo at the app level — what the app is for, who use
 
 ## What happens
 
-Step 0 reads the directory and the code first, the documents as evidence. It prints one block — `Directory`, `Documents`, `CLAUDE.md`, `AGENTS.md`, `Git`, `Plugin`, `Mode`, `Owed after`, `Flow` — and names the fact that produced the mode. You can overrule the mode in one line. Under another plugin's brevity mode a session may skip this block where it does not end the turn — observed in migrate and document — and print only the closing block; the mode is then named in the session's first line.
+Step 0 reads the directory and the code first, the documents as evidence. It prints one block — `Directory`, `Documents`, `CLAUDE.md`, `AGENTS.md`, `Git`, `Plugin`, `Mode`, `Owed after`, `Flow` — and names the fact that produced the mode. You can overrule the mode in one line. Under another plugin's brevity mode a session may skip this block where it does not end the turn — observed in migrate and document — and print only the closing block, so the mode is not always named before the work starts.
 
 | Step 0 finds | Mode | Kind | What it does |
 |---|---|---|---|
