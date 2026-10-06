@@ -8,7 +8,7 @@
 
 **Where UI exists, branch first** — its own branch or worktree from a committed base (`design/rework-<date>` or the user's naming), the untracked canvas folder and `.design-audit/` brought along. Dropping the branch reverts everything, at the user's word, closing at Step 9.
 
-- **First act: write `DESIGN.md`** in full and the decision records (`ratify.md`, What is written), then `CLAUDE.md`'s Component library row if the library changed — the only moment any of them is written. **Save the gate block as `.design-audit/gate.md`** — the `DESIGN.md` diff, file plan, ordered work, answered deviations — read on every resume, and the body of the close's commit.
+- **First act: write `DESIGN.md`** in full — in fix-the-drift only the lines its gate ratified — and the decision records (`ratify.md`, What is written), then `CLAUDE.md`'s Component library row if the library changed or the row names none — the only moment any of them is written. **Save the gate block as `.design-audit/gate.md`** — the `DESIGN.md` diff, file plan, ordered work, answered deviations — read on every resume, and the body of the close's commit.
 - **Second act: the freshness check.** Re-walk the function inventory against current code; a flow changed since ratification is a new deviation line put to the user **before** its page moves.
 
 **The pass may span sessions, stopping only at a seam point** — after Foundations, after chrome and shared components, after any page. **Nothing is committed on the way**: a session stopping at a seam first writes Step 9's `docs/queue.md` lines for what is left, and the next session resumes from the working tree through Step 0's re-entry gate.
@@ -21,13 +21,13 @@
    - **Before its data swap, pixel-diff each promoted page on the canvas fixtures against its canvas file** at both widths, with a diff tool run outside the app's dependencies, the diff images kept for Step 8; a differing pixel outside the removed instruments fails the promotion; no tool → `not verified — pixel diff`.
    - **With a data layer**, swap the fixture import for it, per `build-flow` and `logic-settle`, changing only what Step 8's structural diff allows at the data seam, and check each page at both widths: holding → report and continue; first collapse → stop, a rework round of that page. Where `logic-settle` chose the data layer, loading, empty and failed states come from its cache, never a handwritten effect.
    - **With no backend yet**, pages keep fixtures reshaped to `build-flow`'s contract form (`src/contracts/<page>.ts`, `src/contracts/<page>.fixtures.ts`, per its `references/contract.md`), and **each gets a `docs/queue.md` line** `wire <page> to real data`.
-4. **Components not on the canvas** — **fix-the-drift only**: retoken to zero raw values; a prop or theme value departing from the library default returns to it unless `DESIGN.md` requires it. **In a redesign this step is empty**; a file here is a failed inventory to report, never to retoken.
+4. **Components not on the canvas** — **fix-the-drift only**: repair each approved finding — a raw value retokened, a prop or theme value departing from the library default returned to it unless `DESIGN.md` requires it. **In a redesign this step is empty**; a file here is a failed inventory to report, never to retoken.
 5. **`/design-system`** — written here, once (below).
 6. **Assets** locked to the old colors — where UI exists: inline SVG, favicon, brand-coloured images.
-7. **The old library, engines and font packages are removed**, if their decisions changed.
+7. **The old library, icon pack, engines and font packages are removed**, if their decisions changed.
 8. **The lint floor, then `AGENTS.md`'s `## UI` part** (below) — fix-the-drift writes them too.
 
-**Fix the drift** runs here too, on the same isolated branch: the approved findings, nothing else.
+**Fix the drift** runs here too, on the same isolated branch: points 2 and 3 are empty and point 4 repairs the approved findings, nothing else; every other point runs as written.
 
 ## Promotion rules
 
@@ -53,7 +53,7 @@
 | Components | Every component the app uses or an archetype names — variants, sizes, and states per component, including loading, empty, and failed where they apply, with a short real-usage snippet |
 | Archetypes | `DESIGN.md`'s archetype table, one card per archetype on its ratified shell: shell sketch, components, routes |
 
-**Done is measured against the table, not the page looking full**: every semantic token appears; a component checklist written first, never recalled — every component an archetype names with its variants and states (inputs: default, focus, disabled, error; buttons: hover, focus, disabled, loading; stepper, dialog, dropzone rendered open through their own props; a hover or focus state the component's props cannot set is listed `live only`); every archetype card has all three parts. Report **archetype → components it names → where each renders**. The only allowed absence is a component no archetype or flow uses, stated with that reason.
+**Done is measured against the table, not the page looking full**: every semantic token appears; a component checklist written first, never recalled — every component an archetype names with its variants and states (inputs: default, focus, disabled, error; buttons: hover, focus, disabled, loading; stepper, dialog, dropzone rendered open through their own props; a hover or focus state the component's props cannot set is listed `live only`); every archetype card has all three parts. Report **archetype → components it names → where each renders**. The only allowed absences are a component no archetype or flow uses and a foundation `DESIGN.md` holds as `[needs verification]`, each stated with that reason.
 
 ## The lint floor
 

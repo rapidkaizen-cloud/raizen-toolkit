@@ -82,7 +82,7 @@ The repo's own linter refuses the four failures that cost the most, in every ses
 3. **A numbered ramp step in product code**, where the alias layer exists. Product code reads a role.
 4. **A primitive the shared set is built on, imported outside the components folder** — the package a dialog wraps, pulled into a page to hand-roll a second dialog.
 
-`design-settle` writes the floor at ratification, derived from this app's shared set and styling files; a repo with a `DESIGN.md` and no floor gets it from `app-settle`'s align mode. Live with it this way:
+`design-settle` writes the floor in its pass, derived from this app's shared set and styling files; a repo with a `DESIGN.md` and no floor gets it from `app-settle`'s align mode. Live with it this way:
 
 - **Run the repo's lint command before committing any UI scope item**, and fix a refusal in the code that caused it.
 - **An inline disable of a floor rule is a finding**, the same standing as a raw hex value; so is a floor rule lowered to a warning.

@@ -92,7 +92,7 @@ Never put in a line what `docs/rules.md`, `docs/glossary.md`, or `docs/product.m
 
 ### How full is full enough
 
-- **The bar is the app's proving page** — the page `design-settle` named as the one the direction must survive, born on the design canvas and verified to match it. A page far emptier than it is a page to go back to, not a new norm.
+- **The bar is the app's proving page** — the page `DESIGN.md`'s Page Composition names, the one its direction was proven on. A page far emptier than it is a page to go back to, not a new norm. None named → judge by the two questions below alone, and report the gap as a finding pointing at `design-settle`.
 - **Test at the widths `DESIGN.md`'s Layout fixes, never at ones picked per session**: the desktop breakpoint it names — 1440px when it names none — and the supported lower bound.
 - **Capture proof as the Proof profile in `docs/product.md` says.** *Browser* and *dev server* in this skill are the web default: a profile naming an emulator or a window capture substitutes its own Run and Visual lines wherever those words appear, at the same two widths or the platform's equivalent bounds. No Proof profile → the web default as written. A profile line still `[needs verification]` → capture what is possible and report what was not, never claim it.
 

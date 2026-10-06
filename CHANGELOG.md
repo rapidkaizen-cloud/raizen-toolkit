@@ -2,6 +2,28 @@
 
 All notable changes to the `raizen-norms` plugin, and to `raizen-hub` until 0.70.0 merged it in, newest first. The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). Versions before these are in `git log`.
 
+## [raizen-norms 0.84.3] - 2026-10-06
+
+Rules for what the proof of 0.84.2 found on the two paths that draw no canvas, `Keep — today's look` and fix-the-drift. Walked on paper by three subagents on invented apps, fix-the-drift through to its close for the first time; what they found in the new text was corrected and not walked again. No session has run any of it.
+
+### Changed
+
+- `design-settle`, `DESIGN.md`: `## Components` names the one icon family and holds icon sizes and stroke weight in its component-token table, and `## Page Composition` names the proving page, the first of the two frame screens. `build-flow` judges every later page beside that page, and no file said which one it is.
+- `design-settle`, the audit: it measures the contrast of each pair of colours the app renders, and a Keep with no `DESIGN.md` writes `## Contrast` from them, because a Keep draws no foundations board to compute them on; a pair under its floor is put to you. In a real row copied into `handover.md`, every name, phone number, e-mail, address and free-text value is replaced by an invented one of the same shape, and no file holding real rows is listed. The report back says whether the running app was walked. Routes are read from the routes folder of a file-routed app, fonts from the root layout where the framework writes no HTML entry, and a copy-in library's slots from the tokens its copied files read.
+- `design-settle`, the stack where UI exists: a part is indicted in three cases only — a floor failed inside a package's own stylesheet, two packages in use for one job, an engine that paints where the styling files cannot reach. An icon pack indicted for two families offers each family alone, the one more files import recommended. A part kept by a `Keep` line left standing gets its decision record, and `CLAUDE.md`'s Component library row is written where it names none.
+- `design-settle`, Step 8 where no canvas was drawn: the structural diff, the pixel diff, the rendered-structure count and the signature read `n/a — no canvas` instead of each becoming a queue line. Each approved repair is read again at its place, a rejected one fails no check, a page is compared with its audit screenshot except where a repair landed, and the chat stop that proposes a deletion offers `.design-audit/` and the seed rows.
+- `design-settle`, fix-the-drift: a `DESIGN.md` naming no proving page gets one line for it at the gate. The gate's file plan counts the files the pass writes on every path — `/design-system`, the lint floor, `AGENTS.md` — so the file-plan check no longer fails on them. The pass repairs the approved findings and nothing else of the app's UI.
+- `build-flow`: with no proving page named, a page is judged by Section 4's two questions alone and the gap is reported.
+
+### Fixed
+
+- `design-settle`, sentences that disagreed: `ui-ux-pro-max` is read from Step 3 and the rest of the design material from Step 5. A section named from another step is read alone. A Keep redraws nothing, and its code changes only by a repair approved at the gate. Fix-the-drift changes `DESIGN.md` only by what its gate ratifies. The Step 9 block names a Keep's undrawn proposals, each need `docs/product.md` lacks, linter warnings left standing and seed rows still in the database, and leaves out a line nothing fills.
+- The lint floor and `AGENTS.md`'s `## UI` part are written in `design-settle`'s pass: `ui-build`, `app-settle`'s scaffold and the install block said ratification.
+
+To act on:
+
+- Nothing. A `DESIGN.md` written before this version names no proving page and no icon family: `build-flow` reports the first, and the next `design-settle` run writes both — fix-the-drift writes the proving page alone.
+
 ## [raizen-norms 0.84.2] - 2026-10-06
 
 ### Changed

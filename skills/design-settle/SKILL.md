@@ -20,7 +20,7 @@ A rule marked *UI exists* or *`DESIGN.md` written* runs only under that fact; an
 
 ## What a run costs — four rules
 
-- **Read a step's file when the flow reaches that step, never earlier.** The table under Step 2 names each one; a file for a switch that is off is never read.
+- **Read a step's file when the flow reaches that step, never earlier.** The table under Step 2 names each one; a file for a switch that is off is never read, and a section named from another step is read alone, by its heading.
 - **Run a step's independent reads, searches and commands in one turn** — parallel calls, or one chained command — because every extra model call re-reads the whole session.
 - **Hand non-taste work to one subagent on a cheaper model than the session's** (`sonnet` on Claude Code): the audit, the stack verification, the reference search, the platform research, Step 8's mechanical checks. Brief it with the file that rules the job and take back only the compact result that file names — its raw results never enter this session. No subagent → run it here and say so; no model choice → the session's model.
 - **Never re-read what the session start printed** — the documents and the two listings.
@@ -33,7 +33,7 @@ A rule marked *UI exists* or *`DESIGN.md` written* runs only under that fact; an
 
 **`DESIGN.md` and the decision records are written once, never before their stop** — at Step 6 where no UI exists; where UI exists, after the gate approves, as the pass's first act on its own branch. No draft stands in for them, and a rejection leaves every document as it was.
 
-**Decisions are written in four places and no fifth:** `DESIGN.md` (`references/design-md.md`), with any sidecar `impeccable`'s schema puts beside it — in a legacy repo, Section 5 and the `DESIGN.md` generated from it · `docs/decisions/`, one record per stack dialog answered — none in a legacy repo · the Component library row of `CLAUDE.md` when the library answer is not *keep* · the `## UI` part of `AGENTS.md` — paths and a command, never a value.
+**Decisions are written in four places and no fifth:** `DESIGN.md` (`references/design-md.md`), with any sidecar `impeccable`'s schema puts beside it — in a legacy repo, Section 5 and the `DESIGN.md` generated from it · `docs/decisions/`, one record per stack part settled (`ratify.md`) — none in a legacy repo · the Component library row of `CLAUDE.md` when the library answer is not *keep* or the row names none · the `## UI` part of `AGENTS.md` — paths and a command, never a value.
 
 **Every other write is on this closed list and records no decision:** the styling files and the library's theme file · the `/design-system` route · the linter config and its suppression baseline · a whole `AGENTS.md` where none exists · `docs/queue.md` lines · the `docs/README.md` line for `DESIGN.md`, and for `docs/decisions/` where the folder is new · the `docs/guide/` pages quoting a label the pass changed · the dependency and lock files, through an approved install · everything under `src/design-canvas/` and `.design-audit/` · the files the pass writes — the approved file plan where UI exists, the promoted pages, contracts and routes where none does. Anything else is a finding. Never create `MASTER.md` or the `design-system/` folder `ui-ux-pro-max` persists, a staging document, or a `DESIGN.md` written from code. A document another skill produces in this session is neither committed nor referenced.
 
@@ -41,7 +41,7 @@ A rule marked *UI exists* or *`DESIGN.md` written* runs only under that fact; an
 
 **Blindness — where UI exists, the current design is not an input, and `DESIGN.md`'s prose is the current design.** Its visual-direction prose, signature, ornament rules, and archetype shell column are not constraints; a signature is redrawn only because the new direction earns it, tagged. The audit's numbers price the pass and power the before/after, never anchor the direction. **It is enforced by distance**: only the audit subagent opens the old UI; the drawing session works from `.design-audit/handover.md` and the answers, opens no file of the app beyond `docs/product.md`, `docs/rules.md`, `docs/glossary.md`, `CLAUDE.md`, and the data-layer files `handover.md` names, and never reads the dependency file. **The one exception is a value the user chose to keep**: that value alone is read from the styling files. A value meets the one it replaces only at the Step 6 gate, where the blindness ends.
 
-**Keeping everything is a valid ending.** All *keep*, `Keep — today's look`, or a revert closes with the code untouched and `DESIGN.md` unchanged — except that Keep with no `DESIGN.md` still writes it, from the ratified measured values, as the pass's first act after the gate (`gate.md`). Say so, report the findings, manufacture no change.
+**Keeping everything is a valid ending.** All *keep*, `Keep — today's look`, or a revert redraws nothing: the code changes only by a repair approved at the gate, and `DESIGN.md` only by what that gate ratifies — a Keep that finds none writes it whole, from the ratified measured values, as the pass's first act (`gate.md`). Say so, report the findings, manufacture no change.
 
 **A code-minimizing session mode governs the how, never the what.** Write every file lean, but never remove what this skill requests: the full product draft with its proposals tagged, every state drawn, the fixtures file that closes, the two-layer palette and the component-token table, the `/design-system` route, the compare page, the signature, and every engine or library approved at the install gate, used where it covers the job.
 
@@ -88,7 +88,7 @@ Platform        : [from the Surface row, else from the manifest and platform fil
 Primary role    : [from the Roles, else from the roles the code enforces, else asked at Step 1]
 Design material : [impeccable · frontend-design · ui-ux-pro-max present/absent — Required ·
                    review-animations present/absent, found per ui-build — Optional.
-                   Presence only: none is read before Step 5]
+                   Presence only: read from Step 5, ui-ux-pro-max from Step 3]
 Logic layer     : [settled — CLAUDE.md carries a Data layer row / not settled]
 Branch          : [name · clean or has uncommitted changes]
 Leftover        : [none / canvas alive / pass partly applied / pass applied — from
@@ -128,7 +128,7 @@ Documents missing, or a legacy `PRD.md` off-shape → **not a stop**: say so in 
 
 **Run it before the reading is put for correction, in one subagent whose whole brief is `references/audit.md`** — hand it the path and the repo root, and never read that file here. **The session that draws never opens the old UI** (Hard limits, Blindness).
 
-- **Its report back carries only**: the counts that price the pass, the pages holding too little by name, any logic-layer bleeding, the `DESIGN.md` indictment count where it is written, the path of `.design-audit/audit.md`, and the screenshot paths. The user reads `audit.md` now; this session opens it only at Step 6.
+- **Its report back carries only counts, names and paths, never a word on the look**: what prices the pass, the pages holding too little, any logic-layer bleeding, what it indicts — in `DESIGN.md` where it is written, in the stack — whether the running app was walked, the path of `.design-audit/audit.md`, and the screenshot paths. The user reads `audit.md` now; this session opens it only at Step 6.
 - **`Components affected` sizes the pass**; show it before the user decides anything.
 - **What the subagent cannot do runs here, after its report and the confirmed reading**: the archetype grouping's ratify-or-correct (`interview.md`, The archetype table) — where `DESIGN.md` is written and carries no archetype table, that absence is a finding — then the `logic-settle` offer for logic-layer bleeding, under that skill's rule — only where Step 0's Logic layer row reads `not settled`; bleeding that skill already priced and baselined is a report line. Declined → continue. Accepted → close here, run `logic-settle` in its own session, then `design-settle` from Step 0, because its pass reads every page and would end this session's blindness.
 - **No subagent available → say so, run the walk here from that file, and report the redesign as drawn with the old UI in context.**
@@ -149,7 +149,7 @@ Offer no third, narrower option: scope is narrowed by *keep* answers, which ever
 
 **Consequence, said in the question:** the affected-component count · a redesign re-opens the component library — a dialog where the audit indicts it, a cancellable `Keep` line where it does not — and a non-*keep* library answer rewrites every component and revokes `CLAUDE.md`'s stack lock · the app looks different afterwards · picking `Keep — today's look` at the frames turns a redesign into fix-the-drift · the pages holding too little, by name — drawn whole in a redesign, handed to `build-flow` Section 4 as one `docs/queue.md` line each in fix-the-drift.
 
-Fix the drift → `references/gate.md`, whose REPAIR list shows the findings, then the pass. `DESIGN.md` is untouched, except merging two roles at one value, approved line by line.
+Fix the drift → straight to `references/gate.md`, whose REPAIR list shows the findings, then the pass. `DESIGN.md` changes only by what that gate ratifies at repair scale.
 
 ## Steps 3 to 9 — one file each, read on arrival
 
@@ -158,8 +158,8 @@ Fix the drift → `references/gate.md`, whose REPAIR list shows the findings, th
 | 3 — The interview · 4 — The install gate | `references/interview.md` | The stack and four product calls that only lock answers, the reference search, the direction question, then the one install block. Nothing is installed while it runs |
 | 5, first half — The frames | `references/frames.md` | The material loaded, 2–4 direction frames on two screens, the pick on screen, one refine round. No value of the look is asked after the pick |
 | 5, after the pick — The canvas | `references/canvas.md`, and the five-rules section of `references/ratify.md` | The design plan, every page drawn in production-grade code, the three scans, the judgement of what was drawn — two correction rounds, then the look re-opens |
-| 6 — Ratification | `references/ratify.md`, and `references/gate.md` where UI exists | `DESIGN.md`, the decision records, the styling files, the lint floor — and the single stop that authorizes changing existing UI |
-| 7 — The pass | `references/pass.md` | Every canvas page promoted, in a fixed order, across sessions where it must |
+| 6 — Ratification | `references/ratify.md`, and `references/gate.md` where UI exists | `DESIGN.md`, the decision records, the styling files — and the single stop that authorizes changing existing UI |
+| 7 — The pass | `references/pass.md` | Every canvas page promoted, in a fixed order, then `/design-system` and the lint floor, across sessions where it must |
 | 8 — Verification · 9 — Close | `references/verify.md` | Every check with its evidence, the canvas deletion proposal, the closing block |
 
 The archetype table, the `/design-system` route and real running pages are produced whatever was picked.

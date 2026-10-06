@@ -6,6 +6,8 @@ Every check leaves something the user can inspect. **A check here or in Step 7 t
 
 **The mechanical checks run in one subagent** (`SKILL.md`, What a run costs), this section as its brief: it returns one line per check per page — verdict, the count or ratio, the evidence path — and fixes nothing. **The session runs the judged checks itself, fixes every failed item in the same session, and re-runs that check.** All of them pass before reporting done.
 
+**Where no canvas was drawn — fix-the-drift, a Keep — a check that reads a canvas file is `n/a — no canvas`**, never `not verified` and never a queue line: the structural diff, the pixel diff, the rendered-structure count, the signature. `Promoted page` reads as every page a repair touched, and each approved finding is re-read at its place — gone, or a failed item; a rejected finding stands and fails no check.
+
 ### Mechanical — the subagent
 
 - **The build passes.** It does not → stop, fix it, do not report done.
@@ -26,7 +28,7 @@ Every check leaves something the user can inspect. **A check here or in Step 7 t
 - **axe-core reports no serious or critical violation** on each promoted page, injected into the browser for the check only, never added to the app's dependencies.
 - **Under emulated `prefers-reduced-motion: reduce`, nothing on the promoted pages moves**, library transitions included; one the library cannot turn off stands as a finding.
 - **Pages running on fixtures are listed by name**, matching the `docs/queue.md` wire lines one for one.
-- **Where UI existed — the file plan matched.** Every file listed at the gate changed, and no file outside it did.
+- **Where UI existed — the file plan matched.** Every file an approved gate line names changed, and no file outside the gate's plan did, the documents on `SKILL.md`'s closed list excepted.
 - **Where UI existed — function parity holds.** Every function-inventory line is reachable **at both widths — a control hidden below the breakpoint is a missing function** — unless the user cut it and the gate said so.
 
 ### Judged — the session
@@ -36,7 +38,7 @@ Every check leaves something the user can inspect. **A check here or in Step 7 t
 - **Motion holds `review-animations`' floor** on a web-technology Surface: every animation on the promoted pages read against it, each refusal fixed or left standing with one line why. Not installed → `n/a — not installed`, said aloud.
 - **The signature survived promotion** on the pages that carry it.
 - **The proving page holds at both widths**, screenshots taken.
-- **Where UI existed — the seeded walk.** Seed `[CLAUDE]`-prefixed rows first. Walk the proving page at desktop and the lower bound; compare one page per archetype with its audit screenshot — each reads redesigned unless all behind it was *keep* and the gate said so.
+- **Where UI existed — the seeded walk.** Seed `[CLAUDE]`-prefixed rows first. Walk the proving page at desktop and the lower bound; compare one page per archetype with its audit screenshot — each reads redesigned unless all behind it was *keep* and the gate said so; where no canvas was drawn, each reads as its screenshot except where a repair landed.
 
 ### The canvas after promotion
 
@@ -44,23 +46,25 @@ Every check leaves something the user can inspect. **A check here or in Step 7 t
 
 - **Frozen.** Never edit a ratified canvas file again, and never use it as a source of values or patterns — `DESIGN.md`, the theme files, and the promoted page are the sources.
 - **Passing checks earn a proposal to delete — never a deletion.** Where real data was wired in-session: report the per-page diff verdict, invite a side-by-side walk at `/design-canvas`, end the turn and ask whether the canvas and seed rows may go — a chat stop, never an AskUserQuestion. Only a granted confirmation deletes page files, entry route, foundations board, canvas CSS and `.design-audit/` together, `.design-audit/gate.md` excepted until the pass's commit is made. The seed rows go only on a yes that names them; kept, Step 9 lists them as `[CLAUDE]` rows still in the database. A refusal or a named page makes that page a failed item now; the canvas stays.
+- **Where no canvas was drawn, the same stop asks for what is left** — `.design-audit/`, any file still under `src/design-canvas/`, and the seed rows — once the checks pass, under the same rules; refused, they stay and Step 9 names them.
 - **A page left on fixtures, or wired but never seen on real data, keeps its canvas file** until the session that wires it sees it survive both widths, compares page and canvas file, fixes silent divergence, and the user confirms the side-by-side at a chat stop — carried by `build-flow`. The remnants go with the last page file.
 
 ## Step 9 — Close
 
 **Nothing stays a draft.** Every canvas page ends promoted into a real route. **A pass this session could not finish is written down, not implied**: every page not yet promoted and every verification item not yet passing becomes a `docs/queue.md` line in `build-flow`'s page shape — a failing item rides its page's line; the canvas stays alive until those lines clear.
 
-One block:
+One block, a line nothing fills left out:
 
 - the detector's numbers — Step 8's count, beside the audit's where UI existed — and every hit left standing with its one-line justification;
-- every `review-animations` refusal and every UX-floor don't left standing, with its line;
+- every `review-animations` refusal, UX-floor don't and linter warning left standing, with its line;
 - the `DESIGN.md` lines that changed, where there was an old one · the decision records written;
 - files changed, with their count, and files `UNTOUCHED` · every `CLAUDE.md` line naming a file the pass deleted, left for the user to edit;
 - each page's fate — promoted and wired, or promoted on fixtures with its `docs/queue.md` wire line;
 - items the user rejected, still standing as findings;
+- the product draft's proposals a Keep left undrawn, named once · every need stated at the reading's correction that `docs/product.md` lacks;
 - every decision the pass took at the data seam — an error slot, a control disabled during a paid call, retry wording — one cancellable line each; a cancelled one is redone to what the user says and its Step 8 checks re-run, in a commit of its own;
 - the canvas outcome and how many rounds it took · the verification results, per-page diff verdicts included;
-- the canvas files still standing and the queue line that will retire each;
+- the canvas files still standing and the queue line that will retire each · `.design-audit/` and `[CLAUDE]` seed rows still standing;
 - the `/design-system` route named as staying dev-only, deletable at the user's word;
 - the lint floor — refusals written, the baseline's size, anything `not enforceable`;
 - what is still `[needs verification]` · every conflict the Step 1 reading named, with its `docs/queue.md` line where the pass depends on it;
@@ -70,4 +74,4 @@ State that this gate **no longer applies** to later pages — from here on `DESI
 
 **Commit by the session norms' `GIT` block, once, with nothing else in it** — where UI exists on the pass's branch, its message body the gate block from `.design-audit/gate.md`, which goes once that commit is made; where none exists on the current branch, its body the `DESIGN.md` sections and decision records written. Merging is the user's move.
 
-Nothing changed — every answer *keep*, today's look picked where `DESIGN.md` was already written, or the canvas reverted → say so in one line and list the audit findings that remain.
+Nothing changed — nothing approved at the gate, or the canvas reverted → say so in one line and list the audit findings that remain.

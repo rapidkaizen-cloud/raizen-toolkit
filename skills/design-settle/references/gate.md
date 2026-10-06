@@ -45,7 +45,7 @@ End the turn and wait for the chat reply; lines may be approved or rejected by n
 
 ## Fix the drift, or `Keep — today's look`
 
-**Nothing is redrawn and nothing leaves on this gate**: it has no file plan beyond the findings' files and no removals — the frame inventory is read against canvas pages only in a redesign.
+**Nothing is redrawn and no function leaves on this gate**: its file plan is the findings' files and the files the pass writes on every path (`pass.md`, its first act and points 5, 7 and 8), and it has no removals group — the frame inventory is read against canvas pages only in a redesign.
 
 **Keep with no `DESIGN.md` opens with `DESIGN.md` as it will be written**, one line per ratified value (`ratify.md`) — `Radius : 8px (measured) → kept`, or `Radius : scattered (measured) → 8px` where the answer differs — then the findings list, one finding per place that departs from an answered value. A rejected value line reopens that value's question, never Step 5. Approval writes `DESIGN.md` as the pass's first act even where the list is empty, never closing at Step 9 with it unwritten; from here on that Keep is fix-the-drift against the `DESIGN.md` just approved, and every rule naming fix-the-drift binds it.
 
@@ -59,6 +59,6 @@ REPAIR — [n] findings
    "Belum dihubungi"  →  icon only, text to aria-label
 ```
 
-STOP for approval per item; a rejected item stays a finding, reported at Step 9. Merging two `DESIGN.md` roles at one value is approved line by line here. The archetype table, where `DESIGN.md` lacks one, is filled from `audit.md` and ratified here at repair scale (`interview.md`).
+STOP for approval per item; a rejected item stays a finding, reported at Step 9. Merging two `DESIGN.md` roles at one value is approved line by line here. The archetype table, where `DESIGN.md` lacks one, is filled from `audit.md` and ratified here at repair scale (`interview.md`); the proving page, where it names none, is one line beside it — the page carrying the most of this app's own subject. A rejected row or proving page is asked what stands instead.
 
 Approved → `pass.md`.

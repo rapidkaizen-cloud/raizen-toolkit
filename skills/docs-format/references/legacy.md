@@ -42,7 +42,7 @@ Every rule of `SKILL.md` binds the section the map sends it to; this file adds o
 | Elevation & Depth, Shapes | None — shadows and radius live in the styling files and the component tokens |
 | Components | Component Tokens and Reusable Components |
 | Do's and Don'ts | Anti-patterns — only prohibitions the user ratified |
-| Page Composition | Page Composition — the shell and the archetype table |
+| Page Composition | Page Composition — the shell, the proving page and the archetype table |
 | Contrast | The contrast minimums in Color |
 
 **A Section 5 of the adopted-whole shape** — a library and version adopted unmodified, an icon family, and three prohibitions: no theme file, no custom token, no override — is still normative where it exists, though none is written this way any more. It is never `[needs verification]`: the decision was made. It refuses overrides more completely than a filled Section 5, because it states no rule an override could cite. The spacing scale in use is the library's.

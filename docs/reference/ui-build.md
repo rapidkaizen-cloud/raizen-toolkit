@@ -38,7 +38,7 @@ A pattern appearing a second time is extracted, not copied. Components that hold
 
 **The lint floor** (The lint floor). Your repo's own linter refuses four failures in every session: a raw element the shared set or library already ships, a raw value in product code, a numbered ramp step in product code where an alias layer exists, and a primitive imported outside the components folder.
 
-- **`design-settle` writes the floor** at ratification. A repo with a `DESIGN.md` and no floor gets it from `app-settle`'s align mode.
+- **`design-settle` writes the floor** in its pass. A repo with a `DESIGN.md` and no floor gets it from `app-settle`'s align mode.
 - **Lint runs before any UI scope item is committed.** A refusal is fixed in the code that caused it.
 - **An inline disable, or a rule lowered to a warning, is a finding.**
 - **A refusal that is wrong is reported.** The config is narrowed only on your word.
