@@ -36,7 +36,8 @@ MARK = "DOCS CHECK - commit "
 DOCS_FORM = (
     "  - Did a sentence in `docs/product.md`, `docs/rules.md`, `docs/glossary.md`, "
     "`docs/architecture.md`, `docs/runbook.md` or `README.md` become false?\n"
-    "  - Did it change how the app behaves? Then it owes a `docs/changelog.md` entry.\n"
+    "  - Did it change how the app behaves? Then it owes a `docs/changelog.md` entry, in a "
+    "new file where the repo has none.\n"
     "  - Did it finish a `docs/queue.md` line that is still standing?\n"
 )
 # Asked only where the app keeps guide pages for its users: `product.md`'s Help row, which

@@ -19,7 +19,7 @@ An app settled by `app-settle` keeps its documents under `docs/`. `docs/PRD.md` 
 
 In order, from the moment of the change to the latest it can be caught:
 
-1. **The rule.** The commit that makes a document false carries its correction, never a later commit. A commit that changes how the app behaves carries a `docs/changelog.md` entry. A commit that changes no document is reported `Docs: none` with its reason — no commit goes unreported.
+1. **The rule.** The commit that makes a document false carries its correction, never a later commit. A commit that changes how the app behaves carries a `docs/changelog.md` entry, and creates the file where the repo has none. A commit that changes no document is reported `Docs: none` with its reason — no commit goes unreported.
 2. **The reminder.** After a commit that touched no document, the session is handed its questions: did a sentence in a document become false, did the app's behaviour change, did it finish a queue line — and, in an app that keeps help for its users, did a page become usable with no guide page. It answers by writing the document into that commit, or by reporting `Docs: none` and why. The reminder never blocks a commit. On Claude Code it arrives with the commit's result; on Antigravity, before the session's next step, once per commit.
 3. **The closing report.** Every session ends on a `Docs:` line naming the documents it changed and what waits for your decision.
 4. **Session start.** A path a living document names that no longer exists is listed before any work.

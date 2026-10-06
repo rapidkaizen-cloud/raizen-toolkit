@@ -204,8 +204,8 @@ DOCS_FORM = [
         "holds what is not built yet.\n",
         "Write no document outside the closed list in `docs-format`, and keep every listed\n"
         "one true in the commit that changes what it says. A commit that changes how the\n"
-        "app behaves carries its `docs/changelog.md` entry. `docs/queue.md` holds what is\n"
-        "not built yet.\n",
+        "app behaves carries its `docs/changelog.md` entry, in a new file where the repo has\n"
+        "none. `docs/queue.md` holds what is not built yet.\n",
     ),
     (
         "absent from the PRD. Leave the working tree dirty and report the stop instead. So at\n"
@@ -274,8 +274,8 @@ UNSETTLED_FORM = [
     (
         "Write no document outside the closed list in `docs-format`, and keep every listed\n"
         "one true in the commit that changes what it says. A commit that changes how the\n"
-        "app behaves carries its `docs/changelog.md` entry. `docs/queue.md` holds what is\n"
-        "not built yet.\n",
+        "app behaves carries its `docs/changelog.md` entry, in a new file where the repo has\n"
+        "none. `docs/queue.md` holds what is not built yet.\n",
         "Do not emit documentation that was not explicitly requested.\n",
     ),
     (

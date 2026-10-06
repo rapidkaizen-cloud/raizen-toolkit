@@ -69,7 +69,7 @@ Environment variables by name, never by value.
 
 **A commit that makes a living document false carries its correction, never a later commit** — a moved part its `architecture.md` sentence, a changed deploy step its `runbook.md` step, a new term its glossary row, a changed page its guide page where they are kept, a listed file added or removed its `docs/README.md` line.
 
-**A commit that changes how the app behaves carries its `docs/changelog.md` entry** — a rule, a flow, a permission, a schema, an integration, how it is run or deployed. A `docs/` repo with no `docs/changelog.md` gets the file in that commit; its absence is never a reason to write none.
+**A commit that changes how the app behaves carries its `docs/changelog.md` entry** — a rule, a flow, a permission, a schema, an integration, how it is run or deployed. A `docs/` repo with no `docs/changelog.md` gets the file in that commit, to its shape in `references/shapes.md` and with its `docs/README.md` line; its absence is never a reason to write none.
 
 **A commit that changes no document is reported `Docs: none — <why>`**, the why in one clause: a refactor, a test, a rename nobody outside the code meets. No commit goes unreported.
 

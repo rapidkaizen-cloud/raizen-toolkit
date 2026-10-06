@@ -36,9 +36,9 @@ Documents are named by their `docs/` path; a repo with a root `PRD.md` reads eac
 
 ## Gate — the visual direction must already be set
 
-**Before writing any UI component, read `DESIGN.md`.** Absent, empty, or `[needs verification]` in every line → **STOP**: write no component, no styling value, no token, because every rule below measures the code against `DESIGN.md`.
+**Before writing any UI component, read `DESIGN.md`.** Absent, empty, or `[needs verification]` in every line → **STOP**: write no component, no styling value, no token, because every rule below measures the code against `DESIGN.md`. Offer no way around the stop: `design-settle` is its one exit.
 
-- **A `DESIGN.md` with only some lines `[needs verification]` is written, and binds.** What such a line would rule is taken from a component already in the repo, never typed as a new value, and the line is reported as owed by `design-settle`.
+- **A `DESIGN.md` with only some lines `[needs verification]` is written, and binds.** Take what such a line would rule from a component already in the repo, never type it as a new value, and name the line in the closing block, among the defaults decided, as owed by `design-settle`.
 - **A repo the session start marks `NOT SETTLED` is outside this gate**: that block says what UI may be written there.
 - **Point the user at `design-settle`, whatever state the repo is in.** Never name a path or decide one; its own audit decides. Components with no `DESIGN.md` are its normal input, not an error — `app-settle`'s document mode leaves the design system unwritten.
 - **One exemption: the design canvas and the `/design-system` scaffold** — `src/design-canvas/` and the design-system route; on a non-web Surface, whatever `canvas.md` defines for that platform. A design skill builds them to produce `DESIGN.md`, and the exemption is theirs alone: no real page, component, or token is written until it lands.

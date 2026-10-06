@@ -9,7 +9,7 @@ Only this block, filled. **Run the rows your brief names under `Rows`, and print
 ```
 AUDIT
 C1 platform residue : [platform that left · what still references it — files, deps, lockfile hosts, agent files, MCP permissions]  or  [none]
-C2 agent files      : [CLAUDE.md — N norms duplicated from the plugin · N stale skill or command names · missing Stack rows]
+C2 agent files      : [CLAUDE.md — N norms duplicated from the plugin · N norms the plugin prints nowhere · N stale skill or command names · missing Stack rows]
                       [AGENTS.md — missing · parts missing · N paths in its UI or Logic part that do not resolve]  or  [both clean]
 C3 language split   : [N identifiers, routes, or database names in the UI language]  or  [clean]
 C4 guard coverage   : [per norm that cannot apply here — which one, and why it is silent]  or  [every norm applies]
@@ -28,7 +28,7 @@ C7 rule coverage    : [N rule topics · N quoted by a test title · runner — <
 
 **C2 — the agent files.** `CLAUDE.md` has two failures that look alike:
 
-- A norm the plugin now prints, copied into the file. Find it by reading the file against the plugin text: `session_norms.py` detects only the phrases of the old **English** template, so a hand-written or translated file is invisible to it.
+- A norm the plugin now prints, copied into the file. Find it by reading the file against the plugin text: `session_norms.py` detects only the phrases of the old **English** template, so a hand-written or translated file is invisible to it. **List it with the plugin file and line that prints it**; a norm no plugin line prints is counted apart, because deleting it loses the rule.
 - A name that no longer exists — a skill that was merged, a command that was renamed.
 
 `AGENTS.md` takes its shape from `app-settle`'s `references/scaffold.md` (N5): report it missing, the parts it lacks, and every path its `## UI` or `## Logic` part names that does not resolve.

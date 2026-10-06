@@ -12,7 +12,7 @@ A session writes no UI until `DESIGN.md` exists, reuses the components already i
 
 ## What a session is held to
 
-**No UI before `DESIGN.md`** (Gate). Before any component, the session reads `DESIGN.md`. Absent, empty, or `[needs verification]` in every line, it stops and writes no component, styling value or token. A `DESIGN.md` with only some lines `[needs verification]` does not stop it: what such a line would rule is taken from a component already in your repo, never typed as a new value, and the line is reported as owed by `design-settle`. It points you at `design-settle` and never names a path itself.
+**No UI before `DESIGN.md`** (Gate). Before any component, the session reads `DESIGN.md`. Absent, empty, or `[needs verification]` in every line, it stops and writes no component, styling value or token, and offers no way around the stop: `design-settle` is its one exit. A `DESIGN.md` with only some lines `[needs verification]` does not stop it: what such a line would rule is taken from a component already in your repo, never typed as a new value, and the closing block names the line, among the defaults the session decided, as owed by `design-settle`. It points you at `design-settle` and never names a path itself.
 
 - **A repo the session start marks `NOT SETTLED`** is outside this gate; that block says what UI may be written there.
 - **The design canvas and the `/design-system` scaffold** are exempt, because a design skill builds them to produce `DESIGN.md`.

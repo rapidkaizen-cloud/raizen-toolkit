@@ -2,6 +2,21 @@
 
 All notable changes to the `raizen-norms` plugin, and to `raizen-hub` until 0.70.0 merged it in, newest first. The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). Versions before these are in `git log`.
 
+## [raizen-norms 0.85.1] - 2026-10-07
+
+Corrections from sessions that ran the rules of 0.85.0 in throwaway clones — headless, and on a scripted `sdk-ts` host that answers a dialog. Each was written from what a session did. The first two were run again on Sonnet and held; the last two were run by no session after the correction.
+
+### Fixed
+
+- `ui-build`, the gate: at its stop the session offers no way around it. A Sonnet session stopped on a `DESIGN.md` marked `[needs verification]` in every line, then offered to build anyway on your word and recommended that over `design-settle`. Where only some lines are marked, the closing block names the line as owed by `design-settle`; a Sonnet session built correctly and reported nothing.
+- Session start and the document reminder: a commit that changes how the app behaves writes its `docs/changelog.md` entry in a new file where the repo has none, to the file's shape and with its `docs/README.md` line. Two Sonnet sessions wrote no entry and gave the missing file as the reason — one after a rule change.
+- `build-flow`: in a UI batch the content proposal comes before the page's `Contract + fixtures` line. A session built that line first and shaped the contract — filters, a summary row, pagination — from no proposal.
+- `app-settle`, align: the audit lists a norm copied into `CLAUDE.md` with the plugin line that prints it, and counts apart a norm the plugin prints nowhere. Such a norm stays in the file and is reported on the `For app-eval` row. An audit counted a line the plugin does not print as a copy, and align deleted it.
+
+To act on:
+
+- Nothing. A `docs/` repo with no `docs/changelog.md` gets the file from the next commit that changes behaviour.
+
 ## [raizen-norms 0.85.0] - 2026-10-06
 
 Five decisions the proof of 0.84.3 left owed, each answered as recommended. Checked on paper by case questions; no session has run them.

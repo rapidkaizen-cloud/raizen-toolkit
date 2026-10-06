@@ -75,7 +75,7 @@ Never put in a line what `docs/rules.md`, `docs/glossary.md`, or `docs/product.m
 
 ## 4 — Before touching code: propose the content, collect the questions once
 
-**Decide what a page holds before it is built** — for any page entering the queue, new or long since built. A page that exists is proposed as *what is missing from this page*.
+**Decide what a page holds before it is built** — for any page entering the queue, new or long since built. A page that exists is proposed as *what is missing from this page*. **In a UI batch, propose before the page's `Contract + fixtures` line, never before its page line**: the contract's type is where the decision is recorded.
 
 **Open the proposal by naming the page's archetype** from the screen archetype table in `DESIGN.md`'s Page Composition: its shell layout, components, and density profile are the skeleton the two lists hang on.
 
