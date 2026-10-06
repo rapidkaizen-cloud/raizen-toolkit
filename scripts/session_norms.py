@@ -24,7 +24,9 @@ file path nobody is told to read, which cut the norms off after `LANGUAGE` in ev
 whose documents made the output longer. So the output stays under `BUDGET`: the norms
 and the notes always, then each document whole where it fits and named with an order to
 read it where it does not, then the listings, cut where the room ends. A pointer that
-arrives beats a document that does not.
+arrives beats a document that does not. A document that is only named still gets its
+prohibitions printed where they fit: sessions on a cheaper model skipped the read, and
+the prohibitions are what a narrow session breaks.
 
 The two inventories — components, and the data layer's functions — are printed for
 the same reason. `ui-build` orders a listing
@@ -83,6 +85,7 @@ POINTERS - read before touching
   UI, components, styling tokens                  : skill `ui-build`
   Schema, RLS, migrations                         : skill `db-ops`
   Queries, actions, handlers, keys, env vars      : skill `logic-build`
+  Which command to run, the version, what changed : skill `norms-help`
 Skills load by judgement rather than by rule, and a new component triggers no file
 read at all - so the components and the data-layer functions this repo already has
 are listed at the end of this block, wherever it has any. Do not write new UI without
@@ -108,7 +111,8 @@ and ask to run `git pull --ff-only`.
 
 Committing is part of finishing, not a separate request:
   - A scope item that is finished is committed in the same turn, without asking first.
-  - Name the paths explicitly. `git add -A` and `git add .` are refused.
+  - Name the paths explicitly, in `git add` and again in `git commit -- <paths>`: a
+    path staged before you never rides along. `git add -A` and `git add .` are refused.
   - The message states why, not only what - the diff already shows the what.
   - Paths that changed outside SCOPE are findings reported to the user, never
     committed along.
@@ -137,6 +141,8 @@ ASKING
 A decision that is the user's is asked through AskUserQuestion, or answered in chat at
 a hard stop; then you run it yourself. Never hand the user a command to type - only
 what needs their own hands: a browser login, a dashboard, a key rotation, a payment.
+A block or a table a skill orders printed is printed whole: a brevity mode set by
+another plugin shortens prose, never that.
 
 """
 
@@ -254,6 +260,7 @@ and the documents the build skills measure code against do not exist.
   - Build UI only from the components and tokens this repo already has, and write no new
     styling value. A repo with no UI yet is not bound by this.
   - In an app repo, say once, when the work is done, that `app-settle` has not run here.
+  - Which command to run, the version, what changed: skill `norms-help`.
 
 """
 
@@ -437,8 +444,29 @@ def read(path: Path) -> str:
         return ""
 
 
+PROHIBITIONS = re.compile(r"^## Prohibitions[ \t]*$", re.M)
+SECTION = re.compile(r"^## ", re.M)
+
+
+def prohibitions(rel: str, text: str) -> str:
+    """The prohibitions section of the two documents that hold one, else nothing."""
+    if rel == "PRD.md":
+        marks = list(PRD_SECTION.finditer(text))
+        if [m.group(1) for m in marks] != ["1", "2", "3", "4", "5", "6"]:
+            return ""
+        return text[marks[-1].start() :].strip()
+    if rel != "docs/product.md":
+        return ""
+    mark = PROHIBITIONS.search(text)
+    if not mark:
+        return ""
+    after = SECTION.search(text, mark.end())
+    return text[mark.start() : after.start() if after else len(text)].strip()
+
+
 def document(root: Path, rel: str, what: str, room: float) -> str:
-    """A document whole where it fits the room left, else named with an order to read it."""
+    """A document whole where it fits the room left, else named with an order to read it
+    and, where they fit, its prohibitions."""
     text = read(root / rel)
     if not text:
         return ""
@@ -461,7 +489,10 @@ def document(root: Path, rel: str, what: str, room: float) -> str:
         if ranges
         else "Read it before the first edit of this session."
     )
-    return f"{head}Not printed: no room left at session start. {order}\n{warning}"
+    named = f"{head}Not printed: no room left at session start. {order}\n"
+    part = prohibitions(rel, text)
+    kept = f"{named}Its prohibitions bind whether or not it is read:\n\n{part}\n"
+    return (kept if part and size(kept + warning) <= room else named) + warning
 
 
 # Where components live, by the folder name every stack in the rubric converges on.

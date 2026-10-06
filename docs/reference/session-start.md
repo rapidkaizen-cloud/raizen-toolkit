@@ -26,11 +26,11 @@ Order: the norms, the documents and their notes, the two listings, the hand-over
 |---|---|---|
 | `SESSION NORMS (raizen-norms)` | Always | The heading, and that the norms hold where they and the app's `CLAUDE.md` disagree about a norm |
 | `LANGUAGE` | Always | Your language for chat, documents, commit messages, pull requests and on-screen strings; English for comments, identifiers, file names, URL routes, API paths and every database name; enum values decided per case |
-| `POINTERS` | A repo with `PRD.md` or `docs/PRD.md` | Which skill to read before which work: `build-flow`, `docs-format`, `ui-build`, `db-ops`, `logic-build` |
-| `NOT SETTLED` | A repo with neither, in place of `POINTERS` | That `app-settle` has not run: `build-flow` and `docs-format` do not apply, UI is built only from the components and tokens the repo has, and the session says once at the end that `app-settle` has not run |
+| `POINTERS` | A repo with `PRD.md` or `docs/PRD.md` | Which skill to read before which work: `build-flow`, `docs-format`, `ui-build`, `db-ops`, `logic-build` — and `norms-help` for which command to run, the version and what changed |
+| `NOT SETTLED` | A repo with neither, in place of `POINTERS` | That `app-settle` has not run: `build-flow` and `docs-format` do not apply, UI is built only from the components and tokens the repo has, the session says once at the end that `app-settle` has not run, and `norms-help` answers which command to run |
 | `SCOPE` | Always | Only what was asked, no refactor or rename outside it, and the limit on documents |
-| `GIT` | Always | `git fetch` and a branch check first, a stop on `main` where `development` exists or when behind `origin/development`, commit a finished item in the same turn with named paths, one line after a commit telling you to start the next item in a new session, push and pull request as a chat stop |
-| `ASKING` | Always | A decision that is yours is asked, or answered in chat at a hard stop; the session never hands you a command to type |
+| `GIT` | Always | `git fetch` and a branch check first, a stop on `main` where `development` exists or when behind `origin/development`, commit a finished item in the same turn with its paths named in `git add` and again in `git commit -- <paths>`, so a path staged before the session never rides along, one line after a commit telling you to start the next item in a new session, push and pull request as a chat stop |
+| `ASKING` | Always | A decision that is yours is asked, or answered in chat at a hard stop; the session never hands you a command to type. A block or a table a skill orders printed is printed whole, whatever brevity mode another plugin sets |
 | `DECISIONS` | Always | An answer with two or more decisions closes with one table: question, options, recommendation and its trade-off |
 | `CLOSING THE SESSION` | A repo with `PRD.md` or `docs/PRD.md` | The report per scope item, then a block written even when the answer is "none" |
 | `HOST - Antigravity` | Antigravity only | See below |
@@ -53,7 +53,7 @@ Each document opens with `--- <file> — <what it holds> ---`. An empty or missi
 Claude Code replaces a hook's output over 10,000 characters with its first 2,000 and a file path, so an output that long loses most of the norms. The script keeps under it, in this order:
 
 1. **The norms and the notes are always printed whole.**
-2. **Each document is printed whole if it still fits.** One that does not is named under its own heading: `Not printed: no room left at session start. Read it before the first edit of this session.` For a root `PRD.md` in the six-section shape, the line names the line ranges of sections 1, 2 and 6 to read.
+2. **Each document is printed whole if it still fits.** One that does not is named under its own heading: `Not printed: no room left at session start. Read it before the first edit of this session.` For a root `PRD.md` in the six-section shape, the line names the line ranges of sections 1, 2 and 6 to read. Where the document holds prohibitions and they fit — `## Prohibitions` in `docs/product.md`, section 6 of a root `PRD.md` — they are printed under that line, after `Its prohibitions bind whether or not it is read:`, because a session that skips the read still owes them.
 3. **A listing is cut at a line where the room ends**, and closes with a line starting `... more`, telling the session to list the folder itself. A hand-over that does not fit is cut the same way and closes with `... the hand-over is cut here: a session start carries no more.`
 
 A repo whose output already fitted gets exactly what it got before. On Antigravity nothing is cut: the text goes in as a message, which has no such cap.

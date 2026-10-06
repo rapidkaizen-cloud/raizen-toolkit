@@ -9,17 +9,17 @@ Where an app's `CLAUDE.md` and the norms disagree about a norm, the norms are th
 | Block | What a session does because of it |
 |---|---|
 | `LANGUAGE` | Writes chat, the documents, commit messages, pull requests and the strings the app puts on screen in your language. Writes comments, identifiers, file names, URL routes, endpoint paths and every database name in English. Decides enum values per case. Reports existing code in the other language as a finding instead of matching it |
-| `POINTERS` | Reads the rule skill for the work in hand before touching it: `build-flow`, `docs-format`, `ui-build`, `db-ops`, `logic-build` |
+| `POINTERS` | Reads the rule skill for the work in hand before touching it: `build-flow`, `docs-format`, `ui-build`, `db-ops`, `logic-build`. Loads `norms-help` when you ask which command to run, the version, or what changed |
 | `SCOPE` | Does only what was asked — no refactor, no rename, nothing "while I'm here" — and writes no document outside the list `docs-format` keeps |
 | `GIT` | Fetches and checks the branch before anything else. Commits a finished scope item in the same turn, without asking, with named paths and a message that says why. Leaves the tree dirty when it stops for you. Never commits on `main` while `development` exists. Treats a push or a pull request as a stop in chat |
-| `ASKING` | Asks you what is yours to decide, then runs it itself. Never hands you a command to type — only what needs your own hands: a browser login, a dashboard, a key rotation, a payment |
+| `ASKING` | Asks you what is yours to decide, then runs it itself. Never hands you a command to type — only what needs your own hands: a browser login, a dashboard, a key rotation, a payment. Prints a block or a table a skill orders whole, whatever brevity mode another plugin sets |
 | `DECISIONS` | Closes an answer that carries two or more decisions with one table: question, options, recommendation. The recommendation names its trade-off, and the table comes before the work |
 | `CLOSING THE SESSION` | Ends on a report per scope item, then a fixed block: the page usable now and its route, pages touched by spread, defaults it decided itself, unfinished steps as queue lines, what you must do by hand, the branch and the commits, and the documents it changed |
 
 ## What the git block means for you
 
 - **A clean tree means finished. A dirty tree means something is waiting on you.**
-- **`git add -A` and `git add .` are refused**, so a commit never carries a path nobody named. A path that changed outside the scope is reported, never committed along.
+- **`git add -A` and `git add .` are refused**, and the commit names its paths again (`git commit -- <paths>`), so a commit never carries a path nobody named — one staged before the session included. A path that changed outside the scope is reported, never committed along.
 - **A push is never a dialog.** The session ends its turn on the exact command and the commits it publishes, and runs it once when your reply is a clear yes. See [Gates](gates.md).
 - **After a commit, the session tells you to start the next item in a new session.** Every call re-reads the whole session, so the same step costs more late in a long one than at the start of a fresh one. It is advice: you may stay.
 

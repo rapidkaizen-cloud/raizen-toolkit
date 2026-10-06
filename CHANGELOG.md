@@ -2,6 +2,24 @@
 
 All notable changes to the `raizen-norms` plugin, and to `raizen-hub` until 0.70.0 merged it in, newest first. The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). Versions before these are in `git log`.
 
+## [raizen-norms 0.84.0] - 2026-10-06
+
+### Added
+
+- Session start: a `docs/product.md` or a root `PRD.md` too long to print still gets its prohibitions printed under the order to read it, where they fit. Sessions on a cheaper model skipped the read.
+- Session norms: `POINTERS` and `NOT SETTLED` name `norms-help` for which command to run, the version and what changed — on a machine with many skills its description never reaches the model.
+- Session norms, `ASKING`: a block or a table a skill orders printed is printed whole, whatever brevity mode another plugin sets. Under one, a session printed neither Step 0's block nor the `MIGRATE` block.
+- `app-settle`, bootstrap: N5 runs the platform's own init command for a Ready platform too, first after the summary's approval, which names it. No step created the app's skeleton, so question 8's `install now` had nothing to install into.
+- `app-settle`, document: a `CLAUDE.md` that imports `AGENTS.md` is asked once — remove the import line, recommended, or keep it.
+
+### Changed
+
+- Session norms, `GIT`: a commit names its paths again, `git commit -- <paths>`, so a path staged before the session never rides along.
+
+To act on:
+
+- Nothing. The norms grow by about 300 characters of the 9,500 a session start may print, so a repo near that limit has its listings cut a few lines earlier.
+
 ## [raizen-norms 0.83.4] - 2026-10-06
 
 Rules for what three `simulate` self-runs found with no rule to follow. None has run in a session yet.

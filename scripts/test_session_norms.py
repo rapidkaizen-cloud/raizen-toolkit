@@ -191,6 +191,8 @@ def limit() -> None:
     # the fixed text leaves room for a repo's own: the three forms of the norms alone
     for text in (norms.NORMS, norms.docs_norms(), norms.unsettled_norms()):
         assert sized(text) < norms.BUDGET - 3000, sized(text)
+        assert "`norms-help`" in text and "git commit -- <paths>" in text
+        assert "A block or a table a skill orders printed is printed whole" in text
 
     shaped = (
         "# PRD\nintro\n\n## 1. Konteks\nctx\n\n## 2. Roles\nrole-body\n\n"
@@ -221,6 +223,12 @@ def limit() -> None:
         assert "never-x" not in out and "WARNING: PRD.md is" in out
         assert "- Legacy page" in out and "Shell.tsx: Shell" in out
 
+        # too long, Section 6 short: the prohibitions are printed under the order to read
+        write(root, "PRD.md", shaped.replace("ctx\n", "ctx-line\n" * 900) + "never-z\n")
+        out = run(root)
+        assert sized(out) <= norms.LIMIT and "Not printed: " in out
+        assert "## 6. Larangan\nnever-z" in out and "ctx-line" not in out
+
         # too long and off-shape: no section can be located, so the order is to read it
         write(root, "PRD.md", "# PRD\n" + "never-x\n" * 2000)
         out = run(root)
@@ -237,6 +245,22 @@ def limit() -> None:
         assert sized(out) <= norms.LIMIT and out.startswith(norms.docs_norms())
         assert "--- docs/product.md — context, roles, prohibitions ---\n\nNot printed: " in out
         assert "context-line" not in out and "# Index" in out and "- Import page" in out
+
+        # its prohibitions are printed all the same, and nothing after them
+        write(
+            root,
+            "docs/product.md",
+            "# Product\n" + "context-line\n" * 900 + "\n## Prohibitions\n\n- never-y\n\n## Later\nlater-line\n",
+        )
+        out = run(root)
+        assert sized(out) <= norms.LIMIT and "Not printed: " in out
+        assert "## Prohibitions\n\n- never-y\n" in out and "- Import page" in out
+        assert "context-line" not in out and "later-line" not in out
+
+        # prohibitions too long to fit are named with the rest, never cut
+        write(root, "docs/product.md", "# Product\n\n## Prohibitions\n\n" + "- never-y\n" * 900)
+        out = run(root)
+        assert sized(out) <= norms.LIMIT and "never-y" not in out and "Not printed: " in out
 
     # a listing is cut where the room ends and says so; one with no room says only that
     with tempfile.TemporaryDirectory() as tmp:

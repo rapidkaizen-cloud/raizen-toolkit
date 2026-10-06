@@ -2,18 +2,13 @@
 
 - How the lines below were observed, 2026-10-06: eleven headless `claude -p` sessions on Claude Code 2.1.289 in throwaway clones of three apps — the plugin loaded from this repo by `--plugin-dir`, no MCP server, no remote but a bare local one, no database — on Sonnet unless a line says Opus; and three `simulate` self-runs by Sonnet subagents, every rule they quoted found in its file. No session ran on the interactive host, and none on Antigravity.
 
-## Decisions owed, from sessions that ran
-
-- Session start, a document named where it does not fit (0.81.1): in both legacy clones `PRD.md` was named with its line ranges, and in the migrated clone `docs/product.md` was named. The Opus session read the named lines before its first edit. Of three Sonnet sessions on a small task, one read them, one read only the section its task changed, and one read nothing; the seed and the align session never opened the named `docs/product.md`. Owed: whether Prohibitions are printed first where the whole document does not fit — they are what a narrow session breaks.
-- The host's skill listing: on this laptop it holds 468 skills and keeps a description for 48, so `norms-help`, `app-settle`, `logic-settle` and `design-settle` arrive as a name alone. Asked which commands and which version it runs, the Opus session loaded `norms-help` from the installed copy, ran the script from the skill's own folder and relayed the card. The Sonnet session never loaded it and answered from `installed_plugins.json`, wrong about the scope; invoked by name it answered from the page and named it. Owed: whether the norms name `norms-help`, at about 90 characters of every session start. Unobserved on Antigravity.
-- A brevity hook from another plugin: under one, the session running migrate printed neither Step 0's block nor the `MIGRATE` block, so M5 compared its counts with nothing on record, and it closed in bullets where the `MIGRATED` block is ordered. Owed: whether a skill's block is marked as output that no brevity rule shortens.
-- `app-settle`, bootstrap, on paper only — a self-run: no step creates a Ready platform's app skeleton or its manifest, so question 8's `install now` has nothing to install into.
-- `app-settle`, document, on paper — the chain's first skill, on an app's clone:
-  - A `CLAUDE.md` that imports `AGENTS.md`, as a framework's template ships it, has no rule: adding the missing rows to both makes `AGENTS.md`'s opening line false.
-  - A dirty tree stops Migrate and Align only. Document commits too, and so do `logic-settle` and `design-settle`, where a path someone else staged rides along.
-
 ## Not run, or run only in part
 
+- Session start, the prohibitions of a document that does not fit (0.84.0): proven by the script's self-check. Unobserved: whether a Sonnet session that skips the read holds to them.
+- `norms-help` named in the norms, and the block line under `ASKING` (0.84.0): unobserved — whether a Sonnet session loads `norms-help` unasked, and whether a session under a brevity hook prints Step 0's block and the `MIGRATE` block.
+- `git commit -- <paths>` (0.84.0): unobserved in an app session. `guard_git` does not hold a commit that leaves the paths out.
+- `app-settle`, bootstrap, the init command of a Ready platform (0.84.0): never run — whether the scaffolder accepts the directory, what it ships beside the three files, and whether it makes the repo.
+- `app-settle`, document, the `AGENTS.md` import question (0.84.0): never asked.
 - The rules of 0.83.4, written for what the three self-runs found with no rule — the interview's batch and replies of `app-settle`, its stack questions, `supabase/config.toml` at N6, `logic-settle`'s L1, L4 and install block, `design-settle`'s stressed reference, judged width, verdict, `Logic layer` row and its replies: written on paper and run by no session, self-run or live.
 - `design-settle`, live: never run since the restructure of 0.68.0. On paper the self-runs now cover Full, Fast, the no-UI path, a Keep pick, a written `DESIGN.md`, a redesign into the gate's removals, a stressed reference and the escalation. Tripped by none: a first-visit register, a non-web platform, the re-entry gate, a Required skill absent, fix-the-drift, a rejected set, the refine round, Keep through the gate's `REPAIR` list, the gate's second ask for removals.
 - `design-settle`, open on a Keep: the component-token table has no measured source, so `build-flow` opens pages from a table marked `[needs verification]`.

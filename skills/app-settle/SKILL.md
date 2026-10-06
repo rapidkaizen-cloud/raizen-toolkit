@@ -50,7 +50,7 @@ The user is a junior developer: give a reasoned default, and **ask only what cha
 
 **N3, D4 and R4 are one message, then a STOP for explicit approval.** No file is written or edited before it is answered. A reply approving part of it writes nothing: settle the lines it rejects, then show the summary again whole, the changed lines marked.
 
-**Bootstrap only — no `npm install` and no dependency added without the user's approval.**
+**Bootstrap only — no `npm install` and no dependency added without the user's approval**: the N3 summary names the init command N5 runs, and question 8 the test runner.
 
 **Document and Rework only — nothing about the app itself changes.** No dependency added, none removed, no file refactored, no migration run, no bug fixed on the way past. Decisions land in the documents; code catches up in build sessions under `build-flow`, never here.
 
@@ -73,7 +73,7 @@ Mode       : [bootstrap — empty directory]
              [seed      — docs/PRD.md in place, a living document missing: seeded, then close]
 Owed after : [the modes this repo still owes once this one is done, in the order above — or "none known"]
 Flow       : [bootstrap: story → reading → 6 domain themes → 9 stack questions → summary
-                         → docs/PRD.md → living docs → scaffold]
+                         → init command → docs/PRD.md → living docs → scaffold]
              [document:  read stack → story → reading → 6 themes → summary → docs/PRD.md
                          → living docs + CLAUDE.md]
              [migrate:   read → move → DESIGN.md → what names the old form → prove → commit]
@@ -131,8 +131,8 @@ Rules of the digging:
 |---|---|---|
 | **Bootstrap** · N1 — Domain | Nothing more | The interview above |
 | N2 — Stack, nine questions | `references/stack-questions.md` and `references/stack-consequences.md`, in one turn. `references/pioneer.md` only on a Pioneer answer, or a platform typed from outside the list | The questions in batches, then the derived lines and the defaults not asked |
-| N3 — Summary, then STOP | Nothing more | One message: app name · Surface/Data/Deploy · roles · key business rules · domain terms · non-goals · stack decisions · rejected alternatives with their reasons |
-| N4 — Write `docs/PRD.md`, then seed the living documents · N5 — Scaffold · N6 — Close | After the approval, in one turn: `references/prd-structure.md` (N4) and `references/scaffold.md` (N5, N6) | The frozen PRD and what it seeds, the repo files, `git init`, the bootstrap commit, the close block |
+| N3 — Summary, then STOP | Nothing more | One message: app name · Surface/Data/Deploy · roles · key business rules · domain terms · non-goals · stack decisions · rejected alternatives with their reasons · the init command N5 runs |
+| N4 — Write `docs/PRD.md`, then seed the living documents · N5 — Scaffold · N6 — Close | After the approval, in one turn: `references/prd-structure.md` (N4) and `references/scaffold.md` (N5, N6) | The platform's init command, the frozen PRD and what it seeds, the repo files, `git init`, the bootstrap commit, the close block |
 | **Document** · D1 to D6 | `references/document.md`, in the turn that launches D1's subagent on `references/repo-read.md`. After D4's approval, in one turn: `references/prd-structure.md` and `references/scaffold.md` | The stack read from the repo, the interview above, the summary and its STOP, the documents, the close block |
 | **Migrate** · M1 to M5 | `references/migrate.md`, which names what each of its steps reads | The read and its block, the move, `DESIGN.md`, the files naming the old form, the proof, one commit, the close block |
 | **Align** · A1 to A5 | `references/align.md`, in the turn that launches A1's subagent on `references/audit.md` — never read here | The audit, the ranked table and its STOP, one finding per commit, the close block |

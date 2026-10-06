@@ -2,7 +2,9 @@
 
 ## N5 — Scaffold
 
-**Nothing is copied — write every file for the answers this session got.** This plugin ships no template folder: a stock file is a decision taken before its question was asked, and it goes stale without anyone re-reading it. A Pioneer platform receives exactly what a Ready one does, plus its own init command.
+**Nothing is copied — write every file for the answers this session got.** This plugin ships no template folder: a stock file is a decision taken before its question was asked, and it goes stale without anyone re-reading it. A Pioneer platform receives exactly what a Ready one does.
+
+**The app's skeleton comes from the platform's own init command, never from a file written here** — a Ready framework's official scaffolder, a Pioneer platform's own, the toolchain's where no framework was chosen. Its command is verified live (`stack-questions.md`, How they are asked) and named in the N3 summary, whose approval covers it. **Run it first after that approval, before N4 writes `docs/`**, because a scaffolder refuses or overwrites a directory that is not empty. A `README.md`, `CLAUDE.md` or `AGENTS.md` it shipped is replaced by this step's own.
 
 | File | Mode | Contents |
 |---|---|---|
@@ -15,7 +17,7 @@
 
 **No `.mcp.json` is written — ever.** Database MCP servers are connected **user scope**, once per machine, never per repo; for Supabase the exact `claude mcp add -s user` one-liner is printed at N6. Project pinning does not come from server config: `supabase/config.toml` declares the repo's project, and the `guard_project_ref` hook in `raizen-norms` blocks any Supabase MCP call aimed at a different one. A database whose official MCP server exists follows the same pattern; a database with no server → say so rather than leaving the gap silent.
 
-**Bootstrap, after the files:** `git init`, `git branch -M main`, and commit the new files there, paths named — the one commit `main` ever takes directly. Then create `development` from `main` and switch to it.
+**Bootstrap, after the files:** `git init` — skipped where the init command already made the repo — `git branch -M main`, and commit the new files there, paths named — the one commit `main` ever takes directly. Then create `development` from `main` and switch to it.
 
 ### The shape of `CLAUDE.md`
 
@@ -100,7 +102,7 @@ Two sessions remain before pages can be built, in this order:
 Until design-settle is done, any session will refuse to write UI components.
 ```
 
-`logic-settle` runs first because the pages `design-settle` promotes carry loading, empty, and failed states, and those belong to the data layer. **Do not run either now**: bootstrap installs only what an answer approved — question 8's test runner, a Pioneer platform's init command — and `design-settle` installs several more behind its own gate.
+`logic-settle` runs first because the pages `design-settle` promotes carry loading, empty, and failed states, and those belong to the data layer. **Do not run either now**: bootstrap installs only what an answer approved — the platform's init command, question 8's test runner — and `design-settle` installs several more behind its own gate.
 
 Say what follows them: building runs under `build-flow`, which writes `docs/queue.md` on its first run and sets the size of one session — a new app builds its screens first, a UI batch with every page against a hand-written contract and no database behind it, then wires them in a backend batch.
 

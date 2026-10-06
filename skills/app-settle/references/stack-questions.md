@@ -11,7 +11,7 @@
 - **A Pioneer option never hides its cost**: its description opens with `Pioneer —` and what does not exist for it yet — no rubric row to read from, a research-driven bootstrap.
 - **Do not ask the component library** — it is the library dialog of `design-settle`'s interview, asked once the app's real needs are readable from the documents, and `design-settle` also installs it.
 - **After the last question, show the derived lines, then the defaults not asked**, in one message, and invite the user to name anything they want changed. Never walk through them one by one.
-- **Verify live in one subagent pass** (`SKILL.md`, What a run costs), once the answers they depend on are in: the package manager line and question 8's recommended runner, by `library-rubric.md`'s method — a `design-settle` file, not read for this: maintained, broadly adopted, no fresh supply-chain event. It returns one line per candidate: verdict · last release · sources. Every other candidate is named from model knowledge and marked `unverified` until picked.
+- **Verify live in one subagent pass** (`SKILL.md`, What a run costs), once the answers they depend on are in: the package manager line, the chosen framework's init command, and question 8's recommended runner, by `library-rubric.md`'s method — a `design-settle` file, not read for this: maintained, broadly adopted, no fresh supply-chain event. It returns one line per candidate: verdict · last release · sources. Every other candidate is named from model knowledge and marked `unverified` until picked.
 
 ---
 
