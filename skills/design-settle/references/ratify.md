@@ -11,7 +11,7 @@
 
 ## Where `Keep — today's look` was picked and no `DESIGN.md` exists
 
-Open `.design-audit/audit.md` now: a Keep pick ends the blindness. **Ratify what its block measured and nothing else** — colours, text steps, spacing values, radii, the icon family with its sizes and weights, the fonts loaded. What the audit does not measure — shadow, motion, density, the behaviors under What the designer settles — is never invented on a Keep: its `DESIGN.md` line is `[needs verification]`. The stack and product calls are written as answered. The audit decides how each entry is put:
+Open `.design-audit/audit.md` now: a Keep pick ends the blindness. **Ratify what it measured and nothing else** — colours, text steps, spacing values, radii, the icon family with its sizes and weights, the fonts loaded, and the component measurements, which fill the component-token table. What the audit did not measure — shadow, motion, density, the behaviors under What the designer settles, a component item it read nowhere — is never invented on a Keep: its `DESIGN.md` line is `[needs verification]`. The stack and product calls are written as answered. The audit decides how each entry is put:
 
 | What the audit measured | How the entry is put |
 |---|---|
@@ -20,6 +20,7 @@ Open `.design-audit/audit.md` now: a Keep pick ends the blindness. **Ratify what
 
 Batch confirmations and questions through AskUserQuestion. **Write a ratified value exactly as measured**, never tidied. Unanswered → `[needs verification]`, out of the pass. **An answer differing from the measurement is a repair, never a redraw**: its line in the gate's `DESIGN.md` list shows both, every place that departs from it is a finding in the gate's list (`gate.md`), and the pass retokens them.
 
+- **The component measurements are one entry**: one cancellable line each, a `from source` line marked, above one confirmation; a cancelled line is asked alone, and so is every line rendered differently from place to place, its options the values measured. A colour, radius or spacing value inside a line follows its own entry's answer.
 - **The five rules below bind only an answered value.** A value confirmed as measured is written as it stands, no ramp or alias layer manufactured over it; scattered colours answered onto a ramp get that ramp and its aliases in the pass's Foundations.
 - **An answered width or theme mode the running app does not hold collides with the Keep pick**: put both in one question (`interview.md`, reconcile) — record what the app holds today, or keep the answer and take the gap as findings.
 - **The product draft's proposals end here.** Nothing draws them, so none is ratified: name them once in the Step 9 block, and withdraw an engine answer only a proposal fired — no decision record, its package removed in the pass.

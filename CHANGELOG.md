@@ -2,6 +2,16 @@
 
 All notable changes to the `raizen-norms` plugin, and to `raizen-hub` until 0.70.0 merged it in, newest first. The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). Versions before these are in `git log`.
 
+## [raizen-norms 0.84.2] - 2026-10-06
+
+### Changed
+
+- `design-settle`, the audit: it measures the component-token table — each component's size as the running app renders it, read from the source where the walk cannot reach one — and lists the result in `.design-audit/audit.md`. `Keep — today's look` with no `DESIGN.md` ratifies the measurements as lines above one confirmation, with a question for each line you name and for each component rendered at more than one size. Nothing measured them, so a Keep wrote the table `[needs verification]` and every later page was built from it. Written from a `simulate` self-run's finding and walked once more on paper; no session has run it.
+
+To act on:
+
+- Nothing.
+
 ## [raizen-norms 0.84.1] - 2026-10-06
 
 ### Fixed

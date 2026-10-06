@@ -6,10 +6,10 @@ You audit the UI an app has today, for a session that will redesign it **without
 
 Two files under `.design-audit/` at the repo root:
 
-- **`audit.md`** — for the user: the block below, the frame inventory, the `DESIGN.md` deviations, the screenshot paths.
+- **`audit.md`** — for the user: the block below, the frame inventory, the component measurements, the `DESIGN.md` deviations, the screenshot paths.
 - **`handover.md`** — the only thing the drawing session reads, holding in this order and nothing else: the app in three sentences from `docs/product.md` · the roles · the function inventory · the route list, each route with a few words on what it is for and nothing on what it holds · the data vocabulary a fixture must respect, with a handful of real rows from the data layer where it holds any · the data-layer files a fixture may take types from, by path, none carrying a look or importing from the components folder · the UI stack row, font packages left out · the counts that price the pass, as numbers.
 
-**`handover.md` carries no colour, hex, font name, radius, spacing value, shell description, part or section name per page, `DESIGN.md` prose, screenshot, or code excerpt** — nothing on how anything looks or where it sits.
+**`handover.md` carries no colour, hex, font name, radius, spacing value, component measurement, shell description, part or section name per page, `DESIGN.md` prose, screenshot, or code excerpt** — nothing on how anything looks or where it sits.
 
 ## What you report back
 
@@ -29,6 +29,8 @@ Slop detectors      : [how many hits · how many rules, from `npx --no-install i
 Icons               : [families, named · how many sizes · how many weights]
 Fonts loaded        : [from the styling files AND the HTML entry — a family named in CSS
                        but never loaded renders as its fallback, and only this row sees it]
+Component values    : [how many items read on the walk · how many `from source` · how many
+                       rendered differently from place to place]
 UI stack            : [component library · icon pack · engines — chart, table, date,
                        drag-and-drop — with versions, from the dependency file]
 Repeated labels     : [longest · median · how many repeat per screen]
@@ -49,13 +51,14 @@ Counts are occurrences in source; label lengths are in words, as `ui-build`'s co
 - **Logic-layer bleeding** — handwritten fetching in UI files, hand-parsed dates, unvalidated inputs.
 - **The function inventory** — every function the app carries, one line each: what can be done, never where or how it looks.
 - **The frame inventory** — per route, the parts and states that render there, names only; **routes from the router file, never from memory**; states real data cannot produce listed anyway (loading, empty, failed, every role branch). It goes in `audit.md` and **never in `handover.md`**.
+- **The component measurements** — one line per item of the component-token table, as the `## Components` row of `design-md.md` beside this file lists them, for each whose component the app has: what the walk rendered — on the web the computed style, the focus ring read on a focused control — and the route it was read on. An item rendered differently from place to place lists each value with its files. An item the walk cannot read — the app not run, a dialog never opened, a native Surface — is read from the shared components' source and the library's theme, marked `from source`. They go in `audit.md` and **never in `handover.md`**.
 - **Screenshot every route at desktop width**, per the Proof profile — 1440px where it names none — saved under `.design-audit/`.
 - **App could not be run, or no credentials → say so in the report**; the frame inventory is routes only.
 - **A page holding too little is not a finding** — name it in the report.
 
 **Where `DESIGN.md` is written:**
 
-- A deviation is a finding, never a reason to change `DESIGN.md`.
+- A deviation is a finding, never a reason to change `DESIGN.md` — a component measurement off its value in the component-token table included.
 - **The indictment** is the count of `DESIGN.md` rules that themselves fail a floor — contrast, `impeccable`'s Refuse list (located through its own `SKILL.md` index), a detector rule.
 - Two of its roles at the same value are a finding against it.
 - No archetype table is a finding.
