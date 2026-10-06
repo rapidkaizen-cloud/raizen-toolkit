@@ -40,7 +40,7 @@ After the approval, read `prd-structure.md` and `scaffold.md` in one turn. Write
 Then the rows `scaffold.md` marks Both:
 
 - **`CLAUDE.md`** to its shape, filled from D1. Already present → **do not overwrite.** Add only the missing rows and report what was left alone.
-- **A `CLAUDE.md` that imports `AGENTS.md`** — an `@AGENTS.md` line, as a framework's template ships it — **is asked once through AskUserQuestion**: remove the import line, recommended, because `AGENTS.md` is written for agents never handed the norms and may restate one; or keep it. Kept → `AGENTS.md`'s opening line leaves out that Claude Code does not read it.
+- **A `CLAUDE.md` that imports `AGENTS.md`** — an `@AGENTS.md` line, as a framework's template ships it — **is asked once through AskUserQuestion**: remove the import line, recommended, because `AGENTS.md` is written for agents never handed the norms and may restate one; or keep it. Kept → write `AGENTS.md`'s opening line without its claim that Claude Code does not read the file, which the import makes false.
 - **`AGENTS.md`** to its shape. The `## UI` and `## Logic` parts hold their bootstrap lines — no `DESIGN.md` exists here and no data layer folder has been named; `design-settle` and `logic-settle` each fill their own part. Already present → **do not overwrite**; add the parts it lacks under their own headings and report what was left alone.
 - **`README.md` at the root** — already present → **do not overwrite**; report it untouched.
 - **A file already at a path this mode writes under `docs/`** → do not overwrite it; report it and ask where it goes before writing.

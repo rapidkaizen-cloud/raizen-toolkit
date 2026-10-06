@@ -2,6 +2,17 @@
 
 All notable changes to the `raizen-norms` plugin, and to `raizen-hub` until 0.70.0 merged it in, newest first. The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). Versions before these are in `git log`.
 
+## [raizen-norms 0.84.1] - 2026-10-06
+
+### Fixed
+
+- `app-settle`, document: where the `AGENTS.md` import is kept, the opening line of `AGENTS.md` is written without its claim that Claude Code does not read the file. A session read the old wording as its opposite.
+- `docs-format`: a `docs/` repo with no `docs/changelog.md` gets the file in the commit that owes an entry. A session gave the missing file as a reason to write none.
+
+To act on:
+
+- Nothing.
+
 ## [raizen-norms 0.84.0] - 2026-10-06
 
 ### Added

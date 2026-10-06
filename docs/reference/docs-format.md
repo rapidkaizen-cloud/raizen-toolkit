@@ -26,7 +26,7 @@ A session keeps an app repo's documents to a closed list, writes only what readi
 | `docs/decisions/` | One record per decision you took | `app-settle`, `logic-settle`, `design-settle`, or a build session |
 | `docs/architecture.md` | The map: the parts that run, what each talks to, where each kind of code lives, how a user is identified | `app-settle`; any session, in the commit that makes a sentence in it false |
 | `docs/runbook.md` | Deploy, roll back, backup and restore, what to check when it is down | `app-settle`; the commit changing how the app is deployed or restored |
-| `docs/changelog.md` | What changed in how the app behaves, newest first | The session whose commit changes how the app behaves — mandatory |
+| `docs/changelog.md` | What changed in how the app behaves, newest first | The session whose commit changes how the app behaves — mandatory, and created by that commit where the repo has none |
 | `docs/guide/` | How each role finishes each task, for the app's users — kept only where the Help row of `docs/product.md` is not `none` | The build session whose commit changes what a page describes |
 | `docs/changes/` | One record per big change | `build-flow` |
 | `docs/PRD.md` | The app as first approved | `app-settle`; frozen when written |
