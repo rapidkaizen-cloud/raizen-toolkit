@@ -2,6 +2,24 @@
 
 All notable changes to the `raizen-norms` plugin, and to `raizen-hub` until 0.70.0 merged it in, newest first. The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). Versions before these are in `git log`.
 
+## [raizen-norms 0.83.3] - 2026-10-06
+
+### Changed
+
+- `app-settle`, question 6: Supabase is offered as two options, Cloud and self-hosted, because bootstrap writes a different connection for each.
+- `build-flow`: a Help row that opens with `in-app` owes the help page a queue line until that page exists. Question 9 promised the line and nothing wrote it.
+- `logic-settle`: where the folder holding the most database calls is a page or component folder, the data layer is the next one that is neither. A queue line for a deferred migration creates `docs/queue.md` where the repo has none.
+
+### Fixed
+
+- `app-settle`: the Flow row counts nine stack questions. Step 0 no longer checks skills it reads nothing from. The live check before a question is of a recommended package. The stack rubric and question 4 no longer say nothing is scaffolded where N5 writes a host file.
+- `logic-settle`: a library beside handwritten code for one need is that need's question, never a `Duplicates` line.
+- `design-settle`: Step 1 reads the code through the audit's hand-over where UI exists, as Blindness orders. The font package is installed in the pass's Foundations where UI exists.
+
+To act on:
+
+- Nothing.
+
 ## [raizen-norms 0.83.2] - 2026-10-06
 
 ### Changed

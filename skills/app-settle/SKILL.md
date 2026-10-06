@@ -27,7 +27,7 @@ The user is a junior developer: give a reasoned default, and **ask only what cha
 
 - **Read a step's file when the flow reaches that step, never earlier.** The table under The steps names each one; a file for another mode, or for a branch not taken, is never read.
 - **Run a step's independent reads, searches and commands in one turn** — parallel calls, or one chained command — because every extra model call re-reads the whole session.
-- **Hand non-taste work to one subagent on a cheaper model than the session's** (`sonnet` on Claude Code): the repo read of D1 and R1, the audit of A1, the live verification of package candidates, the Pioneer research. Brief it with the file that rules the job and take back only the compact result that file names — its raw results never enter this session. No subagent → run it here and say so; no model choice → the session's model. **Verify a recommendation live before its question is asked; offer every other option from model knowledge, marked `unverified`, and verify it only when picked.**
+- **Hand non-taste work to one subagent on a cheaper model than the session's** (`sonnet` on Claude Code): the repo read of D1 and R1, the audit of A1, the live verification of package candidates, the Pioneer research. Brief it with the file that rules the job and take back only the compact result that file names — its raw results never enter this session. No subagent → run it here and say so; no model choice → the session's model. **Verify a recommended package live before its question is asked; offer every other option from model knowledge, marked `unverified`, and verify it only when picked.**
 - **Never re-read what the session start printed** — the documents and the two listings.
 
 ## Hard limits — every mode
@@ -56,7 +56,7 @@ The user is a junior developer: give a reasoned default, and **ask only what cha
 
 ## Step 0 — Declare
 
-Check the working directory, the files it holds, and the available skills in one turn, then report one short block:
+Check the working directory and the files it holds in one turn, then report one short block:
 
 ```
 Directory  : [path] — [empty / N files]
@@ -72,7 +72,7 @@ Mode       : [bootstrap — empty directory]
              [rework    — documents in place, and the user asked for <what>]
              [seed      — docs/PRD.md in place, a living document missing: seeded, then close]
 Owed after : [the modes this repo still owes once this one is done, in the order above — or "none known"]
-Flow       : [bootstrap: story → reading → 6 domain themes → 8 stack questions → summary
+Flow       : [bootstrap: story → reading → 6 domain themes → 9 stack questions → summary
                          → docs/PRD.md → living docs → scaffold]
              [document:  read stack → story → reading → 6 themes → summary → docs/PRD.md
                          → living docs + CLAUDE.md]

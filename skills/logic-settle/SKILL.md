@@ -88,7 +88,7 @@ Flow           : audit → score + data layer folder → interview (only what sc
 | The audit found | The folder |
 |---|---|
 | One folder holding most of the database calls | That folder, as found. **Never renamed for tidiness** — `src/lib` that works is not improved by becoming `src/data`, and the rename is a diff across every import in the app |
-| Calls scattered, no folder holding most | The folder already holding the most, named with its count — the rest are the migration Step 5 prices |
+| Calls scattered, no folder holding most | The folder already holding the most that is neither a page nor a component folder, named with its count — the rest are the migration Step 5 prices |
 | No database calls yet | The framework's own convention where it names one; else a folder named `data` under the stack's source root, the name the platform architecture guides converge on |
 
 A page or component folder is never the data layer, however many calls it holds — its calls are the migration.

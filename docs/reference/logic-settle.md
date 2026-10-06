@@ -43,7 +43,7 @@ It is measured by the audit and shown with its basis, never asked first. The `Da
 | The audit found | The folder |
 |---|---|
 | One folder holding most database calls | That folder, as found |
-| Calls scattered, no folder holding most | The folder already holding the most, with its count; the rest are the migration Step 5 prices |
+| Calls scattered, no folder holding most | The folder already holding the most that is neither a page nor a component folder, with its count; the rest are the migration Step 5 prices |
 | No database calls yet | The framework's own convention where it names one, else `data` under the stack's source root |
 
 A page or component folder is never the data layer, however many calls it holds.

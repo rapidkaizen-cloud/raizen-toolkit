@@ -19,7 +19,7 @@
 
 **The Status column decides how a row is offered**: **Ready** as a normal option · **Pioneer** as an option that opens with its cost · **Not ready** not at all.
 
-**Status measures whether a row's guard coverage is stated and its migration or deploy path is named, never templates** — nothing is scaffolded for any stack beyond `CLAUDE.md`, `AGENTS.md`, and `.claude/settings.json`. A row that cannot say what protects a destructive statement is not Ready however many repos already run on it. A status is raised only through `pioneer.md`'s promotion checklist.
+**Status measures whether a row's guard coverage is stated and its migration or deploy path is named, never templates** — this plugin ships none, and what a stack needs is written by the session (`scaffold.md`, N5). A row that cannot say what protects a destructive statement is not Ready however many repos already run on it. A status is raised only through `pioneer.md`'s promotion checklist.
 
 ## Platform
 
@@ -103,7 +103,7 @@ A Pioneer answer, or a platform typed from outside the list → read `pioneer.md
 
 **Options from:** the Hosting table, rows marked **Ready**, plus anything the user already runs.
 
-**No recommendation, and no default.** Every row costs the same in scaffolding — nothing — and what decides it is operational: ask what already runs where, what is already paid for, and what else has to run beside the app.
+**No recommendation, and no default.** No row costs more in scaffolding than a config file the session writes, so what decides it is operational: ask what already runs where, what is already paid for, and what else has to run beside the app.
 
 **Consequence, per option, in one sentence each** — Vercel separates environment variables per scope with no configuration; a VPS puts the app beside whatever else runs there and makes those variables and the TLS certificate the user's to manage; Cloudflare and Netlify each need their own config file, named in the Hosting table.
 
@@ -123,7 +123,7 @@ Neither → skip questions 6 and 7.
 
 **Options from:** the Database table, rows marked **Ready**, plus anything the user already runs.
 
-**No recommendation**, for the same reason as question 4: what decides it is what already exists and what is already paid for.
+**No recommendation**, for the same reason as question 4: what decides it is what already exists and what is already paid for. **Offer Supabase as two options, Cloud and self-hosted**, because bootstrap writes a different connection for each (`scaffold.md`, The database connection).
 
 **Consequence, per option, in one sentence each** — Supabase brings Postgres, auth, and RLS together, so access rules live in the database rather than in application code; another Postgres means auth is a separate choice and the migration tool is that engine's own; no database means nothing survives between sessions.
 

@@ -27,5 +27,5 @@ Deviates       : [per decision recorded that the code does not follow]
 - **Fill every row on every repo.** No application code → every row empty, in one pass.
 - **Count the unvalidated boundary handlers always** — route handlers, server actions, edge functions taking input — also where L2 names a library: a validator installed but not applied at every boundary is a security finding, not a library finding.
 - **`Data layer` is measured**: count the files that import or call the database client, group them by folder, and name the folder holding most of them and how many sit outside it.
-- **`Duplicates`** — two date libraries, or a validator beside a hand-rolled checker.
+- **`Duplicates`** — two date libraries, or two validators. A library beside handwritten code for the same need is that need's question, never a duplicate.
 - **`Deviates`** — one line per record under `docs/decisions/` the code does not follow.

@@ -39,6 +39,8 @@ Where a session takes several pages, the ones that set a pattern come first: the
 - **Code present, app never finished.** Discovery first: the routes that exist and the live schema. A half-built page gets a line naming what is missing.
 - **The app works and you want something.** The queue comes from the request. A change spanning more than one page or session, or adding a role or data kind, opens `docs/changes/<date>-<slug>.md` first. Rules go into `docs/rules.md` and terms into `docs/glossary.md` before any implementation.
 
+Where the app keeps help inside it — the Help row of `docs/product.md` opens with `in-app` — the help page gets a line of its own until it exists.
+
 Work may split into a UI batch, then a backend batch that wires it. An app built from nothing is built that way. An app that already runs splits only for three or more pages at once, or a requirement still vague. The UI queue running empty is the freeze: a contract changes after it only as a stated decision.
 
 **Propose the page before building it** (Section 4). The session names the page's archetype from `DESIGN.md`'s Page Composition, then proposes two lists. The **Bound** list comes from the Roles and `docs/rules.md` and is stated, never offered as a checkbox. The **Optional** list is a multi-select of what to drop, whose first option is `keep all`. Every open question for the page is asked in one turn; every other choice is made and announced. The bar for a full page is the app's proving page, judged at the desktop width and the lower bound `DESIGN.md` fixes. The decision is recorded in code a compiler checks, never in `docs/`.

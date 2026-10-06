@@ -2,7 +2,7 @@
 
 - **One session, every call site of one decision** — not staged, and no old library left alive beside the new one.
 - **Move the call sites → confirm the build → only then remove the old library.** Removed first, every remaining site becomes a build error and hides which of them was real work.
-- **A replacement too large to finish in this session is not started.** Its size was measured at Step 1; where the call-site count does not fit, the decision still stands and the migration becomes a `docs/queue.md` line under `build-flow` — half a migration leaves two libraries doing one job, the `Duplicates` finding this skill exists to remove.
+- **A replacement too large to finish in this session is not started.** Its size was measured at Step 1; where the call-site count does not fit, the decision still stands and the migration becomes a `docs/queue.md` line under `build-flow`, the file created with that skill's header where the repo has none — half a migration leaves two libraries doing one job, the `Duplicates` finding this skill exists to remove.
 - **Slip in no unrelated fix**: one mistake hides among hundreds of legitimate changes.
 - **Name again every dirty path from Step 0 that is a call site this pass rewrites.**
 

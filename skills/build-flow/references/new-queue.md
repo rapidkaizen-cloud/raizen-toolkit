@@ -21,6 +21,8 @@ Read this when `docs/queue.md` is absent or has just run empty, and when the use
 - **Write the business rules into `docs/rules.md` and new terms into `docs/glossary.md` first** — `docs-format` allows both only *before* implementation, so a rule is a decision rather than a description of code.
 - **Run Section 1's spread test against each existing page before setting the order** — a working app has many pages that can break.
 
+**A Help row in `docs/product.md` that opens with `in-app` owes the help page at its route one line, on every route, until that page exists.**
+
 **All three routes end the same way: show the whole queue, STOP, and wait for the user's approval before writing the file.** The order is agreed once, up front.
 
 ## Splitting the work into a UI batch and a backend batch
