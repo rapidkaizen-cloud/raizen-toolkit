@@ -2,6 +2,21 @@
 
 All notable changes to the `raizen-norms` plugin, and to `raizen-hub` until 0.70.0 merged it in, newest first. The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). Versions before these are in `git log`.
 
+## [raizen-norms 0.83.2] - 2026-10-06
+
+### Changed
+
+- `guard_git`: a held push or pull request that the call wraps in other commands — a `cd`, `&&`, a pipe, a redirection — is told to be named and run alone. A session named the bare command, was answered yes, retried the wrapped one and was held a second time.
+- `docs-format`: a path a document names is written whole, from the repo root, where the session start resolves it.
+
+### Fixed
+
+- Session start: `DESIGN.md` named in a living document is no longer reported as a path that does not exist. The Proof profile names it from bootstrap, before `design-settle` has written it, and the note told every session to correct a correct line.
+
+To act on:
+
+- Nothing. A living document that names a file without its folder — `accounts.ts` for `api/accounts.ts` — is still reported at session start: write the path whole.
+
 ## [raizen-norms 0.83.1] - 2026-10-06
 
 ### Changed

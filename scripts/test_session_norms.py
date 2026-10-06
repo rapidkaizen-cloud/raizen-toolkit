@@ -353,13 +353,15 @@ def forms() -> None:
             "docs/product.md",
             "# Product\nData in `src/data/gone.ts`. See [the guide](guide/missing.md).\n"
             "Not paths: `/help`, `https://x.dev/a.ts`, `api.example.com/v1`, `docs/changes/<date>-<slug>.md`,"
-            " `lead_candidates`, [site](https://x.dev), `Intl.DateTimeFormat`, `09/2026/0001`.\n",
+            " `lead_candidates`, [site](https://x.dev), `Intl.DateTimeFormat`, `09/2026/0001`.\n"
+            # the Proof profile names it from bootstrap, before `design-settle` writes it
+            "Screenshots at the widths `DESIGN.md`'s Layout fixes.\n",
         )
         write(root, "docs/guide/approve-a-request.md", "# Approve\nOpen `src/pages/gone.tsx`.\n")
         out = run(root)
         assert "docs/product.md: `src/data/gone.ts`" in out and "docs/product.md: `guide/missing.md`" in out
         assert "docs/guide/approve-a-request.md: `src/pages/gone.tsx`" in out
-        for fake in ("/help", "x.dev", "api.example.com", "<date>", "lead_candidates", "Intl.", "09/2026"):
+        for fake in ("/help", "x.dev", "api.example.com", "<date>", "lead_candidates", "Intl.", "09/2026", "DESIGN.md"):
             assert f"`{fake}" not in out.split("NOTE:")[1], fake
 
     # docs form, half seeded: the missing living document is named, not skipped in silence

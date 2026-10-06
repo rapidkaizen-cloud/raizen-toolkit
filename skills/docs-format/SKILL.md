@@ -55,7 +55,7 @@ Six sentence shapes make a document go stale fast:
 | Enumeration — a list that has to stay complete | The criterion, not the list |
 | Status — progress, checkmarks, "not tested yet" | Nothing; zero status fields, no exceptions |
 | State description — "the system records X in Y" | The constraint — "no X without Y" |
-| Technical identifier — table, column, route, component, file | The concept; the glossary is the bridge. The index, the Proof profile, `README.md`'s Run section, `architecture.md` and `runbook.md` name paths and commands by necessity |
+| Technical identifier — table, column, route, component, file | The concept; the glossary is the bridge. The index, the Proof profile, `README.md`'s Run section, `architecture.md` and `runbook.md` name paths and commands by necessity — a path whole, from the repo root, because the session start resolves it from there and reports one it cannot find |
 | Snapshot number — "N rows at present" | A number only as the reason behind a rule's value |
 | Change history | The state it produced; history is `docs/changelog.md`, git, and the frozen records |
 

@@ -629,6 +629,8 @@ def named_paths(doc: Path, root: Path) -> list:
             continue
         if not re.search(r"[A-Za-z]", token):
             continue  # `09/2026/0001` is a document number, `1/2` a fraction
+        if token == "DESIGN.md":
+            continue  # absent until `design-settle` writes it, and the Proof profile names it from bootstrap
         first = token.split("/")[0]
         if "/" not in token and not FILE_EXT.search(token):
             continue

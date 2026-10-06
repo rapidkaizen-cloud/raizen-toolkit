@@ -66,7 +66,7 @@ A repo whose output already fitted gets exactly what it got before. On Antigravi
 
 ### The notes
 
-- **A named path is gone** (`docs/` form): `NOTE: these living documents name paths that do not exist:`, at most 20 lines. It reads `docs/README.md`, `docs/product.md`, `docs/rules.md`, `docs/glossary.md`, `docs/architecture.md`, `docs/runbook.md` and every `docs/guide/` page. Links resolve from the document, backticked paths from the repo root. URLs and host names are not paths.
+- **A named path is gone** (`docs/` form): `NOTE: these living documents name paths that do not exist:`, at most 20 lines. It reads `docs/README.md`, `docs/product.md`, `docs/rules.md`, `docs/glossary.md`, `docs/architecture.md`, `docs/runbook.md` and every `docs/guide/` page. Links resolve from the document, backticked paths from the repo root, so a file named without its folder is reported. URLs and host names are not paths, and `DESIGN.md` is never reported: the Proof profile names it before `design-settle` has written it.
 - **A living document is missing** (`docs/` form): `NOTE: <path> is missing.` for `docs/README.md` or `docs/product.md`.
 - **`CLAUDE.md` carries old sections:** `NOTE: CLAUDE.md still carries sections ...`, naming each one it recognises.
 - **The data layer folder does not exist:** `NOTE: the Data layer row of CLAUDE.md names ...`, with the folder. It is printed in the data layer listing's place, after the documents, and shares that listing's room, unlike the notes above. A path that climbs out of the repo is not followed and says nothing.

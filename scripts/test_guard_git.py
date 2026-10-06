@@ -202,6 +202,22 @@ def demo() -> None:
     for everything in ("git add src -A", "git add -- .", "git add ./", "git add -Av", "git add src --all", "(cd app && git add .)"):
         assert run(everything) == refused, everything
 
+    # a held command the call adds to is told to run alone, and is handed no compound to
+    # name; the bare one is handed its own text
+    def message(command: str) -> str:
+        payload = {"tool_name": "Bash", "tool_input": {"command": command}}
+        return subprocess.run([PYTHON, str(GUARD)], input=json.dumps(payload), capture_output=True, text=True).stderr
+
+    for wrapped in (
+        'cd "D:/Codes/my app" && git push origin dev 2>&1 | tail -5',
+        "git push origin dev 2>&1",
+        "git push origin dev; git status",
+        "gh pr create --fill | cat",
+    ):
+        assert "run it alone" in message(wrapped) and "Command:" not in message(wrapped), wrapped
+    for bare in ("git push origin dev", "gh pr create --title 'a | b; c > d' --fill"):
+        assert "run it alone" not in message(bare) and f"Command: {bare}" in message(bare), bare
+
     # a force flag belongs to the push it follows: one on a later command is not a force
     assert run("git push origin dev && rm -f x") == held
     assert run("git push origin dev 2>&1 | tail -f") == held

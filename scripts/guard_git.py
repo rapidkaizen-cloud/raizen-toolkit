@@ -194,19 +194,30 @@ def block(msg: str) -> None:
     sys.exit(2)
 
 
-def hold(payload: dict, cmd: str, what: str) -> None:
+# A held command the call adds anything to: chained, piped or redirected. A reply covers
+# the command the message names, and a session names the bare command and then retries the
+# wrapped one - held a second time, after the user's yes.
+WRAPPED = re.compile(r"&&|\|\||[;|\n]|\d?>")
+
+
+def hold(payload: dict, cmd: str, what: str, wrapped: bool = False) -> None:
     if approved(payload, cmd):
         sys.exit(0)
+    alone = (
+        " This call adds other commands to it, and a reply covers the command the message "
+        "names and no other: name it and run it alone - no `cd`, no `&&`, no pipe, no "
+        "redirection."
+    )
     block(
-        f"HELD: {what} runs only on the user's yes in chat. End this turn on a message that "
-        "puts this exact command in backticks on a line of its own, lists under it every "
-        "commit it publishes as `- ` bullets, short hash and subject, and asks whether to run "
-        "it. No question dialog "
-        "- one gets clicked before it is read. Read the reply yourself: on a clear yes, in "
-        "whatever words, retry the same command unchanged before anything else is typed - "
-        "one reply covers one run. A question, a condition or another instruction is not a "
-        "yes. Never hand the command to the user to type.\n"
-        f"Command: {norm(cmd)}"
+        f"HELD: {what} runs only on the user's yes in chat.{alone if wrapped else ''} End this "
+        f"turn on a message that puts {'that' if wrapped else 'this exact'} command in backticks "
+        "on a line of its own, lists under it every commit it publishes as `- ` bullets, short "
+        "hash and subject, and asks whether to run it. No question dialog - one gets clicked "
+        "before it is read. Read the reply yourself: on a clear yes, in whatever words, "
+        f"{'run the command as named' if wrapped else 'retry the same command unchanged'} before "
+        "anything else is typed - one reply covers one run. A question, a condition or another "
+        "instruction is not a yes. Never hand the command to the user to type."
+        + ("" if wrapped else f"\nCommand: {norm(cmd)}")
     )
 
 
@@ -244,11 +255,12 @@ def main() -> None:
                 "Switch to development first, then retry."
             )
 
+    wrapped = WRAPPED.search(code) is not None
     if re.search(r"\bgh\s+pr\s+(create|merge)\b", code):
-        hold(payload, cmd, "opening or merging a pull request")
+        hold(payload, cmd, "opening or merging a pull request", wrapped)
 
     if re.search(GIT + r"push\b", code):
-        hold(payload, cmd, "a push")
+        hold(payload, cmd, "a push", wrapped)
 
     sys.exit(0)
 
