@@ -21,6 +21,7 @@ A session writes no UI until `DESIGN.md` exists, reuses the components already i
 **Craft material first** (The material). Before the first component the session reads the part of `impeccable`, `frontend-design` and `ui-ux-pro-max` that its edit needs. The rows are in the skill: a form, table or dialog adds the UX guidelines; iOS and Android add the platform references; shadcn or Tailwind adds the `ui-styling` references; animation on a web-technology Surface adds `review-animations`, where installed.
 
 - **Three installs are Required.** One absent, the session says which and what it could not check, then carries on. An absence never stops the work.
+- **The close says what was read.** The closing block names each row of the material that applied to the edit: read, or skipped with why.
 - **`DESIGN.md` wins over all of it.** What the material finds is reported to you, never fixed in place inside another session's work.
 - **`impeccable`'s reference files are read; its commands are never run**, and none that writes `PRODUCT.md` or `DESIGN.md`.
 - **`ui-ux-pro-max` writes nothing, in any session.** No `--persist`, no sub-skill script unless you name it, no design-system generator outside `design-settle`'s interview. It never applies a value that skill names; `DESIGN.md` does.

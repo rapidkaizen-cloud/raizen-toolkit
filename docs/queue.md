@@ -2,15 +2,9 @@
 
 - How the lines below were observed, 2026-10-06 and 2026-10-07: sessions on Claude Code 2.1.289 in throwaway clones of two apps — headless `claude -p`, and an `sdk-ts` host scripted through the Agent SDK, which answers a dialog and approves a permission prompt — the plugin loaded from this repo, no database, the user's other hooks running, a headless browser where a line says so, on Sonnet unless a line says Opus. No session ran in Orca, none was answered by a person, and the one on Antigravity was stopped in its interview.
 
-## Decisions owed
-
-- `build-flow`, a UI batch asked for while `docs/queue.md` holds another batch's lines: the session put its lines above thirteen standing `Prove:` lines, under the standing header, and said so. No rule says which header the file carries or where the standing lines go, and the header is what `Batch` is read from.
-- `build-flow`, the walk of a UI-batch page in an app that signs its users in: with a headless browser the page was written, the walk never started, and the session stopped with the tree dirty to ask how to sign in. `design-settle` settles the account before its audit; `build-flow` has no rule.
-- `design-settle`, fix-the-drift chosen where the audit indicts: a finding whose only repair is a new value — a `DESIGN.md` colour under the floor `DESIGN.md` states, a detector hit on a font it does not name — has no place in the `REPAIR` list. The session put four such findings as keep-or-change questions beside the list, keep recommended.
-- `ui-build`, the material: three Sonnet sessions that wrote UI read none of it, one of them writing two shared components and saying so in its close; the Opus session read every row that applied. The rule already reads `not optional`. Owed: whether the close reports what was read.
-
 ## Not run
 
+- The rules of 0.86.0 — a queue holding two blocks, the account a walk signs in with, `OWED` findings at fix-the-drift's gate, the material named in the close: read on paper by a Sonnet subagent answering case questions, run by no session.
 - The corrections of 0.85.1 to `build-flow` Section 4 and to `app-settle`'s audit of a norm the plugin does not print: written from sessions that ran, run by none since.
 - `design-settle`, past its gate: the fix-the-drift run, with a headless browser, was stopped after the question for each rejected item. Unrun still: the pass with its exception line, Step 8's `n/a — no canvas` checks, the close; a Keep; the frames and the canvas; the path with no UI on Claude Code.
 

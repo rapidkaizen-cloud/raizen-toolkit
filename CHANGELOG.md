@@ -2,6 +2,21 @@
 
 All notable changes to the `raizen-norms` plugin, and to `raizen-hub` until 0.70.0 merged it in, newest first. The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). Versions before these are in `git log`.
 
+## [raizen-norms 0.86.0] - 2026-10-07
+
+Four decisions the runs of 0.85.0 left owed, each answered as recommended. Written from what a session did where no rule stood. Checked on paper by a Sonnet subagent answering case questions; five sentences it read two ways were rewritten and not read again. No session has run them.
+
+### Added
+
+- `build-flow`, the queue: a batch asked for while `docs/queue.md` holds lines of the other kind — a UI batch above `Prove:` lines — is written as a block of its own above them, with its own title and header. A session builds the first block, and a block that runs empty is deleted with its title. A session had put UI lines under the standing header, which is where the running batch is read from.
+- `build-flow`, the walks: where the app has a sign-in and the session holds no account for it, you are asked once, before the first page is written, which account the walks sign in with — one created through `db-ops` (recommended; a login and a role row written to the app's database), or one you supply. A session wrote a page, could not reach it, and stopped with the tree dirty.
+- `design-settle`, fix-the-drift over a written `DESIGN.md`: a finding only a new value would repair — a colour under the floor `DESIGN.md` states, a detector hit on a font it does not name — is listed under `OWED`, never as a `REPAIR` item, and asked once: kept on purpose as an exception line, or left for a redesign, which is recommended for a value under a floor.
+- `ui-build`, the material: the closing block names every row that applied to the edit — read, or skipped with why. Three Sonnet sessions wrote UI without reading any of it, and one said so.
+
+To act on:
+
+- Nothing. A `docs/queue.md` holding two kinds of lines under one header is rewritten into two blocks by the next session that adds a batch.
+
 ## [raizen-norms 0.85.1] - 2026-10-07
 
 Corrections from sessions that ran the rules of 0.85.0 in throwaway clones — headless, and on a scripted `sdk-ts` host that answers a dialog. Each was written from what a session did. The first two were run again on Sonnet and held; the last two were run by no session after the correction.

@@ -41,7 +41,7 @@ Where a session takes several pages, the ones that set a pattern come first: the
 
 Where the app keeps help inside it — the Help row of `docs/product.md` opens with `in-app` — the help page gets a line of its own until it exists.
 
-Work may split into a UI batch, then a backend batch that wires it. An app built from nothing is built that way. An app that already runs splits only for three or more pages at once, or a requirement still vague. The UI queue running empty is the freeze: a contract changes after it only as a stated decision.
+Work may split into a UI batch, then a backend batch that wires it. An app built from nothing is built that way. An app that already runs splits only for three or more pages at once, or a requirement still vague. The UI queue running empty is the freeze: a contract changes after it only as a stated decision. A batch asked for while the queue holds lines of the other kind — a UI batch above `Prove:` lines, say — is written as a block of its own above them, with its own title and header; the session builds the first block, and a block that runs empty goes with its title.
 
 **Propose the page before building it** (Section 4). The session names the page's archetype from `DESIGN.md`'s Page Composition, then proposes two lists. The **Bound** list comes from the Roles and `docs/rules.md` and is stated, never offered as a checkbox. The **Optional** list is a multi-select of what to drop, whose first option is `keep all`. Every open question for the page is asked in one turn; every other choice is made and announced. The bar for a full page is the proving page `DESIGN.md`'s Page Composition names, judged at the desktop width and the lower bound `DESIGN.md` fixes; where it names none, the session judges by its two questions alone and reports the gap. The decision is recorded in code a compiler checks, never in `docs/`. In a UI batch the proposal comes before the page's `Contract + fixtures` line, because the contract's type is that record.
 
@@ -56,7 +56,7 @@ Backend batch rules → migration + RLS → role test → types → query return
 ```
 
 - **Backend first inside one page**, never across the whole app.
-- **In a UI batch the walk of the six cases runs in a subagent** on a cheaper model, because a walk is dozens of browser calls and each one made in the session re-reads all of it. The subagent reports one line per case and saves the `bulk` screenshots; the session reads and judges them itself. A backend batch walks its flow in the session.
+- **In a UI batch the walk of the six cases runs in a subagent** on a cheaper model, because a walk is dozens of browser calls and each one made in the session re-reads all of it. The subagent reports one line per case and saves the `bulk` screenshots; the session reads and judges them itself. A backend batch walks its flow in the session. Where your app has a sign-in and the session holds no account for it, you are asked once, before the first page is written, which account the walks sign in with: one created through `db-ops` (recommended; a login and a role row written to the app's database), or one you supply.
 - **Dead space taller than one table row** at the desktop width is fixed in the session, not recorded.
 - **Lint refusals are fixed before the commit.** A repo with no floor yet skips the step and says so.
 

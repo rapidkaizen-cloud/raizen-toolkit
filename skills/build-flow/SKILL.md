@@ -23,7 +23,7 @@ Queue left : 3 lines
 Next       : Approval inbox — Approver
 ```
 
-- **`Batch` names the batch that is running**, and so what *usable* means this session — in a UI batch, that the page's UI is accepted; the queue's header lines state it. An app that never split its work runs a single batch and the line says so.
+- **`Batch` names the batch that is running**, and so what *usable* means this session — in a UI batch, that the page's UI is accepted; the queue's header lines state it. An app that never split its work runs a single batch and the line says so. A file holding two blocks runs the first.
 - **Never take `Usable now` from a record.** Take it from `git log --oneline -- docs/queue.md` — every line a commit removed is one line finished — and from the routes present in the repo, plus live schema introspection in a backend batch and the contract files in a UI batch.
 - **Read `git diff` as well as `git log`**: a deletion still uncommitted otherwise reports a finished page as unbuilt.
 
@@ -62,9 +62,9 @@ Add `(needs: <page>)` only where a real dependency exists.
 | Line finished | **Delete it at that moment**, never at the end of the session, and never tick it — a deletion made then is true when written and survives a session that dies early |
 | What a line may be | A page, or a step inside one that passes the Section 7 test. A step that fails it is a todo entry (Section 5), never a line: the todo list dies with the session |
 | History | `git log docs/queue.md`. One deleted line per line finished, tied to the commit that built it |
-| File runs empty | Delete the file. Never leave an empty queue |
+| File runs empty | Delete the file. Never leave an empty queue. A block that runs empty above another is deleted with its title and header, and the file stays |
 | Status columns, checkboxes, dates | **Forbidden.** The presence of a line is the status |
-| Header | The three lines under the title name the batch and what *usable* means in it. They stay for the life of the file |
+| Header | The three lines under the title name the batch and what *usable* means in it. They stay for the life of their block |
 | Creating the file | Its shape, per batch, is in `references/new-queue.md` |
 
 Never put in a line what `docs/rules.md`, `docs/glossary.md`, or `docs/product.md` hold. A line needing more than one sentence means the rule behind it is missing from `docs/rules.md`.
@@ -136,6 +136,7 @@ Backend batch
 - **Write the chain as a visible todo list the moment the page starts** — one entry per step of this batch's chain, plus one per spread page that passed the test in Section 1. Required: it lets the user see the next step without asking. Anything unfinished **lands as a `docs/queue.md` line** before the session closes.
 - **Read the running batch's file before its first page**: a UI batch → `references/contract.md` — the contract files, the six fixture cases, the two switches, the copy count; a backend batch, or an app that never split its work → `references/backend.md` — the rule test, the wiring rules, retiring a `src/design-canvas/<page>` file still standing. Neither batch needs the other's file.
 - **A page with no data contract** — a landing section, a static page — has no fixture cases; prove it at the two widths with its real copy.
+- **Settle the account a walk signs in with before the first page is written, where a sign-in already guards the app's routes.** One the session's own instructions carry is used. None → ask once: create one under `db-ops` (`references/agent-account.md`), recommended — a login and a role row written to the app's database · wait for one the user supplies. A page its walk cannot reach is never accepted.
 - **Backend first inside one page**, never backend first across the whole app.
 - **Loading, empty, and failed states ship with the page**, never as follow-up work — `ui-build` binds them to their component.
 - **End the walk with proof, not recall.** Screenshot the `bulk` case at the two Section 4 widths with the session's browser tooling — in a UI batch the walk's subagent saves them (`references/contract.md`) — put the desktop shot beside the proving page at the same width, and answer Section 4's two questions from those screenshots. Dead space taller than one table row at the desktop width → fix the page in this session; it is not a finding to record and move past. No browser tooling → say so and walk the widths live at the dev server; never claim the widths were judged when neither happened.
@@ -158,7 +159,7 @@ Once the last page of the session has been walked, offer the audit in one multi-
 | A role test that misses | RLS fails silently; carrying on to the frontend locks the leak in |
 | A business rule that is not in `docs/rules.md` | Guessing it invents a norm through the back door |
 
-- **The list binds from the first line of a page's code.** The queue's approval (Section 3) and the content questions (Section 4) are asked before any page starts, and are not stops of the build.
+- **The list binds from the first line of a page's code.** The queue's approval (Section 3), the content questions (Section 4) and the account question (Section 5) are asked before any page starts, and are not stops of the build.
 - **In a UI batch only the third can occur** — there is no migration to gate and no RLS to test. Both return in full in the backend batch, where the role test checks against what the UI already declares each role sees.
 - **Anything else: keep going until the page is usable**, and report at the end, never between steps.
 - **Stopped for one of the three → leave the working tree dirty**, so the repository itself says something is waiting on the user.

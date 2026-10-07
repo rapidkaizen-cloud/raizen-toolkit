@@ -31,12 +31,14 @@ A batch may deliver **UI only** — every page built against a hand-written cont
 
 - **A new app is built UI batch first, then backend** — revising a page is cheap while nothing is wired behind it, and screens judged together show the one that answers too little.
 - **An app that already runs splits only when the split pays.** Either condition is enough: **three or more new pages at once**, or **a requirement still vague**. Below that, one batch and full-stack per page — a single UI-only page in a wired app is a half-dead page, easy to mistake for a finished one.
-- **The UI queue running empty is the freeze.** The commit that deletes the file is the moment the contracts stop moving, dated in `git log docs/queue.md` — no separate mechanism, no ceremony. After the freeze a contract changes only as a stated decision: the page it belongs to goes back into the queue.
+- **The UI queue running empty is the freeze.** The commit that deletes the file — or its UI block, where another block stands below it — is the moment the contracts stop moving, dated in `git log docs/queue.md` — no separate mechanism, no ceremony. After the freeze a contract changes only as a stated decision: the page it belongs to goes back into the queue.
 - **Contracts are never retrofitted.** A page that already has a real query has a real data shape; contracts are born only for pages built in a UI batch.
 
 ## The file
 
 Open the file with its batch's title and three header lines: they stop a later session adding a status column, or reading a UI batch as a backend one. The examples are English only because this skill is.
+
+**A batch born while the file holds lines of the other kind is written as a block of its own, above them** — a UI batch above backend or unsplit lines, or the reverse: its title and three header lines, then its lines. The standing block stays below, untouched, under its own title and header. Lines of the same kind join the standing block in build order.
 
 A backend batch, and any app that never split its work:
 
