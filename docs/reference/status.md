@@ -6,6 +6,7 @@ What has run for real, on which host, and what has not. A line under "Not yet ve
 
 - **`design-settle`'s interview** has been simulated on an existing-UI scenario with a legacy `PRD.md`, in Full, and every decision landed.
 - **`app-settle`'s migrate mode** ran twice on copies of two legacy apps, by a session that read only the skill: every sentence of the PRD's six sections arrived word for word, `DESIGN.md` linted clean, one commit each.
+- **A session building a new page** ran every step on Opus at 0.87.0, in a copy of a settled app with no sign-in: `build-flow`'s todo list, its proposal with both lists and its audit offer, and all of `ui-build`'s craft material read before the page.
 
 ## Proven on Antigravity
 
@@ -24,6 +25,7 @@ Proven before 0.70.0 only, registered by path: an interactive session, and the h
 
 ## Not yet verified
 
+- A session building a new page on Sonnet: two sessions at 0.87.0 each dropped at least one of the todo list, the proposal's two lists and the audit offer, and neither read all of the craft material. Two rounds of tighter wording did not change that — build on Opus.
 - The UI and logic lint floors and the rule tests have never been written in a real app.
 - The `docs/` form has never been bootstrapped in a real app.
 - `app-settle`'s migrate mode and its align mode have never run in an app. Run migrate on a copy of a legacy app before a real one.

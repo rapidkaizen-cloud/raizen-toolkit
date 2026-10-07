@@ -29,6 +29,10 @@ The long version: [Start a new app](../guide/new-app.md).
 
 The long version: [Bring in an existing app](../guide/existing-app.md).
 
+## Which model to build on
+
+**Run the sessions that build pages on Opus.** One session on Opus ran every step a new page owes — the todo list, the proposal, the craft material, the audit offer; on Sonnet, two sessions each skipped at least one. See [What is proven](../reference/status.md).
+
 ## What you will notice in every session after
 
 - **It starts already knowing the norms.** Language, scope, git, asking and decisions are printed before your first message. See [Session norms](../concepts/session-norms.md).

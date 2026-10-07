@@ -2,15 +2,12 @@
 
 - How the lines below were observed, 2026-10-06 and 2026-10-07: sessions on Claude Code 2.1.289 in throwaway clones of two apps and of one an earlier proof session bootstrapped — headless `claude -p`, and an `sdk-ts` host scripted through the Agent SDK, which answers a dialog and approves a permission prompt — the plugin loaded from this repo, no database, the user's other hooks running, a headless browser where a line says so, on Sonnet unless a line says Opus. No session ran in Orca, none was answered by a person, and the one on Antigravity was stopped in its interview.
 
-## Decisions owed
-
-- `build-flow` and `ui-build` on Sonnet: of two sessions that built a new page on 0.87.0, each dropped at least one of the todo list, the proposal's two lists and the audit offer, and neither read all of the material — one none of it, one a row of three, both because the page repeats a pattern, the reason the rule rules out. One session on Opus did all four. Two rounds of tighter wording did not make a Sonnet session do all of it. Recommended: say on the start page that build sessions are proven on Opus, and leave the text; the price is that a Sonnet session still drops a step unseen. The other way is a reminder at the session's first UI commit, as the document reminder works.
-
 ## Not run
 
-- `design-settle`, Step 0: `review-animations` found on disk, never in the skill list (0.86.1). Neither session run since printed the Step 0 block, so the line was not seen.
-- `design-settle` with no UI, on 0.87.0: the run that reached its close ran 0.86.0 — a canvas of nine pages promoted, the pixel diff at zero on nine pages and two widths, a focus bug found by the keyboard check and fixed, one commit — and wrote no `docs/queue.md` for its nine wire lines. The file being created was seen on fix-the-drift only.
-- On Opus: one `build-flow` session. Every other line of 0.85.1 to 0.87.0 was run on Sonnet alone.
+- `design-settle` on Opus, Steps 8 and 9: the one Sonnet session that ran them on 0.87.0 — a copy of the finished no-UI run rewound to before its close commit, re-entered through the leftover question — committed with the structural diff failed and the pixel diff and reduced motion `not verified`, wrote no queue line for any of the three and asked whether to add them, left its last edits unchecked in the browser, and never named `review-animations`, the motion check included. It did create `docs/queue.md` unasked, with the nine wire lines in the unsplit shape.
+- `design-settle` with no UI, from its first step on 0.87.0: Step 7 writing a wire line as it promotes each page was not seen — the file was created at Step 8 of the rewound copy, and on fix-the-drift.
+- `design-settle`, Step 0, on Sonnet: none of three sessions since 0.86.1 printed the block. One Opus session printed it whole, `review-animations` found on disk.
+- On Opus: one `build-flow` session and one `design-settle` Step 0. Every other line of 0.85.1 to 0.87.0 was run on Sonnet alone.
 
 ## Needs a session this repo cannot run
 
