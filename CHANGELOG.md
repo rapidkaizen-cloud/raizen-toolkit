@@ -2,6 +2,24 @@
 
 All notable changes to the `raizen-norms` plugin, and to `raizen-hub` until 0.70.0 merged it in, newest first. The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). Versions before these are in `git log`.
 
+## [raizen-norms 0.87.0] - 2026-10-07
+
+Three decisions the runs of 0.86.0 left owed, each answered as recommended, and one chain line corrected from the sessions that ran them. Run in throwaway clones the same day: the first two decisions held on Sonnet, and so did the corrections of 0.86.1 to `design-settle`, `review-animations` excepted, which no session showed. `build-flow`'s todo list, proposal and audit offer, and the material on a new page, held together in one session on Opus; of two on Sonnet, each dropped at least one of the three and neither read all of the material.
+
+### Added
+
+- `design-settle`: where the repo has no `docs/queue.md`, the session creates it for the lines its pass and its close leave, in the shape of a queue that never split its work and with no approval stop of its own — the gate and the close already show the lines. Two sessions ended with lines owed, wrote no file because `build-flow` gives a new queue an approval stop, and listed them in chat for you to add.
+- `design-settle`, Fast, where UI exists: the direction line says that cancelling it offers `Keep — today's look`. Fast pre-answers the direction with `Decide for me`, so nothing named Keep; a Keep typed at the pick was honoured after three frames had been drawn and deleted.
+
+### Changed
+
+- `ui-build`, the material: the load is mandatory for a session that writes a new page or a new component — a new file in the pages or the components folder, whatever pattern it repeats. An edit inside a file that stands may skip a row, and the close says why. Of four sessions that wrote UI, three had read none of it, one of them for a whole page.
+- `build-flow`: the first step of a page's chain is the proposal with its two lists. A session named the archetype, asked three questions about rules and counted the proposal as made; it then decided sorting and a drill-down alone.
+
+To act on:
+
+- Nothing.
+
 ## [raizen-norms 0.86.1] - 2026-10-07
 
 Corrections from seven sessions that ran the rules of 0.85.1 and 0.86.0 in throwaway clones, all on Sonnet — one headless, six on a scripted `sdk-ts` host that answers a dialog, five of them with a headless browser. Each was written from what a session did. The first two were run again on Sonnet and held; the rest were read on paper by a Sonnet subagent answering case questions, three sentences rewritten after it, and run by no session since.

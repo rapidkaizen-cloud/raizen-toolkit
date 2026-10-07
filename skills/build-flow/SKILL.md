@@ -118,7 +118,7 @@ Two chains, one per batch. The backend one extends the chain `db-ops` fixes (`mi
 
 ```
 UI batch
-  the proposal, answered — Section 4
+  the proposal with its two lists, answered — Section 4
     → contract → fixtures, six cases → page + loading, empty, failed states
     → walk all six cases in a browser
     → screenshot the bulk case at both Section 4 widths, judged beside the proving page
@@ -126,7 +126,7 @@ UI batch
     → run the lint command — the floor in `ui-build`
 
 Backend batch
-  the proposal, answered — Section 4 — where no contract holds the page
+  the proposal with its two lists, answered — Section 4 — where no contract holds the page
     → rules from docs/rules.md → migration + RLS → role test → regenerate types
     → query returning the contract type, in the data layer folder
     → one rule test per docs/rules.md topic this page implements — `logic-build` Section 10
