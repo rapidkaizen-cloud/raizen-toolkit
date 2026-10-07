@@ -87,7 +87,8 @@ Platform        : [from the Surface row, else from the manifest and platform fil
                    Surface's Proof profile line, or to the platform's own tooling where none is written]
 Primary role    : [from the Roles, else from the roles the code enforces, else asked at Step 1]
 Design material : [impeccable · frontend-design · ui-ux-pro-max present/absent — Required ·
-                   review-animations present/absent, found per ui-build — Optional.
+                   review-animations present/absent, found on disk per ui-build, never from
+                   the skill list — Optional.
                    Presence only: read from Step 5, ui-ux-pro-max from Step 3]
 Logic layer     : [settled — CLAUDE.md carries a Data layer row / not settled]
 Branch          : [name · clean or has uncommitted changes]

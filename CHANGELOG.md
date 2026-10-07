@@ -2,6 +2,27 @@
 
 All notable changes to the `raizen-norms` plugin, and to `raizen-hub` until 0.70.0 merged it in, newest first. The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). Versions before these are in `git log`.
 
+## [raizen-norms 0.86.1] - 2026-10-07
+
+Corrections from seven sessions that ran the rules of 0.85.1 and 0.86.0 in throwaway clones, all on Sonnet — one headless, six on a scripted `sdk-ts` host that answers a dialog, five of them with a headless browser. Each was written from what a session did. The first two were run again on Sonnet and held; the rest were read on paper by a Sonnet subagent answering case questions, three sentences rewritten after it, and run by no session since.
+
+### Fixed
+
+- `build-flow`: the content proposal is the first step of a page's chain, so it lands in the todo list the session writes, and the audit offer is that list's last entry. A session wrote no todo list, built a page whose filters and summary row it decided alone, and closed without offering the audit; the order sentence of 0.85.1 changed nothing, because the proposal never ran. Run again: the proposal came as its multi-select before the contract was written.
+- `app-settle`, the audit: a line of `CLAUDE.md` counts as a copy of a plugin norm only where the plugin line rules every case the file's line rules, and every skill and command name in the file is checked against the plugin's skills. An audit listed "no dependency without approval" as a copy, citing a `logic-build` line that rules one layer and an `app-settle` line that rules one mode, and align deleted it again; it also missed the name of a skill merged away. Run again: the line was counted apart and the name found.
+- `design-settle`, the audit: the detector runs with `--json`. A clean scan printed nothing, the audit read the silence as an absent detector, and the session reported `n/a — not installed` through to its close.
+- `design-settle`, Step 0: `review-animations` is looked for on disk, never in the skill list. Two sessions reported it not installed; it was.
+- `design-settle`, Step 8: the subagent that runs the mechanical checks is briefed with `verify.md` itself. A session retyped ten checks into a brief of its own, and the checks that read a canvas, the UX floor and the accessible names were never reported — neither run nor `n/a — no canvas`.
+- `design-settle`, the gate: the reason for a line kept on purpose is asked for in Fast too. A session wrote `[needs verification]` in its place.
+
+### Changed
+
+- `design-settle`, the audit: its list of places is `.design-audit/places.md`; it was `findings.md`. Claude Code refuses a subagent's write of a file named `findings.md`, `report.md` or `summary.md`, so in two runs the file was never written and the gate searched the code for every place again.
+
+To act on:
+
+- Nothing. `.design-audit/` belongs to one run, and the next audit writes it again.
+
 ## [raizen-norms 0.86.0] - 2026-10-07
 
 Four decisions the runs of 0.85.0 left owed, each answered as recommended. Written from what a session did where no rule stood. Checked on paper by a Sonnet subagent answering case questions; five sentences it read two ways were rewritten and not read again. No session has run them.

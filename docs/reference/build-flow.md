@@ -45,7 +45,7 @@ Work may split into a UI batch, then a backend batch that wires it. An app built
 
 **Propose the page before building it** (Section 4). The session names the page's archetype from `DESIGN.md`'s Page Composition, then proposes two lists. The **Bound** list comes from the Roles and `docs/rules.md` and is stated, never offered as a checkbox. The **Optional** list is a multi-select of what to drop, whose first option is `keep all`. Every open question for the page is asked in one turn; every other choice is made and announced. The bar for a full page is the proving page `DESIGN.md`'s Page Composition names, judged at the desktop width and the lower bound `DESIGN.md` fixes; where it names none, the session judges by its two questions alone and reports the gap. The decision is recorded in code a compiler checks, never in `docs/`. In a UI batch the proposal comes before the page's `Contract + fixtures` line, because the contract's type is that record.
 
-**The order inside a page** (Section 5). The session writes its batch's chain as a visible todo list the moment the page starts; anything unfinished lands as a `docs/queue.md` line before the session closes.
+**The order inside a page** (Section 5). The session writes its batch's chain as a visible todo list the moment the page starts, the proposal as its first entry and the audit offer as its last; anything unfinished lands as a `docs/queue.md` line before the session closes.
 
 ```
 UI batch      contract → fixtures (six cases) → page with loading, empty, failed states

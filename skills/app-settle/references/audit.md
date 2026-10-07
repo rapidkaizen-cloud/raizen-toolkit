@@ -28,8 +28,8 @@ C7 rule coverage    : [N rule topics · N quoted by a test title · runner — <
 
 **C2 — the agent files.** `CLAUDE.md` has two failures that look alike:
 
-- A norm the plugin now prints, copied into the file. Find it by reading the file against the plugin text: `session_norms.py` detects only the phrases of the old **English** template, so a hand-written or translated file is invisible to it. **List it with the plugin file and line that prints it**; a norm no plugin line prints is counted apart, because deleting it loses the rule.
-- A name that no longer exists — a skill that was merged, a command that was renamed.
+- A norm the plugin now prints, copied into the file. Find it by reading the file against the plugin text: `session_norms.py` detects only the phrases of the old **English** template, so a hand-written or translated file is invisible to it. **List it with the plugin file and line that prints it, and count it a copy only where that line rules every case the file's line rules.** A line that rules more — one mode's, one layer's or one step's rule, written in the file for every session — is counted apart with a norm no plugin line prints, because deleting it loses the rule.
+- A name that no longer exists — a skill that was merged, a command that was renamed. Check every skill and command name the file holds against the plugin's `skills/` folder, a name in a sentence about the past included.
 
 `AGENTS.md` takes its shape from `app-settle`'s `references/scaffold.md` (N5): report it missing, the parts it lacks, and every path its `## UI` or `## Logic` part names that does not resolve.
 

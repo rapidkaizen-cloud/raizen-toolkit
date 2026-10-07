@@ -4,7 +4,7 @@
 
 Every check leaves something the user can inspect. **A check here or in Step 7 that cannot run** — no data, no sign-in, no tooling — **is reported `not verified — <reason>`, never passed**, and becomes a `docs/queue.md` line (Step 9); one run against a verification double, standing in for data or sign-in, is reported as run on it, and its real-data line stays.
 
-**The mechanical checks run in one subagent** (`SKILL.md`, What a run costs), this section as its brief: it returns one line per check per page — verdict, the count or ratio, the evidence path — and fixes nothing. **The session runs the judged checks itself, fixes every failed item in the same session, and re-runs that check.** All of them pass before reporting done.
+**The mechanical checks run in one subagent** (`SKILL.md`, What a run costs). **Brief it with this file's path — Step 8 down to the end of `Mechanical — the subagent` — plus what the repo does not show: the path this run took, the account it holds, the lines answered at the gate. Never retype the checks**, because a retyped list loses some: it returns one line per check per page — verdict, the count or ratio, the evidence path — and fixes nothing. **The session runs the judged checks itself, fixes every failed item in the same session, and re-runs that check.** All of them pass before reporting done.
 
 **Where no canvas was drawn — fix-the-drift, a Keep — a check that reads a canvas file is `n/a — no canvas`**, never `not verified` and never a queue line: the structural diff, the pixel diff, the rendered-structure count, the signature. `Promoted page` reads as every page a repair touched, and each approved finding is re-read at its place — gone, or a failed item; a rejected finding stands and fails no check.
 

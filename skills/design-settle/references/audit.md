@@ -7,7 +7,7 @@ You audit the UI an app has today, for a session that will redesign it **without
 Three files under `.design-audit/` at the repo root:
 
 - **`audit.md`** — for the user: the block below, the frame inventory, the component measurements, the contrast pairs, the `DESIGN.md` deviations, the screenshot paths.
-- **`findings.md`** — for a gate that redraws nothing, never read by a session that draws: every hit a repair of the UI could clear, one line per place — file and line · what is there · the block row or `DESIGN.md` rule it falls under.
+- **`places.md`** — for a gate that redraws nothing, never read by a session that draws: every hit a repair of the UI could clear, one line per place — file and line · what is there · the block row or `DESIGN.md` rule it falls under.
 - **`handover.md`** — the only thing the drawing session reads, holding in this order and nothing else: the app in three sentences from `docs/product.md` · the roles · the function inventory · the route list, each route with a few words on what it is for and nothing on what it holds · the data vocabulary a fixture must respect, with a handful of real rows from the data layer where it holds any · the data-layer files a fixture may take types from, by path, none carrying a look or importing from the components folder · the UI stack row, font packages left out · the counts that price the pass, as numbers.
 
 **`handover.md` carries no colour, hex, font name, radius, spacing value, component measurement, shell description, part or section name per page, `DESIGN.md` prose, screenshot, or code excerpt** — nothing on how anything looks or where it sits.
@@ -25,9 +25,11 @@ AUDIT
 Tokens defined      : [how many colors · text steps · spacing values · radii]
 Token health        : [how many never read · duplicate roles · library slots unmapped]
 Stray raw values    : [how many hex · font sizes · spacings, across how many files]
-Slop detectors      : [how many hits · how many rules, from `npx --no-install impeccable detect`
-                       on the source tree, which reports an absent detector as absent — the
-                       source tier only; the full set needs the running app.
+Slop detectors      : [how many hits · how many rules, from `npx --no-install impeccable detect --json`
+                       on the source tree — a clean scan prints `[]`, an absent detector an
+                       error, and no output at all is a scan that did not run, written
+                       `not run — no output` — the source tier only; the full set needs
+                       the running app.
                        `n/a — native surface` where the Surface is not web technology]
 Icons               : [families, named · how many sizes · how many weights]
 Fonts loaded        : [from the styling files AND the HTML entry, or the root layout where

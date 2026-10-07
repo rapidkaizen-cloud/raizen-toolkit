@@ -118,14 +118,16 @@ Two chains, one per batch. The backend one extends the chain `db-ops` fixes (`mi
 
 ```
 UI batch
-  contract → fixtures, six cases → page + loading, empty, failed states
+  the proposal, answered — Section 4
+    → contract → fixtures, six cases → page + loading, empty, failed states
     → walk all six cases in a browser
     → screenshot the bulk case at both Section 4 widths, judged beside the proving page
     → count the page copy and print the three lines
     → run the lint command — the floor in `ui-build`
 
 Backend batch
-  rules from docs/rules.md → migration + RLS → role test → regenerate types
+  the proposal, answered — Section 4 — where no contract holds the page
+    → rules from docs/rules.md → migration + RLS → role test → regenerate types
     → query returning the contract type, in the data layer folder
     → one rule test per docs/rules.md topic this page implements — `logic-build` Section 10
     → wire the page → walk the flow in a browser
@@ -133,7 +135,7 @@ Backend batch
     → the documents this page owes — Section 8
 ```
 
-- **Write the chain as a visible todo list the moment the page starts** — one entry per step of this batch's chain, plus one per spread page that passed the test in Section 1. Required: it lets the user see the next step without asking. Anything unfinished **lands as a `docs/queue.md` line** before the session closes.
+- **Write the chain as a visible todo list the moment the page starts** — one entry per step of this batch's chain, plus one per spread page that passed the test in Section 1, and the audit offer below as its last entry. Required: it lets the user see the next step without asking. Anything unfinished **lands as a `docs/queue.md` line** before the session closes.
 - **Read the running batch's file before its first page**: a UI batch → `references/contract.md` — the contract files, the six fixture cases, the two switches, the copy count; a backend batch, or an app that never split its work → `references/backend.md` — the rule test, the wiring rules, retiring a `src/design-canvas/<page>` file still standing. Neither batch needs the other's file.
 - **A page with no data contract** — a landing section, a static page — has no fixture cases; prove it at the two widths with its real copy.
 - **Settle the account a walk signs in with before the first page is written, where a sign-in already guards the app's routes.** One the session's own instructions carry is used. None → ask once: create one under `db-ops` (`references/agent-account.md`), recommended — a login and a role row written to the app's database · wait for one the user supplies. A page its walk cannot reach is never accepted.
