@@ -18,12 +18,13 @@ description: Settle the visual direction and component library of an app, with o
 
 A rule marked *UI exists* or *`DESIGN.md` written* runs only under that fact; an unmarked one runs on every repo.
 
-## What a run costs — four rules
+## What a run costs — five rules
 
 - **Read a step's file when the flow reaches that step, never earlier.** The table under Step 2 names each one; a file for a switch that is off is never read, and a section named from another step is read alone, by its heading.
 - **Run a step's independent reads, searches and commands in one turn** — parallel calls, or one chained command — because every extra model call re-reads the whole session.
-- **Hand non-taste work to one subagent on a cheaper model than the session's** (`sonnet` on Claude Code): the audit, the stack verification, the reference search, the platform research, Step 8's mechanical checks. Brief it with the file that rules the job and take back only the compact result that file names — its raw results never enter this session. No subagent → run it here and say so; no model choice → the session's model.
+- **Hand non-taste work to one subagent on a cheaper model than the session's** (`sonnet` on Claude Code): the audit, the stack verification, the reference search, the platform research — and Step 8's mechanical checks in the three `verify.md` names. Brief it with the file that rules the job and take back only the compact result that file names — its raw results never enter this session. No subagent → run it here and say so; no model choice → the session's model.
 - **Never re-read what the session start printed** — the documents and the two listings.
+- **End the turn at two seams and tell the user to run this skill again in a new session**, because every later call would re-read the drawing, then the pass: once the documents are written — after Step 6 where no UI exists, after the pass's first act where it does — and after the pass's last point, before Step 8. First write `.design-audit/resume.md`: what the steps ahead need and the repo does not show — the path taken, the account held, every line answered or cancelled, the canvas rounds, what Step 9's block owes from the steps behind. A reply in the same session continues there.
 
 ## Hard limits
 
@@ -110,7 +111,7 @@ Flow            : reading + Fast or Full (+ audit in a subagent, where UI exists
 
 **Re-entry is a gate, never an inference.** When `Leftover` is not `none`, one mandatory AskUserQuestion follows the block, before any other work, however obvious the state looks:
 
-- **Continue** — resume at the step the state shows, reading that step's file: pass applied but unverified → Step 8; pass partly applied → Step 7 at the next seam point, `.design-audit/gate.md` read first where UI exists; canvas ratified but not promoted → Step 7; canvas mid-rounds → Step 5; frames drawn but not picked → the pick. Announce the resumed step and what remains before touching anything.
+- **Continue** — resume at the step the state shows, reading `.design-audit/resume.md` where it stands, then that step's file: pass applied but unverified → Step 8; pass partly applied → Step 7 at the next seam point, `.design-audit/gate.md` read first where UI exists; canvas ratified but not promoted → Step 7; canvas mid-rounds → Step 5; frames drawn but not picked → the pick. Announce the resumed step and what remains before touching anything.
 - **Start over** — the full path from Step 1. The leftover canvas is an audit finding; its deletion is proposed at Step 8's chat stop, never assumed.
 - **Stop** — report the detected state in one block and close.
 

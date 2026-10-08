@@ -2,6 +2,19 @@
 
 All notable changes to the `raizen-norms` plugin, and to `raizen-hub` until 0.70.0 merged it in, newest first. The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). Versions before these are in `git log`.
 
+## [raizen-norms 0.89.0] - 2026-10-08
+
+Two cuts to what a `design-settle` run costs, decided from the token count of one close at 0.87.0: 25.5 million input tokens, 18.5 million of them one subagent whose context grew from 32k to 267k over 120 calls. Every check stays. No session has run either cut, so the saving is an estimate.
+
+### Changed
+
+- `design-settle` ends its turn at two seams and asks you to run it again in a new session: once the documents are written, and after the pass, before the checks. It first writes `.design-audit/resume.md` — the path taken, the account held, the lines answered or cancelled, the canvas rounds — and the next session reads it at the leftover question. A reply in the same session continues there. One session carried the drawing through every call of the pass and the checks.
+- `design-settle`, Step 8: the mechanical checks run in three subagents — from the files, from the rendered page, by driving the page — the two that open the browser one after the other. The checks and their wording are unchanged.
+
+To act on:
+
+- Nothing. A run stopped at a seam leaves its tree uncommitted, as a pass stopped at a seam already did.
+
 ## [raizen-norms 0.88.0] - 2026-10-08
 
 Four decisions that two runs of `design-settle`'s Steps 8 and 9 on 0.87.0 left owed, each answered as recommended, and the start page's advice on the model widened to that skill. No session has run them: the local plugin file alone was seen refusing its planted violations, in the proof app on oxlint 1.87.0.
@@ -16,6 +29,10 @@ Four decisions that two runs of `design-settle`'s Steps 8 and 9 on 0.87.0 left o
 
 - `design-settle`, Step 8: the structural diff and the rendered-structure count allow the routing seam — a link's target and the parameter a page reads, moved from the canvas's page switch to the app's routes — and a block the lint floor refuses in a page, moved whole into the components folder. The diff failed on six files of one promotion for these, and neither session that met the failure gave it a queue line.
 - `docs/start/quickstart.md`: the advice to run on Opus covers `design-settle` as well as the sessions that build pages.
+
+To act on:
+
+- Nothing.
 
 ## [raizen-norms 0.87.0] - 2026-10-07
 

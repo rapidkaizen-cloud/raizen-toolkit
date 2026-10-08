@@ -19,6 +19,7 @@ Before you start: `impeccable`, `frontend-design` and `ui-ux-pro-max` are instal
 4. **Answer the non-visual dialogs**, or in Fast cancel the lines you disagree with.
 5. **Pick a direction on screen.** It draws two to four direction frames and you choose.
 6. **Approve the canvas once.** Every page is built in production-grade code on a canvas; your approval promotes it into the app.
+7. **Start a new session when it asks, twice** — before the pages are promoted and before they are checked. Run `/raizen-norms:design-settle` again and choose to continue; it costs far less than one long session.
 
 ## Where UI already exists
 
