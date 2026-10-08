@@ -32,7 +32,7 @@
 ## Promotion rules
 
 - **Element for element.** Every visible element survives into the page (fixtures swapped for data, real states added) or appears as a named deviation line at the recap with its reason — real behavior contradicts the drawing · the backend does not exist yet · the control is obsolete. Never substitute a plainer equivalent silently (a bare file input for a drawn dropzone). A canvas control the real flow never had is a canvas error reported for the user's decision, never quietly dropped.
-- **The proof is a diff, not a look.** Differences between canvas file and promoted page are confined to the data seam (fixture import swapped, plus loading and error wiring) and approved deviation lines; any other difference is a failed promotion to fix, whichever side reads better.
+- **The proof is a diff, not a look.** Differences between canvas file and promoted page are confined to what Step 8's structural diff allows (`verify.md`) and approved deviation lines; any other difference is a failed promotion to fix, whichever side reads better.
 - **The proving page is the bar** for every later page; with data, its fixtures include `bulk` and `messy` cases. `ui-build` binds every promoted page.
 - **Page running → prove it at two widths with screenshots** (`DESIGN.md`'s desktop breakpoint and lowest supported width) per the Proof profile. No capture tooling → say so, name the run target and both widths; never claim they were judged.
 - **Survival of real data**, per page at both widths: a layout collapsing under real rows, a token that did not land, or a vanished section stops the pass as a rework round of that page. Real rows differing from fixtures is not divergence.
@@ -67,7 +67,7 @@ Write **the four refusals `ui-build` names under its lint floor into the stack's
 | Primitive import | The packages the shared set wraps. None → not written |
 
 - **Scoped by path**: the components folder is exempt from the first and fourth, the styling files from the second and third, the `/design-system` route file from the third, `src/design-canvas/` from all four.
-- JS/TS web: ESLint's `no-restricted-syntax` and `no-restricted-imports`; other stacks: the analyzer's equivalent **verified live at write time**, an inexpressible refusal reported as `not enforceable on <stack>`. No linter → Step 4 installed one; in fix-the-drift, one install line approved in chat.
+- JS/TS web on ESLint: `no-restricted-syntax` and `no-restricted-imports`. Any other linter or stack: its own rule, and for a refusal it has no rule for, **one local plugin file the config loads**, derived like the config — each **verified live at write time**, a refusal neither expresses reported as `not enforceable on <stack>`. No linter → Step 4 installed one; in fix-the-drift, one install line approved in chat.
 - **Proven on what must pass before what must fail.** Lint the promoted app first; a hit on a freshly written page is a raw value to fix or a pattern too wide (`grid-cols-[1fr_auto]`, a `calc()` is not a raw value). Then plant one violation per refusal in a scratch page, see each refused, delete it.
 - **Files the pass did not rewrite are baselined, never excused** — in the linter's own suppression baseline, verified live. Never lower a rule to a warning. Report the baseline's size at the close; it only shrinks.
 - **One floor, one command**: these four join `logic-settle` Step 7's config (`references/floor.md`) where it exists, or found it. The detector stays alongside.

@@ -27,7 +27,8 @@ Proven before 0.70.0 only, registered by path: an interactive session, and the h
 ## Not yet verified
 
 - A session building a new page on Sonnet: two sessions at 0.87.0 each dropped at least one of the todo list, the proposal's two lists and the audit offer, and neither read all of the craft material. Two rounds of tighter wording did not change that — build on Opus.
-- `design-settle` closing with every check passed: on Opus and on Sonnet the structural diff failed and the session committed with no verdict for it and no queue line. Both reported reduced motion `not verified` — the browser tool cannot emulate it.
+- `design-settle`'s close on the rules of 0.88.0. At 0.87.0, on Opus and on Sonnet, the structural diff failed for differences promotion itself makes, reduced motion was `not verified` because the browser tool cannot emulate it, and on Opus a fix changed pages already ratified. 0.88.0 answers the three and no session has run it; the lint floor's local plugin file alone was seen refusing its planted violations, on oxlint 1.87.0.
+- `design-settle`'s close on Sonnet: one session at 0.87.0 wrote no queue line for the checks it could not run, left its last edits unchecked and never read the motion against `review-animations` — run it on Opus.
 - The UI and logic lint floors and the rule tests have never been written in a real app.
 - The `docs/` form has never been bootstrapped in a real app.
 - `app-settle`'s migrate mode and its align mode have never run in an app. Run migrate on a copy of a legacy app before a real one.

@@ -31,7 +31,7 @@ The long version: [Bring in an existing app](../guide/existing-app.md).
 
 ## Which model to build on
 
-**Run the sessions that build pages on Opus.** One session on Opus ran every step a new page owes — the todo list, the proposal, the craft material, the audit offer; on Sonnet, two sessions each skipped at least one. See [What is proven](../reference/status.md).
+**Run `design-settle` and the sessions that build pages on Opus.** One session on Opus ran every step a new page owes — the todo list, the proposal, the craft material, the audit offer; on Sonnet, two sessions each skipped at least one. At `design-settle`'s close, the session on Opus read the motion against `review-animations`, looked again after its last edits and wrote a queue line for the check it could not run; the one on Sonnet did none of the three. See [What is proven](../reference/status.md).
 
 ## What you will notice in every session after
 

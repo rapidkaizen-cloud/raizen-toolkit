@@ -2,6 +2,21 @@
 
 All notable changes to the `raizen-norms` plugin, and to `raizen-hub` until 0.70.0 merged it in, newest first. The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). Versions before these are in `git log`.
 
+## [raizen-norms 0.88.0] - 2026-10-08
+
+Four decisions that two runs of `design-settle`'s Steps 8 and 9 on 0.87.0 left owed, each answered as recommended, and the start page's advice on the model widened to that skill. No session has run them: the local plugin file alone was seen refusing its planted violations, in the proof app on oxlint 1.87.0.
+
+### Added
+
+- `design-settle`, Step 8: a fix that changes what a page you ratified renders is applied without a stop and listed at the close as one cancellable line — the page, what moved, the check that ordered it — and that page's pixel diff and keyboard walk run again. A session closed touch targets and a detector hit on three pages, which then no longer matched their canvas, and no rule said whether to apply the fix, stop or queue it.
+- `design-settle`, Step 8: where the browser tool cannot emulate reduced motion, the session runs a stand-in — the stylesheets' reduced-motion rules forced on, then the running animations and standing transitions counted — and reports the check as run on it, with no queue line. Chrome DevTools MCP 1.10.1 has no such emulation: two sessions reported `not verified`, and one wrote a queue line no later session could clear.
+- `design-settle`, the lint floor: a linter with no rule for a refusal gets one local plugin file its config loads, and that file is on the skill's closed list of writes. In an app on oxlint one session left three of the four refusals unwritten, and another wrote them as a plugin file the list did not allow.
+
+### Changed
+
+- `design-settle`, Step 8: the structural diff and the rendered-structure count allow the routing seam — a link's target and the parameter a page reads, moved from the canvas's page switch to the app's routes — and a block the lint floor refuses in a page, moved whole into the components folder. The diff failed on six files of one promotion for these, and neither session that met the failure gave it a queue line.
+- `docs/start/quickstart.md`: the advice to run on Opus covers `design-settle` as well as the sessions that build pages.
+
 ## [raizen-norms 0.87.0] - 2026-10-07
 
 Three decisions the runs of 0.86.0 left owed, each answered as recommended, and one chain line corrected from the sessions that ran them. Run in throwaway clones the same day: the first two decisions held on Sonnet, and so did the corrections of 0.86.1 to `design-settle`, `review-animations` excepted, which no session showed. `build-flow`'s todo list, proposal and audit offer, and the material on a new page, held together in one session on Opus; of two on Sonnet, each dropped at least one of the three and neither read all of the material.

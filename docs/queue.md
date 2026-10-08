@@ -2,16 +2,9 @@
 
 - How the lines below were observed, 2026-10-06 to 2026-10-08: sessions on Claude Code 2.1.289 in throwaway clones of two apps and of one an earlier proof session bootstrapped — headless `claude -p`, and an `sdk-ts` host scripted through the Agent SDK — the plugin loaded from this repo, no database, the user's other hooks running, a headless browser where a line says so, on Sonnet unless a line says Opus. No session ran in Orca, none was answered by a person, and the one on Antigravity was stopped in its interview.
 
-## Decisions owed
-
-- How these were observed, 2026-10-07 and 2026-10-08: one Sonnet and one Opus session ran `design-settle`'s Steps 8 and 9 on 0.87.0, each on a rewound copy of the finished no-UI run. Opus did what Sonnet had not — the motion read against `review-animations`, a capture after its last edits, a queue line for its `not verified` — and `quickstart.md` advises Opus for building pages only.
-- Step 8, the structural diff: it failed on six files for what promotion itself makes — path routes, field wrappers the lint floor forces into the components file, a focus return — none allowed by `verify.md`. Opus kept each as a cancellable line with no verdict and no queue line; Sonnet committed with it failed.
-- Step 8, a fix that changes a ratified page: touch targets and a detector hit, fixed, left three pages unlike their canvas at 375px. No rule says whether such a fix is applied, stops or becomes a queue line, nor which checks are owed again — Opus applied it as cancellable lines and re-ran no pixel diff, rendered structure or keyboard walk.
-- Step 8, reduced motion: Chrome DevTools MCP 1.10.1 cannot emulate it, so both sessions reported `not verified`; Opus forced the stylesheet's own `@media` block as a stand-in and wrote a queue line no later session can clear.
-- The lint floor on oxlint: `pass.md` names ESLint's rules, and Opus found no built-in rule for three of the four refusals. The Sonnet pass had written one and no `not enforceable` line; Opus wrote the other three as a plugin file outside the closed list of writes, and all four refused.
-
 ## Not run
 
+- `design-settle` 0.88.0, Steps 8 and 9: the routing seam and the lint floor's move as allowed differences, a fix on a ratified page as a cancellable line with its pixel diff and keyboard walk again, the reduced-motion stand-in, and the plugin file for a linter with no rule — written from the two runs of 0.87.0, none run; the plugin file alone was seen refusing, on oxlint 1.87.0. `logic-settle`'s floor names ESLint the same way and was left as it is.
 - `design-settle` with no UI, from its first step on 0.87.0: Step 7 writing a wire line as it promotes each page was not seen — the file was created at Step 8 of the rewound copy, and on fix-the-drift.
 - `design-settle`, Step 0, on Sonnet: none of three sessions since 0.86.1 printed the block. One Opus session printed it whole, `review-animations` found on disk.
 - On Opus: one `build-flow` session, one `design-settle` Step 0 and one run of its Steps 8 and 9. Every other line of 0.85.1 to 0.87.0 was run on Sonnet alone.
