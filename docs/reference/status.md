@@ -4,6 +4,8 @@ What has run for real, on which host, and what has not. A line under "Not yet ve
 
 ## Proven on Claude Code
 
+All of it on paper or in throwaway copies of apps with no database, by sessions run headless or scripted through the Agent SDK: none ran in Orca, and none was answered by a person.
+
 - **`design-settle`'s interview** has been simulated on an existing-UI scenario with a legacy `PRD.md`, in Full, and every decision landed.
 - **`app-settle`'s migrate mode** ran twice on copies of two legacy apps, by a session that read only the skill: every sentence of the PRD's six sections arrived word for word, `DESIGN.md` linted clean, one commit each.
 - **A session building a new page** ran every step on Opus at 0.87.0, in a copy of a settled app with no sign-in: `build-flow`'s todo list, its proposal with both lists and its audit offer, and all of `ui-build`'s craft material read before the page.
@@ -28,8 +30,13 @@ Proven before 0.70.0 only, registered by path: an interactive session, and the h
 
 - A session building a new page on Sonnet: two sessions at 0.87.0 each dropped at least one of the todo list, the proposal's two lists and the audit offer, and neither read all of the craft material. Two rounds of tighter wording did not change that — build on Opus.
 - `design-settle`'s close on the rules of 0.88.0. At 0.87.0, on Opus and on Sonnet, the structural diff failed for differences promotion itself makes, reduced motion was `not verified` because the browser tool cannot emulate it, and on Opus a fix changed pages already ratified. 0.88.0 answers the three and no session has run it; the lint floor's local plugin file alone was seen refusing its planted violations, on oxlint 1.87.0.
-- `design-settle`'s close on Sonnet: one session at 0.87.0 wrote no queue line for the checks it could not run, left its last edits unchecked and never read the motion against `review-animations` — run it on Opus.
-- The UI and logic lint floors and the rule tests have never been written in a real app.
+- `design-settle` on Sonnet: none of three sessions printed the Step 0 block, and at the close one session at 0.87.0 wrote no queue line for the checks it could not run, left its last edits unchecked and never read the motion against `review-animations` — run it on Opus.
+- `design-settle` from its first step with no UI, at 0.87.0 or later: the pass writing a `docs/queue.md` line as it promotes each page has not been seen.
+- The rules of 0.85.1 to 0.87.0 on Opus: beyond one build session, `design-settle`'s Step 0 and its close, each ran on Sonnet alone.
+- `design-settle` behind a sign-in, with a person: its audits walked signed out and read every signed-in route from source, the account question was asked in six sessions and no account was made, and no person has picked a frame on screen.
+- In a real app with its database: database steps arriving as one command, `build-flow`'s backend batch, `logic-settle`'s migration, and a walk behind a sign-in with an account made for it.
+- A dialog answered by a person: every one was answered by a script through the Agent SDK, never in Orca. No session has written `.claude/settings.json`.
+- The UI and logic lint floors and the rule tests have never been written in a real app. `logic-settle`'s floor names ESLint alone; on another linter it has not run.
 - The `docs/` form has never been bootstrapped in a real app.
 - `app-settle`'s migrate mode and its align mode have never run in an app. Run migrate on a copy of a legacy app before a real one.
 - Whether a cloud session installs this marketplace; until then, cloud sessions do frontend work only.
@@ -37,6 +44,4 @@ Proven before 0.70.0 only, registered by path: an interactive session, and the h
 - The document reminder after a commit: received on Antigravity only. On Claude Code no session has received it — whether a plugin's `PostToolUse` text reaches the model on an SDK host is unobserved. Both sessions that received it answered `Docs: none`, in an app with no UI; none has answered by writing a document.
 - A held push passing on a chat reply: run end to end on Antigravity only. On Claude Code it is replayed against one real transcript, and no session has pushed on a chat reply there.
 - `norms-help`: no session has loaded it from an installed copy, on either host.
-- On Antigravity: `design-settle` in Full and where UI exists — its audit subagent, its gate; `app-settle` and `logic-settle`; a question asked through `ask_question` in an interactive session; the IDE and Antigravity 2.0. Gemini CLI is not ported.
-
-The full work list, item by item: `docs/queue.md`.
+- On Antigravity: `design-settle` in Full and where UI exists — its audit subagent, its gate; `app-settle` and `logic-settle`; a question asked through `ask_question` in an interactive session; the IDE and Antigravity 2.0. `design-settle`'s `Material loaded:` line is self-reported there, and one run listed a file its transcript shows it never read. Gemini CLI is not ported.

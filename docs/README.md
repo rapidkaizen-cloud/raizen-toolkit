@@ -64,6 +64,5 @@ New here: [Overview](start/overview.md), then [Install](start/install.md), then 
 |---|---|
 | [What is proven](reference/status.md) | What has run for real on each host, and what has not |
 | [Changelog](https://github.com/rapidkaizen-cloud/raizen-toolkit/blob/master/CHANGELOG.md) | What changed in each version, newest first. Kept at the repo root, where `norms-help` reads it in an installed copy |
-| [Queue](https://github.com/rapidkaizen-cloud/raizen-toolkit/blob/master/docs/queue.md) | Toolkit work not done, or done and not proven |
 
 A feature with no page here has its skill as the only source: `skills/<name>/SKILL.md`.

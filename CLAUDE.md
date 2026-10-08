@@ -14,6 +14,8 @@ Skills and norms here are read by other agents, not by humans. Write them as dir
 
 Keep every rule short. One rule is one imperative sentence. Give its reason in one clause, only when an agent would otherwise break the rule. Cut any paragraph that argues, defends, or restates. State each rule in one file only; other files point to it by name.
 
+Change a rule only for a finding seen in two sessions or in a real app, because one session's miss is as often the session as the rule; a finding seen once is a line of `docs/reference/status.md`.
+
 Do not add a skill to `raizen-norms` without naming what would be lost if it did not exist. Every skill pays a context cost in every session through its description, including the sessions that never use it.
 
 Hooks block without being able to ask. A new hook must first be tested against the cases that **should pass**, not only the ones that must be refused. A hook that is too strict costs more than no hook.
@@ -22,7 +24,7 @@ This plugin ships no templates. What a new app repo gets is written by `app-sett
 
 ## Proof runs
 
-A proof run tests these skills on a throwaway copy of an app in the scratchpad. Write only the public client values into the copy's `.env` — the URL and the publishable key; never copy the real `.env`. A server key reaches the copy only by the user's own hand: a key created for the run and revoked after it. Without one, report every server route `not verified — no server key in the proof copy`.
+A proof run tests a hook or a script on a throwaway copy of an app in the scratchpad. Never run one to judge a skill: a skill's findings come from its use in a real app, read with `app-eval`, because a copy answered by a script shows the copy's faults. Write only the public client values into the copy's `.env` — the URL and the publishable key; never copy the real `.env`. A server key reaches the copy only by the user's own hand: a key created for the run and revoked after it. Without one, report every server route `not verified — no server key in the proof copy`.
 
 Write `the proof app`, never the app's name, a client, a person, or a domain, in any file or commit message of this repo, because anyone who installs the plugin reads its history.
 
@@ -38,7 +40,9 @@ List every page in `docs/README.md` under its group, because that file is the in
 
 Write a page in GitHub-flavored Markdown only — no frontmatter, no `:::` container, no include — and open it with its `# ` title and one lead sentence, because the same file is read on GitHub, on the site and by a session.
 
-Keep `docs/queue.md` only while it holds toolkit work not done yet — delete it with its last item — because the `SessionStart` hook injects it into every session here and stays silent when it is absent.
+Keep `docs/queue.md` only while it holds an edit this toolkit still owes — delete it with its last item — because the `SessionStart` hook injects it into every session here and stays silent when it is absent.
+
+Write a rule no session has run as a line of `docs/reference/status.md`, never as a queue line, because a queue of runs owed refills with every edit.
 
 Keep `CHANGELOG.md` at the root and the commands a user runs in `docs/reference/commands.md`, because `norms-help` prints the first's top entry and the second whole from an installed copy.
 
