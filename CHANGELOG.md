@@ -2,6 +2,18 @@
 
 All notable changes to the `raizen-norms` plugin, and to `raizen-hub` until 0.70.0 merged it in, newest first. The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). Versions before these are in `git log`.
 
+## [raizen-norms 0.91.0] - 2026-10-10
+
+`design-settle`'s audit runs in two subagents. Under a scope of 8 page files in one real app, one subagent took 111 calls and 23.3 million input tokens, half of them after its walk, at a context above 237k. Split, the same audit took 140 calls and 21.3 million — 10.4 for the source, 10.9 for the walk — and 37 minutes where it had taken 24, and it measured 118 contrast pairs where the one subagent measured 61. One run each, so the difference is an observation, not a rate.
+
+### Changed
+
+- `design-settle`, the audit: two subagents, one after the other. The first reads the source — the counts, `places.md`, `handover.md`, the inventories — and picks the routes to walk; its brief is `references/audit.md`. The second walks the running app — screenshots, component measurements, contrast pairs — and adds them to `.design-audit/audit.md`; its brief is the new `references/audit-walk.md`, and it reads no page file.
+
+To act on:
+
+- Nothing.
+
 ## [raizen-norms 0.90.0] - 2026-10-10
 
 `design-settle` on an app with existing UI is bounded by a scope. Its audit opened every route and read every page in one subagent, with no limit: in one real app of 696 page files — about 2.3 million tokens of page source — it cannot finish, and the five audits tallied so far each opened at most one route, signed out, in a copy of one small app. The audit alone has run under a scope, once, in that app (`docs/reference/status.md`); no session has run the other rules below.
