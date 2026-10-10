@@ -2,6 +2,24 @@
 
 All notable changes to the `raizen-norms` plugin, and to `raizen-hub` until 0.70.0 merged it in, newest first. The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). Versions before these are in `git log`.
 
+## [raizen-norms 0.92.0] - 2026-10-10
+
+`design-settle`'s audit counts and measures with two scripts the plugin ships. Two audits of one real app, each counting by commands of its own, read the same rows two ways — the files a token change touches came out as 793 and as 616 — and each wrote its own scan script and its own measuring code. With the scripts, a third audit of the same scope took 128 calls and 17.8 million input tokens — 9.9 for the source, 7.9 for the walk — and 29 minutes, where the two before took 23.3 and 21.3 million. One run each, so the difference is an observation, not a rate.
+
+### Added
+
+- `scripts/audit_count.py`: counts over the whole source what sits outside the tokens — hex, colour functions, font sizes, spacings, numbered ramp classes — the files holding them, the imports, the icon families and the packages nothing imports, and writes `places.md`. The audit's first subagent runs it once and copies its rows.
+- `scripts/audit_measure.js`: one function the audit's second subagent pastes into the page once and calls on every route — the contrast pairs with their ratios and floors, and the component values.
+
+### Changed
+
+- `design-settle`, the audit's block: `Stray raw values` adds colour functions and numbered ramp classes, and `Components affected` is the files holding a value the tokens do not reach — both as the script prints them.
+- `design-settle`, the audit: the first subagent is handed the page-group list instead of counting it again, and runs the detector's command once — an error is `n/a — not installed`, and no other copy is looked for.
+
+To act on:
+
+- Nothing. Both scripts need only what the plugin's hooks already need: `python3`, and the browser MCP server.
+
 ## [raizen-norms 0.91.0] - 2026-10-10
 
 `design-settle`'s audit runs in two subagents. Under a scope of 8 page files in one real app, one subagent took 111 calls and 23.3 million input tokens, half of them after its walk, at a context above 237k. Split, the same audit took 140 calls and 21.3 million — 10.4 for the source, 10.9 for the walk — and 37 minutes where it had taken 24, and it measured 118 contrast pairs where the one subagent measured 61. One run each, so the difference is an observation, not a rate.

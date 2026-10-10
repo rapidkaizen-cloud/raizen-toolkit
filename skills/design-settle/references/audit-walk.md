@@ -9,6 +9,14 @@ You are handed the repo root, the scope, and the account that signs in, which yo
 - **The routes under `## Routes for the walk` in `.design-audit/audit.md`** — read that section alone, by its heading: one of each kind of page inside the scope, and one of each kind outside it. A route that will not open is named in your report with why, and another of its kind is opened from the router where one exists.
 - **The app** is started by the Proof profile's Run line in `docs/product.md`, or by the repo's own dev command where it has none — unless you are told it is already running.
 
+## How you measure
+
+**Measure with the function in `<plugin folder>/scripts/audit_measure.js`**, the plugin folder three levels above this file, and write no measuring code of your own.
+
+- **Paste it once, on the first route**, whole, into one evaluate call: `() => { const M = <the file>; window.name = M.toString(); return M(); }`.
+- **On every later route call what `window.name` kept**, which survives navigation: `() => (0, eval)('(' + window.name + ')')()` — with `('pairs')` for a second theme mode, and `('focus')` once for the focus ring. A page that refuses `eval` gets the function pasted again.
+- **It returns** the contrast pairs with their ratios and floors, and the component values, each with how often it rendered.
+
 ## What you write
 
 - **A screenshot of every walked route at desktop width**, per the Proof profile — 1440px where it names none — saved under `.design-audit/`.
@@ -27,8 +35,8 @@ Nothing you measure goes in `handover.md`.
 
 ## How each part is read
 
-- **The component measurements** — one line per item of the component-token table, as the `## Components` row of `design-md.md` beside this file lists them, for each whose component the app has: what the walk rendered — on the web the computed style, the focus ring read on a focused control — and the route it was read on. An item rendered differently from place to place — on the walked routes, or by an override a search of the source finds — lists each value with its files. An item the walk cannot read — the app not run, a dialog never opened, a native Surface — is read from the shared components' source and the library's theme, marked `from source`.
-- **The contrast pairs** — one line per distinct pair the walk rendered, in each theme mode the app holds: the foreground colour, the background it sat on, text or non-text, the WCAG ratio calculated from the two computed values, its floor — 4.5:1 for text, 3:1 for non-text — and one route it was read on. A pair the walk cannot read is taken from the styling files and the shared components' source, marked `from source`.
+- **The component measurements** — one line per item of the component-token table, as the `## Components` row of `design-md.md` beside this file lists them, for each whose component the app has: what the function returned on the walked routes — off the web, what the platform's own tooling reads — and the route it was read on. An item rendered differently from place to place — on the walked routes, or by an override a search of the source finds — lists each value with its files. An item the walk cannot read — the app not run, a dialog never opened, a native Surface — is read from the shared components' source and the library's theme, marked `from source`.
+- **The contrast pairs** — one line per distinct pair the function returned, in each theme mode the app holds: the foreground colour, the background it sat on, text or non-text, its WCAG ratio, its floor — 4.5:1 for text, 3:1 for large text and non-text — and one route it was read on. A pair the walk cannot read is taken from the styling files and the shared components' source, marked `from source`.
 - **Where `DESIGN.md` is written**, a measurement off its value in the component-token table is a deviation, marked so on its line.
 - **App could not be run, or no credentials → say so in the report**, write `Walked` as `none — <reason>`, and read every item and pair `from source`.
 
