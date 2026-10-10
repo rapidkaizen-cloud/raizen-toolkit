@@ -39,6 +39,7 @@ Proven before 0.70.0 only, registered by path: an interactive session, and the h
 - `design-settle` behind a sign-in, with a person: its audits walked signed out and read every signed-in route from source, the account question was asked in six sessions and no account was made, and no person has picked a frame on screen.
 - In a real app with its database: database steps arriving as one command, `build-flow`'s backend batch, `logic-settle`'s migration, and a walk behind a sign-in with an account made for it.
 - A dialog answered by a person: every one was answered by a script through the Agent SDK, never in Orca. No session has written `.claude/settings.json`.
+- The four `logic-build` rules of 0.93.0 — uniqueness by a constraint, a returned error read at the call site, a list read paged, a test left by a bug fix — have been read by no build session. A check that refused new unused exports, type escapes, unread errors and long comments at commit was replayed over the last 100 commits of the app they came from and would have refused 51, 34 of them for a comment block alone; it was dropped, and no version shipped it.
 - The UI and logic lint floors and the rule tests have never been written in a real app. `logic-settle`'s floor names ESLint alone; on another linter it has not run.
 - The `docs/` form has never been bootstrapped in a real app.
 - `app-settle`'s migrate mode and its align mode have never run in an app. Run migrate on a copy of a legacy app before a real one.

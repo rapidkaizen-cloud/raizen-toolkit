@@ -27,7 +27,7 @@ A session keeps secrets off the client, gives each business rule one place to li
 
 **With a server layer** (Section 4). Input is parsed into a known shape at the entry of the handler and rejected before it reaches a query, even from your own frontend. Every handler checks authorization itself, and prefers the user's own token so RLS still applies. A handler uses `service_role` only when the operation must exceed the user's rights, with the reason in the code. A write spanning more than one statement runs in one transaction or as a single RPC.
 
-**Errors** (Section 5). You get a sentence you can act on; the log gets the operation, the identifiers and the underlying error. Raw database error text never reaches the UI. An error is not swallowed: catching to add context and re-raise is fine, catching to continue is a finding.
+**Errors** (Section 5). You get a sentence you can act on; the log gets the operation, the identifiers and the underlying error. Raw database error text never reaches the UI. An error is not swallowed: catching to add context and re-raise is fine, catching to continue is a finding. A call that returns its error instead of throwing is read for it at the call site, and a list read pages wherever the API caps rows.
 
 **Libraries** (Section 6). `logic-settle` decides them once. The names are in the Stack table of `CLAUDE.md`, each with a record in `docs/decisions/`.
 
@@ -41,7 +41,7 @@ A session keeps secrets off the client, gives each business rule one place to li
 
 **The lint floor** (Section 9). Five refusals live in the repo's own linter: the database client used outside the data-layer folder; a secret on its way to the client; a second library for a need `logic-settle` settled; a cast that erases a database type; a swallowed error. `logic-settle` writes it, and a repo with none gets it from `app-settle`'s align mode. Lint runs before any scope item in this layer is committed. An inline disable or a rule lowered to a warning is a finding. A wrong refusal is narrowed in the config only on your word.
 
-**A rule is proven by a test that names it** (Section 10, `references/rule-test.md`). Each rule a backend batch implements leaves one test, and its title quotes the rule's topic heading exactly as `docs/rules.md` writes it. A topic no test title carries is an unproven rule.
+**A rule is proven by a test that names it** (Section 10, `references/rule-test.md`). Each rule a backend batch implements leaves one test, and its title quotes the rule's topic heading exactly as `docs/rules.md` writes it. A topic no test title carries is an unproven rule. A bug fix leaves the test that fails without it.
 
 | The rule is enforced by | The test |
 |---|---|

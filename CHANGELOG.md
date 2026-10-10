@@ -2,6 +2,18 @@
 
 All notable changes to the `raizen-norms` plugin, and to `raizen-hub` until 0.70.0 merged it in, newest first. The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). Versions before these are in `git log`.
 
+## [raizen-norms 0.93.0] - 2026-10-10
+
+Four rules for the logic layer, from one real app. A read-only audit of it — 14 subagents over its source and its migrations — found faults `logic-build` did not name: a returned error left unread in 8 of 14 slices, and an unpaged read behind a row cap in 6. One audit, read from code and proven by no test or query, so the counts are an observation.
+
+### Added
+
+- `logic-build`: uniqueness is a constraint, never a check before the insert; a call that returns its error is read for it at the call site; a list read pages wherever the API caps rows; a bug fix leaves the test that fails without it.
+
+To act on:
+
+- Nothing.
+
 ## [raizen-norms 0.92.0] - 2026-10-10
 
 `design-settle`'s audit counts and measures with two scripts the plugin ships. Two audits of one real app, each counting by commands of its own, read the same rows two ways — the files a token change touches came out as 793 and as 616 — and each wrote its own scan script and its own measuring code. With the scripts, a third audit of the same scope took 128 calls and 17.8 million input tokens — 9.9 for the source, 7.9 for the walk — and 29 minutes, where the two before took 23.3 and 21.3 million. One run each, so the difference is an observation, not a rate.

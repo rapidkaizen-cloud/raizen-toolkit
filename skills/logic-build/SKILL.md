@@ -39,6 +39,7 @@ Documents are named by their `docs/` path; a repo with a root `PRD.md` reads eac
 |---|---|
 | **Access** — who may read or change which row | **RLS, always** — a copy in application code is not enforced, because the database is reached by more than one path |
 | **Computation or workflow** — limits, totals, state transitions | One named place — Sections 3 and 4 |
+| **Uniqueness** — no two rows alike | **A unique constraint, always** — a check before the insert loses to two writers at once |
 | **Anything in client code** | Convenience only — a hostile client is a browser with devtools open |
 
 **A client-side check that mirrors a real rule is allowed as UX, never as the enforcement.** Name it in the code as a mirror of the rule it copies, so a later session does not read it as the rule itself.
@@ -80,6 +81,10 @@ One event, two shapes:
 **Raw database error text never reaches the UI** — it leaks table and column names and tells the user nothing they can do.
 
 **Never swallow.** A caught error that returns an empty list is indistinguishable from no data, and the failed state `ui-build` requires never renders. Catching to add context and re-raise is fine; catching to continue is a finding.
+
+**A call that returns its error instead of throwing is read for it at the call site** — it never reaches a `catch`, so an unread error is a swallowed one.
+
+**A list read pages wherever the API caps rows** — a capped read comes back short and raises nothing.
 
 ## 6 — Which libraries this layer uses
 
@@ -135,5 +140,7 @@ The floor cannot see where a rule lives or a rule `docs/rules.md` never stated �
 **The test attacks the enforcement point, never a mirror of it.** Before writing one, read `references/rule-test.md` — what the test does where the rule is enforced by RLS, by a constraint, trigger or RPC, or by a computation in the data layer.
 
 **A failing rule test is never fixed by editing the test.** The rule changed → the user changed it, and the test follows the rule in the same commit. The rule did not change → the code is wrong: editing the expected value to match the code rewrites a business rule without the user.
+
+**A bug fix leaves the test that fails without it**, and no test mocks the call it is about — a mocked call proves the mock.
 
 **No test runner in the repo → raise it once, at the first rule implemented, as `references/rule-test.md` says** — never a quiet install, never silence.
