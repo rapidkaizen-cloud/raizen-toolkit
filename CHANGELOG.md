@@ -4,7 +4,7 @@ All notable changes to the `raizen-norms` plugin, and to `raizen-hub` until 0.70
 
 ## [raizen-norms 0.90.0] - 2026-10-10
 
-`design-settle` on an app with existing UI is bounded by a scope. Its audit opened every route and read every page in one subagent, with no limit: in one real app of 684 page files — about 2.3 million tokens of page source — it cannot finish, and the five audits tallied so far each opened at most one route, signed out, in a copy of one small app. No session has run the rules below.
+`design-settle` on an app with existing UI is bounded by a scope. Its audit opened every route and read every page in one subagent, with no limit: in one real app of 696 page files — about 2.3 million tokens of page source — it cannot finish, and the five audits tallied so far each opened at most one route, signed out, in a copy of one small app. The audit alone has run under a scope, once, in that app (`docs/reference/status.md`); no session has run the other rules below.
 
 ### Added
 

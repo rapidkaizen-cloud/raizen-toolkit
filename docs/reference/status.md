@@ -4,12 +4,13 @@ What has run for real, on which host, and what has not. A line under "Not yet ve
 
 ## Proven on Claude Code
 
-All of it on paper or in throwaway copies of apps with no database, by sessions run headless or scripted through the Agent SDK: none ran in Orca, and none was answered by a person.
+All of it on paper or in throwaway copies of apps with no database, by sessions run headless or scripted through the Agent SDK, except where a line says otherwise: none ran in Orca, and none was answered by a person.
 
 - **`design-settle`'s interview** has been simulated on an existing-UI scenario with a legacy `PRD.md`, in Full, and every decision landed.
 - **`app-settle`'s migrate mode** ran twice on copies of two legacy apps, by a session that read only the skill: every sentence of the PRD's six sections arrived word for word, `DESIGN.md` linted clean, one commit each.
 - **A session building a new page** ran every step on Opus at 0.87.0, in a copy of a settled app with no sign-in: `build-flow`'s todo list, its proposal with both lists and its audit offer, and all of `ui-build`'s craft material read before the page.
 - **`design-settle`'s verification and close** ran on Opus at 0.87.0, on a copy of a finished run with no UI, rewound to before its close commit: the checks in a subagent with a browser, the motion read against `review-animations`, the raw values, the detector's hit, the lint floor and the fixtures' numbers fixed and checked again, `docs/queue.md` written with a line per page still on fixtures, and one commit.
+- **`design-settle`'s audit under a scope** ran once at 0.90.0 in a real app on its local database, behind a sign-in, as a Sonnet subagent handed the brief, a scope of 8 page files out of 696 and an account: it read the 8 page files and none outside them, opened 7 routes — 2 inside the scope, 5 outside — wrote `places.md` by a command, 10,149 lines, and finished in 24 minutes. It took 111 calls and 23.3 million input tokens, its context growing from 45k to 350k; half of that was paid in the last 40 calls, the counts and the three files, written after the walk.
 
 ## Proven on Antigravity
 
@@ -31,7 +32,7 @@ Proven before 0.70.0 only, registered by path: an interactive session, and the h
 - A session building a new page on Sonnet: two sessions at 0.87.0 each dropped at least one of the todo list, the proposal's two lists and the audit offer, and neither read all of the craft material. Two rounds of tighter wording did not change that — build on Opus.
 - `design-settle`'s close on the rules of 0.88.0. At 0.87.0, on Opus and on Sonnet, the structural diff failed for differences promotion itself makes, reduced motion was `not verified` because the browser tool cannot emulate it, and on Opus a fix changed pages already ratified. 0.88.0 answers the three and no session has run it; the lint floor's local plugin file alone was seen refusing its planted violations, on oxlint 1.87.0.
 - The two cost cuts of 0.89.0 — `design-settle` ending its turn at two seams for a new session, and Step 8's mechanical checks in three subagents — have not run. Their saving is an estimate from one close at 0.87.0, where the one subagent's context grew from 32k to 267k tokens over 120 calls.
-- The scope of 0.90.0 — `design-settle` asking which page groups a run redraws, its audit counting by command and walking one route of each kind of page, the stack kept, the gate's first lines, the queue lines and the captures outside the scope — has run in no session. It was written from the size of one real app: 684 page files, where an audit of every route cannot finish.
+- The scope of 0.90.0 beyond its audit — `design-settle` asking which page groups a run redraws, the stack kept, the gate's first lines, the queue lines and the captures outside the scope — has run in no session. It was written from the size of one real app: 696 page files, where an audit of every route cannot finish.
 - `design-settle` on Sonnet: none of three sessions printed the Step 0 block, and at the close one session at 0.87.0 wrote no queue line for the checks it could not run, left its last edits unchecked and never read the motion against `review-animations` — run it on Opus.
 - `design-settle` from its first step with no UI, at 0.87.0 or later: the pass writing a `docs/queue.md` line as it promotes each page has not been seen.
 - The rules of 0.85.1 to 0.87.0 on Opus: beyond one build session, `design-settle`'s Step 0 and its close, each ran on Sonnet alone.
