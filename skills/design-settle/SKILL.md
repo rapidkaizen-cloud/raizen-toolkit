@@ -12,7 +12,7 @@ description: Settle the visual direction and component library of an app, with o
 | UI components | `DESIGN.md` | What switches on |
 |---|---|---|
 | none | absent | The shortest path: reading → interview → frames → canvas → ratify → promote in place → verify |
-| present | absent | The audit, the function and frame inventories, `Keep — today's look` as one candidate, the gate before any real page moves, the pass on its own branch, parity checks |
+| present | absent | The scope, the audit, the function and frame inventories, `Keep — today's look` as one candidate, the gate before any real page moves, the pass on its own branch, parity checks |
 | present | written | All of the above, plus the fix-or-redesign question before the interview and the `DESIGN.md` diff at the gate |
 | none | written | STOP — ask whether the user really means to redesign an app whose UI was removed, and treat the answer as the row above |
 
@@ -24,7 +24,7 @@ A rule marked *UI exists* or *`DESIGN.md` written* runs only under that fact; an
 - **Run a step's independent reads, searches and commands in one turn** — parallel calls, or one chained command — because every extra model call re-reads the whole session.
 - **Hand non-taste work to one subagent on a cheaper model than the session's** (`sonnet` on Claude Code): the audit, the stack verification, the reference search, the platform research — and Step 8's mechanical checks in the three `verify.md` names. Brief it with the file that rules the job and take back only the compact result that file names — its raw results never enter this session. No subagent → run it here and say so; no model choice → the session's model.
 - **Never re-read what the session start printed** — the documents and the two listings.
-- **End the turn at two seams and tell the user to run this skill again in a new session**, because every later call would re-read the drawing, then the pass: once the documents are written — after Step 6 where no UI exists, after the pass's first act where it does — and after the pass's last point, before Step 8. First write `.design-audit/resume.md`: what the steps ahead need and the repo does not show — the path taken, the account held, every line answered or cancelled, the canvas rounds, what Step 9's block owes from the steps behind. A reply in the same session continues there.
+- **End the turn at two seams and tell the user to run this skill again in a new session**, because every later call would re-read the drawing, then the pass: once the documents are written — after Step 6 where no UI exists, after the pass's first act where it does — and after the pass's last point, before Step 8. First write `.design-audit/resume.md`: what the steps ahead need and the repo does not show — the path taken, the scope, the account held, every line answered or cancelled, the canvas rounds, what Step 9's block owes from the steps behind. A reply in the same session continues there.
 
 ## Hard limits
 
@@ -52,7 +52,7 @@ A rule marked *UI exists* or *`DESIGN.md` written* runs only under that fact; an
 
 **Not decided by the user → `[needs verification]`.**
 
-**Every question goes through AskUserQuestion, never prose**, in auto mode too — recommendation first and marked "(Recommended)", each option's consequence in its description, everything needed inside the dialog, up to four per call, every label in the words the user uses and never this skill's (*ratify*, *seam*, *archetype*, *departure*, *escalate*). Two questions mark no recommendation: Fast or Full, and the verdict on a round — the session does not grade its own drawing. The chat stops are the exceptions, each ending the turn and waiting for a reply: the install gate, the one-line package approvals (font, linter), the Step 6 gate and its REPAIR list, the Step 8 deletion.
+**Every question goes through AskUserQuestion, never prose**, in auto mode too — recommendation first and marked "(Recommended)", each option's consequence in its description, everything needed inside the dialog, up to four per call, every label in the words the user uses and never this skill's (*ratify*, *seam*, *archetype*, *departure*, *escalate*). Two questions mark no recommendation: Fast or Full, and the verdict on a round — the session does not grade its own drawing. The chat stops are the exceptions, each ending the turn and waiting for a reply: the scope (Step 1), the install gate, the one-line package approvals (font, linter), the Step 6 gate and its REPAIR list, the Step 8 deletion.
 
 **Nothing the user did not choose is silent**: every value decided beyond the picked frame surfaces as one cancellable line with its basis (`interview.md`, What the designer settles).
 
@@ -82,6 +82,9 @@ DESIGN.md       : [written / absent / product without UI — written or absent f
                    Section 5's heading and `[needs verification]` markers, never from its
                    prose: that is the old look]
 UI components   : [file count — 0 on a repo with no UI]
+Scope           : [the whole app / the page groups named, n pages of n — settled before the
+                   audit where UI exists (Step 1); in a resumed session from
+                   .design-audit/resume.md; `whole app` on a repo with no UI]
 Kind of app     : [from docs/product.md, else read from the code, else asked at Step 1 — a label, never a branch]
 Register        : [first visit / tenth use / both, per page group — from the Roles, else from the routes]
 Platform        : [from the Surface row, else from the manifest and platform files — web, or the
@@ -99,7 +102,7 @@ Leftover        : [none / canvas alive / pass partly applied / pass applied — 
 Switches        : [UI exists: yes/no · DESIGN.md written: yes/no]
 Answers         : [Fast / Full — named at invocation, else asked in the reading's call]
 Reading         : [one sentence — see Step 1]
-Flow            : reading + Fast or Full (+ audit in a subagent, where UI exists)
+Flow            : reading + Fast or Full (+ scope, then audit in a subagent, where UI exists)
                   → fix or redesign (where DESIGN.md written)
                   → non-visual dialogs, answers locked → reference search → direction question
                   → install gate → material loaded → 2–4 direction frames → pick → refine
@@ -129,14 +132,15 @@ Documents missing, or a legacy `PRD.md` off-shape → **not a stop**: say so in 
 
 ### The audit — where UI exists
 
-**Run it before the reading is put for correction, in one subagent whose whole brief is `references/audit.md`** — hand it the path, the repo root and the account that signs in, and never read that file here. **The session that draws never opens the old UI** (Hard limits, Blindness).
+**Run it before the reading is put for correction, in one subagent whose whole brief is `references/audit.md`** — hand it the path, the repo root, the scope and the account that signs in, and never read that file here. **The session that draws never opens the old UI** (Hard limits, Blindness).
 
+- **Settle the scope before the launch.** List the app's page groups — the top folders its page files sit in, a module package as one — each with its page count, by one command that prints names and counts and nothing of a file. One group → the scope is the whole app, not asked. More → print the list with its total and end the turn on it, a chat stop, in Fast too: the stop says that every page in scope is read, drawn, promoted and checked, and the reply names the groups this run redraws, or the whole app. **From here on `every page`, `every route` and `the whole app` mean the scope and the chrome its pages share, in every file of this skill.** What still reaches the whole app is named where it stands: the audit's counts and its walk outside the scope (`audit.md`), the stack (`interview.md`), the gate's first lines (`gate.md`), the queue lines (`pass.md`), Step 8's captures outside the scope (`verify.md`).
 - **Settle the account before the launch, where the app signs its users in.** An account for this app that the session's own instructions carry is handed over. None → ask once, in Fast too: create one under `db-ops` (`references/agent-account.md`), recommended — a login and a role row written to the app's database, its sign-in proven by the audit's walk and never here · wait for one the user supplies · walk signed out, every route behind the sign-in then measured `from source`.
 - **Its report back carries only counts, names and paths, never a word on the look**: what prices the pass, the pages holding too little, any logic-layer bleeding, what it indicts — in `DESIGN.md` where it is written, in the stack — whether the running app was walked, the path of `.design-audit/audit.md`, and the screenshot paths. The user reads `audit.md` now; this session opens it only at Step 6.
 - **`Components affected` sizes the pass**; show it before the user decides anything.
 - **What the subagent cannot do runs here, after its report and the confirmed reading**: the archetype grouping's ratify-or-correct (`interview.md`, The archetype table) — where `DESIGN.md` is written and carries no archetype table, that absence is a finding — then the `logic-settle` offer for logic-layer bleeding, under that skill's rule — only where Step 0's Logic layer row reads `not settled`; bleeding that skill already priced and baselined is a report line. Declined → continue. Accepted → close here, run `logic-settle` in its own session, then `design-settle` from Step 0, because its pass reads every page and would end this session's blindness.
 - **No subagent available → say so, run the walk here from that file, and report the redesign as drawn with the old UI in context.**
-- **App could not be run, or no credentials → say so here and at Step 6**, whose gate then carries `frame coverage unverified — the running app could not be walked`.
+- **App could not be run, or no credentials → say so here and at Step 6**, whose removals group then opens `no route walked — every part read from source`.
 
 ## Step 2 — Fix, or redesign — where `DESIGN.md` is written
 
@@ -147,7 +151,7 @@ No `DESIGN.md` → not asked; continue at Step 3. Otherwise one question, two op
 | **Fix the drift** | No new norm — code is brought back in line with the existing `DESIGN.md`, or a departure kept on purpose is ratified as its exception | None about the look | Only the deviating ones |
 | **Redesign** | **`DESIGN.md` is rebuilt from zero** — every line re-decided, archetype shells and visual-direction prose included; today's values survive only as *keep* answers. The app looks redesigned afterwards, not retuned | The full interview, *keep* first on the stack and `Keep — today's look` among the directions; the gate names the value each replaces | Every page, replaced by its canvas file |
 
-Offer no third, narrower option: scope is narrowed by *keep* answers, which every decision carries.
+Offer no third, narrower option: the change is narrowed by *keep* answers, which every decision carries, and the pages by the scope (Step 1).
 
 **Recommendation:** fix the drift unless the audit's indictment count is above zero.
 

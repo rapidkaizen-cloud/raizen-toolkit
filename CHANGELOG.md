@@ -2,6 +2,26 @@
 
 All notable changes to the `raizen-norms` plugin, and to `raizen-hub` until 0.70.0 merged it in, newest first. The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). Versions before these are in `git log`.
 
+## [raizen-norms 0.90.0] - 2026-10-10
+
+`design-settle` on an app with existing UI is bounded by a scope. Its audit opened every route and read every page in one subagent, with no limit: in one real app of 684 page files — about 2.3 million tokens of page source — it cannot finish, and the five audits tallied so far each opened at most one route, signed out, in a copy of one small app. No session has run the rules below.
+
+### Added
+
+- `design-settle`, Step 1: where UI exists and the app has more than one page group, you are shown the groups with their page counts and asked the scope at a chat stop, in Fast too — the whole app, or the groups this run redraws. Every page in scope is read, drawn, promoted and checked.
+- `design-settle`, the gate: under a scope narrower than the app its first lines say what changes for the rest — the styling files and the shared chrome for every page — and name each page group left out with how many of its files hold a finding. A file only those pages import is `UNTOUCHED`, never deleted.
+- `design-settle`, the pass: one `docs/queue.md` line per page group left out that holds a finding, cleared by a later run scoped to that group.
+- `design-settle`, Step 8: each route the audit opened outside the scope is captured again and read beside its audit screenshot; unreadable text, a collapsed layout or a missing control is a failed item.
+
+### Changed
+
+- `design-settle`, the audit: counts and `places.md` come from commands over the whole app, never from a page file printed to be counted in; page files are read in the scope only; the walk opens one route of each kind of page inside the scope and one of each kind outside it, where it opened every route. Screenshots are of the walked routes. The frame inventory is read from the page files, a walked route checked against what it rendered, and the gate's removals open with how many routes were walked — `frame coverage unverified` is gone.
+- `design-settle`, the stack: under a scope narrower than the app no part is asked or cancelled, because the pages left out still import it. An engine may still be added, and an indicted part is named at the close for a whole-app run.
+
+To act on:
+
+- Nothing in an installed app. A run on an app with one page group is not asked the scope; on any other, answer `whole app` to redesign every page as before.
+
 ## [raizen-norms 0.89.0] - 2026-10-08
 
 Two cuts to what a `design-settle` run costs, decided from the token count of one close at 0.87.0: 25.5 million input tokens, 18.5 million of them one subagent whose context grew from 32k to 267k over 120 calls. Every check stays. No session has run either cut, so the saving is an estimate.

@@ -2,13 +2,21 @@
 
 You audit the UI an app has today, for a session that will redesign it **without ever seeing it**. Read what the code uses, never what `DESIGN.md` says it should. Change nothing in the app and fix nothing on the way past: every hit is a finding. Documents are named by their `docs/` path; a repo with a root `PRD.md` reads each through `docs-format`'s legacy map. Run independent reads and commands in one turn.
 
+## What bounds the work
+
+You are handed a scope: the whole app, or the page groups this run redraws.
+
+- **Count over the whole app, by command.** Every count of the block and every line of `places.md` comes from a command that prints the count or writes the line into the file. Never print a page file to count in it.
+- **Read page files in the scope only** — for the function inventory, the frame inventory and the two copy rows. A page outside it is a route name.
+- **Walk one route of each kind of page the routes show** — a list, a form, a detail, a dashboard, any other — inside the scope, and one of each kind outside it.
+
 ## What you write
 
 Three files under `.design-audit/` at the repo root:
 
 - **`audit.md`** — for the user: the block below, the frame inventory, the component measurements, the contrast pairs, the `DESIGN.md` deviations, the screenshot paths.
 - **`places.md`** — for a gate that redraws nothing, never read by a session that draws: every hit a repair of the UI could clear, one line per place — file and line · what is there · the block row or `DESIGN.md` rule it falls under.
-- **`handover.md`** — the only thing the drawing session reads, holding in this order and nothing else: the app in three sentences from `docs/product.md` · the roles · the function inventory · the route list, each route with a few words on what it is for and nothing on what it holds · the data vocabulary a fixture must respect, with a handful of real rows from the data layer where it holds any · the data-layer files a fixture may take types from, by path, none carrying a look or importing from the components folder · the UI stack row, font packages left out · the counts that price the pass, as numbers.
+- **`handover.md`** — the only thing the drawing session reads, holding in this order and nothing else: the app in three sentences from `docs/product.md` · the roles · the function inventory · the route list of the scope, each route with a few words on what it is for and nothing on what it holds · the page groups outside the scope, by name and page count, because the chrome keeps their entries · the data vocabulary a fixture must respect, with a handful of real rows from the data layer where it holds any · the data-layer files a fixture may take types from, by path, none carrying a look or importing from the components folder · the UI stack row, font packages left out · the counts that price the pass, as numbers.
 
 **`handover.md` carries no colour, hex, font name, radius, spacing value, component measurement, shell description, part or section name per page, `DESIGN.md` prose, screenshot, or code excerpt** — nothing on how anything looks or where it sits.
 
@@ -16,12 +24,15 @@ Three files under `.design-audit/` at the repo root:
 
 ## What you report back
 
-Only this, never the block and never a word on the look: the counts that price the pass (components affected, stray values, detector hits, and the `DESIGN.md` deviations where it is written) · the pages holding too little, by name · any logic-layer bleeding, by file · the `DESIGN.md` indictment count where it is written, and whether it carries an archetype table · whether the installed library, styling, icon pack, or an engine is itself indicted, and by what · whether the running app was walked, and why not where it was not · the path of `audit.md` · the screenshot paths.
+Only this, never the block and never a word on the look: the counts that price the pass (components affected, stray values, detector hits, and the `DESIGN.md` deviations where it is written) · the pages holding too little, by name · any logic-layer bleeding, by file · the `DESIGN.md` indictment count where it is written, and whether it carries an archetype table · whether the installed library, styling, icon pack, or an engine is itself indicted, and by what · whether the running app was walked, and why not where it was not · the routes walked, each with its kind · the path of `audit.md` · the screenshot paths.
 
 ## The block `audit.md` opens with
 
 ```
 AUDIT
+Scope               : [the whole app / the page groups handed to you · how many pages of how many]
+Walked              : [each route opened, with the kind of page it stands for · inside the scope
+                       or outside it]
 Tokens defined      : [how many colors · text steps · spacing values · radii]
 Token health        : [how many never read · duplicate roles · library slots unmapped]
 Stray raw values    : [how many hex · font sizes · spacings, across how many files]
@@ -43,12 +54,12 @@ UI stack            : [component library · styling · icon pack · engines — 
                        date, drag-and-drop — with versions, from the dependency file; a
                        copy-in library from its copied folder; an indicted part marked,
                        with its reason]
-Repeated labels     : [longest · median · how many repeat per screen]
-Supporting text     : [how many paragraphs · the longest in sentences]
+Repeated labels     : [longest · median · how many repeat per screen — the scope's pages]
+Supporting text     : [how many paragraphs · the longest in sentences — the scope's pages]
 Frame inventory     : [routes counted from the router, or from the routes folder of a
-                       file-routed app · parts and states named per route, a route the
-                       walk could not open by name alone — or, where it opened no route
-                       at all, `routes only — the running app could not be walked`]
+                       file-routed app — the scope's, and the whole app's · parts and
+                       states named per route of the scope · how many of them the walk
+                       opened, the rest `from source`]
 Deviates            : [list, per DESIGN.md rule broken — DESIGN.md written only]
 Components affected : [file count that will be touched if tokens change]
 ```
@@ -57,18 +68,18 @@ Counts are occurrences in source; label lengths are in words, as `ui-build`'s co
 
 ## How each part is read
 
-- **The walk** is every route opened in the running app — started by the Proof profile's Run line in `docs/product.md`, or by the repo's own dev command where it has none, and signed in with the account handed to you, which you write into no file. Create no account.
+- **The walk** is the routes What bounds the work names, opened in the running app — started by the Proof profile's Run line in `docs/product.md`, or by the repo's own dev command where it has none, and signed in with the account handed to you, which you write into no file. Create no account.
 - **`UI stack`** is the canvas's import whitelist. An installed engine nothing uses is a finding.
 - **A stack part is indicted** — the library, the styling, the icon pack, an engine — in three cases and no other: a floor (contrast, `impeccable`'s Refuse list, a detector rule) failed inside a package's own stylesheet or anatomy — never inside a copy-in library's files, which are the app's own · two packages in use for one job (two icon families, two chart engines, two styling systems) · an engine that paints where the styling files cannot reach (a `<canvas>` on the web). Every other failure in how the app uses a part is a finding.
 - **`Token health`** reads the library's slot list from the installed package — for a copy-in library, from the tokens its copied files read — never from memory. Read `DESIGN.md` first: a legacy Section 5 of the adopted-whole shape (`docs-format`, `references/legacy.md`) reports `n/a — stock` and counts no unmapped slots.
 - **`Slop detectors`** runs only on a web-technology Surface, source tier only; a native one reports `n/a — native surface`. `impeccable` absent → `n/a — not installed`.
 - **Logic-layer bleeding** — handwritten fetching in UI files, hand-parsed dates, unvalidated inputs.
-- **The function inventory** — every function the app carries, one line each: what can be done, never where or how it looks.
-- **The frame inventory** — per route, the parts and states that render there, names only; **routes from the router file, or the routes folder of a file-routed app, never from memory**; states real data cannot produce listed anyway (loading, empty, failed, every role branch). It goes in `audit.md` and **never in `handover.md`**.
-- **The component measurements** — one line per item of the component-token table, as the `## Components` row of `design-md.md` beside this file lists them, for each whose component the app has: what the walk rendered — on the web the computed style, the focus ring read on a focused control — and the route it was read on. An item rendered differently from place to place lists each value with its files. An item the walk cannot read — the app not run, a dialog never opened, a native Surface — is read from the shared components' source and the library's theme, marked `from source`. They go in `audit.md` and **never in `handover.md`**.
+- **The function inventory** — every function the pages in scope and the chrome they share carry, one line each: what can be done, never where or how it looks.
+- **The frame inventory** — per route of the scope, the parts and states its page file renders, names only, a walked route checked against what it rendered; **routes from the router file, or the routes folder of a file-routed app, never from memory**; states real data cannot produce listed anyway (loading, empty, failed, every role branch). It goes in `audit.md` and **never in `handover.md`**.
+- **The component measurements** — one line per item of the component-token table, as the `## Components` row of `design-md.md` beside this file lists them, for each whose component the app has: what the walk rendered — on the web the computed style, the focus ring read on a focused control — and the route it was read on. An item rendered differently from place to place — on the walked routes, or by an override a search of the source finds — lists each value with its files. An item the walk cannot read — the app not run, a dialog never opened, a native Surface — is read from the shared components' source and the library's theme, marked `from source`. They go in `audit.md` and **never in `handover.md`**.
 - **The contrast pairs** — one line per distinct pair the walk rendered, in each theme mode the app holds: the foreground colour, the background it sat on, text or non-text, the WCAG ratio calculated from the two computed values, its floor — 4.5:1 for text, 3:1 for non-text — and one route it was read on. A pair the walk cannot read is taken from the styling files and the shared components' source, marked `from source`. They go in `audit.md` and **never in `handover.md`**.
-- **Screenshot every route at desktop width**, per the Proof profile — 1440px where it names none — saved under `.design-audit/`.
-- **App could not be run, or no credentials → say so in the report**; a route the walk could not open is in the frame inventory by name alone.
+- **Screenshot every walked route at desktop width**, per the Proof profile — 1440px where it names none — saved under `.design-audit/`.
+- **App could not be run, or no credentials → say so in the report**; the frame inventory is then read from the page files alone.
 - **A page holding too little is not a finding** — name it in the report.
 
 **Where `DESIGN.md` is written:**

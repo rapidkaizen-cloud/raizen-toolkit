@@ -23,7 +23,8 @@ Before you start: `impeccable`, `frontend-design` and `ui-ux-pro-max` are instal
 
 ## Where UI already exists
 
-- **The existing UI is audited first**, and today's look is one of the candidates.
+- **You are asked the scope first**, where the app has more than one page group: the whole app, or the groups this run redraws. Every page in scope is read, drawn, promoted and checked, so a large app is redesigned one group at a time.
+- **The existing UI is audited next**, and today's look is one of the candidates.
 - **Where `DESIGN.md` is already written**, you are also offered a fix of the drift only, instead of a redesign.
 - **Removals are shown at a gate** before anything is taken out.
 
