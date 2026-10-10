@@ -2,6 +2,19 @@
 
 All notable changes to the `raizen-norms` plugin, and to `raizen-hub` until 0.70.0 merged it in, newest first. The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). Versions before these are in `git log`.
 
+## [raizen-norms 0.94.0] - 2026-10-10
+
+`audit_count.py` prints three rows more. The audit that ran with the script at 0.92.0 still wrote scans of its own in a real app — six commands, at 169k to 189k tokens of context — for the tokens nothing reads, the icon sizes and the label lengths. Run alone on that app, the script now prints what those scans had counted. No audit has run with the new rows, so the saving is not measured.
+
+### Changed
+
+- `scripts/audit_count.py`: `Token health` — the tokens never read, the tokens read only where a config or another token maps them, and one colour under several names, per block · `Icon sizes` — the sizes and weights of every element of an imported icon, the scope's beside the whole app's · `Repeated labels` — longest, median and the labels repeating within a file, over the scope's files, translation keys left out.
+- `design-settle`, the audit's block: `Token health`, `Icons` and `Repeated labels` are copied as the script prints them; the library slots unmapped stay the subagent's count, and a row printed `not counted` is counted by a command of its own.
+
+To act on:
+
+- Nothing.
+
 ## [raizen-norms 0.93.0] - 2026-10-10
 
 Four rules for the logic layer, from one real app. A read-only audit of it — 14 subagents over its source and its migrations — found faults `logic-build` did not name: a returned error left unread in 8 of 14 slices, and an unpaged read behind a row cap in 6. One audit, read from code and proven by no test or query, so the counts are an observation.

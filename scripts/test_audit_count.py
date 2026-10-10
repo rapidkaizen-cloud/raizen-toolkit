@@ -16,15 +16,21 @@ PYTHON = "python3"
 
 FILES = {
     "package.json": '{"dependencies": {"lucide-react": "1", "left-pad": "1", "tailwindcss": "3"}}',
-    # A styling file: every value in it is a definition.
-    "src/app.css": ":root {\n  --bg: #ffffff;\n  --fg: #111111;\n  --radius: 8px;\n}\nbody { font-size: 14px; }\n",
+    # A styling file: every value in it is a definition. `--bg` is read by its own rule, `--fg` by
+    # card.css, `--primary` by a class, `--radius` only inside another token; nothing reads the last two.
+    "src/app.css": (":root {\n  --bg: #ffffff;\n  --fg: #111111;\n  --radius: 8px;\n  --primary: #2563eb;\n"
+                    "  --card: #ffffff;\n  --radius-lg: calc(var(--radius) + 2px);\n}\n"
+                    "body { background: var(--bg); font-size: 14px; }\n"),
     # Not a styling file: `#add` is a selector, the colour after the colon is a stray.
-    "src/card.css": "#add { color: #ff0000; margin: 0; padding: 12px; }\n",
+    "src/card.css": "#add { color: #ff0000; margin: 0; padding: 12px; border-color: var(--fg); }\n",
     "src/pages/Sales/Index.tsx": (
         'import { Plus } from "lucide-react";\n'
         'export const A = () => <div className="bg-primary text-foreground p-4 text-sm">\n'      # reads tokens
         '  <b className="text-[13px] p-[7px] bg-blue-500 hover:text-gray-600/50">x</b>\n'        # four strays
         '  <i style={{ color: "#0af", fontSize: 12, marginTop: 6 }} />\n'                        # three strays
+        '  <Plus className="h-4 w-4" strokeWidth={1.5} /><Plus size={20} />\n'                   # two icons
+        '  <button title="Save invoice">Save invoice</button>{t("Delete this sales invoice now")}\n'
+        '  {t("sales.empty_title")}\n'                                                           # a key, no label
         "</div>;\n"),
     "src/pages/Other/Index.tsx": 'export const B = () => <a href="#section" className="m-0">ok</a>;\n',
     "dist/bundle.js": 'const c = "#123456";\n',
@@ -66,9 +72,21 @@ def main() -> None:
         never = next(line for line in out.splitlines() if line.startswith("Never imported"))
         assert "left-pad" in never and "lucide-react" not in never, never
 
-        # No Tailwind, no ramp row; a stack with no web source says so.
+        # A token is never read only where no var(), no class and no other token reaches it.
+        health = next(line for line in out.splitlines() if line.startswith("Token health"))
+        assert "6 tokens defined · never read 2 (card · radius-lg)" in health, health
+        assert "maps it 1 (radius)" in health and "`:root` 1 groups holding 2 of 4 colours" in health, health
+        sizes = next(line for line in out.splitlines() if line.startswith("Icon sizes"))
+        assert "2 icon elements in 1 files · 2 sizes — 4 ×1 · 20px ×1 · weights set — 1.5 ×1" in sizes, sizes
+        labels = next(line for line in out.splitlines() if line.startswith("Repeated labels"))
+        assert "4 strings in 1 files of the scope · longest 5 words" in labels and "median 2 ·" in labels, labels
+        assert "Sales/Index.tsx 1 labels in 2 places · 1 translation keys left out" in labels, labels
+
+        # No Tailwind, no ramp row and no class read; a stack with no web source says so.
         (root / "package.json").write_text('{"dependencies": {}}', encoding="utf-8")
-        assert "numbered ramp classes not counted" in run(root)
+        bare = run(root)
+        assert "never read 3 (card · primary · radius-lg)" in bare and "a read is a var() only" in bare, bare
+        assert "numbered ramp classes not counted" in bare
         with tempfile.TemporaryDirectory() as empty:
             assert "NOT COVERED" in run(Path(empty))
     print("audit_count: ok")

@@ -9,12 +9,16 @@ It reads the files git tracks or does not ignore, line by line, and writes nothi
 `places.md` it is told to write. A styling file - one that defines custom properties, or a
 Tailwind config - is where values are defined, so nothing in it is counted.
 
+Three rows more, because an audit handed the script still wrote a scan of its own for each:
+the tokens nothing reads, the sizes and weights of the icons, and the lengths of the labels.
+
 Usage: python3 audit_count.py <repo root> [--scope PATH ...] [--src PATH ...]
                               [--styles PATH ...] [--out DIR]
 """
 import argparse
 import json
 import re
+import statistics
 import subprocess
 import sys
 from collections import Counter
@@ -53,6 +57,27 @@ TOKEN_DEF = re.compile(r"^\s*--[\w-]+\s*:", re.M)
 FONT_FAMILY = re.compile(r"font-family\s*:\s*([^;{}]+)")
 FONT_LINK = re.compile(r"<link[^>]+href=[\"']([^\"']*font[^\"']*)[\"']", re.I)
 
+# Token health: what a styling file defines, block by block, and what reads it.
+COMMENT = re.compile(r"/\*.*?\*/", re.S)
+BLOCK = re.compile(r"([^{}]*)\{([^{}]*)\}")
+VAR_READ = re.compile(r"var\(\s*--([\w-]+)")
+WORD = re.compile(r"(?<![\w-])[a-z][a-z0-9]*(?:-[a-z0-9]+)+(?![\w-])")
+# Tailwind 4 names a token by its namespace: `--color-brand` is read by a class ending in `-brand`.
+NAMESPACE = re.compile(r"^(?:color|text|font|radius|spacing|shadow|ease|animate|breakpoint|container)-")
+COLOUR = re.compile(r"(?:#[0-9a-f]{3,8}|(?:rgba?|hsla?|oklch|oklab|lab|lch|hwb|color)\(.+\)|"
+                    r"[\d.]+(?:deg)?[ ,]+[\d.]+%[ ,]+[\d.]+%(?:\s*/\s*[\d.]+%?)?)$", re.I)
+# Icons: the names a file imports from an icon package, then each element of that name.
+ICON_IMPORT = re.compile(r"\bimport\s+(?:type\s+)?(\w+)?\s*,?\s*(?:\{([^}]*)\})?\s*from\s*['\"]([^'\"]+)['\"]")
+ICON_SIZE = re.compile(r"(?<![\w-])(?:size|h)-(\d+(?:\.\d+)?|\[[^\]]+\])(?![\w-])|\bsize=\{?['\"]?([\d.]+)")
+ICON_WEIGHT = re.compile(r"\b(?:strokeWidth|stroke-width|weight)=\{?['\"]?([\w.]+)")
+# Labels: a string a page shows - a translation call's argument, text closed by a tag, a label attribute.
+I18N = re.compile(r"(?<!\w)(?:\$?t|__|trans)\(\s*(['\"`])((?:(?!\1).)+)\1")
+MARKUP_TEXT = re.compile(r">\s*([^<>{}\n]*[^\W\d_][^<>{}\n]*?)\s*</")
+LABEL_ATTR = re.compile(r"\b(?:label|title|placeholder|aria-label|alt|tooltip|description|helperText|caption)"
+                        r"=(['\"])((?:(?!\1).)+)\1")
+# `sales.empty_title` is a translation key: its text is in a locale file, and its length is not the label's.
+KEY = re.compile(r"(?:[\w-]+(?:[.:][\w-]+)+|[a-z0-9]+(?:_[a-z0-9]+)+)$")
+
 
 def listed(root: Path) -> list[str]:
     """Every path git tracks or does not ignore; every file under the root where git has none."""
@@ -77,6 +102,14 @@ def package(spec: str) -> str:
 
 def number(n: int) -> str:
     return f"{n:,}"
+
+
+def some(items: list[str], cap: int = 12) -> str:
+    return " · ".join(items[:cap]) + (f" · and {len(items) - cap} more" if len(items) > cap else "")
+
+
+def tally(counter: Counter) -> str:
+    return some([f"{key} ×{number(n)}" for key, n in counter.most_common()])
 
 
 def main() -> int:
@@ -109,6 +142,8 @@ def main() -> int:
     by_ext, skipped, styling = Counter(), 0, []
     hits = {k: Counter() for k, _ in kinds}            # kind -> file -> occurrences
     places, imports, fonts, links = [], Counter(), Counter(), set()
+    blocks, read, mapped, words = [], set(), set(), set()   # token blocks, and what reads a token
+    sizes, scope_sizes, weights, icon_files, labels = Counter(), Counter(), Counter(), set(), {}
     for rel in sorted(paths):
         file = root / rel
         try:
@@ -133,7 +168,43 @@ def main() -> int:
         links.update(FONT_LINK.findall(text))
         if is_styling:
             styling.append(rel)
+            if not css:
+                mapped.update(VAR_READ.findall(text))       # a config maps a token under a key of its own
+            for selector, body in BLOCK.findall(COMMENT.sub("", text)) if css else ():
+                found = {}
+                for declaration in body.split(";"):
+                    prop, _, value = declaration.partition(":")
+                    if prop.strip().startswith("--"):
+                        found[prop.strip()[2:]] = " ".join(value.split())
+                        mapped.update(VAR_READ.findall(value))
+                    else:
+                        read.update(VAR_READ.findall(declaration))
+                        if "@apply" in declaration:
+                            words.update(WORD.findall(declaration))
+                if found:
+                    blocks.append((" ".join(selector.rsplit(";", 1)[-1].split()) or rel, found))
             continue
+        read.update(VAR_READ.findall(text))
+        if not css:
+            if tailwind:
+                words.update(WORD.findall(text))
+            names = {name.split(" as ")[-1].replace("type ", "").strip()
+                     for default, named, spec in ICON_IMPORT.findall(text)
+                     if package(spec) in deps and ICONS.search(package(spec))
+                     for name in [default, *named.split(",")]}
+            for name in filter(None, names):
+                # An attribute holding `>` cuts the element short: its size then reads `none set`.
+                for element in re.finditer(r"<" + re.escape(name) + r"\b([^>]*)>", text):
+                    size = ICON_SIZE.search(element.group(1))
+                    step = "none set" if not size else size.group(1) or size.group(2) + "px"
+                    sizes[step] += 1
+                    if under(rel, scope):
+                        scope_sizes[step] += 1
+                    weights.update(ICON_WEIGHT.findall(element.group(1)))
+                    icon_files.add(rel)
+            if not scope or under(rel, scope):
+                labels[rel] = [" ".join(s.split()) for s in [m[1] for m in I18N.findall(text)]
+                               + MARKUP_TEXT.findall(text) + [m[1] for m in LABEL_ATTR.findall(text)]]
         for no, line in enumerate(lines, 1):
             for kind, patterns in kinds:
                 found = [m.group(0) for p in patterns for m in p.finditer(line)
@@ -152,6 +223,26 @@ def main() -> int:
     print("Files read          : " + number(sum(by_ext.values())) + " source files ("
           + " · ".join(f"{e} {number(n)}" for e, n in by_ext.most_common()) + f") · {skipped} skipped as minified or too large")
     print("Styling files       : " + (" · ".join(styling) or "none found") + " — values defined there are not counted")
+    tokens = sorted({name for _, found in blocks for name in found if not name.startswith("tw-")})
+    if tokens:
+        # `bg-sidebar-primary` reads `primary` too: a miss here leans to read, never to a finding.
+        tails = {"-".join(word.split("-")[i:]) for word in words for i in range(1, word.count("-") + 1)}
+        unread = [t for t in tokens if t not in read and t not in tails and NAMESPACE.sub("", t) not in tails]
+        never, through = [t for t in unread if t not in mapped], [t for t in unread if t in mapped]
+        same = []
+        for selector, found in blocks:
+            values = Counter(value.lower() for value in found.values() if COLOUR.match(value))
+            groups = [n for n in values.values() if n > 1]
+            if groups:
+                same.append(f"`{selector}` {len(groups)} groups holding {sum(groups)} of {sum(values.values())} colours")
+        print(f"Token health        : {number(len(tokens))} tokens defined · never read {len(never)}"
+              + (f" ({some(never)})" if never else "")
+              + f" · read only where a config or another token maps it {len(through)}"
+              + (f" ({some(through)}) — never read where source holds no class of the key that maps it" if through else "")
+              + " · one colour under several names — " + (some(same, 4) or "none")
+              + ("" if tailwind else " · a read is a var() only — no Tailwind in this repo"))
+    else:
+        print("Token health        : not counted — no styling file defines a custom property")
     print("Stray raw values    : whole app — " + row(lambda f: True))
     if scope:
         print("                      scope     — " + row(lambda f: under(f, scope)))
@@ -172,6 +263,14 @@ def main() -> int:
               + (f" · and {len(used) - 25} more" if len(used) > 25 else "") + "  (package, files importing it)")
         icons = [f"{d} {n}" for n, d in used if ICONS.search(d)]
         print("Icon families       : " + (" · ".join(icons) or "none imported"))
+        if sizes:
+            print(f"Icon sizes          : {number(sum(sizes.values()))} icon elements in {number(len(icon_files))} files · "
+                  f"{len(sizes) - ('none set' in sizes)} sizes — {tally(sizes)} · weights set — {tally(weights) or 'none'}"
+                  "  (a bare number is a step of the class scale)")
+            if scope:
+                print("                      scope     — " + (tally(scope_sizes) or "no icon element"))
+        elif icons:
+            print("Icon sizes          : not counted — no element of an imported icon found")
         config = " ".join(p.read_text(encoding="utf-8", errors="replace") for p in root.iterdir()
                           if p.is_file() and ".config." in p.name)
         scripts = json.dumps(data.get("scripts", {}))
@@ -183,6 +282,22 @@ def main() -> int:
         print("Font families named : " + " | ".join(f for f, _ in fonts.most_common(6)))
     if links:
         print("Fonts loaded by link: " + " ".join(sorted(links)))
+    texts = {f: [s for s in found if not KEY.match(s)] for f, found in labels.items()}
+    flat = [s for found in texts.values() for s in found]
+    keys = sum(map(len, labels.values())) - len(flat)
+    left_out = f" · {number(keys)} translation keys left out — their text is in the locale files" if keys else ""
+    if flat:
+        longest = max(flat, key=lambda s: len(s.split()))
+        repeats = sorted(((sum(1 for n in c.values() if n > 1), sum(n for n in c.values() if n > 1), f)
+                          for f, c in ((f, Counter(found)) for f, found in texts.items())), reverse=True)
+        print(f"Repeated labels     : {number(len(flat))} strings in {number(sum(1 for v in texts.values() if v))} files"
+              f"{' of the scope' if scope else ''} · longest {len(longest.split())} words (\"{longest[:80]}\")"
+              f" · median {statistics.median(len(s.split()) for s in flat):g} · repeating within a file — "
+              + (some([f"{'/'.join(f.split('/')[-2:])} {n} labels in {shown} places"
+                       for n, shown, f in repeats if n], 8) or "none") + left_out
+              + "  (a translation call's argument, text closed by a tag, a label attribute)")
+    elif labels:
+        print(f"Repeated labels     : not counted — no label found as a string in {number(len(labels))} files" + left_out)
     if not paths:
         print("NOT COVERED — no web source file found; count this stack by your own commands")
     return 0
